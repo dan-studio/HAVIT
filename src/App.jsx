@@ -1,5 +1,5 @@
 import "@/App.less";
-import configureStore from "@redux/store";
+import store from "@redux/store";
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -36,7 +36,7 @@ const Container = React.memo(() => {
 });
 function App() {
     return (
-        <Provider store={configureStore}>
+        <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Container />
