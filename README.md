@@ -1,3 +1,2 @@
 # AHDY-FRONT
-PRODUCT 브랜치는 릴리즈 서버와 관련이 있기때문에 민감합니다.
-건들지 말아주세요.
+배포 사이트 : https://product.d1k09yjtgbbnm9.amplifyapp.com/ (최종 작업 후 도메인 연결도 필요)
