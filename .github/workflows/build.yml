@@ -7,8 +7,19 @@ jobs: # Job 설정
     build:
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout source code. # Repo checkout
+
+        - uses: actions/checkout@v2
+        - name: Run scripts in server
           uses: actions/checkout@product
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          script: |
+            cd server
+            git reset --hard
+            git fetch
+            git pull
 
         - name: Cache node modules
           uses: actions/cache@v1
