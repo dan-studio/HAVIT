@@ -1,5 +1,9 @@
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
+    {
+        path: "/group",
+        title: "그룹",
+    },
     // {
     //     path: "/sample",
     //     title: "샘플",
