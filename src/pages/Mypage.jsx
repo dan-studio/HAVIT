@@ -1,6 +1,5 @@
 const Mypage = () => {
-  return;
-  <>dsf</>;
+  return <>dsf</>;
 };
 
 export default Mypage;
