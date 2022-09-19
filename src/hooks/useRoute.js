@@ -1,3 +1,6 @@
+import Start from "../pages/Start";
+import Login from "../pages/Login";
+
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
     // {
@@ -20,6 +23,20 @@ const pages = [
     //         },
     //     ],
     // },
+    {
+        path: "/splash",
+        title: "스플래쉬",
+        icon: '',
+        screen: Start,
+        isMenu: true,
+    },
+    {
+        path: "/login",
+        title: "로그인",
+        icon: '',
+        screen: Login,
+        isMenu: true,
+    },
 ];
 export const useCustomRoute = () => {
     const menus = pages?.filter((v) => !!v.isMenu);
@@ -32,8 +49,8 @@ const getAllPath = (child = []) => {
 
     child?.forEach((item) => {
         result.push(item);
-        if (item?.childe) {
-            const childrens = getAllPath(item?.childe).map((el) => ({
+        if (item?.child) {
+            const childrens = getAllPath(item?.child).map((el) => ({
                 ...el,
                 path: `${item.path}${el.path}`,
             }));
