@@ -19,8 +19,6 @@ const BasicLayout = ({ children, loading }) => {
 
     return (
         <>
-            {/* 열심히 코딩하세영 ( 해당 텍스트는 @pages/BasicLayout.jsx에
-            있습니다.) */}
             {!!loading ? (
                 <Cover>
                     <Spin></Spin>
