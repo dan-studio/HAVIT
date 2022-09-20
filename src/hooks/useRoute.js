@@ -67,16 +67,9 @@ const pages = [
                 title: "샘플 자식 리스트",
                 screen: Detail,
                 isMenu: true,
-                childe: [
-                    {
-                        path: "/write",
-                        title: "샘플등록(pathvariable)",
-                        screen: Write,
-                        isMenu: true,
-                    },
-                ],
-            },
-
+              },
+            ],
+          },
         ],
       },
     ],
