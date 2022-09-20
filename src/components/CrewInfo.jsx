@@ -29,7 +29,11 @@ const CrewInfo = () => {
           <MdPeopleAlt color='#5e43ff' />
           <span>{numberOfPeople}명</span>
         </div>
-        <Tags />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Tags />
+          <Tags />
+          <Tags />
+        </div>
       </GroupInfo>
     </Card>
   );
