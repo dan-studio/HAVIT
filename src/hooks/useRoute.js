@@ -6,6 +6,9 @@ import Write from "../pages/Write";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import PageNotFound from "../pages/PageNotFound";
+import Mypage from '../pages/Mypage';
+import MypageEdit from './../pages/MypageEdit';
+
 
 //route 등록은 이곳에서 해주시면 됩니다.
 
@@ -58,19 +61,45 @@ const pages = [
         screen: Detail,
         isMenu: true,
         childe: [
-          {
-            path: "/write",
-            title: "샘플등록(pathvariable)",
-            screen: Write,
-            isMenu: true,
-          },
+
+            {
+                path: "/detail",
+                title: "샘플 자식 리스트",
+                screen: Detail,
+                isMenu: true,
+                childe: [
+                    {
+                        path: "/write",
+                        title: "샘플등록(pathvariable)",
+                        screen: Write,
+                        isMenu: true,
+                    },
+                ],
+            },
+
         ],
+      },
+    ],
+  },
+
+  {
+    path: '/mypage',
+    title: '마이페이지',
+    screen: Mypage,
+    icon: '',
+    isMenu: true,
+    child: [
+      {
+        path: '/edit',
+        title: '마이페이지 수정',
+        screen: MypageEdit,
+        isMenu: true,
       },
     ],
   },
 ];
 export const useCustomRoute = () => {
-  const menus = pages?.filter((v) => !!v.isMenu);
+  const menus = pages?.filter(v => !!v.isMenu);
   const routes = getAllPath(pages);
   return { routes, menus };
 };
