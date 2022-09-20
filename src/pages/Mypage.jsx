@@ -1,5 +1,11 @@
+import CrewInfo from '../components/CrewInfo';
+
 const Mypage = () => {
-  return <>dsf</>;
+  return (
+    <div>
+      <CrewInfo />
+    </div>
+  );
 };
 
 export default Mypage;
