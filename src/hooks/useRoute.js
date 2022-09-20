@@ -1,6 +1,7 @@
 import Detail from "../pages/Detail";
 import Group from "../pages/Group";
 import Write from "../pages/Write";
+import Board from "../pages/Board";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
@@ -26,7 +27,7 @@ const pages = [
     // },
         {
         path: "/group",
-        title: "샘플",
+        title: "그룹",
         screen: Group,
         icon: "",
         isMenu: true,
@@ -41,6 +42,12 @@ const pages = [
                         path: "/write",
                         title: "샘플등록(pathvariable)",
                         screen: Write,
+                        isMenu: true,
+                    },
+                    {
+                        path: "/board",
+                        title: "샘플등록(pathvariable)",
+                        screen: Board,
                         isMenu: true,
                     },
                 ]
