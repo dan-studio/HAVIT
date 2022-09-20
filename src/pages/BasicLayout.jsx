@@ -17,17 +17,20 @@ const childRenderer = (page, parent) => {
 const BasicLayout = ({ children, loading }) => {
   const { routes } = useCustomRoute();
 
-  return (
-    <>
-      {!!loading ? (
-        <Cover>
-          <Spin></Spin>
-        </Cover>
-      ) : (
-        <Routes>{routes?.map(page => childRenderer(page, undefined))}</Routes>
-      )}
-    </>
-  );
+    return (
+        <>
+            {!!loading ? (
+                <Cover>
+                    <Spin></Spin>
+                </Cover>
+            ) : (
+                <Routes>
+                    {routes?.map((page) => childRenderer(page, undefined))}
+                </Routes>
+            )}
+        </>
+    );
+
 };
 
 export default React.memo(BasicLayout);
