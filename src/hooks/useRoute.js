@@ -1,6 +1,8 @@
-import Detail from "../pages/Detail";
-import Group from "../pages/Group";
-import Write from "../pages/Write";
+import Detail from '../pages/Detail';
+import Group from '../pages/Group';
+import Write from '../pages/Write';
+import Mypage from '../pages/Mypage';
+import MypageEdit from './../pages/MypageEdit';
 
 //route 등록은 이곳에서 해주시면 됩니다.
 
@@ -26,16 +28,35 @@ const pages = [
                     },
                 ],
             },
+
         ],
-    },
+      },
+    ],
+  },
+  {
+    path: '/mypage',
+    title: '마이페이지',
+    screen: Mypage,
+    icon: '',
+    isMenu: true,
+    child: [
+      {
+        path: '/edit',
+        title: '마이페이지 수정',
+        screen: MypageEdit,
+        isMenu: true,
+      },
+    ],
+  },
 ];
 export const useCustomRoute = () => {
-    const menus = pages?.filter((v) => !!v.isMenu);
-    const routes = getAllPath(pages);
-    return { routes, menus };
+  const menus = pages?.filter(v => !!v.isMenu);
+  const routes = getAllPath(pages);
+  return { routes, menus };
 };
 const getAllPath = (child = []) => {
-    const result = [];
+  const result = [];
+
 
     child?.forEach((item) => {
         result.push(item);
