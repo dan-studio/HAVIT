@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import React from "react";
-
+import {IoSearch} from 'react-icons/io5'
 
 const Board = () => {
 
 
   return (
     <div>Board
+      <IoSearch/>
       <BoardBox>
         <Profile>
           <ProfilePhoto
