@@ -24,6 +24,14 @@ const Group = () => {
                 </AddGroupContainer>
             </Row>
             <CrewInfo type="list"></CrewInfo>
+            <CrewInfo type="list"></CrewInfo>
+            <CrewInfo type="list"></CrewInfo>
+            <CrewInfo type="list"></CrewInfo>
+            <CrewInfo type="list"></CrewInfo>
+            <Box>
+                더이상 그룹이 없어요.
+                <TopButton />
+            </Box>
         </Container>
     );
 };
@@ -49,4 +57,20 @@ const AddGroupContainer = styled.div`
     flex-direction: column;
     border: 1px dashed rgba(58, 58, 58, 0.3);
     border-radius: 25px; ;
+`;
+const Box = styled.div`
+    position: relative;
+    width: 100%;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: 787878;
+    font-size: 0.8rem;
+`;
+const TopButton = styled.button`
+    position: absolute;
+    width: 49px;
+    height: 49px;
+    right: 24px;
 `;
