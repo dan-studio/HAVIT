@@ -1,6 +1,9 @@
 import Splash from "@pages/Splash";
 import Start from "@pages/Start";
 import Group from "@pages/group/Group";
+import GroupDetail from "@pages/group/Detail";
+import GroupCreate from "@pages/group/Create";
+
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import PageNotFound from "../pages/PageNotFound";
@@ -45,31 +48,26 @@ const pages = [
     },
     {
         path: "/group",
-        title: "샘플",
+        title: "그룹",
         screen: Group,
-        icon: "",
-        isMenu: true,
-        childe: [
+        child: [
             {
-                path: "/detail",
+                path: "/detail/:id",
                 title: "샘플 자식 리스트",
-                isMenu: true,
+                screen: GroupDetail,
+            },
+            {
+                path: "/create",
+                title: "샘플 자식 리스트",
+                screen: GroupCreate,
             },
         ],
-      },
-    ],
-  },
-  {
-    path: '/mypage',
-    title: '마이페이지',
-    screen: Mypage,
-    icon: '',
-    isMenu: true,
-    child: [
-      {
-        path: '/edit',
-        title: '마이페이지 수정',
-        screen: MypageEdit,
+    },
+    {
+        path: "/mypage",
+        title: "마이페이지",
+        screen: Mypage,
+        icon: "",
         isMenu: true,
         child: [
             {
@@ -77,6 +75,14 @@ const pages = [
                 title: "마이페이지 수정",
                 screen: MypageEdit,
                 isMenu: true,
+                child: [
+                    {
+                        path: "/edit",
+                        title: "마이페이지 수정",
+                        screen: MypageEdit,
+                        isMenu: true,
+                    },
+                ],
             },
         ],
     },
