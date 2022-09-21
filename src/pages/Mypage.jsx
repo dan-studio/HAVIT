@@ -1,5 +1,5 @@
+import CrewInfo from '@components/cards/CrewInfo';
 import styled from 'styled-components';
-import CrewInfo from '../components/CrewInfo';
 
 const Mypage = () => {
   return (
