@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { MdPeopleAlt } from 'react-icons/md';
 import groupProfile from '../img/profile.jpg';
+import { HiStar } from 'react-icons/hi';
 
 // 컴포넌트
 import DayBadge from './DayBadge';
@@ -22,7 +23,7 @@ const CrewInfo = () => {
         <h2>{groupName}</h2>
 
         <DayInfo>
-          <span>8월 19일 - 12월 31일</span>
+          <span style={{ marginRight: '.625rem' }}>8월 19일 - 12월 31일</span>
           <span>
             <DayBadge />
           </span>
@@ -33,12 +34,13 @@ const CrewInfo = () => {
           <span>{numberOfPeople}명</span>
         </div>
 
-        <div style={{ display: 'flex', alignItmes: 'center', justifyContent: 'space-around' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Tags />
           <Tags />
           <Tags />
         </div>
       </GroupInfo>
+      <HiStar style={{ color: 'orange', fontSize: '32px', position: 'absolute', zIndex: '10', top: '10px', right: '10px' }} />
     </Card>
   );
 };
@@ -48,7 +50,8 @@ const Card = styled.div`
   /* justify-content: space-between; */
   align-items: center;
   box-sizing: border-box;
-  margin: 0 20px 0 20px;
+  position: relative;
+  margin: 0 20px 20px 20px;
   padding: 15px;
   /* width: 46.4vw; */
   height: 162px;
@@ -75,7 +78,7 @@ const GroupImg = styled.div`
 const GroupInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 70%;
 
   & > h2 {
     font-size: 1.125rem;
@@ -86,7 +89,7 @@ const GroupInfo = styled.div`
 
 const DayInfo = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
 `;
 

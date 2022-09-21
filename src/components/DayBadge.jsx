@@ -18,6 +18,7 @@ const Badge = styled.div`
   font-weight: 700;
   font-size: 12px;
   text-align: center;
+  line-height: 12px;
   align-self: center;
 `;
 
