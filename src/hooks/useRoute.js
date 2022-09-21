@@ -56,12 +56,20 @@ const pages = [
                 isMenu: true,
             },
         ],
-    },
-    {
-        path: "/mypage",
-        title: "마이페이지",
-        screen: Mypage,
-        icon: "",
+      },
+    ],
+  },
+  {
+    path: '/mypage',
+    title: '마이페이지',
+    screen: Mypage,
+    icon: '',
+    isMenu: true,
+    child: [
+      {
+        path: '/edit',
+        title: '마이페이지 수정',
+        screen: MypageEdit,
         isMenu: true,
         child: [
             {
