@@ -3,10 +3,13 @@ import styled from 'styled-components';
 
 const Tags = () => {
   const [tag, setTag] = React.useState('오운완');
-  return <HashTag>{tag}</HashTag>;
+  return <HashTag>#오운완</HashTag>;
 };
 
 const HashTag = styled.div`
+  max-width: 100px;
+  margin: 5px 5px 0 0;
+  padding: 5px;
   border: 0.5px solid #b0b0b0;
   border-radius: 20px;
   font-style: normal;

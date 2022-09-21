@@ -17,19 +17,27 @@ const CrewInfo = () => {
       <GroupImg>
         <img src={groupImg} alt='group_image' />
       </GroupImg>
+
       <GroupInfo>
         <h2>{groupName}</h2>
+
         <DayInfo>
           <span>8월 19일 - 12월 31일</span>
           <span>
             <DayBadge />
           </span>
         </DayInfo>
+
         <div>
           <MdPeopleAlt color='#5e43ff' />
           <span>{numberOfPeople}명</span>
         </div>
-        <Tags />
+
+        <div style={{ display: 'flex', alignItmes: 'center', justifyContent: 'space-around' }}>
+          <Tags />
+          <Tags />
+          <Tags />
+        </div>
       </GroupInfo>
     </Card>
   );
@@ -67,6 +75,7 @@ const GroupImg = styled.div`
 const GroupInfo = styled.div`
   display: flex;
   flex-direction: column;
+  width: auto;
 
   & > h2 {
     font-size: 1.125rem;
@@ -79,10 +88,6 @@ const DayInfo = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-`;
-
-const Nop = styled.div`
-  display: flex;
 `;
 
 export default CrewInfo;

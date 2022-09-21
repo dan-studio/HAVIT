@@ -18,6 +18,5 @@ export const getUsers = async ({ pagenation }) => {
 // 유저 생성
 export const createUsers = async ({ postData }) => {
     const res = await restApi.post("user/list", { postData });
-
     return res;
 };
