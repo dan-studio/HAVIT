@@ -8,8 +8,8 @@ const Tags = () => {
 
 const HashTag = styled.div`
   max-width: 100px;
-  margin-top: 5px;
-  padding: 3px;
+  margin: 5px 5px 0 0;
+  padding: 5px;
   border: 0.5px solid #b0b0b0;
   border-radius: 20px;
   font-style: normal;
