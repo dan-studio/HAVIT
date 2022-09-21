@@ -1,7 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Input, Tag, Tooltip } from "antd";
 import React, { useRef } from "react";
-import styled from "styled-components";
 const TagInput = () => {
     const [tags, setTags] = React.useState([]);
     const [inputVisible, setInputVisible] = React.useState(false);
@@ -123,9 +122,3 @@ const TagInput = () => {
 };
 
 export default TagInput;
-
-const Container = styled.div`
-    width: 100%;
-    padding: 0.25rem 0;
-    border-bottom: 0.5px solid ${({ theme }) => theme.color.neongreen};
-`;

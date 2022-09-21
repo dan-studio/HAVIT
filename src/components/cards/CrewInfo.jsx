@@ -133,7 +133,3 @@ const DayInfo = styled.div`
         font-weight: bold;
     }
 `;
-
-const Nop = styled.div`
-    display: flex;
-`;

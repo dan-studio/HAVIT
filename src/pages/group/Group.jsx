@@ -5,6 +5,7 @@ import CrewInfo from "@components/cards/CrewInfo";
 import styles from "./group_list.module.less";
 import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
+import React from "react";
 // /grup
 const Group = () => {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Group = () => {
     );
 };
 
-export default Group;
+export default React.memo(Group);
 
 const Container = styled.div`
     flex-direction: column;
@@ -75,10 +76,4 @@ const Box = styled.div`
     align-items: center;
     color: #787878;
     font-size: 0.8rem;
-`;
-const TopButton = styled.button`
-    position: absolute;
-    width: 49px;
-    height: 49px;
-    right: 24px;
 `;

@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <>
             <Container id="header">
-                <img src={require("@assets/havit.png")} />
+                <img alt="logo" src={require("@assets/havit.png")} />
                 <Icons>
                     <SearchOutlined onClick={() => setShowSearchForm(true)} />
                     <ToolOutlined
