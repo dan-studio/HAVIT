@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "../assets/havitLogoPurple.png";
 import team from "../assets/havitTeam.png";
 
 const Signup = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const [emailMessage, setEmailMessage] = useState("");
+  const [nicknameMessage, setNicknameMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [confirmPasswordMessage, setConfirmPasswordMessage] = useState("");
+
+  const [isEmail, setIsEmail] = useState(false);
+  const [isNickname, setIsNickname] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  // const onSubmit = e => {
+  //   e.preventDefault()
+  // };
+
+  const onChangeEmail = (e) => {
+    setNickname(e.target.value);
+  };
 
   return (
     <StyledDiv>
@@ -16,11 +38,11 @@ const Signup = () => {
         <br />
         Together!
       </StyledSpan>
-      <StyledInput top="33vh"  placeholder="✉  E-Mail"/>
-      <StyledInput top="40vh" placeholder="🙋‍♂️  닉네임"/>
-      <StyledInput top="47vh" placeholder="🔒  비밀번호"/>
-      <StyledInput top="54vh" placeholder="🔒  비밀번호 확인"/>
-      <img className="team" src={team} alt="" height="120vh"/>
+      <StyledInput top="33vh" placeholder="✉  E-Mail" />
+      <StyledInput top="40vh" placeholder="🙋‍♂️  닉네임" />
+      <StyledInput top="47vh" placeholder="🔒  비밀번호" />
+      <StyledInput top="54vh" placeholder="🔒  비밀번호 확인" />
+      <img className="team" src={team} alt="" height="120vh" />
       <StyledButtonDiv>
         <StyledButton
           top="80vh"
@@ -30,7 +52,13 @@ const Signup = () => {
         >
           회원가입 완료
         </StyledButton>
-        <StyledButton top="87vh" background="white" onClick={()=>{navigate(-1)}}>
+        <StyledButton
+          top="87vh"
+          background="white"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
           뒤로가기
         </StyledButton>
       </StyledButtonDiv>
@@ -43,7 +71,7 @@ export default Signup;
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
-  .team{
+  .team {
     position: absolute;
     top: 63vh;
   }
@@ -76,12 +104,13 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.background};
   padding: 10px;
   border-radius: 30px;
+  cursor: pointer;
 `;
 const StyledInput = styled.input`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
-  padding: 10px 30px ;
+  padding: 10px 30px;
   border-radius: 30px;
 `;
