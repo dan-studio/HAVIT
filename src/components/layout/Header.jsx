@@ -28,7 +28,6 @@ const Container = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    position: fixed;
     height: 128px;
     display: flex;
     align-items: center;

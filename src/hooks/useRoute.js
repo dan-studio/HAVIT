@@ -1,8 +1,6 @@
-import Splash from "../pages/Splash";
-import Start from "../pages/Start";
-import Detail from "../pages/Detail";
-import Group from "../pages/Group";
-import Write from "../pages/Write";
+import Splash from "@pages/Splash";
+import Start from "@pages/Start";
+import Group from "@pages/group/Group";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import PageNotFound from "../pages/PageNotFound";
@@ -23,7 +21,6 @@ const pages = [
         title: "404",
         icon: "",
         screen: PageNotFound,
-        isMenu: true,
     },
     {
         path: "/startpage",
@@ -56,7 +53,6 @@ const pages = [
             {
                 path: "/detail",
                 title: "샘플 자식 리스트",
-                screen: Detail,
                 isMenu: true,
             },
         ],

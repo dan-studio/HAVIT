@@ -1,11 +1,11 @@
-import CrewInfo from '../components/CrewInfo';
+import CrewInfo from "@components/cards/CrewInfo";
 
 const Mypage = () => {
-  return (
-    <div>
-      <CrewInfo />
-    </div>
-  );
+    return (
+        <div>
+            <CrewInfo />
+        </div>
+    );
 };
 
 export default Mypage;
