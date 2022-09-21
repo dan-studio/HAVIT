@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Spin } from "antd";
 import { Route, Routes } from "react-router-dom";
 import { useCustomRoute } from "../hooks/useRoute";

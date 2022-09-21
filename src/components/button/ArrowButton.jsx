@@ -1,8 +1,6 @@
 import { Tooltip } from "antd";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 const ArrowButton = () => {
-    const navigate = useNavigate();
     return (
         <Container onClick={() => window.scrollTo(0, 0)}>
             <Tooltip>

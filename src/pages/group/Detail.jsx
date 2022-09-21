@@ -3,6 +3,7 @@ import CrewInfo from "@components/cards/CrewInfo";
 import { Divider } from "antd";
 import List from "@components/list/MemberList";
 import PhotoList from "@components/list/PhotoList";
+import React from "react";
 
 // /grup
 const GroupDetail = () => {
@@ -17,7 +18,7 @@ const GroupDetail = () => {
     );
 };
 
-export default GroupDetail;
+export default React.memo(GroupDetail);
 
 const Container = styled.div`
     display: flex;

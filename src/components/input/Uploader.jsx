@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Image, Upload } from "antd";
+import { Upload } from "antd";
 import { useState } from "react";
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {

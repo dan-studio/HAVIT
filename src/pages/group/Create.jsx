@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import CrewInput from "@components/cards/CrewInput";
-import { Button, Col, Divider, Form, Input, Row, Space } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import styles from "./group_create.module.less";
+import React from "react";
 const GroupCreate = () => {
     return (
         <Container id="content">
@@ -50,7 +51,7 @@ const GroupCreate = () => {
     );
 };
 
-export default GroupCreate;
+export default React.memo(GroupCreate);
 const Container = styled.div``;
 const Title = styled.div`
     font-family: "Inter";
