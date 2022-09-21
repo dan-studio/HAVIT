@@ -11,6 +11,7 @@ const DayBadge = () => {
 const Badge = styled.div`
   width: 2.25rem;
   height: 1rem;
+  padding: 1px;
   background-color: #5e43ff;
   color: #fff;
   border-radius: 10px;
