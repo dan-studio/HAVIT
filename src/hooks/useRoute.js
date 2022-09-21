@@ -49,7 +49,7 @@ const pages = [
     screen: Group,
     icon: '',
     isMenu: true,
-    childe: [
+    child: [
       {
         path: '/detail',
         title: '샘플 자식 리스트',
@@ -67,16 +67,7 @@ const pages = [
       {
         path: '/edit',
         title: '마이페이지 수정',
-        screen: MypageEdit,
         isMenu: true,
-        child: [
-          {
-            path: '/edit',
-            title: '마이페이지 수정',
-            screen: MypageEdit,
-            isMenu: true,
-          },
-        ],
       },
     ],
   },
