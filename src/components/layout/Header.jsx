@@ -8,7 +8,7 @@ const Header = () => {
     const [showSearchForm, setShowSearchForm] = useState(false);
     return (
         <>
-            <Container>
+            <Container id="header">
                 <img src={require("@assets/havit.png")} />
                 <Icons>
                     <SearchOutlined onClick={() => setShowSearchForm(true)} />

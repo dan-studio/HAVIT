@@ -11,7 +11,7 @@ const GroupDetail = () => {
             <CrewInfo type="detail"></CrewInfo>
             <Divider></Divider>
 
-            <List data={{ title: "맴버들 ▼" }} />
+            <List data={{ title: "맴버들" }} />
             <PhotoList></PhotoList>
         </Container>
     );

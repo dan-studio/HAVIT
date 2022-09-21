@@ -3,6 +3,7 @@ import Start from "@pages/Start";
 import Group from "@pages/group/Group";
 import GroupDetail from "@pages/group/Detail";
 import GroupCreate from "@pages/group/Create";
+import GroupEdit from "@pages/group/Edit";
 
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
@@ -53,13 +54,18 @@ const pages = [
         child: [
             {
                 path: "/detail/:id",
-                title: "샘플 자식 리스트",
+                title: "그룹 정보",
                 screen: GroupDetail,
             },
             {
                 path: "/create",
-                title: "샘플 자식 리스트",
+                title: "그룹 생성",
                 screen: GroupCreate,
+            },
+            {
+                path: "/edit",
+                title: "그룹 수정",
+                screen: GroupEdit,
             },
         ],
     },

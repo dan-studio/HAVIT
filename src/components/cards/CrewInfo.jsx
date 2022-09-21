@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MdPeopleAlt } from "react-icons/md";
 
 // 컴포넌트
-
+import styles from "./CrewInfo.module.less";
 import { Tag } from "antd";
 import { EditFilled } from "@ant-design/icons";
 
@@ -27,9 +27,7 @@ const CrewInfo = ({ data, type = "shadow" }) => {
 
                     <DayInfo>
                         <span>8월 19일 - 12월 31일</span>
-                        <Tag color={"#5e43ff"} style={{ margin: "0 .5rem" }}>
-                            매일
-                        </Tag>
+                        <Tag className={styles.primary_tag}>매일</Tag>
                     </DayInfo>
                     <div>
                         <MdPeopleAlt color="#5e43ff" />
@@ -38,13 +36,13 @@ const CrewInfo = ({ data, type = "shadow" }) => {
                     <div
                         style={{
                             display: "flex",
-                            justifyContent: "space-between",
+                            gap: "0 .05rem",
                             marginTop: "8px",
                         }}
                     >
-                        <Tag>테스트</Tag>
-                        <Tag>테스트1</Tag>
-                        <Tag>테스트2</Tag>
+                        <Tag className={styles.ant_tag}>테스트</Tag>
+                        <Tag className={styles.ant_tag}>테스트1</Tag>
+                        <Tag className={styles.ant_tag}>테스트2</Tag>
                     </div>
                 </GroupInfo>
             </div>
@@ -110,9 +108,8 @@ const ShadowCard = css`
 `;
 
 const GroupImg = styled.div`
-    width: 92px;
-    height: 92px;
-    margin-right: 20px;
+    min-width: 92px;
+    min-height: 92px;
     background-color: red;
     border-radius: 100%;
     overflow: hidden;
@@ -126,6 +123,7 @@ const GroupImg = styled.div`
 const GroupInfo = styled.div`
     display: flex;
     flex-direction: column;
+    padding-left: 1rem;
 `;
 
 const DayInfo = styled.div`
