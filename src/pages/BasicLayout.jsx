@@ -3,6 +3,7 @@ import { Spin } from "antd";
 import { Route, Routes } from "react-router-dom";
 import { useCustomRoute } from "../hooks/useRoute";
 import styled from "styled-components";
+import Header from "@components/layout/header";
 const childRenderer = (page, parent) => {
     const args = {
         path: page.path,
@@ -24,9 +25,12 @@ const BasicLayout = ({ children, loading }) => {
                     <Spin></Spin>
                 </Cover>
             ) : (
-                <Routes>
-                    {routes?.map((page) => childRenderer(page, undefined))}
-                </Routes>
+                <>
+                    <Header></Header>
+                    <Routes>
+                        {routes?.map((page) => childRenderer(page, undefined))}
+                    </Routes>
+                </>
             )}
         </>
     );
