@@ -1,0 +1,17 @@
+.primary_tag {
+    background-color: @primary-color;
+    margin: 0px 0.5rem;
+    border-radius: 10px;
+    color: @white;
+}
+.ant_tag {
+    border-radius: 10px;
+    color: @gray;
+    background-color: @white;
+    &::before {
+        content: var("#");
+    }
+}
+.ant_tag::before {
+    content: "#";
+}

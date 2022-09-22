@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Image, Upload } from "antd";
+import { Upload } from "antd";
 import { useState } from "react";
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
-const Uploader = () => {
+const Uploader = (props) => {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
     const [fileList, setFileList] = useState([]);
@@ -45,7 +45,11 @@ const Uploader = () => {
             <Upload
                 name="avatar"
                 listType="picture-card"
-                className="avatar-uploader"
+                className={
+                    props?.className
+                        ? props.className + " avatar-uploader"
+                        : "avatar-uploader"
+                }
                 showUploadList={false}
                 fileList={fileList}
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -53,8 +57,6 @@ const Uploader = () => {
                 style={{
                     width: "92px",
                     height: "92px",
-                    borderRadius: "100%",
-                    overflow: "hidden",
                 }}
             >
                 {imageUrl ? (

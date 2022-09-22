@@ -1,15 +1,16 @@
 import { EditFilled } from "@ant-design/icons";
-import { Col, Divider, Form, Input, Row, Tag } from "antd";
+import { Col, Form, Input, Row } from "antd";
+import TagInput from "../input/TagInput";
 import Uploader from "../input/Uploader";
 import styles from "./CrewInput.module.less";
-const CrewInput = () => {
+const CrewInput = (props) => {
     return (
-        <Form>
+        <Form className={props?.className}>
             <Row>
-                <Col>
-                    <Uploader></Uploader>
+                <Col span={6}>
+                    <Uploader className={styles.upload}></Uploader>
                 </Col>
-                <Col>
+                <Col span={18}>
                     <Form.Item>
                         <Input
                             className={styles.title_input}
@@ -18,20 +19,12 @@ const CrewInput = () => {
                             placeholder="크루명 입력"
                         ></Input>
                     </Form.Item>
-                    {/* todo tag Contentable */}
-                    <Form.Item>
-                        <Input
-                            className={styles.tag_input}
-                            placeholder="태그 입력"
-                        ></Input>
+                    <Form.Item
+                        style={{ padding: "0 .5rem", overflowY: "auto" }}
+                    >
+                        <TagInput />
                     </Form.Item>
                 </Col>
-            </Row>
-            <Row></Row>
-            <Divider></Divider>
-            <Row>
-                <Col></Col>
-                <Col></Col>
             </Row>
         </Form>
     );

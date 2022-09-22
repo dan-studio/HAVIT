@@ -5,7 +5,14 @@ const List = ({ data, type }) => {
     return (
         <Container>
             <div className="title">
-                {data?.title ? <>{data.title}</> : <></>}
+                {data?.title ? (
+                    <>
+                        {data.title}
+                        <icon>▼</icon>
+                    </>
+                ) : (
+                    <></>
+                )}
             </div>
             <aside>
                 <MemberInfo width={79} height={30} />
@@ -29,7 +36,7 @@ const Container = styled.div`
         font-family: "Inter";
         font-style: normal;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 22px;
 
         color: ${({ theme }) => theme.color.black};
@@ -39,5 +46,9 @@ const Container = styled.div`
         display: flex;
         flex-wrap: wrap;
         gap: 1rem 0.5rem;
+    }
+    icon {
+        font-size: 8px;
+        margin-left: 0.25rem;
     }
 `;

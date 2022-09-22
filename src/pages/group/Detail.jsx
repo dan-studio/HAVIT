@@ -3,6 +3,7 @@ import CrewInfo from "@components/cards/CrewInfo";
 import { Divider } from "antd";
 import List from "@components/list/MemberList";
 import PhotoList from "@components/list/PhotoList";
+import React from "react";
 
 // /grup
 const GroupDetail = () => {
@@ -11,13 +12,13 @@ const GroupDetail = () => {
             <CrewInfo type="detail"></CrewInfo>
             <Divider></Divider>
 
-            <List data={{ title: "맴버들 ▼" }} />
+            <List data={{ title: "맴버들" }} />
             <PhotoList></PhotoList>
         </Container>
     );
 };
 
-export default GroupDetail;
+export default React.memo(GroupDetail);
 
 const Container = styled.div`
     display: flex;
