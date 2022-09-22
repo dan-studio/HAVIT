@@ -86,6 +86,7 @@ flex-direction: row;
 justify-content:space-between;
 `;
 
+
 const ChallengeName = styled.div`
 font-size:7px;
 color:gray;
