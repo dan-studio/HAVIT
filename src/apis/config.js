@@ -68,6 +68,6 @@ export const setToken = (token) => {
         process.env.REACT_TOKEN_SAVE_KEY,
         JSON.stringify(auth_data)
     );
-
+    
     return auth_data;
 };

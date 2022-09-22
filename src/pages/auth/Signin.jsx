@@ -7,6 +7,7 @@ import naverButton from "@assets/naverButton.png";
 import kakaoButton from "@assets/kakaoButton.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "@redux/layout";
+import { userApis } from "../../apis/auth";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -44,6 +45,17 @@ const Signin = () => {
       setIsPassword(true);
     }
   }, []);
+  const onSubmitHandler = () =>{
+    userApis.signin(email, password)
+    .then((response)=>{
+      console.log(response)
+      navigate('/main')
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+
   return (
     <StyledDiv>
       <StyledSpan>
@@ -68,8 +80,9 @@ const Signin = () => {
           top="40vh"
           color="white"
           background="#5C53FF"
-          onClick={() => {}}
           disabled={!(isEmail && isPassword)}
+          type="submit"
+          onClick={onSubmitHandler}
         >
           로그인
         </StyledButton>

@@ -13,7 +13,7 @@ import MypageEdit from "@pages/MypageEdit";
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
   {
-    path: "/splash",
+    path: "/",
     title: "스플래쉬",
     icon: "",
     screen: Splash,
