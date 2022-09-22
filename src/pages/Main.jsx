@@ -16,7 +16,7 @@ const Main = () => {
   const [numberOfPeople, setNumberOfPeopf] = useState(1);
 
   return (
-    <div>
+
       <MainBox>
         <UserProfile/>
         <Group>
@@ -112,7 +112,7 @@ const Main = () => {
           </ChallengeMemberBox>
         </Challenge>
       </MainBox>
-    </div>
+
   );
 };
 
@@ -147,7 +147,7 @@ const GroupPhotoBox = styled.div`
   height: 100px;
   margin: 40px 20px 5px;
   overflow-x: scroll;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 `;
 const GroupPhoto = styled.img``;
 const PhotoBox = styled.div`
@@ -164,7 +164,7 @@ const ChallengeMemberBox = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 `;
 const Card = styled.div`
   display: flex;

@@ -49,14 +49,15 @@ height:844px;
 margin:0 auto;
 `;
 const AddPhoto = styled.div`
-width :180px;
-height:180px;
+width :350px;
+height:350px;
 background-color:pink;
+margin: 0 20px 0 20px;
 
 `;
 const InputTitle = styled.input`
-width:180px;
-border-color:  transparent transparent black transparent;
+width:334px;
+border-color:  transparent transparent gray transparent;
 margin: 50px 0 50px 0;
 
 `;
