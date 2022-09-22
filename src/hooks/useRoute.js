@@ -12,76 +12,74 @@ import MypageEdit from "./../pages/MypageEdit";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
-    {
-        path: "/splash",
-        title: "스플래쉬",
-        icon: "",
-        screen: Splash,
-        isMenu: true,
-    },
-    {
-        path: "/pagenotfound",
-        title: "404",
-        icon: "",
-        screen: PageNotFound,
-    },
-    {
-        path: "/startpage",
-        title: "시작 페이지",
-        icon: "",
-        screen: Start,
-        isMenu: true,
-    },
-    {
-        path: "/signin",
-        title: "로그인",
-        icon: "",
-        screen: Signin,
-        isMenu: true,
-    },
-    {
-        path: "/signup",
-        title: "회원가입",
-        icon: "",
-        screen: Signup,
-        isMenu: true,
-    },
-    {
-        path: "/group",
-        title: "그룹",
-        screen: Group,
-        child: [
-            {
-                path: "/detail/:id",
-                title: "그룹 정보",
-                screen: GroupDetail,
-            },
-            {
-                path: "/create",
-                title: "그룹 생성",
-                screen: GroupCreate,
-            },
-            {
-                path: "/edit",
-                title: "그룹 수정",
-                screen: GroupEdit,
-            },
-        ],
-    },
-    {
-        path: "/mypage",
-        title: "마이페이지",
-        screen: Mypage,
-        icon: "",
-        isMenu: true,
-        child: [
+  {
+    path: "/splash",
+    title: "스플래쉬",
+    icon: "",
+    screen: Splash,
+    isMenu: true,
+  },
+  {
+    path: "/pagenotfound",
+    title: "404",
+    icon: "",
+    screen: PageNotFound,
+  },
+  {
+    path: "/startpage",
+    title: "시작 페이지",
+    icon: "",
+    screen: Start,
+    isMenu: true,
+  },
+  {
+    path: "/signin",
+    title: "로그인",
+    icon: "",
+    screen: Signin,
+    isMenu: true,
+  },
+  {
+    path: "/signup",
+    title: "회원가입",
+    icon: "",
+    screen: Signup,
+    isMenu: true,
+  },
+  {
+    path: "/group",
+    title: "그룹",
+    screen: Group,
+    child: [
+      {
+        path: "/detail/:id",
+        title: "그룹 정보",
+        screen: GroupDetail,
+      },
+      {
+        path: "/create",
+        title: "그룹 생성",
+        screen: GroupCreate,
+      },
+      {
+        path: "/edit",
+        title: "그룹 수정",
+        screen: GroupEdit,
+      },
+    ],
+  },
+  {
+    path: "/mypage",
+    title: "마이페이지",
+    screen: Mypage,
+    icon: "",
+    isMenu: true,
+    child: [
       {
         path: "/edit",
         title: "마이페이지 수정",
         screen: MypageEdit,
         isMenu: true,
-      },
-    ],
       },
     ],
   },
