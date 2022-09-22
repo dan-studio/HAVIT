@@ -4,7 +4,6 @@ import Group from "@pages/group/Group";
 import GroupDetail from "@pages/group/Detail";
 import GroupCreate from "@pages/group/Create";
 import GroupEdit from "@pages/group/Edit";
-
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import PageNotFound from "../pages/PageNotFound";
@@ -76,40 +75,34 @@ const pages = [
         icon: "",
         isMenu: true,
         child: [
-            {
-                path: "/edit",
-                title: "마이페이지 수정",
-                screen: MypageEdit,
-                isMenu: true,
-                child: [
-                    {
-                        path: "/edit",
-                        title: "마이페이지 수정",
-                        screen: MypageEdit,
-                        isMenu: true,
-                    },
-                ],
-            },
-        ],
-    },
+      {
+        path: "/edit",
+        title: "마이페이지 수정",
+        screen: MypageEdit,
+        isMenu: true,
+      },
+    ],
+      },
+    ],
+  },
 ];
 export const useCustomRoute = () => {
-    const menus = pages?.filter((v) => !!v.isMenu);
-    const routes = getAllPath(pages);
-    return { routes, menus };
+  const menus = pages?.filter((v) => !!v.isMenu);
+  const routes = getAllPath(pages);
+  return { routes, menus };
 };
 const getAllPath = (child = []) => {
-    const result = [];
+  const result = [];
 
-    child?.forEach((item) => {
-        result.push(item);
-        if (item?.child) {
-            const childrens = getAllPath(item?.child).map((el) => ({
-                ...el,
-                path: `${item.path}${el.path}`,
-            }));
-            result.push(...childrens);
-        }
-    });
-    return result;
+  child?.forEach((item) => {
+    result.push(item);
+    if (item?.child) {
+      const childrens = getAllPath(item?.child).map((el) => ({
+        ...el,
+        path: `${item.path}${el.path}`,
+      }));
+      result.push(...childrens);
+    }
+  });
+  return result;
 };

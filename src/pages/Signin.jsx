@@ -89,6 +89,7 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.background};
   padding: 10px;
   border-radius: 30px;
+  cursor: pointer;
 `;
 const StyledInput = styled.input`
   position: absolute;
@@ -124,16 +125,16 @@ const StyledSocialLogin = styled.div`
   top: 58vh;
 `;
 const StyledNaverButton = styled.img`
-  width: 37vw;
-  height: 4vh;
-  object-fit: cover;
+  width: 150px;
+  height: 40px;
   border-radius: 7px;
   margin: 0 2vw;
+  cursor: pointer;
   `;
 const StyledKakaoButton = styled.img`
-  width: 37vw;
-  height: 4vh;
-  object-fit: cover;
+  width: 150px;
+  height: 40px;
   border-radius: 7px;
   margin: 0 2vw;
+  cursor: pointer;
 `;

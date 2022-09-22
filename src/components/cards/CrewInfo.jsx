@@ -8,8 +8,8 @@ import { Tag } from "antd";
 import { EditFilled } from "@ant-design/icons";
 
 const CrewInfo = ({ data, type = "shadow" }) => {
-    const [groupName, setGroupName] = useState("오운완ㅋ");
-    const [numberOfPeople, setNumberOfPeopf] = useState(1);
+  const [groupName, setGroupName] = useState("오운완ㅋ");
+  const [numberOfPeople, setNumberOfPeopf] = useState(1);
 
     return (
         <Card type={type}>
@@ -127,9 +127,9 @@ const GroupInfo = styled.div`
 `;
 
 const DayInfo = styled.div`
-    display: flex;
-    align-items: center;
-    & > span {
-        font-weight: bold;
-    }
+  display: flex;
+  align-items: center;
+  & > span {
+    font-weight: bold;
+  }
 `;
