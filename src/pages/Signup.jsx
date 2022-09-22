@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "../assets/havitLogoPurple.png";
@@ -25,9 +25,65 @@ const Signup = () => {
   //   e.preventDefault()
   // };
 
-  const onChangeEmail = (e) => {
+  const onChangeEmail = useCallback((e) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage("옳지 않은 이메일 형식입니다.");
+      setIsEmail(false);
+    } else {
+      setEmailMessage("올바른 이메일 형식이에요!");
+      setIsEmail(true);
+    }
+  }, []);
+
+  const onChangeNickname = useCallback((e) => {
     setNickname(e.target.value);
-  };
+    if (e.target.value.length < 2) {
+      setNicknameMessage("2글자 이상으로 입력해주세요.");
+      setIsNickname(false);
+    } else {
+      setNicknameMessage("올바른 닉네임 형식이에요!");
+      setIsNickname(true);
+    }
+  }, []);
+  const onChangePassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordCurrent = e.target.value;
+    setPassword(passwordCurrent);
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("안전한 비밀번호에요");
+      setIsPassword(true);
+    }
+  }, []);
+
+  const onChangePasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = e.target.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (password === passwordConfirmCurrent) {
+        setConfirmPasswordMessage("비밀번호를 똑같이 입력했어요 : )");
+        setIsPasswordConfirm(true);
+      } else {
+        setConfirmPasswordMessage(
+          "비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요"
+        );
+        setIsPasswordConfirm(false);
+      }
+    },
+    [password]
+  );
 
   return (
     <StyledDiv>
@@ -38,17 +94,72 @@ const Signup = () => {
         <br />
         Together!
       </StyledSpan>
-      <StyledInput top="33vh" placeholder="✉  E-Mail" />
-      <StyledInput top="40vh" placeholder="🙋‍♂️  닉네임" />
-      <StyledInput top="47vh" placeholder="🔒  비밀번호" />
-      <StyledInput top="54vh" placeholder="🔒  비밀번호 확인" />
+      <StyledInput
+        type="email"
+        top="33vh"
+        placeholder="✉  E-Mail"
+        onChange={onChangeEmail}
+      />
+      {email.length > 0 && (
+        <span
+          className={`message ${isEmail ? "success" : "error"}`}
+          style={{ top: "38vh" }}
+        >
+          {emailMessage}
+        </span>
+      )}
+      <StyledInput
+        type="text"
+        top="40vh"
+        placeholder="🙋‍♂️  닉네임"
+        onChange={onChangeNickname}
+      />
+      {nickname.length > 0 && (
+        <span
+          className={`message ${isNickname ? "success" : "error"}`}
+          style={{ top: "45vh" }}
+        >
+          {nicknameMessage}
+        </span>
+      )}
+      <StyledInput
+        type="password"
+        top="47vh"
+        placeholder="🔒  비밀번호"
+        onChange={onChangePassword}
+      />
+      {password.length > 0 && (
+        <span
+          className={`message ${isPassword ? "success" : "error"}`}
+          style={{ top: "52vh" }}
+        >
+          {passwordMessage}
+        </span>
+      )}
+      <StyledInput
+        type="password"
+        top="54vh"
+        placeholder="🔒  비밀번호 확인"
+        onChange={onChangePasswordConfirm}
+      />
+
+      {passwordConfirm.length > 0 && (
+        <span
+          className={`message ${isPasswordConfirm ? "success" : "error"}`}
+          style={{ top: "59vh" }}
+        >
+          {confirmPasswordMessage}
+        </span>
+      )}
       <img className="team" src={team} alt="" height="120vh" />
       <StyledButtonDiv>
         <StyledButton
           top="80vh"
           color="white"
           background="#5C53FF"
-          onClick={() => {}}
+          onClick={() => {console.log("Register Completes")}}
+          type="submit"
+          disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
           회원가입 완료
         </StyledButton>
@@ -74,6 +185,17 @@ const StyledDiv = styled.div`
   .team {
     position: absolute;
     top: 63vh;
+  }
+  .message {
+    position: absolute;
+    font-size: 1.4vh;
+    font-weight: 500;
+    &.success {
+      color: #2ede3d;
+    }
+    &.error {
+      color: #5E43FF;
+    }
   }
 `;
 const StyledSpan = styled.span`
@@ -105,6 +227,11 @@ const StyledButton = styled.button`
   padding: 10px;
   border-radius: 30px;
   cursor: pointer;
+  :disabled{
+    cursor: unset;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+}
 `;
 const StyledInput = styled.input`
   position: absolute;
