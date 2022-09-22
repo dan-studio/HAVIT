@@ -5,6 +5,7 @@ import havit from "@assets/havitLogoPurple.png";
 import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
+import { userApis } from "../../apis/auth";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -33,9 +34,21 @@ const Signup = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  // const onSubmit = e => {
-  //   e.preventDefault()
-  // };
+  const onSubmitHandler = e => {
+    e.preventDefault()
+    const data = {
+      email, nickname, password, passwordConfirm
+    }
+    console.log(data)
+    userApis.signup(data)
+    .then((res)=>{
+      alert('회원가입이 완료되었어요 😉')
+      navigate('/signin')
+      console.log(res)
+    }).catch((error)=>{
+      console.log(error)
+    })
+  };
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -169,7 +182,7 @@ const Signup = () => {
           top="80vh"
           color="white"
           background="#5C53FF"
-          onClick={() => {console.log("Register Complete")}}
+          onClick={onSubmitHandler}
           type="submit"
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
