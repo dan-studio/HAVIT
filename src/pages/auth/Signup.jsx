@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import havit from "../assets/havitLogoPurple.png";
-import team from "../assets/havitTeam.png";
+import havit from "@assets/havitLogoPurple.png";
+import team from "@assets/havitTeam.png";
 
 const Signup = () => {
   const navigate = useNavigate();
