@@ -1,20 +1,22 @@
-import React from "react";
-import { Spin } from "antd";
-import { Route, Routes } from "react-router-dom";
-import { useCustomRoute } from "../hooks/useRoute";
-import styled from "styled-components";
-import Header from "@components/layout/Header";
-import { shallowEqual, useSelector } from "react-redux";
-const childRenderer = (page) => {
-    const args = {
-        path: page.path,
-    };
-    if (page.screen) {
-        const Elem = page.screen;
-        args.element = <Elem />;
-    }
-    return <Route key={page.path} {...args} />;
+import React from 'react';
+import { Spin } from 'antd';
+import { Route, Routes } from 'react-router-dom';
+import { useCustomRoute } from '../hooks/useRoute';
+import styled from 'styled-components';
+import Header from '@components/layout/Header';
+import { shallowEqual, useSelector } from 'react-redux';
+
+const childRenderer = page => {
+  const args = {
+    path: page.path,
+  };
+  if (page.screen) {
+    const Elem = page.screen;
+    args.element = <Elem />;
+  }
+  return <Route key={page.path} {...args} />;
 };
+
 const BasicLayout = ({ childrens, loading }) => {
   const { routes } = useCustomRoute();
   const layout = useSelector(state => state.layout, shallowEqual);

@@ -3,25 +3,26 @@ import styled from 'styled-components';
 import { SearchOutlined, ToolOutlined } from '@ant-design/icons';
 import Search from '@components/layout/Search';
 import { useNavigate } from 'react-router';
+
 const Header = () => {
-    const naviation = useNavigate();
-    const [showSearchForm, setShowSearchForm] = useState(false);
-    return (
-        <>
-            <Container id="header">
-                <img alt="logo" src={require("@assets/havit.png")} />
-                <Icons>
-                    <SearchOutlined onClick={() => setShowSearchForm(true)} />
-                    <ToolOutlined
-                        onClick={() => {
-                            naviation("mypage/edit");
-                        }}
-                    />
-                </Icons>
-            </Container>
-            {!!showSearchForm ? <Search /> : <></>}
-        </>
-    );
+  const naviation = useNavigate();
+  const [showSearchForm, setShowSearchForm] = useState(false);
+  return (
+    <>
+      <Container id='header'>
+        <img alt='logo' src={require('@assets/havit.png')} />
+        <Icons>
+          <SearchOutlined onClick={() => setShowSearchForm(true)} />
+          <ToolOutlined
+            onClick={() => {
+              naviation('mypage/edit');
+            }}
+          />
+        </Icons>
+      </Container>
+      {!!showSearchForm ? <Search /> : <></>}
+    </>
+  );
 };
 
 const Container = styled.div`
