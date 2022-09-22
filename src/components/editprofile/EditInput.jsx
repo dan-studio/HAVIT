@@ -3,16 +3,15 @@ import styled from 'styled-components';
 import { RiPencilFill } from 'react-icons/ri';
 import { Button } from 'antd';
 
-const EditInput = ({ inputLabel,type }) => {
+const EditInput = ({ inputLabel, type }) => {
   const [inputValue, setInputValue] = React.useState('');
-  const onClick = console.log('버툰클릭');
 
   return (
     <Wrap>
-      <label style={{ fontWeight: '400', fontSize: '16px', lineHeight: '24px' }} for='inputId'>
+      <label style={{ fontWeight: '400', fontSize: '16px', lineHeight: '24px', marginBottom: '10px' }} htmlFor='userEditInput'>
         {inputLabel}
       </label>
-      <input type={type} id='inputId' placeholder={inputValue} />
+      <input type={type} id='userEditInput' placeholder={inputValue} />
     </Wrap>
   );
 };
