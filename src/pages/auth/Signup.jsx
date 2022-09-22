@@ -1,11 +1,23 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "@assets/havitLogoPurple.png";
 import team from "@assets/havitTeam.png";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { resetLayout, setLayout } from "../../redux/layout";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  const layout = useSelector((state) => state.layout, shallowEqual);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setLayout({ showHeader: false }));
+    return ()=>{
+      dispatch(resetLayout());
+    }
+  }, []);
+
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -103,7 +115,7 @@ const Signup = () => {
       {email.length > 0 && (
         <span
           className={`message ${isEmail ? "success" : "error"}`}
-          style={{ top: "38vh" }}
+          style={{ top: "33vh" }}
         >
           {emailMessage}
         </span>
@@ -117,7 +129,7 @@ const Signup = () => {
       {nickname.length > 0 && (
         <span
           className={`message ${isNickname ? "success" : "error"}`}
-          style={{ top: "45vh" }}
+          style={{ top: "40vh" }}
         >
           {nicknameMessage}
         </span>
@@ -131,7 +143,7 @@ const Signup = () => {
       {password.length > 0 && (
         <span
           className={`message ${isPassword ? "success" : "error"}`}
-          style={{ top: "52vh" }}
+          style={{ top: "47vh" }}
         >
           {passwordMessage}
         </span>
@@ -146,7 +158,7 @@ const Signup = () => {
       {passwordConfirm.length > 0 && (
         <span
           className={`message ${isPasswordConfirm ? "success" : "error"}`}
-          style={{ top: "59vh" }}
+          style={{ top: "54vh" }}
         >
           {confirmPasswordMessage}
         </span>
@@ -157,7 +169,7 @@ const Signup = () => {
           top="80vh"
           color="white"
           background="#5C53FF"
-          onClick={() => {console.log("Register Completes")}}
+          onClick={() => {console.log("Register Complete")}}
           type="submit"
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
@@ -191,10 +203,10 @@ const StyledDiv = styled.div`
     font-size: 1.4vh;
     font-weight: 500;
     &.success {
-      color: #2ede3d;
+      color: #5E43FF;
     }
     &.error {
-      color: #5E43FF;
+      color: #E94560;
     }
   }
 `;

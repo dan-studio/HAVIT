@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "@assets/havit_black.svg";
 import { useNavigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setLayout } from "../../redux/layout";
+import { resetLayout, setLayout } from "../../redux/layout";
 
 const Start = () => {
   const navigate = useNavigate();
@@ -11,7 +11,9 @@ const Start = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    // return dispatch(resetLayout());
+    return ()=>{
+      dispatch(resetLayout());
+    }
   }, []);
   useEffect(() => {
     setTimeout(() => {
