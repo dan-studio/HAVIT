@@ -61,4 +61,5 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.background};
   padding: 5px;
   border-radius: 30px;
+  cursor: pointer;
 `;

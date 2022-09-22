@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "../assets/havitLogoPurple.png";
@@ -8,7 +8,32 @@ import kakaoButton from "../assets/kakaoButton.png";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
 
+  const onChangeEmail = useCallback((e) => {
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+    if (!emailCurrent) {
+      setIsEmail(false);
+    } else {
+      setIsEmail(true);
+    }
+   
+
+  }, []);
+  const onChangePassword = useCallback((e) => {
+    const passwordCurrent = e.target.value;
+    setPassword(passwordCurrent);
+
+    if (!passwordCurrent) {
+      setIsPassword(false);
+    } else {
+      setIsPassword(true);
+    }
+  }, []);
   return (
     <StyledDiv>
       <StyledSpan>
@@ -16,14 +41,15 @@ const Signin = () => {
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
-      <StyledInput top="25vh" placeholder="✉  E-Mail" />
-      <StyledInput top="32vh" placeholder="🔒  비밀번호" />
+      <StyledInput type="email" top="25vh" placeholder="✉  E-Mail" onChange={onChangeEmail}/>
+      <StyledInput type="password" top="32vh" placeholder="🔒  비밀번호" onChange={onChangePassword}/>
       <StyledButtonDiv>
         <StyledButton
           top="40vh"
           color="white"
           background="#5C53FF"
           onClick={() => {}}
+          disabled={!(isEmail && isPassword)}
         >
           로그인
         </StyledButton>
@@ -60,6 +86,17 @@ const StyledDiv = styled.div`
     position: absolute;
     top: 70vh;
   }
+  .message {
+    position: absolute;
+    font-size: 1.4vh;
+    font-weight: 500;
+    &.success {
+      color: #2ede3d;
+    }
+    &.error {
+      color: #5E43FF;
+    }
+  }
 `;
 const StyledSpan = styled.span`
   color: #252224;
@@ -89,6 +126,12 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.background};
   padding: 10px;
   border-radius: 30px;
+  cursor: pointer;
+  :disabled {
+    cursor: unset;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+  }
 `;
 const StyledInput = styled.input`
   position: absolute;
@@ -124,16 +167,16 @@ const StyledSocialLogin = styled.div`
   top: 58vh;
 `;
 const StyledNaverButton = styled.img`
-  width: 37vw;
-  height: 4vh;
-  object-fit: cover;
+  width: 150px;
+  height: 40px;
   border-radius: 7px;
   margin: 0 2vw;
-  `;
+  cursor: pointer;
+`;
 const StyledKakaoButton = styled.img`
-  width: 37vw;
-  height: 4vh;
-  object-fit: cover;
+  width: 150px;
+  height: 40px;
   border-radius: 7px;
   margin: 0 2vw;
+  cursor: pointer;
 `;

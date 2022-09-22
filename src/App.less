@@ -148,6 +148,9 @@
         border-top: 1px #eee solid;
     }
 }
+.ant-upload.ant-upload-select-picture-card {
+    border-radius: 100%;
+}
 .ant-table-tbody > tr > td {
     text-align: center;
 }
@@ -304,27 +307,20 @@ table {
 a {
     color: @primary-color;
 }
-.ant-select.pop-radius {
-    & > .ant-select-selector {
-        border-radius: 25px;
-        min-width: 98px;
-        display: flex;
-        min-height: 34px;
-        align-items: center;
-        background-color: @primary-color;
-        color: @white;
-        justify-content: center;
-        font-weight: bold;
-        border: none;
-    }
-    & > .ant-select-arrow {
-        color: @white;
-    }
-}
+
 #content {
     width: 100%;
     padding: 1rem;
 }
 .ant-tag {
-    border-radius: 10px;
+    border-radius: 10px !important;
+    background-color: @white !important;
+    color: @gray !important;
+}
+[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: @gray;
+}
+[contenteditable]:focus {
+    outline: none;
 }
