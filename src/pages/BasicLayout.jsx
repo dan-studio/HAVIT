@@ -15,38 +15,32 @@ const childRenderer = (page) => {
     }
     return <Route key={page.path} {...args} />;
 };
-
-const BasicLayout = ({ children, loading }) => {
-    const { routes } = useCustomRoute();
-    const layout = useSelector((state) => state.layout, shallowEqual);
-
-    return (
+const BasicLayout = ({ childrens, loading }) => {
+  const { routes } = useCustomRoute();
+  const layout = useSelector(state => state.layout, shallowEqual);
+  return (
+    <>
+      {!!loading ? (
+        <Cover>
+          <Spin></Spin>
+        </Cover>
+      ) : (
         <>
-            {!!loading ? (
-                <Cover>
-                    <Spin></Spin>
-                </Cover>
-            ) : (
-                <>
-                    {!!layout.showHeader ? <Header></Header> : <></>}
-                    <Routes>
-                        {routes?.map((page) => childRenderer(page))}
-                    </Routes>
-                </>
-            )}
+          {!!layout.showHeader ? <Header></Header> : <></>}
+          <Routes>{routes?.map(page => childRenderer(page))}</Routes>
         </>
-    );
+      )}
+    </>
+  );
 };
-
 export default React.memo(BasicLayout);
-
 const Cover = styled.div`
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

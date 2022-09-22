@@ -1,17 +1,38 @@
-import CrewInfo from '@components/cards/CrewInfo';
 import styled from 'styled-components';
+import Profile from '@components/cards/Profile';
+import CrewInfo from '@components/cards/CrewInfo';
+import AlertUser from '@components/cards/AlertUser';
+
+import { IoIosArrowForward } from 'react-icons/io';
 
 const Mypage = () => {
   return (
     <Wrap>
-      <Header>HAVIT</Header>
+      {/* 프로필 */}
+      <Profile />
+
+      {/* 크루 정보 */}
       <Crews>
-        <Bar />
-        <h2>내가 속한 크루</h2>
+        {/* <Bar /> */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h2>내가 속한 크루</h2>
+          <IoIosArrowForward style={{ fontSize: '20px', color:'#DE4242' }} />
+        </div>
         <CrewInfo />
         <CrewInfo />
         <CrewInfo />
       </Crews>
+
+      {/* 알림 */}
+      <Alert>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h2>알림</h2>
+          <IoIosArrowForward style={{ fontSize: '20px' }} />
+        </div>
+        <AlertUser />
+        <AlertUser />
+        <AlertUser />
+      </Alert>
     </Wrap>
   );
 };
@@ -24,39 +45,52 @@ const Wrap = styled.div`
   background-color: #5e43ff;
 `;
 
-const Header = styled.div`
-  width: 350px;
-  height: 26px;
-  position: fixed;
-  top: 55px;
-  margin: 0 20px 40px 20px;
-  background-color: red;
-`;
-
 const Crews = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding-top: 30px;
+  justify-content: flex-start;
+  padding: 15px 0 30px 0;
+  position: relative;
   background-color: #fff;
   border-radius: 30px 30px 0 0;
 
-  & > h2 {
-    padding: 10px 20px;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
+  & > div {
+    margin: 35px 20px 0 20px;
+    & > h2 {
+      font-weight: 700;
+      font-size: 20px;
+      margin: 0;
+      line-height: 24px;
+    }
   }
 `;
 
 const Bar = styled.div`
-  width: 60%;
+  width: 50%;
   height: 5px;
   left: 20%;
   position: absolute;
   background: #eaeaea;
   border-radius: 5px;
+`;
+
+const Alert = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 15px 0;
+  /* height: 100vh; */
+  background-color: #ededed;
+
+  & > div {
+    margin: 35px 20px 0 20px;
+    & > h2 {
+      font-weight: 700;
+      font-size: 20px;
+      margin: 0;
+      line-height: 24px;
+    }
+  }
 `;
 
 export default Mypage;
