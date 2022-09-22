@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "@assets/havitLogoPurple.png";
@@ -11,9 +11,11 @@ const Login = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    // return dispatch(resetLayout());
+    return () => {
+      dispatch(resetLayout());
+    };
   }, []);
-  
+
   return (
     <StyledDiv>
       <StyledSpan>
@@ -22,7 +24,6 @@ const Login = () => {
         <br />
         처음이신가요?
       </StyledSpan>
-
       <StyledButtonDiv>
         <StyledButton
           top="65vh"

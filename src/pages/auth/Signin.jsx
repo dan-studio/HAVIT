@@ -13,10 +13,11 @@ const Signin = () => {
   const layout = useSelector((state) => state.layout, shallowEqual);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    // return dispatch(resetLayout());
+    return ()=>{
+      dispatch(resetLayout());
+    }
   }, []);
 
   const [email, setEmail] = useState("");
