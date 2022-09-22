@@ -1,13 +1,24 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import havit from "../assets/havitLogoPurple.png";
-import team from "../assets/havitTeam2.png";
-import naverButton from "../assets/naverButton.png";
-import kakaoButton from "../assets/kakaoButton.png";
+import havit from "@/assets/havitLogoPurple.png";
+import team from "@assets/havitTeam2.png";
+import naverButton from "@assets/naverButton.png";
+import kakaoButton from "@assets/kakaoButton.png";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { resetLayout, setLayout } from "@redux/layout";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const layout = useSelector((state) => state.layout, shallowEqual);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setLayout({ showHeader: false }));
+    // return dispatch(resetLayout());
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isEmail, setIsEmail] = useState(false);
@@ -21,8 +32,6 @@ const Signin = () => {
     } else {
       setIsEmail(true);
     }
-   
-
   }, []);
   const onChangePassword = useCallback((e) => {
     const passwordCurrent = e.target.value;
@@ -41,8 +50,18 @@ const Signin = () => {
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
-      <StyledInput type="email" top="25vh" placeholder="✉  E-Mail" onChange={onChangeEmail}/>
-      <StyledInput type="password" top="32vh" placeholder="🔒  비밀번호" onChange={onChangePassword}/>
+      <StyledInput
+        type="email"
+        top="25vh"
+        placeholder="✉  E-Mail"
+        onChange={onChangeEmail}
+      />
+      <StyledInput
+        type="password"
+        top="32vh"
+        placeholder="🔒  비밀번호"
+        onChange={onChangePassword}
+      />
       <StyledButtonDiv>
         <StyledButton
           top="40vh"
@@ -94,7 +113,7 @@ const StyledDiv = styled.div`
       color: #2ede3d;
     }
     &.error {
-      color: #5E43FF;
+      color: #5e43ff;
     }
   }
 `;

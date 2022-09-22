@@ -1,14 +1,14 @@
-import Splash from '@pages/Splash';
-import Start from '@pages/Start';
-import Group from '@pages/group/Group';
-import GroupDetail from '@pages/group/Detail';
-import GroupCreate from '@pages/group/Create';
-import GroupEdit from '@pages/group/Edit';
-import Signin from '../pages/Signin';
-import Signup from '../pages/Signup';
-import PageNotFound from '../pages/PageNotFound';
-import Mypage from '../pages/Mypage';
-import MypageEdit from './../pages/MypageEdit';
+import Splash from "@pages/start/Splash";
+import Start from "@pages/start/Start";
+import Group from "@pages/group/Group";
+import GroupDetail from "@pages/group/Detail";
+import GroupCreate from "@pages/group/Create";
+import GroupEdit from "@pages/group/Edit";
+import Signin from "@pages/auth/Signin";
+import Signup from "@pages/auth/Signup";
+import PageNotFound from "@pages/PageNotFound";
+import Mypage from "@pages/Mypage";
+import MypageEdit from "@pages/MypageEdit";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [

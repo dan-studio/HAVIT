@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import havit from '../assets/havitLogoPurple.png'
+import havit from "@assets/havitLogoPurple.png";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { resetLayout, setLayout } from "../../redux/layout";
 
 const Login = () => {
-
-const navigate = useNavigate()
+  const navigate = useNavigate();
+  const layout = useSelector((state) => state.layout, shallowEqual);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setLayout({ showHeader: false }));
+    // return dispatch(resetLayout());
+  }, []);
+  
   return (
     <StyledDiv>
       <StyledSpan>
         환영해요 <br />
-        <img
-          src={havit}
-          alt=""
-        />{" "}
-        &emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; 은 <br />
+        <img src={havit} alt="" /> &emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; 은{" "}
+        <br />
         처음이신가요?
       </StyledSpan>
 
       <StyledButtonDiv>
-        <StyledButton top="65vh" color="white" background="#5C53FF" onClick={()=>{navigate('/signup')}}>
+        <StyledButton
+          top="65vh"
+          color="white"
+          background="#5C53FF"
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
           네, 처음이에요
         </StyledButton>
-        <StyledButton top="71vh" background="white" onClick={()=>{navigate('/signin')}}>
+        <StyledButton
+          top="71vh"
+          background="white"
+          onClick={() => {
+            navigate("/signin");
+          }}
+        >
           아니요, 이미 회원이에요
         </StyledButton>
       </StyledButtonDiv>
@@ -43,7 +61,7 @@ const StyledSpan = styled.span`
   line-height: 50px;
   img {
     position: absolute;
-    margin-top: .5vh;
+    margin-top: 0.5vh;
   }
 `;
 
