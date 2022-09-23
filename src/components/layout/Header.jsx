@@ -10,7 +10,6 @@ const Header = () => {
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const invert = useSelector((state) => state.layout);
-
   useEffect(() => {
     let handler = (e) => {
       if (!searchRef.current?.contains(e.target)) {
