@@ -1,113 +1,62 @@
 import styled from "styled-components";
 import React from "react";
 import { useState } from "react";
-import { AiFillBell } from "react-icons/ai";
-
+import { FaBell } from "react-icons/fa";
 
 const ChallengeCard = () => {
-
-  const [memberImg, setmemberImg] = useState("");
-  const [groupName, setGroupName] = useState("애플조아");
-
+  const [memberImg, setmemberImg] = useState(
+    "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=699&q=80"
+  );
+  const [friendName, setFriendName] = useState("애플조아");
 
   return (
-    <Challenge>
-    <ChallengeMemberBox>
-
-      <Card>
-        <CardRight>
-          <MemberImg>
-            <img src={memberImg} alt="group_image" />
-          </MemberImg>
-          <GroupInfo>
-            <h2>{groupName}</h2>
-          </GroupInfo>
-          <MemberHour>12H</MemberHour>
-        </CardRight>
-        <CardLeft>
-          <AiFillBell color="#5e43ff"  size="24" />
-        </CardLeft>
-      </Card>
-
-    </ChallengeMemberBox>
-  </Challenge>
-  )
-}
-
-const Challenge = styled.div``;
-const ChallengeTitle = styled.div`
-font-weight:bold;
-font-size:20px;
-margin-left:20px;
-`;
-const ChallengeMemberBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  /* overflow-x: hidden; */
-`;
+    <Card>
+      <MemberDiv>
+        <MemberImg src={memberImg} alt="group_image" />
+        <FriendName>{friendName}</FriendName>
+        <MemberHour>12H</MemberHour>
+      </MemberDiv>
+      <BellDiv>
+        <FaBell color="#5e43ff" size="16" />
+      </BellDiv>
+    </Card>
+  );
+};
 const Card = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
-  box-sizing: border-box;
-  margin: 5px 20px 5px 20px;
-  padding: 15px;
-  width: 347px;
-  height: 52px;
-  border: 0.5px solid #eaeaea;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-const CardBox = styled.div`
-  /* display:flex;
-flex-direction:row; */
   justify-content: space-between;
+  box-shadow: 1px 2px 5px #b8b8b8;
+  width: 90vw;
+  margin: 2vh auto;
+  border-radius: 10px;
+  height: 6vh;
+`;
+const MemberImg = styled.img`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: 0 10px;
+  object-fit: cover;
 `;
 
-const MemberImg = styled.div`
-
-  width: 36px;
-  height: 36px;
-  margin-right: 10px;
-  background-color: red;
-  border-radius: 9999px;
-  overflow: hidden;
-  & > img {
-    width: 92px;
-    height: 92px;
-    /* width: 36px;
-height: 36px; */
-    object-fit: cover;
-  }
-  margin-top: 10px;
-`;
 const MemberHour = styled.div`
-  margin-left: 5px;
+  font-size: 12px;
   color: gray;
-  padding: 15px 0 0 0;
+  margin-left: 10px;
 `;
-const CardRight = styled.div`
+
+const FriendName = styled.div`
+  font-weight: 600;
+`;
+
+const MemberDiv = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: center;
 `;
-const CardLeft = styled.div`
-  position: absolute;
-  left: 300px;
-`;
-const GroupInfo = styled.div`
+const BellDiv = styled.div`
   display: flex;
-  flex-direction: column;
-  width: auto;
-  & > h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 22px;
-  }
-  margin-top:15px;
-
+  align-items: center;
+  margin-right: 10px;
 `;
-
-
-export default ChallengeCard
+export default ChallengeCard;
