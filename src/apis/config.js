@@ -60,6 +60,7 @@ export const setToken = (token) => {
         return false;
     }
     const { access_token, refresh_token } = token;
+    console.log(token)
     const auth_data = {
         access_token,
         refresh_token,

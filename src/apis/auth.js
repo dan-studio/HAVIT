@@ -10,6 +10,6 @@ export const userApis = {
       const response = await authApi.post('/api/login',{
           email, password
       })
-      return response.data
+      return response
   },
 }

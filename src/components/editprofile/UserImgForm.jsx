@@ -7,7 +7,7 @@ const UserImg = styled.div`
   width: 170px;
   height: 170px;
   margin: 20px auto;
-  background-color: red;
+  border: 1px solid gray;
   border-radius: 100%;
   overflow: hidden;
   & > img {

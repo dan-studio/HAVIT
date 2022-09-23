@@ -8,6 +8,7 @@ import kakaoButton from "@assets/kakaoButton.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "@redux/layout";
 import { userApis } from "../../apis/auth";
+import { setToken } from "../../apis/config";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Signin = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
@@ -49,10 +51,11 @@ const Signin = () => {
     userApis.signin(email, password)
     .then((response)=>{
       console.log(response)
-      if(response.errorMsg===null){
-        alert(`${response.data.nickname}님 환영합니다!`)
-      }
-      navigate('/')
+        alert(`${response.data.data.nickname}님 환영합니다!`)
+        const temp = {access_token: response.headers.authorization , refresh_token: response.headers["refresh-token"]}
+        console.log(temp)
+        setToken(temp)
+        navigate('/')
     })
     .catch((error)=>{
       if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){
