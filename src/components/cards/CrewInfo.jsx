@@ -1,31 +1,29 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useState } from 'react';
 import { MdPeopleAlt } from 'react-icons/md';
-import groupProfile from '../img/profile.jpg';
+import { HiStar } from 'react-icons/hi';
 
 // 컴포넌트
-import DayBadge from './DayBadge';
-import Tags from './Tag';
+import DayBadge from '../DayBadge';
+import Tags from '../Tag';
+import { Tag } from 'antd';
 
-const CrewInfo = () => {
-  const [groupImg, setGroupImg] = useState(groupProfile);
+const CrewInfo = ({ data, type = 'shadow' }) => {
   const [groupName, setGroupName] = useState('오운완ㅋ');
   const [numberOfPeople, setNumberOfPeopf] = useState(1);
 
   return (
-    <Card>
-      <GroupImg>
-        <img src={groupImg} alt='group_image' />
-      </GroupImg>
+    <Card type={type}>
+      <GroupImg />
 
       <GroupInfo>
         <h2>{groupName}</h2>
 
         <DayInfo>
           <span>8월 19일 - 12월 31일</span>
-          <span>
-            <DayBadge />
-          </span>
+          <Tag color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
+            매일
+          </Tag>
         </DayInfo>
 
         <div>
@@ -33,29 +31,51 @@ const CrewInfo = () => {
           <span>{numberOfPeople}명</span>
         </div>
 
-        <div style={{ display: 'flex', alignItmes: 'center', justifyContent: 'space-around' }}>
-          <Tags />
-          <Tags />
-          <Tags />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginTop: '8px',
+          }}>
+          <Tag>테스트</Tag>
+          <Tag>테스트1</Tag>
+          <Tag>테스트2</Tag>
         </div>
       </GroupInfo>
+      <HiStar style={{ color: '#ECA51B', fontSize: '32px', position: 'absolute', zIndex: '10', top: '10px', right: '10px' }} />
     </Card>
   );
 };
+export default CrewInfo;
 
 const Card = styled.div`
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
   box-sizing: border-box;
-  margin: 0 20px 0 20px;
-  padding: 15px;
-  /* width: 46.4vw; */
+  margin: 0 20px 25px 20px;
+  position: relative;
   height: 162px;
-  border: 0.5px solid #eaeaea;
   background-color: #ffffff;
+  ${({ type }) => {
+    switch (type) {
+      case 'shadow':
+        return ShadowCard;
+      case 'list':
+        return css`
+          border-bottom: 0.5px solid #d9d9d9;
+        `;
+      default:
+        return ShadowCard;
+    }
+  }}
+`;
+
+const ShadowCard = css`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 0.5px solid #eaeaea;
   border-radius: 10px;
+  padding: 15px;
 `;
 
 const GroupImg = styled.div`
@@ -63,7 +83,7 @@ const GroupImg = styled.div`
   height: 92px;
   margin-right: 20px;
   background-color: red;
-  border-radius: 9999px;
+  border-radius: 100%;
   overflow: hidden;
   & > img {
     width: 92px;
@@ -75,8 +95,6 @@ const GroupImg = styled.div`
 const GroupInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: auto;
-
   & > h2 {
     font-size: 1.125rem;
     font-weight: 700;
@@ -86,8 +104,8 @@ const GroupInfo = styled.div`
 
 const DayInfo = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  & > span {
+    font-weight: bold;
+  }
 `;
-
-export default CrewInfo;

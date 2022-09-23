@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MdPeopleAlt } from "react-icons/md";
 import { AiFillBell } from "react-icons/ai";
 
-import groupProfile from "../img/profile.jpg";
+// import groupProfile from "../img/profile.jpg";
 
 import { BsTrophy } from "react-icons/bs";
 
@@ -44,14 +44,13 @@ const UserProfile = () => {
 
 const Profile = styled.div`
 
-  border-style: solid;
   height: 168px;
   width: 350px;
-  margin: 10px 20px;
+  margin: 30px 20px 10px 20px;
 
   box-sizing: border-box;
 background: #FFFFFF;
-
+border-style: solid;
 border: 1px solid #EAEAEA;
 border-radius: 20px;
 padding: 20px;

@@ -1,9 +1,11 @@
-import React from 'react';
-import { Spin } from 'antd';
-import { Route, Routes } from 'react-router-dom';
-import { useCustomRoute } from '../hooks/useRoute';
-import styled from 'styled-components';
-const childRenderer = (page, parent) => {
+import React from "react";
+import { Spin } from "antd";
+import { Route, Routes } from "react-router-dom";
+import { useCustomRoute } from "../hooks/useRoute";
+import styled from "styled-components";
+import Header from "@components/layout/Header";
+import { shallowEqual, useSelector } from "react-redux";
+const childRenderer = (page) => {
   const args = {
     path: page.path,
   };
@@ -13,31 +15,26 @@ const childRenderer = (page, parent) => {
   }
   return <Route key={page.path} {...args} />;
 };
-
-const BasicLayout = ({ children, loading }) => {
+const BasicLayout = ({ childrens, loading }) => {
   const { routes } = useCustomRoute();
-
-    return (
+  const layout = useSelector((state) => state.layout, shallowEqual);
+  return (
+    <>
+      {!!loading ? (
+        <Cover>
+          <Spin></Spin>
+        </Cover>
+      ) : (
         <>
-
-            {/* 열심히 코딩하세영 ( 해당 텍스트는 @pages/BasicLayout.jsx에
-            있습니다.) */}
-            {!!loading ? (
-                <Cover>
-                    <Spin></Spin>
-                </Cover>
-            ) : (
-                <Routes>
-                    {routes?.map((page) => childRenderer(page, undefined))}
-                </Routes>
-            )}
+          {!!layout.showHeader ? <Header></Header> : <></>}
+          <Routes>{routes?.map((page) => childRenderer(page))}</Routes>
         </>
-    );
-
+      )}
+    </>
+  );
 };
 
 export default React.memo(BasicLayout);
-
 const Cover = styled.div`
   position: fixed;
   left: 0;

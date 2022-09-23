@@ -7,18 +7,18 @@ import { ThemeProvider } from 'styled-components';
 import BasicLayout from '@pages/BasicLayout';
 
 const theme = {
-    color: {
-        "@primary-color": "#5E43FF",
-        "@black": "#252224",
-        "@red": "#D65353",
-        "@indigo": "#2D4362",
-        "@sky": "#82C3DE",
-        "@white": "#FFFFFF",
-        "@yellow": "#F7C45F",
-        "@lightgray": "#EAEAEA",
-        "@neongreen": "#2CDF3D",
-        "@gray": "#B0B0B0",
-    },
+  color: {
+    primary_color: '#5E43FF',
+    black: '#252224',
+    red: '#D65353',
+    indigo: '#2D4362',
+    sky: '#82C3DE',
+    white: '#FFFFFF',
+    yellow: '#F7C45F',
+    lightgray: '#EAEAEA',
+    neongreen: '#2CDF3D',
+    gray: '#B0B0B0',
+  },
 };
 
 const Container = React.memo(() => {

@@ -4,11 +4,11 @@ const CracoAlias = require("craco-alias");
 const pallet = {
     "@primary-color": "#5E43FF",
     "@black": "#252224",
-    "@red": "#D65353",
+    "@red": "#DE4242",
     "@indigo": "#2D4362",
     "@sky": "#82C3DE",
     "@white": "#FFFFFF",
-    "@yellow": "#F7C45F",
+    "@yellow": "#ECA51B",
     "@lightgray": "#EAEAEA",
     "@neongreen": "#2CDF3D",
     "@gray": "#B0B0B0",
