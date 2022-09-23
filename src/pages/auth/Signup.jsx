@@ -46,7 +46,10 @@ const Signup = () => {
       navigate('/signin')
       console.log(res)
     }).catch((error)=>{
-      console.log(error)
+      console.log(error.response.data.errorMsg.message)
+      if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
+        alert("중복된 이메일주소가 존재합니다.")
+      }
     })
   };
 

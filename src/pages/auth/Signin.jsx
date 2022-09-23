@@ -55,7 +55,7 @@ const Signin = () => {
       navigate('/')
     })
     .catch((error)=>{
-      if(error.response.data.errorMsg.message ==="사용자를 찾을 수 없습니다."){
+      if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){
         alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
       }
     })
