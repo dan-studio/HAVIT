@@ -70,8 +70,8 @@ const DragLine = styled.div`
   }};
 `;
 const Group = styled.div`
-position: absolute;
-top: 7vh;
+  position: absolute;
+  top: 7vh;
 `;
 const GroupTitle = styled.div`
   margin: 0 10px 10px;
@@ -87,10 +87,10 @@ const GroupPhotoBox = styled.div`
   overflow-y: hidden;
 `;
 const Challenge = styled.div`
-position:absolute;
-top: 35vh;
-width: 100vw;
-margin: 0 auto;
+  position: absolute;
+  top: 35vh;
+  width: 100vw;
+  margin: 0 auto;
 `;
 const ChallengeTitle = styled.div`
   font-weight: bold;

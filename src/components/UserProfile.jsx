@@ -20,7 +20,7 @@ const UserProfile = () => {
 
           <UserLeft>
             <UserName>
-              <bold>김병처리</bold> 님
+              <span>김병처리</span> 님
             </UserName>
             <UserIntr>세상에서 제일가는 장난꾸러기</UserIntr>
             <Percentage value="50" max="100"></Percentage>
@@ -85,9 +85,9 @@ const Percentage = styled.progress`
   }
 `;
 const UserName = styled.div`
-  font-size: 18px;
-  bold {
-    font-size: 20px;
+  font-size: 16px;
+  span {
+    font-size: 18px;
     font-weight: 700;
   }
 `;

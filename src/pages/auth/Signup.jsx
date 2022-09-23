@@ -232,11 +232,12 @@ const StyledSpan = styled.span`
   left: 15vw;
   top: 7vh;
   font-weight: 400;
-  font-size: 35px;
-  line-height: 50px;
+  font-size: 30px;
+  line-height: 38px;
   img {
     position: absolute;
     margin-top: .75vh;
+    width: 140px;
   }
 `;
 
