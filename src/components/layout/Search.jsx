@@ -96,7 +96,6 @@ const HistoryBox = styled.div`
         font-weight: 600;
         margin: 0.25rem 0;
     }
-
 `;
 const DragLine = styled.div`
   position: absolute;

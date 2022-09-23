@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const searchRef = useRef();
   const navigate = useNavigate();
-  const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const invert = useSelector((state) => state.layout);
   useEffect(() => {
@@ -20,7 +19,6 @@ const Header = () => {
     document.addEventListener("mousedown", handler);
     return () => {
       document.removeEventListener("mousedown", handler);
-
     };
   });
 
@@ -103,4 +101,3 @@ const AlertSign = styled.div`
   background-color: red;
 `;
 export default Header;
-
