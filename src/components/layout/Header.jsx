@@ -55,7 +55,7 @@ const Header = () => {
             />
           </Icons>
       </Container>
-      {!!showSearchForm ? <Search /> : <></>}
+      {!!showSearchForm ? <Search searchRef={searchRef}/> : <></>}
     </>
   );
 };
