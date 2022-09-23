@@ -5,10 +5,7 @@ import havit from "@assets/havitLogoPurple.png";
 import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
-import { createUserThunk } from "../../redux/users";
-
 import { userApis } from "../../apis/auth";
-
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -21,21 +18,6 @@ const Signup = () => {
       dispatch(resetLayout());
     }
   }, []);
-
-
-  const signupDispatch = () => {
-    dispatch(
-      createUserThunk({
-  
-        email: email,
-        password: password,
-        passwordConfirm: passwordConfirm,
-        nickname: nickname
-
-      })
-    );
-  };
-  // console.log(email,password);
 
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
@@ -203,10 +185,7 @@ const Signup = () => {
           top="80vh"
           color="white"
           background="#5C53FF"
-
-          // onClick={() => {console.log("Register Complete")}}
-          onClick={signupDispatch}
-          
+          onClick={onSubmitHandler}
           type="submit"
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
