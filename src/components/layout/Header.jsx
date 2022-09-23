@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { FiSettings, FiSearch } from 'react-icons/fi';
-import Search from '@components/layout/Search';
-import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import { FiSettings, FiSearch } from "react-icons/fi";
+import Search from "@components/layout/Search";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { current } from "@reduxjs/toolkit";
 
 const Header = () => {
   const searchRef = useRef();
