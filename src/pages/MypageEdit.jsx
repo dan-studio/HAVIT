@@ -1,8 +1,8 @@
-import { useDispatch } from 'react-redux';
-import { setLayout } from '@redux/layout';
-import { useEffect, useState, useCallback } from 'react';
-import { resetLayout } from '../redux/layout';
-import styled, { css } from 'styled-components';
+import { useDispatch } from "react-redux";
+import { setLayout } from "@redux/layout";
+import { useEffect, useState, useCallback } from "react";
+import { resetLayout } from "../redux/layout";
+import styled, { css } from "styled-components";
 
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
@@ -28,11 +28,10 @@ const MypageEdit = () => {
   const [nicknameMsg, setNicknameMsg] = useState('');
   const [newPwMsg, setNewPwMsg] = useState('');
   const [newPwConfirmMsg, setNewPwConfirmMsg] = useState('');
-
-  // WHAT 상태
   const [isNickname, setIsNickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
 
   // ###########################################
   // ## SECTION 핸들러                        ###
@@ -58,7 +57,7 @@ const MypageEdit = () => {
       setNicknameMsg('사용할 수 있는 닉네임입니다');
       setIsNickname(true);
     }
-  });
+  }, []);
 
   // WHAT 새로운 비번 입력
   const onChangePw = useCallback(e => {
@@ -74,6 +73,23 @@ const MypageEdit = () => {
       setIsPassword(true);
     }
   }, []);
+  const onChangePasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = e.target.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (password === passwordConfirmCurrent) {
+        setConfirmPasswordMessage("비밀번호를 똑같이 입력했어요 : )");
+        setIsPasswordConfirm(true);
+      } else {
+        setConfirmPasswordMessage(
+          "비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요"
+        );
+        setIsPasswordConfirm(false);
+      }
+    },
+    [password]
+  );
 
   // WHAT 새로운 비번 확인
   const onChangePwConfirm = useCallback(e => {
@@ -137,7 +153,7 @@ const MypageEdit = () => {
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
         <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
       </div>
-    </>
+    </StyledDiv>
   );
 };
 
@@ -166,3 +182,17 @@ const ConfirmMsg = styled.span`
 `;
 
 export default MypageEdit;
+
+const StyledDiv = styled.div`
+  .message {
+    margin: 0 auto;
+    font-size: 1.4vh;
+    font-weight: 500;
+    &.success {
+      color: #5e43ff;
+    }
+    &.error {
+      color: #e94560;
+    }
+  }
+`;
