@@ -195,7 +195,7 @@ const Signup = () => {
           top="87vh"
           background="white"
           onClick={() => {
-            navigate(-1);
+            navigate('/startpage');
           }}
         >
           뒤로가기
