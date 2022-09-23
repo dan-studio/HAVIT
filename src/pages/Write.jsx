@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React from "react";
 import { AiOutlinePlusCircle} from "react-icons/ai";
+import Button from "../components/PrimaryButton";
+
 
 
 const Write = () => {

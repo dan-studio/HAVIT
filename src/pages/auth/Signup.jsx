@@ -5,7 +5,6 @@ import havit from "@assets/havitLogoPurple.png";
 import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
-
 import { userApis } from "../../apis/auth";
 
 const Signup = () => {
@@ -186,9 +185,7 @@ const Signup = () => {
           top="80vh"
           color="white"
           background="#5C53FF"
-
           onClick={onSubmitHandler}
-
           type="submit"
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
