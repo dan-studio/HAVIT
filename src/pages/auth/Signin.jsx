@@ -49,10 +49,15 @@ const Signin = () => {
     userApis.signin(email, password)
     .then((response)=>{
       console.log(response)
-      navigate('/main')
+      if(response.errorMsg===null){
+        alert(`${response.data.nickname}님 환영합니다!`)
+      }
+      navigate('/')
     })
     .catch((error)=>{
-      console.log(error)
+      if(error.response.data.errorMsg.message ==="사용자를 찾을 수 없습니다."){
+        alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
+      }
     })
   }
 

@@ -1,4 +1,3 @@
-import axios from "axios"
 import { authApi, restApi } from "./config"
 
 
@@ -8,7 +7,7 @@ export const userApis = {
       return response.data
   },
   signin: async (email, password) => {
-      const response = await authApi.post('/api/signin',{
+      const response = await authApi.post('/api/login',{
           email, password
       })
       return response.data
