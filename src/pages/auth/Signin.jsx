@@ -73,7 +73,7 @@ const Signin = () => {
       </StyledSpan>
       <StyledInput
         type="email"
-        top="25vh"
+        top="24vh"
         placeholder="✉  E-Mail"
         onChange={onChangeEmail}
       />

@@ -124,14 +124,14 @@ const Signup = () => {
       </StyledSpan>
       <StyledInput
         type="email"
-        top="33vh"
+        top="32vh"
         placeholder="✉  E-Mail"
         onChange={onChangeEmail}
       />
       {email.length > 0 && (
         <span
           className={`message ${isEmail ? "success" : "error"}`}
-          style={{ top: "33vh" }}
+          style={{ top: "37vh" }}
         >
           {emailMessage}
         </span>
@@ -145,28 +145,28 @@ const Signup = () => {
       {nickname.length > 0 && (
         <span
           className={`message ${isNickname ? "success" : "error"}`}
-          style={{ top: "40vh" }}
+          style={{ top: "45vh" }}
         >
           {nicknameMessage}
         </span>
       )}
       <StyledInput
         type="password"
-        top="47vh"
+        top="48vh"
         placeholder="🔒  비밀번호"
         onChange={onChangePassword}
       />
       {password.length > 0 && (
         <span
           className={`message ${isPassword ? "success" : "error"}`}
-          style={{ top: "47vh" }}
+          style={{ top: "53vh" }}
         >
           {passwordMessage}
         </span>
       )}
       <StyledInput
         type="password"
-        top="54vh"
+        top="56vh"
         placeholder="🔒  비밀번호 확인"
         onChange={onChangePasswordConfirm}
       />
@@ -174,12 +174,12 @@ const Signup = () => {
       {passwordConfirm.length > 0 && (
         <span
           className={`message ${isPasswordConfirm ? "success" : "error"}`}
-          style={{ top: "54vh" }}
+          style={{ top: "61vh" }}
         >
           {confirmPasswordMessage}
         </span>
       )}
-      <img className="team" src={team} alt="" height="120vh" />
+      <img className="team" src={team} alt="" height="125vh" />
       <StyledButtonDiv>
         <StyledButton
           top="80vh"
@@ -212,7 +212,7 @@ const StyledDiv = styled.div`
   justify-content: center;
   .team {
     position: absolute;
-    top: 63vh;
+    top: 64vh;
   }
   .message {
     position: absolute;
@@ -236,7 +236,7 @@ const StyledSpan = styled.span`
   line-height: 50px;
   img {
     position: absolute;
-    margin-top: 0.5vh;
+    margin-top: .75vh;
   }
 `;
 
