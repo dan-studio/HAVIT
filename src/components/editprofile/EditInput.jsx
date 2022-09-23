@@ -8,10 +8,11 @@ const EditInput = ({ inputLabel, type, onChange}) => {
 
   return (
     <Wrap>
-      <label style={{ fontWeight: '400', fontSize: '16px', lineHeight: '24px', marginBottom: '10px' }} htmlFor='userEditInput'>
+      <label style={{ fontWeight: '600', fontSize: '16px', lineHeight: '24px', marginBottom: '10px' }} htmlFor='userEditInput'>
         {inputLabel}
       </label>
-      <input type={type} id='userEditInput' placeholder={inputValue} onChange={onChange}/>
+
+      <input type={type} id='userEditInput' onChange={onChange} required></input>
     </Wrap>
   );
 };
@@ -19,9 +20,10 @@ const EditInput = ({ inputLabel, type, onChange}) => {
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: 12px 20px 2px 20px;
+
   & > input {
-    height: 44px;
+    height: 42px;
     padding: 10px;
     background: #ffffff;
     border: 0.5px solid #eaeaea;
