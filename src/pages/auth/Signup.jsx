@@ -33,7 +33,7 @@ const Signup = () => {
   const [isNickname, setIsNickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-
+  
   const onSubmitHandler = e => {
     e.preventDefault()
     const data = {
