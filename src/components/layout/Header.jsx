@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <>
       <Container id='header'>
-        <img alt='logo' src={require('@assets/havit.png')} />
+        <img alt='logo' src={require('@assets/havit.png')} width={'120px'} />
         <Icons>
           <SearchOutlined onClick={() => setShowSearchForm(true)} />
           <ToolOutlined
@@ -28,11 +28,11 @@ const Header = () => {
 const Container = styled.div`
   top: 0;
   left: 0;
-  width: 100%;
-  height: 128px;
+  width: auto;
+  height: 26px;
   display: flex;
   align-items: center;
-  padding: 20px;
+  margin: 55px 20px 42px 20px ;
   justify-content: space-between;
 `;
 
@@ -40,7 +40,7 @@ const Icons = styled.div`
   & > * {
     margin: 0 0.25rem;
     &:hover {
-      transform: scale(0.85);
+      transform: scale(1);
     }
   }
 `;
