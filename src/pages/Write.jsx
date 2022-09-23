@@ -4,6 +4,7 @@ import { AiOutlinePlusCircle} from "react-icons/ai";
 import Button from "../components/PrimaryButton";
 
 
+
 const Write = () => {
 
 
@@ -26,8 +27,6 @@ const Write = () => {
       <WriteBtn>
         <PostBtn>등록</PostBtn>
         <CancelBtn>취소</CancelBtn>
-        <Button> 등록</Button>
-
       </WriteBtn>
       </WriteBox>
 
