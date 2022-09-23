@@ -256,7 +256,7 @@ const StyledButton = styled.button`
   border-radius: 30px;
   cursor: pointer;
   :disabled{
-    cursor: unset;
+    cursor: unset; 
     background-color: #ccc;
     border: 1px solid #ccc;
 }
