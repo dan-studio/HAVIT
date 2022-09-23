@@ -7,16 +7,18 @@ import naverButton from "@assets/naverButton.png";
 import kakaoButton from "@assets/kakaoButton.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "@redux/layout";
+import { userApis } from "../../apis/auth";
 
 const Signin = () => {
   const navigate = useNavigate();
   const layout = useSelector((state) => state.layout, shallowEqual);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    // return dispatch(resetLayout());
+    return ()=>{
+      dispatch(resetLayout());
+    }
   }, []);
 
   const [email, setEmail] = useState("");
@@ -43,6 +45,22 @@ const Signin = () => {
       setIsPassword(true);
     }
   }, []);
+  const onSubmitHandler = () =>{
+    userApis.signin(email, password)
+    .then((response)=>{
+      console.log(response)
+      if(response.errorMsg===null){
+        alert(`${response.data.nickname}님 환영합니다!`)
+      }
+      navigate('/')
+    })
+    .catch((error)=>{
+      if(error.response.data.errorMsg.message ==="사용자를 찾을 수 없습니다."){
+        alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
+      }
+    })
+  }
+
   return (
     <StyledDiv>
       <StyledSpan>
@@ -67,8 +85,9 @@ const Signin = () => {
           top="40vh"
           color="white"
           background="#5C53FF"
-          onClick={() => {}}
           disabled={!(isEmail && isPassword)}
+          type="submit"
+          onClick={onSubmitHandler}
         >
           로그인
         </StyledButton>
