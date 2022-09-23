@@ -1,81 +1,75 @@
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Upload } from "antd";
-import { useState } from "react";
-const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Upload } from 'antd';
+import { useState } from 'react';
+const getBase64 = file =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-        reader.onload = () => resolve(reader.result);
+    reader.onload = () => resolve(reader.result);
 
-        reader.onerror = (error) => reject(error);
-    });
+    reader.onerror = error => reject(error);
+  });
 
-const Uploader = (props) => {
-    const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState();
-    const [fileList, setFileList] = useState([]);
-    const handlePreview = async (file) => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj);
-        }
+const Uploader = props => {
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
+  const [fileList, setFileList] = useState([]);
+  const handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
 
-        setImageUrl(file.url || file.preview);
-        setLoading(true);
-    };
-    const handleChange = ({ file: newFile, fileList: newFileList }) => {
-        handlePreview(newFile);
-        setFileList(newFileList);
-    };
+    setImageUrl(file.url || file.preview);
+    setLoading(true);
+  };
+  const handleChange = ({ file: newFile, fileList: newFileList }) => {
+    handlePreview(newFile);
+    setFileList(newFileList);
+  };
 
-    const uploadButton = (
-        <div>
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div
-                style={{
-                    marginTop: 8,
-                }}
-            >
-                Upload
-            </div>
-        </div>
-    );
-    return (
-        <>
-            <Upload
-                name="avatar"
-                listType="picture-card"
-                className={
-                    props?.className
-                        ? props.className + " avatar-uploader"
-                        : "avatar-uploader"
-                }
-                showUploadList={false}
-                fileList={fileList}
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                onChange={handleChange}
-                style={{
-                    width: "92px",
-                    height: "92px",
-                }}
-            >
-                {imageUrl ? (
-                    <img
-                        src={imageUrl}
-                        alt="avatar"
-                        style={{
-                            width: "92px",
-                            height: "92px",
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div
+        style={{
+          marginTop: 8,
+        }}>
+        Upload
+      </div>
+    </div>
+  );
+  return (
+    <>
+      <Upload
+        name='avatar'
+        listType='picture-card'
+        className={props?.className ? props.className + ' avatar-uploader' : 'avatar-uploader'}
+        showUploadList={false}
+        fileList={fileList}
+        action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+        onChange={handleChange}
+        style={{
+          width: '92px',
+          height: '92px',
+        }}>
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt='avatar'
+            style={{
+              width: '92px',
+              height: '92px',
 
-                            objectFit: "cover",
-                        }}
-                    />
-                ) : (
-                    uploadButton
-                )}
-            </Upload>
-        </>
-    );
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          uploadButton
+        )}
+      </Upload>
+    </>
+  );
 };
 
 export default Uploader;

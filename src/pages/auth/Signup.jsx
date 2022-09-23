@@ -24,7 +24,6 @@ const Signup = () => {
   const signupDispatch = () => {
     dispatch(
       createUserThunk({
-  
         email: email,
         password: password,
         passwordConfirm: passwordConfirm,

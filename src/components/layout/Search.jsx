@@ -2,12 +2,12 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { useCallback, useEffect } from 'react';
 
 const Search = ({ searchRef }) => {
-  const searchDisable = useRef();
 
   return (
-    <Cover onClick={searchDisable}>
+    <Cover>
       <Container ref={searchRef}>
         <SearchBox>
           <Input
