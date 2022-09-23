@@ -4,8 +4,8 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import PrimaryButton from "../components/PrimaryButton";
 import SubButton from "../components/SubButton";
 import Location from "../components/layout/Location";
-import Uploader from "../input/Uploader";
-import { Upload } from "antd";
+// import Uploader from "../input/Uploader";
+// import { Upload } from "antd";
 
 
 import { IoLocationOutline } from 'react-icons/io5';
