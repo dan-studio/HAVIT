@@ -34,7 +34,7 @@ const Signup = () => {
     );
   };
   // console.log(email,password);
-
+  
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
