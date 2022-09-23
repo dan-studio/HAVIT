@@ -4,8 +4,8 @@ const UserImgForm = () => {
   return <UserImg></UserImg>;
 };
 const UserImg = styled.div`
-  width: 170px;
-  height: 170px;
+  width: 130px;
+  height: 130px;
   margin: 20px auto;
   background-color: red;
   border-radius: 100%;
