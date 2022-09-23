@@ -60,6 +60,7 @@ export const setToken = (token) => {
         return false;
     }
     const { access_token, refresh_token } = token;
+    console.log(token)
     const auth_data = {
         access_token,
         refresh_token,
@@ -68,6 +69,6 @@ export const setToken = (token) => {
         process.env.REACT_TOKEN_SAVE_KEY,
         JSON.stringify(auth_data)
     );
-
+    
     return auth_data;
 };
