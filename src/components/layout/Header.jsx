@@ -1,21 +1,34 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { FiSettings, FiSearch } from "react-icons/fi";
-import Search from "@components/layout/Search";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { FiSettings, FiSearch } from 'react-icons/fi';
+import Search from '@components/layout/Search';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
   const navigate = useNavigate();
+  const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
+
+  useEffect(() => {
+    let handler = e => {
+      if (!searchRef.current.contains(e.target)) {
+        setShowSearchForm(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+    };
+  });
+
   return (
     <>
-
-      <Container id="header">
+      <Container id='header'>
         <StyledLogo
-          alt="logo"
-          src={require("@assets/havit.png")}
+          alt='logo'
+          src={require('@assets/havit.png')}
           onClick={() => {
-            navigate("/main");
+            navigate('/main');
           }}
         />
 
@@ -23,12 +36,12 @@ const Header = () => {
           <FiSearch onClick={() => setShowSearchForm(true)} />
           <FiSettings
             onClick={() => {
-              navigate("mypage/edit");
+              navigate('mypage/edit');
             }}
           />
         </Icons>
       </Container>
-      {!!showSearchForm ? <Search /> : <></>}
+      {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
     </>
   );
 };
