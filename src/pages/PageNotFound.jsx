@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import logo from "../assets/havit_black.svg";
 
 const PageNotFound = () => {
@@ -20,11 +20,11 @@ const StyledDiv = styled.div`
 `;
 const StyledImg = styled.img`
   width: 200px;
-  `;
-  const StyledP = styled.p`
+`;
+const StyledP = styled.p`
   margin-top: 25vh;
   position: absolute;
   font-size: 25px;
   text-align: center;
   color: #575757;
-  `
+`;
