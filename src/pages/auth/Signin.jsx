@@ -54,9 +54,8 @@ const Signin = () => {
       console.log(response)
         alert(`${response.data.data.nickname}님 환영합니다!`)
         const temp = {access_token: response.headers.authorization , refresh_token: response.headers["refresh-token"]}
-        console.log(temp)
         setToken(temp)
-        navigate('/')
+        navigate('/main')
     })
     .catch((error)=>{
       if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){

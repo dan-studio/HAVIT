@@ -20,21 +20,6 @@ const Signup = () => {
     }
   }, []);
 
-
-  const signupDispatch = () => {
-    dispatch(
-      createUserThunk({
-  
-        email: email,
-        password: password,
-        passwordConfirm: passwordConfirm,
-        nickname: nickname
-
-      })
-    );
-  };
-  // console.log(email,password);
-
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");

@@ -2,10 +2,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import React from "react";
 import styled from "styled-components";
-const Search = () => {
+const Search = ({searchRef}) => {
     return (
         <Cover>
-            <Container>
+            <Container ref={searchRef}>
                 <SearchBox>
                     <Input
                         type="search"
@@ -87,7 +87,6 @@ const HistoryBox = styled.div`
         font-weight: bold;
         letter-spacing: -2px;
         color: ${({ theme }) => {
-            console.log(theme.color.neongreen);
             return theme.color.neongreen;
         }};
         margin-bottom: 1rem;
