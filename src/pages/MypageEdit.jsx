@@ -153,7 +153,7 @@ const MypageEdit = () => {
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
         <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
       </div>
-    </StyledDiv>
+    </>
   );
 };
 
@@ -181,8 +181,6 @@ const ConfirmMsg = styled.span`
   }
 `;
 
-export default MypageEdit;
-
 const StyledDiv = styled.div`
   .message {
     margin: 0 auto;
@@ -196,3 +194,7 @@ const StyledDiv = styled.div`
     }
   }
 `;
+
+export default MypageEdit;
+
+
