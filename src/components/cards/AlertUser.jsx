@@ -24,9 +24,7 @@ const CrewInfo = ({ data, type = 'shadow' }) => {
           <span style={{ marginBottom: '3px' }}>{crewName}</span>
           <div style={{ height: '23px' }}>
             <h3>{userName}</h3>
-            <Tag style={{ margin: '0 .5rem', opacity: '.5', color: '#252224' }}>
-              12시간
-            </Tag>
+            <Tag style={{ margin: '0 .5rem', opacity: '.5', color: '#252224' }}>12시간</Tag>
           </div>
         </UserInfo>
       </div>
@@ -38,7 +36,6 @@ const CrewInfo = ({ data, type = 'shadow' }) => {
           marginTop: '12px',
         }}>
         <SubButton buttonName={'숨기기'} />
-        <SubButton buttonName={'무시하기'} />
         <PrimaryButton buttonName={'확인'} />
       </div>
 
@@ -121,7 +118,7 @@ const AlertBadge = styled.div`
   top: 10px;
   right: 8px;
   border-radius: 9999px;
-  background-color: #DE4242;
+  background-color: #de4242;
   position: absolute;
   z-index: 30;
   font-size: 12px;

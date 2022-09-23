@@ -7,9 +7,39 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
+  const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
+
+  useEffect(() => {
+    let handler = e => {
+      if (!searchRef.current.contains(e.target)) {
+        setShowSearchForm(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+    };
+  });
+
+  return (
+    <>
+      <Container id='header'>
+        <StyledLogo
+          alt='logo'
+          src={require('@assets/havit.png')}
+          onClick={() => {
+            navigate('/main');
+          }}
+        />
+
+        <Icons>
+          <FiSearch onClick={() => setShowSearchForm(true)} />
+          <FiSettings
+            onClick={() => {
+              navigate('mypage/edit');
   const invert = useSelector((state) => state.layout);
-  // 5E43FF
+
   return (
     <>
       <Container id="header" invert = {invert.isInvert}>
@@ -40,7 +70,7 @@ const Header = () => {
             />
           </Icons>
       </Container>
-      {!!showSearchForm ? <Search /> : <></>}
+      {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
     </>
   );
 };
