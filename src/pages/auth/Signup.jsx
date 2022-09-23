@@ -5,7 +5,6 @@ import havit from "@assets/havitLogoPurple.png";
 import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
-
 import { userApis } from "../../apis/auth";
 
 const Signup = () => {
@@ -20,21 +19,6 @@ const Signup = () => {
     }
   }, []);
 
-
-  const signupDispatch = () => {
-    dispatch(
-      createUserThunk({
-  
-        email: email,
-        password: password,
-        passwordConfirm: passwordConfirm,
-        nickname: nickname
-
-      })
-    );
-  };
-  // console.log(email,password);
-  
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +33,7 @@ const Signup = () => {
   const [isNickname, setIsNickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  
+
   const onSubmitHandler = e => {
     e.preventDefault()
     const data = {
@@ -201,9 +185,7 @@ const Signup = () => {
           top="80vh"
           color="white"
           background="#5C53FF"
-
           onClick={onSubmitHandler}
-
           type="submit"
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
@@ -274,7 +256,7 @@ const StyledButton = styled.button`
   border-radius: 30px;
   cursor: pointer;
   :disabled{
-    cursor: unset; 
+    cursor: unset;
     background-color: #ccc;
     border: 1px solid #ccc;
 }
