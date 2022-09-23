@@ -4,8 +4,20 @@ import CrewInfo from '@components/cards/CrewInfo';
 import AlertUser from '@components/cards/AlertUser';
 
 import { IoIosArrowForward } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { resetLayout, setLayout } from '../redux/layout';
 
 const Mypage = () => {
+  const invertHeader = useSelector(state=>state.layout)
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(setLayout({isInvert:true}))
+    return ()=>{
+      dispatch(resetLayout())
+    }
+  },[])
+
   return (
     <Wrap>
       {/* 프로필 */}
