@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { FiSettings, FiSearch } from 'react-icons/fi';
-import Search from '@components/layout/Search';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { FiSettings, FiSearch } from "react-icons/fi";
+import Search from "@components/layout/Search";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,16 +38,44 @@ const Header = () => {
           <FiSettings
             onClick={() => {
               navigate('mypage/edit');
+  const invert = useSelector((state) => state.layout);
+
+  return (
+    <>
+      <Container id="header" invert = {invert.isInvert}>
+        {invert.isInvert ? (
+          <StyledInvertedLogo
+            alt="logo"
+            src={require("@assets/HavitWhite.png")}
+            onClick={() => {
+              navigate("/main");
             }}
           />
-        </Icons>
+        ) : (
+          <StyledLogo
+            alt="logo"
+            src={require("@assets/havit.png")}
+            onClick={() => {
+              navigate("/main");
+            }}
+          />
+        )}
+          
+          <Icons invert={invert.isInvert}>
+            <FiSearch onClick={() => setShowSearchForm(true)} />
+            <FiSettings
+              onClick={() => {
+                navigate("mypage/edit");
+              }}
+            />
+          </Icons>
       </Container>
       {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
     </>
   );
 };
-
 const Container = styled.div`
+  background-color: ${props=>props.invert?"#5E43FF":"white"};
   top: 0;
   left: 0;
   width: 100%;
@@ -56,10 +85,9 @@ const Container = styled.div`
   padding: 20px;
   justify-content: space-between;
 `;
-
 const Icons = styled.div`
   font-size: 22px;
-  color: #b0b0b0;
+  color: ${props=>props.invert?"white":"#b0b0b0"};
   & > * {
     margin: 0 0.25rem;
     &:hover {
@@ -67,8 +95,11 @@ const Icons = styled.div`
     }
   }
 `;
-
 const StyledLogo = styled.img`
+  height: 30px;
+  cursor: pointer;
+`;
+const StyledInvertedLogo = styled.img`
   height: 30px;
   cursor: pointer;
 `;
