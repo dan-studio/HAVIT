@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// 준묵님
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FiSettings, FiSearch } from "react-icons/fi";
 import Search from "@components/layout/Search";
@@ -9,6 +10,8 @@ const Header = () => {
   const navigate = useNavigate();
   const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
+  const invert = useSelector((state) => state.layout);
+  // 5E43FF
 
   useEffect(() => {
     let handler = e => {
@@ -21,24 +24,6 @@ const Header = () => {
       document.removeEventListener('mousedown', handler);
     };
   });
-
-  return (
-    <>
-      <Container id='header'>
-        <StyledLogo
-          alt='logo'
-          src={require('@assets/havit.png')}
-          onClick={() => {
-            navigate('/main');
-          }}
-        />
-
-        <Icons>
-          <FiSearch onClick={() => setShowSearchForm(true)} />
-          <FiSettings
-            onClick={() => {
-              navigate('mypage/edit');
-  const invert = useSelector((state) => state.layout);
 
   return (
     <>
@@ -70,7 +55,7 @@ const Header = () => {
             />
           </Icons>
       </Container>
-      {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
+      {!!showSearchForm ? <Search /> : <></>}
     </>
   );
 };
