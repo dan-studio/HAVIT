@@ -1,34 +1,30 @@
-// 준묵님
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { FiSettings, FiSearch } from 'react-icons/fi';
-import Search from '@components/layout/Search';
-import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import { FiSettings, FiSearch } from "react-icons/fi";
+import Search from "@components/layout/Search";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const searchRef = useRef();
   const navigate = useNavigate();
-  const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
-  const invert = useSelector(state => state.layout);
-  // 5E43FF
-
+  const invert = useSelector((state) => state.layout);
   useEffect(() => {
-    let handler = e => {
-      console.log('🚀 ~ handler ~ handler', handler)
-      if (!searchRef.current.contains(e.target)) {
+    let handler = (e) => {
+      if (!searchRef.current?.contains(e.target)) {
         setShowSearchForm(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    // return () => {
-    //   document.removeEventListener('mousedown', handler);
-    // };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   });
 
   return (
     <>
-      <Container id='header' invert={invert.isInvert}>
+      <Container id="header" invert={invert.isInvert}>
         {invert.isInvert ? (
           <StyledInvertedLogo
             alt='logo'
@@ -48,12 +44,15 @@ const Header = () => {
         )}
 
         <Icons invert={invert.isInvert}>
-          <FiSearch onClick={() => setShowSearchForm(true)} />
-          <FiSettings
-            onClick={() => {
-              navigate('mypage/edit');
-            }}
-          />
+          <Setting>
+            <FiSearch onClick={() => setShowSearchForm(true)} style={{"marginRight":"20px"}}/>
+            <FiSettings
+              onClick={() => {
+                navigate("mypage/edit");
+              }}
+            />
+            <AlertSign></AlertSign>
+          </Setting>
         </Icons>
       </Container>
       {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
@@ -61,7 +60,7 @@ const Header = () => {
   );
 };
 const Container = styled.div`
-  background-color: ${props => (props.invert ? '#5E43FF' : 'white')};
+  background-color: ${(props) => (props.invert ? "#5E43FF" : "white")};
   top: 0;
   left: 0;
   width: 100%;
@@ -73,7 +72,7 @@ const Container = styled.div`
 `;
 const Icons = styled.div`
   font-size: 22px;
-  color: ${props => (props.invert ? 'white' : '#b0b0b0')};
+  color: ${(props) => (props.invert ? "white" : "#b0b0b0")};
   & > * {
     margin: 0 0.25rem;
     &:hover {
@@ -82,11 +81,23 @@ const Icons = styled.div`
   }
 `;
 const StyledLogo = styled.img`
-  height: 30px;
+  width: 120px;
   cursor: pointer;
 `;
 const StyledInvertedLogo = styled.img`
-  height: 30px;
+  width: 120px;
   cursor: pointer;
+`;
+const Setting = styled.div`
+  position: relative;
+`;
+const AlertSign = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: red;
 `;
 export default Header;

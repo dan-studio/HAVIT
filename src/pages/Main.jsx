@@ -1,27 +1,24 @@
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import React from "react";
-import { FaStarHalfAlt } from "react-icons/fa";
-import { useState } from "react";
-import { MdPeopleAlt } from "react-icons/md";
-import { AiFillBell } from "react-icons/ai";
-import GroupCard from "../components/cards/GroupCard";
-// import groupProfile from "../img/profile.jpg";
-// import DayBadge from './DayBadge';
-// import Tags from './Tag';
-import { BsTrophy } from "react-icons/bs";
+import { resetLayout, setLayout } from "../redux/layout";
 import UserProfile from "../components/UserProfile";
+import GroupCard from "../components/cards/GroupCard";
 import ChallengeCard from "../components/cards/ChallengeCard";
-
-const Main = () => {
-  const [memberImg, setmemberImg] = useState("");
-  const [groupName, setGroupName] = useState("애플조아");
-  const [numberOfPeople, setNumberOfPeopf] = useState(1);
-
+const Index = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setLayout({ isInvert: true }));
+    return () => {
+      dispatch(resetLayout());
+    };
+  }, []);
   return (
-
-      <MainBox>
-        <UserProfile/>
-        <GroupMemberBox>
+    <>
+      <StyledTopDiv>
+        <UserProfile />
+      </StyledTopDiv>
+      <StyledBottomDiv>
         <Group>
           <GroupTitle>김병처리님 이런 그룹은 어떠세요</GroupTitle>
           <GroupPhotoBox>
@@ -32,68 +29,71 @@ const Main = () => {
           </GroupPhotoBox>
         </Group>
         <Challenge>
-        <ChallengeTitle>함께 챌린지를 완수해요</ChallengeTitle>
-
-          <ChallengeCard/>
-          <ChallengeCard/>
-          <ChallengeCard/>
-          <ChallengeCard/>
-          <ChallengeCard/>
-
+          <ChallengeTitle>함께 챌린지를 완수해요</ChallengeTitle>
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />
         </Challenge>
-        </GroupMemberBox>
-      </MainBox>
-
+        <DragLine></DragLine>
+      </StyledBottomDiv>
+    </>
   );
 };
 
-const MainBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* height:100vh; */
+export default Index;
+
+const StyledTopDiv = styled.div`
   background-color: #5e43ff;
-
+  height: 40vh;
 `;
-
+const StyledBottomDiv = styled.div`
+  position: absolute;
+  top: 37vh;
+  background-color: white;
+  border-radius: 30px;
+  height: 60vh;
+  width: 100vw;
+`;
+const DragLine = styled.div`
+  position: absolute;
+  top: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 4px;
+  border-radius: 25px;
+  background-color: ${({ theme }) => {
+    return theme.color.lightgray;
+  }};
+`;
 const Group = styled.div`
-  /* border-radius: 25px;
-  border-color: black;
-  border-style: solid;
-  border: solid; */
-  /* height: 220px; */
-  height: 220px;
-  width:360px;
-  margin: 30px 10px 30px 10px;
+position: absolute;
+top: 7vh;
 `;
-
-
 const GroupTitle = styled.div`
-font-weight:bold;
-font-size:15px;
-
-
+  margin: 0 10px 10px;
+  font-weight: bold;
+  font-size: 15px;
 `;
 const GroupPhotoBox = styled.div`
   display: flex;
   flex-direction: row;
-  width: 90vw;
-  height: 250px;
-  margin: 15px 5px 5px 5px;
+  width: 100vw;
+  height: 22vh;
   overflow-x: scroll;
   overflow-y: hidden;
 `;
-
-const Challenge = styled.div``;
-const ChallengeTitle = styled.div`
-font-weight:bold;
-font-size:20px;
-margin-left:20px;
+const Challenge = styled.div`
+position:absolute;
+top: 35vh;
+width: 100vw;
+margin: 0 auto;
 `;
-const GroupMemberBox = styled.div`
-background-color:white;
-border-radius:25px;
-margin-top: 25px;
-
-`
-
-export default Main;
+const ChallengeTitle = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 20px;
+`;

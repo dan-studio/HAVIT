@@ -1,43 +1,42 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
-import React, { useRef } from 'react';
-import styled from 'styled-components';
-import { useCallback, useEffect } from 'react';
-
-const Search = ({ searchRef }) => {
-
-  return (
-    <Cover>
-      <Container ref={searchRef}>
-        <SearchBox>
-          <Input
-            type='search'
-            style={{
-              width: '90%',
-              height: '3rem',
-              borderRadius: '25px',
-            }}
-            prefix={
-              <SearchOutlined
-                style={{
-                  color: '#5E43FF',
-                  fontSize: '1.25rem',
-                  fontWeight: 'bold',
-                }}></SearchOutlined>
-            }></Input>
-        </SearchBox>
-        <HistoryBox>
-          <h2>최근검색기록</h2>
-          <div>내일군대감</div>
-          <div>등산모임</div>
-          <div>배그 5판 연속 치킨</div>
-          <div>김병처리</div>
-          <div>미라클 모닝</div>
-        </HistoryBox>
-        <DragLine></DragLine>
-      </Container>
-    </Cover>
-  );
+import { SearchOutlined } from "@ant-design/icons";
+import { Input } from "antd";
+import React from "react";
+import styled from "styled-components";
+const Search = ({searchRef}) => {
+    return (
+        <Cover>
+            <Container ref={searchRef}>
+                <SearchBox>
+                    <Input
+                        type="search"
+                        style={{
+                            width: "90%",
+                            height: "3rem",
+                            borderRadius: "25px",
+                        }}
+                        prefix={
+                            <SearchOutlined
+                                style={{
+                                    color: "#5E43FF",
+                                    fontSize: "1.25rem",
+                                    fontWeight: "bold",
+                                }}
+                            ></SearchOutlined>
+                        }
+                    ></Input>
+                </SearchBox>
+                <HistoryBox>
+                    <h2>최근검색기록</h2>
+                    <div>내일군대감</div>
+                    <div>등산모임</div>
+                    <div>배그 5판 연속 치킨</div>
+                    <div>김병처리</div>
+                    <div>미라클 모닝</div>
+                </HistoryBox>
+                <DragLine></DragLine>
+            </Container>
+        </Cover>
+    );
 };
 
 export default Search;
@@ -79,25 +78,24 @@ const SearchBox = styled.div`
   align-items: center;
 `;
 const HistoryBox = styled.div`
-  width: 100%;
-  max-height: 70%;
-  padding: 0 2.5rem;
-  overflow: hidden;
-  & > h2 {
-    font-size: 1.125rem;
-    font-weight: bold;
-    letter-spacing: -2px;
-    color: ${({ theme }) => {
-      console.log(theme.color.neongreen);
-      return theme.color.neongreen;
-    }};
-    margin-bottom: 1rem;
-  }
-  & > div {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0.25rem 0;
-  }
+    width: 100%;
+    max-height: 70%;
+    padding: 0 2.5rem;
+    overflow: hidden;
+    & > h2 {
+        font-size: 1.125rem;
+        font-weight: bold;
+        letter-spacing: -2px;
+        color: ${({ theme }) => {
+            return theme.color.neongreen;
+        }};
+        margin-bottom: 1rem;
+    }
+    & > div {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0.25rem 0;
+    }
 `;
 const DragLine = styled.div`
   position: absolute;
