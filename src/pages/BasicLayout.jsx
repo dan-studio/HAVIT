@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Spin } from 'antd';
 import { Route, Routes } from 'react-router-dom';
@@ -7,6 +8,7 @@ import Header from '@components/layout/Header';
 import { shallowEqual, useSelector } from 'react-redux';
 
 const childRenderer = page => {
+
   const args = {
     path: page.path,
   };
@@ -19,7 +21,7 @@ const childRenderer = page => {
 
 const BasicLayout = ({ childrens, loading }) => {
   const { routes } = useCustomRoute();
-  const layout = useSelector(state => state.layout, shallowEqual);
+  const layout = useSelector((state) => state.layout, shallowEqual);
   return (
     <>
       {!!loading ? (
@@ -29,12 +31,13 @@ const BasicLayout = ({ childrens, loading }) => {
       ) : (
         <>
           {!!layout.showHeader ? <Header></Header> : <></>}
-          <Routes>{routes?.map(page => childRenderer(page))}</Routes>
+          <Routes>{routes?.map((page) => childRenderer(page))}</Routes>
         </>
       )}
     </>
   );
 };
+
 export default React.memo(BasicLayout);
 const Cover = styled.div`
   position: fixed;

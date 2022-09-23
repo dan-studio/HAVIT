@@ -10,8 +10,79 @@ import PageNotFound from "@pages/PageNotFound";
 import Mypage from "@pages/Mypage";
 import MypageEdit from "@pages/MypageEdit";
 
+
+import Detail from "../pages/group/Detail";
+import Write from "../pages/Write";
+import Board from "../pages/Board";
+import Main from "../pages/Main";
+
+
+
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
+
+    // {
+    //     path: "/sample",
+    //     title: "샘플",
+    //     icon: PicCenterOutlined,
+    //     isMenu: true,
+    //     childe: [
+    //         {
+    //             path: "/list",
+    //             title: "샘플 자식 리스트",
+    //             screen: SampleListIndex,
+    //             isMenu: true,
+    //         },
+    //         {
+    //             path: "/post/:id",
+    //             title: "샘플등록(pathvariable)",
+    //             screen: SampleDetail,
+    //             isMenu: true,
+    //         },
+    //     ],
+    // },
+        {
+        path: "/main",
+        title: "샘플",
+        screen: Main,
+        icon: "",
+        isMenu: true,
+        child: [
+
+        ],
+    },
+
+        {
+        path: "/group",
+        title: "그룹",
+        screen: Group,
+        icon: "",
+        isMenu: true,
+        child: [
+            {
+                path: "/detail",
+                title: "샘플 자식 리스트",
+                screen: Detail,
+                isMenu: true,
+                child: [
+                    {
+                        path: "/write",
+                        title: "샘플등록(pathvariable)",
+                        screen: Write,
+                        isMenu: true,
+                    },
+                    {
+                        path: "/board",
+                        title: "샘플등록(pathvariable)",
+                        screen: Board,
+                        isMenu: true,
+                    },
+                ]
+
+            }
+        ]
+          },
+
   {
     path: "/",
     title: "스플래쉬",
@@ -46,6 +117,7 @@ const pages = [
     screen: Signup,
     isMenu: true,
   },
+
   {
     path: '/group',
     title: '그룹',
