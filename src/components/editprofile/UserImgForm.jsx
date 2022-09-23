@@ -4,7 +4,7 @@ import Uploader from '../input/Uploader';
 const UserImgForm = () => {
   return (
     <UserImg>
-      <Uploader style={{ backgroundColor: 'red' }} />
+      <Uploader />
     </UserImg>
   );
 };

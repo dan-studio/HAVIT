@@ -1,6 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import { useState } from 'react';
+
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -19,7 +20,6 @@ const Uploader = props => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
-
     setImageUrl(file.url || file.preview);
     setLoading(true);
   };
@@ -40,7 +40,7 @@ const Uploader = props => {
     </div>
   );
   return (
-    <>
+    <div style={{display:'flex'}}>
       <Upload
         name='avatar'
         listType='picture-card'
@@ -68,7 +68,7 @@ const Uploader = props => {
           uploadButton
         )}
       </Upload>
-    </>
+    </div>
   );
 };
 
