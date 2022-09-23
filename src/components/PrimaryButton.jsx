@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({buttonName}) => {
-  return <PrimaryButton type='button'>{buttonName}</PrimaryButton>;
+const Button = ({ buttonName, onClick }) => {
+  return <PrimaryButton type='submit' onClick={onClick}>{buttonName}</PrimaryButton>;
 };
 
 const PrimaryButton = styled.button`
@@ -15,6 +15,11 @@ const PrimaryButton = styled.button`
   font-weight: 400;
   color: #fff;
   margin: 0 10px;
+  :disabled {
+    cursor: unset;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+  }
 `;
 
 export default Button;
