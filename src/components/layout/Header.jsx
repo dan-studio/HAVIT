@@ -1,30 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import { FiSettings, FiSearch } from "react-icons/fi";
-import Search from "@components/layout/Search";
-import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { FiSettings, FiSearch } from 'react-icons/fi';
+import Search from '@components/layout/Search';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const searchRef = useRef();
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
-  const invert = useSelector((state) => state.layout);
+  const invert = useSelector(state => state.layout);
   useEffect(() => {
-    let handler = (e) => {
+    let handler = e => {
       if (!searchRef.current?.contains(e.target)) {
         setShowSearchForm(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document.addEventListener('mousedown', handler);
     return () => {
-      document.removeEventListener("mousedown", handler);
+      document.removeEventListener('mousedown', handler);
     };
   });
 
   return (
     <>
-      <Container id="header" invert={invert.isInvert}>
+      <Container id='header' invert={invert.isInvert}>
         {invert.isInvert ? (
           <StyledInvertedLogo
             alt='logo'
@@ -45,10 +45,10 @@ const Header = () => {
 
         <Icons invert={invert.isInvert}>
           <Setting>
-            <FiSearch onClick={() => setShowSearchForm(true)} style={{"marginRight":"20px"}}/>
+            <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }} />
             <FiSettings
               onClick={() => {
-                navigate("mypage/edit");
+                navigate('mypage/edit');
               }}
             />
             <AlertSign></AlertSign>
@@ -60,7 +60,7 @@ const Header = () => {
   );
 };
 const Container = styled.div`
-  background-color: ${(props) => (props.invert ? "#5E43FF" : "white")};
+  background-color: ${props => (props.invert ? '#5E43FF' : 'white')};
   top: 0;
   left: 0;
   width: 100%;
@@ -72,7 +72,7 @@ const Container = styled.div`
 `;
 const Icons = styled.div`
   font-size: 22px;
-  color: ${(props) => (props.invert ? "white" : "#b0b0b0")};
+  color: ${props => (props.invert ? 'white' : '#b0b0b0')};
   & > * {
     margin: 0 0.25rem;
     &:hover {

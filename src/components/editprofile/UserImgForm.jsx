@@ -4,7 +4,7 @@ import Uploader from '../input/Uploader';
 const UserImgForm = () => {
   return (
     <UserImg>
-      <Uploader styled={{ margin: 'auto' }} />
+      <Uploader style={{ backgroundColor: 'red' }} />
     </UserImg>
   );
 };
@@ -15,6 +15,9 @@ const UserImg = styled.div`
   border: 1px solid gray;
   border-radius: 100%;
   overflow: hidden;
+  & > Uploader {
+    margin: auto;
+  }
 `;
 
 export default UserImgForm;

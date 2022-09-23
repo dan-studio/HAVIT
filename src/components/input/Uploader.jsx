@@ -29,7 +29,7 @@ const Uploader = props => {
   };
 
   const uploadButton = (
-    <div>
+    <div style={{ background: 'red' }}>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
@@ -52,6 +52,7 @@ const Uploader = props => {
         style={{
           width: '92px',
           height: '92px',
+          background:'blue'
         }}>
         {imageUrl ? (
           <img
@@ -60,7 +61,6 @@ const Uploader = props => {
             style={{
               width: '92px',
               height: '92px',
-
               objectFit: 'cover',
             }}
           />
