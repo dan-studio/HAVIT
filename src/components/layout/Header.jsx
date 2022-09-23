@@ -9,6 +9,7 @@ const Header = () => {
   const [showSearchForm, setShowSearchForm] = useState(false);
   return (
     <>
+
       <Container id="header">
         <StyledLogo
           alt="logo"
@@ -17,6 +18,7 @@ const Header = () => {
             navigate("/main");
           }}
         />
+
         <Icons>
           <FiSearch onClick={() => setShowSearchForm(true)} />
           <FiSettings
