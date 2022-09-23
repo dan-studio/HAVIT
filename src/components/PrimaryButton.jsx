@@ -6,6 +6,7 @@ const Button = ({buttonName}) => {
 };
 
 const PrimaryButton = styled.button`
+  cursor: pointer;
   min-width: 98px;
   height: 34px;
   background: #5e43ff;
@@ -13,6 +14,7 @@ const PrimaryButton = styled.button`
   border-radius: 30px;
   font-weight: 400;
   color: #fff;
+  margin: 0 10px;
 `;
 
 export default Button;
