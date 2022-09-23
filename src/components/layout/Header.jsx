@@ -9,10 +9,10 @@ const Header = () => {
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const invert = useSelector((state) => state.layout);
-
+  // 5E43FF
   return (
     <>
-      <Container id="header">
+      <Container id="header" invert = {invert.isInvert}>
         {invert.isInvert ? (
           <StyledInvertedLogo
             alt="logo"
@@ -30,17 +30,8 @@ const Header = () => {
             }}
           />
         )}
-        {invert.isInvert ? (
-          <StyledInvertedIcons>
-            <FiSearch onClick={() => setShowSearchForm(true)} />
-            <FiSettings
-              onClick={() => {
-                navigate("mypage/edit");
-              }}
-            />
-          </StyledInvertedIcons>
-        ) : (
-          <Icons>
+          
+          <Icons invert={invert.isInvert}>
             <FiSearch onClick={() => setShowSearchForm(true)} />
             <FiSettings
               onClick={() => {
@@ -48,14 +39,13 @@ const Header = () => {
               }}
             />
           </Icons>
-        )}
       </Container>
       {!!showSearchForm ? <Search /> : <></>}
     </>
   );
 };
 const Container = styled.div`
-  background-color: #5e43ff;
+  background-color: ${props=>props.invert?"#5E43FF":"white"};
   top: 0;
   left: 0;
   width: 100%;
@@ -67,17 +57,7 @@ const Container = styled.div`
 `;
 const Icons = styled.div`
   font-size: 22px;
-  color: #b0b0b0;
-  & > * {
-    margin: 0 0.25rem;
-    &:hover {
-      transform: scale(0.85);
-    }
-  }
-`;
-const StyledInvertedIcons = styled.div`
-  font-size: 22px;
-  color: white;
+  color: ${props=>props.invert?"white":"#b0b0b0"};
   & > * {
     margin: 0 0.25rem;
     &:hover {
