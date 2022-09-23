@@ -64,10 +64,10 @@ const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: auto;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 55px 20px 40px 20px;
   justify-content: space-between;
 `;
 const Icons = styled.div`
