@@ -20,10 +20,10 @@ const CrewInfo = ({ data, type = 'shadow' }) => {
         <h2>{groupName}</h2>
 
         <DayInfo>
-          <span>8월 19일 - 12월 31일</span>
-          <Tag color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
+          <span>8월 19일 생성됨</span>
+          <Cycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
             매일
-          </Tag>
+          </Cycle>
         </DayInfo>
 
         <div>
@@ -50,7 +50,6 @@ export default CrewInfo;
 
 const Card = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   box-sizing: border-box;
   margin: 0 20px 25px 20px;
@@ -65,11 +64,26 @@ const Card = styled.div`
         return css`
           border-bottom: 0.5px solid #d9d9d9;
         `;
+        case 'detail':
+          return Detail;
       default:
         return ShadowCard;
     }
   }}
 `;
+
+const Detail = css``
+const Cycle = styled.div`
+background-color: #5e43ff;
+color: white;
+border-radius: 10px;
+width: 33px;
+font-size: 12px;
+display: flex;
+justify-content: center;
+
+
+`
 
 const ShadowCard = css`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -82,7 +96,7 @@ const GroupImg = styled.div`
   width: 92px;
   height: 92px;
   margin-right: 20px;
-  background-color: red;
+  border: 1px solid black;
   border-radius: 100%;
   overflow: hidden;
   & > img {

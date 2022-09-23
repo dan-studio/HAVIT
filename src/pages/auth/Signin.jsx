@@ -97,7 +97,7 @@ const Signin = () => {
           top="47vh"
           background="white"
           onClick={() => {
-            navigate(-1);
+            navigate('/startpage');
           }}
         >
           뒤로가기
