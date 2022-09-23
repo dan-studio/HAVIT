@@ -30,7 +30,6 @@ const Header = () => {
     </>
   );
 };
-
 const Container = styled.div`
   top: 0;
   left: 0;
