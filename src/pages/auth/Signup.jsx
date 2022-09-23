@@ -7,6 +7,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { createUserThunk } from "../../redux/users";
 
+import { userApis } from "../../apis/auth";
+
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -50,9 +52,24 @@ const Signup = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  // const onSubmit = e => {
-  //   e.preventDefault()
-  // };
+  const onSubmitHandler = e => {
+    e.preventDefault()
+    const data = {
+      email, nickname, password, passwordConfirm
+    }
+    console.log(data)
+    userApis.signup(data)
+    .then((res)=>{
+      alert('회원가입이 완료되었어요 😉')
+      navigate('/signin')
+      console.log(res)
+    }).catch((error)=>{
+      console.log(error.response.data.errorMsg.message)
+      if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
+        alert("중복된 이메일주소가 존재합니다.")
+      }
+    })
+  };
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -125,14 +142,14 @@ const Signup = () => {
       </StyledSpan>
       <StyledInput
         type="email"
-        top="33vh"
+        top="32vh"
         placeholder="✉  E-Mail"
         onChange={onChangeEmail}
       />
       {email.length > 0 && (
         <span
           className={`message ${isEmail ? "success" : "error"}`}
-          style={{ top: "33vh" }}
+          style={{ top: "37vh" }}
         >
           {emailMessage}
         </span>
@@ -146,28 +163,28 @@ const Signup = () => {
       {nickname.length > 0 && (
         <span
           className={`message ${isNickname ? "success" : "error"}`}
-          style={{ top: "40vh" }}
+          style={{ top: "45vh" }}
         >
           {nicknameMessage}
         </span>
       )}
       <StyledInput
         type="password"
-        top="47vh"
+        top="48vh"
         placeholder="🔒  비밀번호"
         onChange={onChangePassword}
       />
       {password.length > 0 && (
         <span
           className={`message ${isPassword ? "success" : "error"}`}
-          style={{ top: "47vh" }}
+          style={{ top: "53vh" }}
         >
           {passwordMessage}
         </span>
       )}
       <StyledInput
         type="password"
-        top="54vh"
+        top="56vh"
         placeholder="🔒  비밀번호 확인"
         onChange={onChangePasswordConfirm}
       />
@@ -175,17 +192,18 @@ const Signup = () => {
       {passwordConfirm.length > 0 && (
         <span
           className={`message ${isPasswordConfirm ? "success" : "error"}`}
-          style={{ top: "54vh" }}
+          style={{ top: "61vh" }}
         >
           {confirmPasswordMessage}
         </span>
       )}
-      <img className="team" src={team} alt="" height="120vh" />
+      <img className="team" src={team} alt="" height="125vh" />
       <StyledButtonDiv>
         <StyledButton
           top="80vh"
           color="white"
           background="#5C53FF"
+
           // onClick={() => {console.log("Register Complete")}}
           onClick={signupDispatch}
           
@@ -215,7 +233,7 @@ const StyledDiv = styled.div`
   justify-content: center;
   .team {
     position: absolute;
-    top: 63vh;
+    top: 64vh;
   }
   .message {
     position: absolute;
@@ -239,7 +257,7 @@ const StyledSpan = styled.span`
   line-height: 50px;
   img {
     position: absolute;
-    margin-top: 0.5vh;
+    margin-top: .75vh;
   }
 `;
 

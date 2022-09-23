@@ -84,72 +84,72 @@ const pages = [
           },
 
   {
-    path: "/splash",
+    path: "/",
     title: "스플래쉬",
     icon: "",
     screen: Splash,
     isMenu: true,
   },
   {
-    path: "/pagenotfound",
-    title: "404",
-    icon: "",
+    path: '/pagenotfound',
+    title: '404',
+    icon: '',
     screen: PageNotFound,
   },
   {
-    path: "/startpage",
-    title: "시작 페이지",
-    icon: "",
+    path: '/startpage',
+    title: '시작 페이지',
+    icon: '',
     screen: Start,
     isMenu: true,
   },
   {
-    path: "/signin",
-    title: "로그인",
-    icon: "",
+    path: '/signin',
+    title: '로그인',
+    icon: '',
     screen: Signin,
     isMenu: true,
   },
   {
-    path: "/signup",
-    title: "회원가입",
-    icon: "",
+    path: '/signup',
+    title: '회원가입',
+    icon: '',
     screen: Signup,
     isMenu: true,
   },
 
   {
-    path: "/group",
-    title: "그룹",
+    path: '/group',
+    title: '그룹',
     screen: Group,
     child: [
       {
-        path: "/detail/:id",
-        title: "그룹 정보",
+        path: '/detail/:id',
+        title: '그룹 정보',
         screen: GroupDetail,
       },
       {
-        path: "/create",
-        title: "그룹 생성",
+        path: '/create',
+        title: '그룹 생성',
         screen: GroupCreate,
       },
       {
-        path: "/edit",
-        title: "그룹 수정",
+        path: '/edit',
+        title: '그룹 수정',
         screen: GroupEdit,
       },
     ],
   },
   {
-    path: "/mypage",
-    title: "마이페이지",
+    path: '/mypage',
+    title: '마이페이지 수정',
     screen: Mypage,
-    icon: "",
+    icon: '',
     isMenu: true,
     child: [
       {
-        path: "/edit",
-        title: "마이페이지 수정",
+        path: '/edit',
+        title: '마이페이지 수정',
         screen: MypageEdit,
         isMenu: true,
       },
@@ -157,17 +157,17 @@ const pages = [
   },
 ];
 export const useCustomRoute = () => {
-  const menus = pages?.filter((v) => !!v.isMenu);
+  const menus = pages?.filter(v => !!v.isMenu);
   const routes = getAllPath(pages);
   return { routes, menus };
 };
 const getAllPath = (child = []) => {
   const result = [];
 
-  child?.forEach((item) => {
+  child?.forEach(item => {
     result.push(item);
     if (item?.child) {
-      const childrens = getAllPath(item?.child).map((el) => ({
+      const childrens = getAllPath(item?.child).map(el => ({
         ...el,
         path: `${item.path}${el.path}`,
       }));

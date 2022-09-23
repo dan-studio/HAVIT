@@ -1,8 +1,14 @@
 import { Tooltip } from "antd";
 import styled from "styled-components";
 const ArrowButton = () => {
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
     return (
-        <Container onClick={() => window.scrollTo(0, 0)}>
+        <Container onClick={scrollToTop}>
             <Tooltip>
                 {/* <Tooltip placement="top" title="Go Top"> */}
                 <svg
