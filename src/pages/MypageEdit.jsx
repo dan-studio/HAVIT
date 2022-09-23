@@ -37,7 +37,9 @@ const MypageEdit = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  // ANCHOR 유효성 검사
+  // SECTION 유효성 검사
+
+  // WHAT 닉네임 확인
   const onChangeNickname = useCallback(e => {
     setNickname(e.target.value);
     if (e.target.value < 2) {
@@ -48,6 +50,7 @@ const MypageEdit = () => {
     }
   });
 
+  // WHAT 새로운 비번 확인
   const onChangePw = useCallback(e => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     const newPwCurent = e.target.value;
@@ -61,6 +64,19 @@ const MypageEdit = () => {
       setIsPassword(true);
     }
   }, []);
+
+  const onChangePwConfirm = useCallback(e => {
+    const pwConfirmCurrent = e.target.value;
+    setNewPwConfirm(pwConfirmCurrent);
+
+    if (newPw === pwConfirmCurrent) {
+      setNewPwConfirmMsg('비밀번호가 일치합니다');
+      setIsPasswordConfirm(true);
+    } else {
+      setNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
+    }
+    setIsPasswordConfirm(false);
+  });
 
   return (
     <>
