@@ -7,6 +7,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { resetLayout, setLayout } from '../redux/layout';
+import UserProfile from '../components/UserProfile';
 
 const Mypage = () => {
   const invertHeader = useSelector(state=>state.layout)
@@ -21,7 +22,7 @@ const Mypage = () => {
   return (
     <Wrap>
       {/* 프로필 */}
-      <Profile />
+      <UserProfile />
 
       {/* 크루 정보 */}
       <Crews>
@@ -52,7 +53,7 @@ const Mypage = () => {
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
   position: relative;
   background-color: #5e43ff;
 `;

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({ buttonName, onClick }) => {
-  return <PrimaryButton type='submit' onClick={onClick}>{buttonName}</PrimaryButton>;
+const PrimaryButton = ({ buttonName, onClick }) => {
+  return <Button type='submit' onClick={onClick}>{buttonName}</Button>;
 };
 
-const PrimaryButton = styled.button`
+const Button = styled.button`
   cursor: pointer;
   min-width: 98px;
   height: 34px;
@@ -22,4 +22,4 @@ const PrimaryButton = styled.button`
   }
 `;
 
-export default Button;
+export default PrimaryButton;
