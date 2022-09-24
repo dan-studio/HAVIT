@@ -1,34 +1,34 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import havit from "@/assets/havitLogoPurple.png";
-import team from "@assets/havitTeam2.png";
-import naverButton from "@assets/naverButton.png";
-import kakaoButton from "@assets/kakaoButton.png";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { resetLayout, setLayout } from "@redux/layout";
-import { userApis } from "../../apis/auth";
-import { setToken } from "../../apis/config";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import havit from '@/assets/havitLogoPurple.png';
+import team from '@assets/havitTeam2.png';
+import naverButton from '@assets/naverButton.png';
+import kakaoButton from '@assets/kakaoButton.png';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { resetLayout, setLayout } from '@redux/layout';
+import { userApis } from '../../apis/auth';
+import { setToken } from '../../apis/config';
 
 const Signin = () => {
   const navigate = useNavigate();
-  const layout = useSelector((state) => state.layout, shallowEqual);
+  const layout = useSelector(state => state.layout, shallowEqual);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    return ()=>{
+    return () => {
       dispatch(resetLayout());
-    }
+    };
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
-  const onChangeEmail = useCallback((e) => {
+  const onChangeEmail = useCallback(e => {
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
     if (!emailCurrent) {
@@ -37,7 +37,7 @@ const Signin = () => {
       setIsEmail(true);
     }
   }, []);
-  const onChangePassword = useCallback((e) => {
+  const onChangePassword = useCallback(e => {
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
 
@@ -47,59 +47,42 @@ const Signin = () => {
       setIsPassword(true);
     }
   }, []);
-  const onSubmitHandler = () =>{
-    userApis.signin(email, password)
-    .then((response)=>{
-      console.log(response)
-        alert(`${response.data.data.nickname}님 환영합니다!`)
-        const temp = {access_token: response.headers.authorization , refresh_token: response.headers["refresh-token"]}
-        setToken(temp)
-        navigate('/main')
-    })
-    .catch((error)=>{
-      if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){
-        alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
-      }
-    })
-  }
+  const onSubmitHandler = () => {
+    userApis
+      .signin(email, password)
+      .then(response => {
+        console.log(response);
+        alert(`${response.data.data.nickname}님 환영합니다!`);
+        const temp = { access_token: response.headers.authorization, refresh_token: response.headers['refresh-token'] };
+        setToken(temp);
+        navigate('/main');
+      })
+      .catch(error => {
+        if (error.response.data.errorMsg.code === 'MEMBER_NOT_FOUND') {
+          alert('입력하신 이메일 또는 비밀번호가 일치하지 않습니다.');
+        }
+      });
+  };
 
   return (
     <StyledDiv>
       <StyledSpan>
         Sign in to
         <br />
-        <img src={havit} alt="" />
+        <img src={havit} alt='' />
       </StyledSpan>
-      <StyledInput
-        type="email"
-        top="24vh"
-        placeholder="✉  E-Mail"
-        onChange={onChangeEmail}
-      />
-      <StyledInput
-        type="password"
-        top="32vh"
-        placeholder="🔒  비밀번호"
-        onChange={onChangePassword}
-      />
+      <StyledInput type='email' top='24vh' placeholder='✉  E-Mail' onChange={onChangeEmail} />
+      <StyledInput type='password' top='32vh' placeholder='🔒  비밀번호' onChange={onChangePassword} />
       <StyledButtonDiv>
-        <StyledButton
-          top="40vh"
-          color="white"
-          background="#5C53FF"
-          disabled={!(isEmail && isPassword)}
-          type="submit"
-          onClick={onSubmitHandler}
-        >
+        <StyledButton top='40vh' color='white' background='#5C53FF' disabled={!(isEmail && isPassword)} type='submit' onClick={onSubmitHandler}>
           로그인
         </StyledButton>
         <StyledButton
-          top="47vh"
-          background="white"
+          top='47vh'
+          background='white'
           onClick={() => {
             navigate('/startpage');
-          }}
-        >
+          }}>
           뒤로가기
         </StyledButton>
       </StyledButtonDiv>
@@ -109,10 +92,10 @@ const Signin = () => {
         <span>or</span>
       </StyledOrDiv>
       <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt="" />
+        <StyledNaverButton src={naverButton} alt='' />
+        <StyledKakaoButton src={kakaoButton} alt='' />
       </StyledSocialLogin>
-      <img className="team" src={team} alt="" height="140vh" />
+      <img className='team' src={team} alt='' height='140vh' />
     </StyledDiv>
   );
 };
@@ -159,11 +142,11 @@ const StyledButtonDiv = styled.div`
 `;
 const StyledButton = styled.button`
   position: absolute;
-  top: ${(props) => props.top};
+  top: ${props => props.top};
   width: 80vw;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   border: 1px solid #5c53ff;
-  background-color: ${(props) => props.background};
+  background-color: ${props => props.background};
   padding: 10px;
   border-radius: 30px;
   cursor: pointer;
@@ -175,7 +158,7 @@ const StyledButton = styled.button`
 `;
 const StyledInput = styled.input`
   position: absolute;
-  top: ${(props) => props.top};
+  top: ${props => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
   padding: 10px 30px;
@@ -220,4 +203,3 @@ const StyledKakaoButton = styled.img`
   margin: 0 2vw;
   cursor: pointer;
 `;
-
