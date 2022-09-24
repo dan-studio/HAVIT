@@ -1,4 +1,4 @@
-import { authApi, restApi } from "./config"
+import { authApi, mockApi, restApi } from "./config"
 
 
 export const userApis = {
@@ -12,4 +12,8 @@ export const userApis = {
       })
       return response
   },
+  getgroup: async () => {
+    const response = await mockApi.get('/group')
+    return response
+  }
 }

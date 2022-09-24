@@ -64,26 +64,26 @@ const Signin = () => {
   }
 
   return (
-    <StyledDiv>
-      <StyledSpan>
+    <StDiv>
+      <StSpan>
         Sign in to
         <br />
         <img src={havit} alt="" />
-      </StyledSpan>
-      <StyledInput
+      </StSpan>
+      <StInput
         type="email"
         top="24vh"
         placeholder="✉  E-Mail"
         onChange={onChangeEmail}
       />
-      <StyledInput
+      <StInput
         type="password"
         top="32vh"
         placeholder="🔒  비밀번호"
         onChange={onChangePassword}
       />
-      <StyledButtonDiv>
-        <StyledButton
+      <StButtonDiv>
+        <StButton
           top="40vh"
           color="white"
           background="#5C53FF"
@@ -92,8 +92,8 @@ const Signin = () => {
           onClick={onSubmitHandler}
         >
           로그인
-        </StyledButton>
-        <StyledButton
+        </StButton>
+        <StButton
           top="47vh"
           background="white"
           onClick={() => {
@@ -101,25 +101,25 @@ const Signin = () => {
           }}
         >
           뒤로가기
-        </StyledButton>
-      </StyledButtonDiv>
-      <StyledOrDiv>
-        <StyledHrLeft />
-        <StyledHrRight />
+        </StButton>
+      </StButtonDiv>
+      <StOrDiv>
+        <StHrLeft />
+        <StHrRight />
         <span>or</span>
-      </StyledOrDiv>
-      <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt="" />
-      </StyledSocialLogin>
+      </StOrDiv>
+      <StSocialLogin>
+        <StNaverButton src={naverButton} alt="" />
+        <StKakaoButton src={kakaoButton} alt="" />
+      </StSocialLogin>
       <img className="team" src={team} alt="" height="140vh" />
-    </StyledDiv>
+    </StDiv>
   );
 };
 
 export default Signin;
 
-const StyledDiv = styled.div`
+const StDiv = styled.div`
   display: flex;
   justify-content: center;
   .team {
@@ -138,7 +138,7 @@ const StyledDiv = styled.div`
     }
   }
 `;
-const StyledSpan = styled.span`
+const StSpan = styled.span`
   color: #252224;
   position: absolute;
   left: 15vw;
@@ -152,12 +152,12 @@ const StyledSpan = styled.span`
   }
 `;
 
-const StyledButtonDiv = styled.div`
+const StButtonDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const StyledButton = styled.button`
+const StButton = styled.button`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;
@@ -173,7 +173,7 @@ const StyledButton = styled.button`
     border: 1px solid #ccc;
   }
 `;
-const StyledInput = styled.input`
+const StInput = styled.input`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;
@@ -181,19 +181,19 @@ const StyledInput = styled.input`
   padding: 10px 30px;
   border-radius: 30px;
 `;
-const StyledHrLeft = styled.hr`
+const StHrLeft = styled.hr`
   position: absolute;
   width: 30vw;
   background-color: #cecece;
   left: 10vw;
 `;
-const StyledHrRight = styled.hr`
+const StHrRight = styled.hr`
   position: absolute;
   width: 30vw;
   background-color: #cecece;
   right: 10vw;
 `;
-const StyledOrDiv = styled.div`
+const StOrDiv = styled.div`
   position: absolute;
   top: 53vh;
   color: #cecece;
@@ -202,18 +202,18 @@ const StyledOrDiv = styled.div`
     transform: translateY(1vh);
   }
 `;
-const StyledSocialLogin = styled.div`
+const StSocialLogin = styled.div`
   position: absolute;
   top: 58vh;
 `;
-const StyledNaverButton = styled.img`
+const StNaverButton = styled.img`
   width: 150px;
   height: 40px;
   border-radius: 7px;
   margin: 0 2vw;
   cursor: pointer;
 `;
-const StyledKakaoButton = styled.img`
+const StKakaoButton = styled.img`
   width: 150px;
   height: 40px;
   border-radius: 7px;
