@@ -26,7 +26,7 @@ authApi.interceptors.response.use(
             const refresh_token = getToken();
             if (refresh_token) {
                 axios
-                    .get("리플래시토큰으로 엑세스토큰 재발급해주는 url", {
+                    .get("/api/auth/reissue", {
                         headers: {
                             common: {
                                 refresh_token: `Bearer ${refresh_token}`,
@@ -46,7 +46,7 @@ authApi.interceptors.response.use(
 );
 
 export const getToken = () => {
-    const item = localStorage.getItem(process.env.REACT_TOKEN_SAVE_KEY);
+    const item = localStorage.getItem(process.env.REACT_APP_TOKEN_SAVE_KEY);
     if (item) {
         const token = JSON.parse(item);
         return token;
@@ -56,17 +56,16 @@ export const getToken = () => {
 
 export const setToken = (token) => {
     if (!token?.access_token) {
-        localStorage.setItem(process.env.REACT_TOKEN_SAVE_KEY, "");
+        localStorage.setItem(process.env.REACT_APP_TOKEN_SAVE_KEY, "");
         return false;
     }
     const { access_token, refresh_token } = token;
-    console.log(token)
     const auth_data = {
         access_token,
         refresh_token,
     };
     localStorage.setItem(
-        process.env.REACT_TOKEN_SAVE_KEY,
+        process.env.REACT_APP_TOKEN_SAVE_KEY,
         JSON.stringify(auth_data)
     );
     
