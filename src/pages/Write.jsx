@@ -4,13 +4,14 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import PrimaryButton from "../components/PrimaryButton";
 import SubButton from "../components/SubButton";
 import Location from "../components/layout/Location";
-// import Uploader from "../input/Uploader";
-// import { Upload } from "antd";
+
+import Uploader from "../components/input/Uploader";
+import { Upload } from "antd";
 
 
 import { IoLocationOutline } from 'react-icons/io5';
 
-const Write = () => {
+const Write = (props) => {
   const register = console.log("등록완료");
   const locationRef = React.useRef();
 
@@ -32,8 +33,9 @@ const Write = () => {
       <WriteBox>
         <AddPhoto>
           <IconBox>
-            <AiOutlinePlusCircle size="60" color="lightgray" />
-            {/* <Uploader /> */}
+            {/* <AiOutlinePlusCircle size="60" color="lightgray" /> */}
+            {/* <Uploader className={styles.upload}></Uploader> */}
+            <Uploader ></Uploader>
           </IconBox>
         </AddPhoto>
         <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between", alignItems:'center'}}>
@@ -86,7 +88,7 @@ const InputTitle = styled.input`
 `;
 const IconBox = styled.div`
   /* position: center; */
-  margin: 160px 160px 160px 160px;
+  margin: 120px 160px 100px 120px;
 `;
 
 const AddLocation = styled.button`

@@ -2719,6 +2719,11 @@ ansi-styles@^5.0.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
   integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
+antd-upload@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/antd-upload/-/antd-upload-1.0.0.tgz#c8835300c5981e848a515ec76998458555cc0671"
+  integrity sha512-ImjRG4SrM60ReIqeQsEjhQuMQY4cDM/vx/Odackqx1u6kD6eqIi7/DFqEbyYT17Irykf1RgoD3vQb+y4ECCtcg==
+
 antd@^4.23.2:
   version "4.23.2"
   resolved "https://registry.yarnpkg.com/antd/-/antd-4.23.2.tgz#6bbd2d4bfb066b501fa606cab0df3bf1e758298e"
