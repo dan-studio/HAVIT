@@ -1,5 +1,4 @@
-import { authApi, restApi } from './config';
-// auth:인증 / rest:그 외!!!
+import { authApi, mockApi, restApi } from "./config"
 
 export const userApis = {
   signup: async data => {
@@ -17,4 +16,9 @@ export const userApis = {
     const reponse = await restApi.get('api/mypage', data);
     return reponse.data;
   },
-};
+  getgroup: async () => {
+    const response = await mockApi.get('/group')
+    return response
+  }
+}
+

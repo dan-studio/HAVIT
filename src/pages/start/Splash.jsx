@@ -21,33 +21,33 @@ const Start = () => {
     }, 2000);
   }, );
   return (
-    <StyledDiv>
-      <StyledImg src={logo} />
-      <StyledP>혼자가 아닌, 함께 만들어가는 습관.</StyledP>
-      <StyledSpinner />
-    </StyledDiv>
+    <StDiv>
+      <StImg src={logo} />
+      <StParagraph>혼자가 아닌, 함께 만들어가는 습관.</StParagraph>
+      <StSpinner />
+    </StDiv>
   );
 };
 
 export default Start;
 
-const StyledDiv = styled.div`
+const StDiv = styled.div`
   height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const StyledImg = styled.img`
+const StImg = styled.img`
   width: 200px;
 `;
-const StyledP = styled.p`
+const StParagraph = styled.p`
   margin-top: 35vh;
   position: absolute;
   font-size: 16px;
   text-align: center;
   color: #575757;
 `;
-const StyledSpinner = styled.div`
+const StSpinner = styled.div`
   box-sizing: border-box;
   position: absolute;
   top: 65vh;
