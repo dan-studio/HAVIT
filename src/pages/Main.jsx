@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { resetLayout, setLayout } from "../redux/layout";
-import UserProfile from "../components/UserProfile";
-import GroupCard from "../components/cards/GroupCard";
-import ChallengeCard from "../components/cards/ChallengeCard";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { resetLayout, setLayout } from '../redux/layout';
+import UserProfile from '../components/UserProfile';
+import GroupCard from '../components/cards/GroupCard';
+import ChallengeCard from '../components/cards/ChallengeCard';
+
+import { IoIosArrowForward } from 'react-icons/io';
+
 const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -13,21 +16,25 @@ const Index = () => {
       dispatch(resetLayout());
     };
   }, []);
+
   return (
-    <>
-      <StyledTopDiv>
-        <UserProfile />
-      </StyledTopDiv>
+    <div style={{ display: 'flex', flexDirection: 'column', background: '#5e43ff' }}>
+      {/* <StyledTopDiv> */}
+      <UserProfile />
+      {/* </StyledTopDiv> */}
       <StyledBottomDiv>
         <Group>
-          <GroupTitle>김병처리님 이런 그룹은 어떠세요</GroupTitle>
-          <GroupPhotoBox>
-            <GroupCard />
-            <GroupCard />
-            <GroupCard />
-            <GroupCard />
-          </GroupPhotoBox>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <h2>김병처리님 이런그룹은 어떠세요?</h2>
+            <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
+          </div>
         </Group>
+        <GroupPhotoBox>
+          <GroupCard />
+          <GroupCard />
+          <GroupCard />
+          <GroupCard />
+        </GroupPhotoBox>
         <Challenge>
           <ChallengeTitle>함께 챌린지를 완수해요</ChallengeTitle>
           <ChallengeCard />
@@ -39,23 +46,20 @@ const Index = () => {
         </Challenge>
         <DragLine></DragLine>
       </StyledBottomDiv>
-    </>
+    </div>
   );
 };
 
 export default Index;
 
-const StyledTopDiv = styled.div`
-  background-color: #5e43ff;
-  height: 40vh;
-`;
 const StyledBottomDiv = styled.div`
-  position: absolute;
-  top: 37vh;
-  background-color: white;
-  border-radius: 30px;
-  height: 60vh;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 15px 0 30px 0;
+  position: relative;
+  background-color: #fff;
+  border-radius: 30px 30px 0 0;
 `;
 const DragLine = styled.div`
   position: absolute;
@@ -69,10 +73,27 @@ const DragLine = styled.div`
     return theme.color.lightgray;
   }};
 `;
+
 const Group = styled.div`
-  position: absolute;
-  top: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 15px 0 30px 0;
+  position: relative;
+  background-color: #fff;
+  border-radius: 30px 30px 0 0;
+
+  & > div {
+    margin: 35px 20px 0 20px;
+    & > h2 {
+      font-weight: 700;
+      font-size: 20px;
+      margin: 0;
+      line-height: 24px;
+    }
+  }
 `;
+
 const GroupTitle = styled.div`
   margin: 0 10px 10px;
   font-weight: bold;
@@ -80,15 +101,18 @@ const GroupTitle = styled.div`
 `;
 const GroupPhotoBox = styled.div`
   display: flex;
-  flex-direction: row;
   width: 100vw;
-  height: 22vh;
+  height: 12.5rem; 
+  margin-bottom: 70px;
   overflow-x: scroll;
   overflow-y: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Challenge = styled.div`
-  position: absolute;
-  top: 35vh;
+  /* position: absolute; */
+  /* top: 35vh; */
   width: 100vw;
   margin: 0 auto;
 `;

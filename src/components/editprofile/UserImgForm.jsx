@@ -1,7 +1,12 @@
 import styled from 'styled-components';
+import Uploader from '../input/Uploader';
 
 const UserImgForm = () => {
-  return <UserImg></UserImg>;
+  return (
+    <UserImg>
+      <Uploader />
+    </UserImg>
+  );
 };
 const UserImg = styled.div`
   width: 130px;
@@ -10,10 +15,8 @@ const UserImg = styled.div`
   border: 1px solid gray;
   border-radius: 100%;
   overflow: hidden;
-  & > img {
-    width: 92px;
-    height: 92px;
-    object-fit: cover;
+  & > Uploader {
+    margin: auto;
   }
 `;
 

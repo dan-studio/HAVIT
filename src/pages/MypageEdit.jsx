@@ -3,6 +3,8 @@ import { setLayout } from '@redux/layout';
 import { useEffect, useState, useCallback } from 'react';
 import { resetLayout } from '../redux/layout';
 import styled, { css } from 'styled-components';
+// import { userApis } from '../../apis/auth';
+// import { setToken } from '../../apis/config';
 
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
@@ -14,6 +16,12 @@ import { Navigate } from 'react-router-dom';
 const MypageEdit = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(setLayout({ showHeader: false }));
+    return () => {
+      dispatch(resetLayout());
+    };
+  }, []);
   // ###########################################
   // ## SECTION State                        ###
   // ###########################################
@@ -23,6 +31,7 @@ const MypageEdit = () => {
   const [password, setPassword] = useState('기존비번');
   const [newPw, setNewPw] = useState('');
   const [newPwConfirm, setNewPwConfirm] = useState('');
+  const [userProfile, setUserProfile] = useState('');
 
   // WHAT 상태 메세지
   const [nicknameMsg, setNicknameMsg] = useState('');
@@ -37,11 +46,22 @@ const MypageEdit = () => {
   // ###########################################
   // ## SECTION 핸들러                        ###
   // ###########################################
-
-  const onSubmitHandler = e => {
-    e.preventDefault();
-    const data = { nickname, newPw, newPwConfirm };
-    console.log('🚀 ~ onSubmitHandler ~ data', data);
+  const onSubmitHandler = () => {
+    console.log('바보');
+    // userApis
+    //   .signin(email, password)
+    //   .then(response => {
+    //     console.log(response);
+    //     alert(`${response.data.data.nickname}님 환영합니다!`);
+    //     const temp = { access_token: response.headers.authorization, refresh_token: response.headers['refresh-token'] };
+    //     setToken(temp);
+    //     navigate('/main');
+    //   })
+    //   .catch(error => {
+    //     if (error.response.data.errorMsg.code === 'MEMBER_NOT_FOUND') {
+    //       alert('입력하신 이메일 또는 비밀번호가 일치하지 않습니다.');
+    //     }
+    //   });
   };
 
   // ###########################################
@@ -90,7 +110,7 @@ const MypageEdit = () => {
   });
 
   // ###########################################
-  // ## SECTION Return 부분                   ###
+  // ## SECTION VIEW 부분                     ###
   // ###########################################
   return (
     <>
