@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import React from "react";
-import { FaStarHalfAlt } from "react-icons/fa";
-import { useState } from "react";
-import { MdPeopleAlt } from "react-icons/md";
-import { FaBell } from "react-icons/fa";
+import styled from 'styled-components';
+import React from 'react';
+import { FaStarHalfAlt } from 'react-icons/fa';
+import { useState } from 'react';
+import { MdPeopleAlt } from 'react-icons/md';
+import { FaBell } from 'react-icons/fa';
 
 // import groupProfile from "../img/profile.jpg";
 
-import { BsTrophy } from "react-icons/bs";
+import { BsTrophy } from 'react-icons/bs';
 
 const UserProfile = () => {
   return (
@@ -41,7 +41,7 @@ const UserProfile = () => {
 const StProfile = styled.div`
   height: 168px;
   width: 350px;
-  margin: 0 auto;
+  margin: 0 auto 3.125rem;
   box-sizing: border-box;
   background: #ffffff;
   border-style: solid;
