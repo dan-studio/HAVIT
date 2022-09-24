@@ -39,11 +39,9 @@ export const authSlice = createSlice({
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    principal:[],
+    principal: [],
   },
-  reducer: {
-    
-  }
+  reducer: {},
 });
 
 export const { setPrincipal, clearPrincipal } = authSlice.actions;

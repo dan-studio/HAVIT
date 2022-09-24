@@ -22,6 +22,7 @@ export const userApis = {
     });
     return response.data;
   },
+  
   getgroup: async () => {
     const response = await mockApi.get("/group");
     return response;
