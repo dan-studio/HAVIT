@@ -3,12 +3,21 @@ import axios from "axios";
 export const getAPIHost = () => {
     return process.env.REACT_APP_API_HOST;
 };
+
+export const getLocalAPI = () => {
+    return "http://localhost:3001"
+}
+
 export const restApi = axios.create({
     baseURL: getAPIHost(),
 });
 export const authApi = axios.create({
     baseURL: getAPIHost(),
 });
+
+export const mockApi = axios.create({
+    baseURL: getLocalAPI(),
+})
 
 authApi.interceptors.request.use(async (req) => {
     const token = getToken();

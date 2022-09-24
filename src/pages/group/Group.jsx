@@ -1,37 +1,45 @@
-import { PlusCircleFilled } from '@ant-design/icons';
-import { Row, Select } from 'antd';
-import styled from 'styled-components';
-import CrewInfo from '@components/cards/CrewInfo';
-import styles from './group_list.module.less';
-import { useNavigate } from 'react-router';
-import ArrowButton from '@components/button/ArrowButton';
-import React from 'react';
+import { PlusCircleFilled } from "@ant-design/icons";
+import { Row, Select } from "antd";
+import styled from "styled-components";
+import CrewInfo from "@components/cards/CrewInfo";
+import styles from "./group_list.module.less";
+import { useNavigate } from "react-router";
+import ArrowButton from "@components/button/ArrowButton";
+import React, { useEffect, useState } from "react";
+import { userApis } from "../../apis/auth";
 // /grup
 const Group = () => {
+  const [crew, setCrew] = useState('')
   const navigate = useNavigate();
+  useEffect(() => {
+    userApis
+      .getgroup()
+      .then((res) => {
+        setCrew(res.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
-    <Container id={'content'}>
+    <Container id={"content"}>
       <Row>
-        <Select className={styles.pop_radius} defaultValue={'all'}>
-          <Select.Option value='all'>전체</Select.Option>
+        <Select className={styles.pop_radius} defaultValue={"all"}>
+          <Select.Option value="all">전체</Select.Option>
         </Select>
       </Row>
       <Row>
-        <AddGroupContainer onClick={() => navigate('create')}>
+        <AddGroupContainer onClick={() => navigate("create")}>
           <PlusCircleFilled
             style={{
-              color: 'rgba(58,58,58,0.3)',
-              fontSize: '2.25rem',
+              color: "rgba(58,58,58,0.3)",
+              fontSize: "2.25rem",
             }}
           />
           새 크루 생성
         </AddGroupContainer>
       </Row>
-      <CrewInfo type='list'></CrewInfo>
-      <CrewInfo type='list'></CrewInfo>
-      <CrewInfo type='list'></CrewInfo>
-      <CrewInfo type='list'></CrewInfo>
-      <CrewInfo type='list'></CrewInfo>
+      {crew&&crew.map((item, idx)=><CrewInfo type="list" {...item} key={idx}/>)}
       <Box>
         더이상 그룹이 없어요.
         <ArrowButton />
