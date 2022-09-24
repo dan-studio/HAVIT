@@ -15,14 +15,12 @@ const Group = () => {
     userApis
       .getgroup()
       .then((res) => {
-        console.log(res);
         setCrew(res.data)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-console.log(crew)
   return (
     <Container id={"content"}>
       <Row>
