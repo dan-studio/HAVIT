@@ -5,19 +5,32 @@ import AlertUser from '@components/cards/AlertUser';
 
 import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { resetLayout, setLayout } from '../redux/layout';
 import UserProfile from '../components/UserProfile';
+import { userApis } from './../apis/auth';
 
 const Mypage = () => {
-  const invertHeader = useSelector(state=>state.layout)
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(setLayout({isInvert:true}))
-    return ()=>{
-      dispatch(resetLayout())
-    }
-  },[])
+  const invertHeader = useSelector(state => state.layout);
+  const dispatch = useDispatch();
+
+  const [group, setGroup] = useState('');
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    dispatch(setLayout({ isInvert: true }));
+    return () => {
+      dispatch(resetLayout());
+    };
+  }, []);
+
+  useEffect(() => {
+    userApis.getgroup().then(res => {
+      setGroup(res.data);
+    });
+  }, []);
+
+  console.log(group);
 
   return (
     <Wrap>
@@ -29,11 +42,10 @@ const Mypage = () => {
         {/* <Bar /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>내가 속한 크루</h2>
-          <IoIosArrowForward style={{ fontSize: '20px', color:'#DE4242' }} />
+          <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
-        <CrewInfo />
-        <CrewInfo />
-        <CrewInfo />
+        {group && group.map((item, idx) => <CrewInfo {...item} key={idx}/> )}
+        
       </Crews>
 
       {/* 알림 */}
@@ -42,8 +54,6 @@ const Mypage = () => {
           <h2>알림</h2>
           <IoIosArrowForward style={{ fontSize: '20px' }} />
         </div>
-        <AlertUser />
-        <AlertUser />
         <AlertUser />
       </Alert>
     </Wrap>

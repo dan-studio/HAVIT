@@ -11,7 +11,6 @@ export const userDataField = {
 // 모든 유저 받아오기
 export const getUsers = async ({ pagenation }) => {
     const res = await restApi.get("user/list", { params: pagenation });
-
     return res;
 };
 
