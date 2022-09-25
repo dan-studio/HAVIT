@@ -6,11 +6,14 @@ import Search from "@components/layout/Search";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 
+
+
 const Header = () => {
   const navigate = useNavigate();
   const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const invert = useSelector((state) => state.layout);
+  
   // 5E43FF
 
   useEffect(() => {
