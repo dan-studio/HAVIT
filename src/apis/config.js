@@ -40,7 +40,7 @@ authApi.interceptors.response.use(
             const refresh_token = getToken();
             if (refresh_token) {
                 axios
-                    .post("/api/auth/reissue", {
+                    .post(getAPIHost()+"/api/auth/reissue", {
                         headers: {
                             common: {
                                 refresh_token: `Bearer ${refresh_token}`,

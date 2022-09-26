@@ -1,13 +1,10 @@
 import styled, { css } from "styled-components";
-import { useState } from "react";
 import { MdPeopleAlt } from "react-icons/md";
 import { HiStar } from "react-icons/hi";
 
 // 컴포넌트
-import DayBadge from "../DayBadge";
 import Tags from "../Tag";
-import { Tag } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const CrewInfo = ({
   data,
@@ -24,9 +21,10 @@ const CrewInfo = ({
   console.log(groupId);
   const routeHandler = () => {
     console.log(groupId);
-    navigate(`/group/detail/${groupId}`);
+    navigate(`/group/${groupId}`);
   };
   return (
+    <>
     <StCard type={type}>
       <StGroupImg src={imgUrl} onClick={routeHandler} />
       <StGroupInfo>
@@ -46,6 +44,7 @@ const CrewInfo = ({
             groupTag.map((item, idx) => <Tags item={item} key={idx} />)}
         </StTagDiv>
       </StGroupInfo>
+     
       {favorite && (
         <HiStar
           style={{
@@ -59,6 +58,8 @@ const CrewInfo = ({
         />
       )}
     </StCard>
+     
+     </>
   );
 };
 export default CrewInfo;

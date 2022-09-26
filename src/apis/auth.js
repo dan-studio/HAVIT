@@ -21,14 +21,16 @@ export const userApis = {
     return reponse.data;
   },
   getGroup: async () => {
+    // const response = await authApi.get("/api/auth/group/");
     const response = await mockApi.get("/group");
     return response;
   },
   getGroupDetail: async (id) => {
+    // const response = await mockApi.get("/api/auth/group/"+id);
     const response = await mockApi.get("/group");
-    const findDetail = response.data.find((item) => item.groupId === id);
-    console.log(findDetail);
-    return findDetail;
+    console.log(response)
+    const detail = response.data.find(item=>item.groupId===id)
+    return detail;
   },
   uploadImage: async (data) => {
     const response = await authApi.post("/api/auth/certify/", data);

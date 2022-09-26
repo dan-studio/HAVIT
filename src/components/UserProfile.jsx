@@ -10,6 +10,7 @@ import { FaBell } from 'react-icons/fa';
 import { BsTrophy } from 'react-icons/bs';
 
 const UserProfile = () => {
+  
   return (
     <div>
       <StProfile>

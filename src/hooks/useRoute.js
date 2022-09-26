@@ -96,8 +96,8 @@ const pages = [
     screen: Group,
     child: [
       {
-        path: "/detail/:groupId",
-        title: "그룹 정보",
+        path: "/:groupId",
+        title: "그룹 상세",
         screen: GroupDetail,
       },
       {
