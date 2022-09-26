@@ -3,10 +3,21 @@ import CrewInfo from "@components/cards/CrewInfo";
 import { Divider } from "antd";
 import List from "@components/list/MemberList";
 import PhotoList from "@components/list/PhotoList";
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { userApis } from "../../apis/auth";
 
 // /grup
 const GroupDetail = () => {
+    const id = useParams()
+    console.log(id)
+    useEffect(()=>{
+        userApis.getGroupDetail(id).then((res)=>{
+            console.log(res)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    },[])
     return (
         <Container id={"content"}>
             <CrewInfo type="detail"></CrewInfo>
