@@ -33,7 +33,8 @@
     "start:prod": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "server": "json-server --watch db.json --port 3001"
   },
   "eslintConfig": {
     "extends": [
