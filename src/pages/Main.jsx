@@ -7,8 +7,10 @@ import GroupCard from '../components/cards/GroupCard';
 import ChallengeCard from '../components/cards/ChallengeCard';
 
 import { IoIosArrowForward } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
@@ -26,7 +28,7 @@ const Index = () => {
         <Group>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2>김병처리님 이런그룹은 어떠세요?</h2>
-            <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
+            <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} onClick={()=>{navigate('/group')}}/>
           </div>
         </Group>
         <GroupPhotoBox>

@@ -7,10 +7,12 @@ import { HiStar } from "react-icons/hi";
 import DayBadge from "../DayBadge";
 import Tags from "../Tag";
 import { Tag } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CrewInfo = ({
   data,
   type = "shadow",
+  groupId,
   title,
   startDate,
   memberCount,
@@ -18,9 +20,15 @@ const CrewInfo = ({
   groupTag,
   favorite,
 }) => {
+  const navigate = useNavigate();
+console.log(groupId)
+  const routeHandler = () => {
+    console.log(groupId);
+    navigate(`/group/detail/${groupId}`);
+  };
   return (
     <StCard type={type}>
-      <StGroupImg src={imgUrl} />
+      <StGroupImg src={imgUrl} onClick={routeHandler}/>
       <StGroupInfo>
         <h2>{title}</h2>
         <StDayInfo>
