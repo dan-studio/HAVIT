@@ -5,7 +5,6 @@ export const userApis = {
     const response = await restApi.post('/api/signup', data);
     return response.data;
   },
-
   signin: async (email, password) => {
     const response = await authApi.post('/api/login', {
       email,
@@ -13,7 +12,33 @@ export const userApis = {
     });
     return response;
   },
-
+  logout: async()=>{
+    const response = await authApi.post("/api/auth/logout",{
+    })
+    return response
+  }
+  ,
+  userProfile: async (data) => {
+    const reponse = await restApi.get("api/mypage", data);
+    return reponse.data;
+  },
+  getGroup: async () => {
+    const response = await mockApi.get("/group");
+    return response;
+  },
+  getGroupDetail: async (id) => {
+    const response = await mockApi.get("/group");
+   const findDetail = response.data.find(item=>item.groupId===id)
+   console.log(findDetail)
+    return findDetail
+  }
+    uploadImage: async (data) => {
+    const response = await mockApi.post(`/certify`, data);
+    console.log("response",response)
+    return response;
+  },
+  
+   // 마이페이지내에서의 유저정보
   usersInfo: async (nickname, profileUrl, crew) => {
     const response = await mockApi.get('/users', { nickname, profileUrl, crew });
     return response;
@@ -26,10 +51,5 @@ export const userApis = {
       passwordConfirm,
     });
     return response.data;
-  },
-
-  getgroup: async data => {
-    const response = await mockApi.get('/group', data);
-    return response;
   },
 };

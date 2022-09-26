@@ -20,7 +20,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
     <StCard type={type}>
       <StGroupImg src={imgUrl} onClick={routeHandler} />
       <StGroupInfo>
-        <h2>{title}</h2>
+        <h2 onClick={routeHandler}>{title}</h2>
         <StDayInfo>
           <span>{startDate} 생성됨</span>
           <StCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
