@@ -39,23 +39,24 @@ const Signup = () => {
     const data = {
       email, nickname, password, passwordConfirm
     }
-    console.log(data)
     userApis.signup(data)
     .then((res)=>{
       alert('회원가입이 완료되었어요 😉')
       navigate('/signin')
       console.log(res)
     }).catch((error)=>{
-      console.log(error.response.data.errorMsg.message)
       if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
-        alert("중복된 이메일주소가 존재합니다.")
+        alert(error.response.data.errorMsg.message)
+      }
+      if(error.response.data.errorMsg.code==="INVALID_EMAIL"){
+        alert(error.response.data.errorMsg.message)
       }
     })
   };
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      /([\w-.]{2,})@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
 
@@ -114,15 +115,15 @@ const Signup = () => {
   );
 
   return (
-    <StyledDiv>
-      <StyledSpan>
+    <StDiv>
+      <StSpan>
         Come aboard, <br />
         Let's make <br />
         <img src={havit} alt="" />
         <br />
         Together!
-      </StyledSpan>
-      <StyledInput
+      </StSpan>
+      <StInput
         type="email"
         top="32vh"
         placeholder="✉  E-Mail"
@@ -136,7 +137,7 @@ const Signup = () => {
           {emailMessage}
         </span>
       )}
-      <StyledInput
+      <StInput
         type="text"
         top="40vh"
         placeholder="🙋‍♂️  닉네임"
@@ -150,7 +151,7 @@ const Signup = () => {
           {nicknameMessage}
         </span>
       )}
-      <StyledInput
+      <StInput
         type="password"
         top="48vh"
         placeholder="🔒  비밀번호"
@@ -164,7 +165,7 @@ const Signup = () => {
           {passwordMessage}
         </span>
       )}
-      <StyledInput
+      <StInput
         type="password"
         top="56vh"
         placeholder="🔒  비밀번호 확인"
@@ -180,8 +181,8 @@ const Signup = () => {
         </span>
       )}
       <img className="team" src={team} alt="" height="125vh" />
-      <StyledButtonDiv>
-        <StyledButton
+      <StButtonDiv>
+        <StButton
           top="80vh"
           color="white"
           background="#5C53FF"
@@ -190,24 +191,24 @@ const Signup = () => {
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
           회원가입 완료
-        </StyledButton>
-        <StyledButton
+        </StButton>
+        <StButton
           top="87vh"
           background="white"
           onClick={() => {
-            navigate(-1);
+            navigate('/startpage');
           }}
         >
           뒤로가기
-        </StyledButton>
-      </StyledButtonDiv>
-    </StyledDiv>
+        </StButton>
+      </StButtonDiv>
+    </StDiv>
   );
 };
 
 export default Signup;
 
-const StyledDiv = styled.div`
+const StDiv = styled.div`
   display: flex;
   justify-content: center;
   .team {
@@ -226,26 +227,27 @@ const StyledDiv = styled.div`
     }
   }
 `;
-const StyledSpan = styled.span`
+const StSpan = styled.span`
   color: #252224;
   position: absolute;
   left: 15vw;
   top: 7vh;
   font-weight: 400;
-  font-size: 35px;
-  line-height: 50px;
+  font-size: 30px;
+  line-height: 38px;
   img {
     position: absolute;
     margin-top: .75vh;
+    width: 140px;
   }
 `;
 
-const StyledButtonDiv = styled.div`
+const StButtonDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const StyledButton = styled.button`
+const StButton = styled.button`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;
@@ -261,7 +263,7 @@ const StyledButton = styled.button`
     border: 1px solid #ccc;
 }
 `;
-const StyledInput = styled.input`
+const StInput = styled.input`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;

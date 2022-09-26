@@ -1,24 +1,21 @@
-// 준묵님
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { FiSettings, FiSearch } from "react-icons/fi";
-import Search from "@components/layout/Search";
-import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { FiSettings, FiSearch } from 'react-icons/fi';
+import Search from '@components/layout/Search';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 
 
 
 const Header = () => {
+  const searchRef = useRef();
   const navigate = useNavigate();
-  const searchRef = React.useRef();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const invert = useSelector((state) => state.layout);
-  
-  // 5E43FF
-
   useEffect(() => {
     let handler = e => {
-      if (!searchRef.current.contains(e.target)) {
+      if (!searchRef.current?.contains(e.target)) {
         setShowSearchForm(false);
       }
     };
@@ -30,52 +27,55 @@ const Header = () => {
 
   return (
     <>
-      <Container id="header" invert = {invert.isInvert}>
+      <Container id='header' invert={invert.isInvert}>
         {invert.isInvert ? (
           <StyledInvertedLogo
-            alt="logo"
-            src={require("@assets/HavitWhite.png")}
+            alt='logo'
+            src={require('@assets/HavitWhite.png')}
             onClick={() => {
-              navigate("/main");
+              navigate('/main');
             }}
           />
         ) : (
           <StyledLogo
-            alt="logo"
-            src={require("@assets/havit.png")}
+            alt='logo'
+            src={require('@assets/havit.png')}
             onClick={() => {
-              navigate("/main");
+              navigate('/main');
             }}
           />
         )}
-          
-          <Icons invert={invert.isInvert}>
-            <FiSearch onClick={() => setShowSearchForm(true)} />
+
+        <Icons invert={invert.isInvert}>
+          <Setting>
+            <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }} />
             <FiSettings
               onClick={() => {
-                navigate("mypage/edit");
+                navigate('mypage/edit');
               }}
             />
-          </Icons>
+            <AlertSign></AlertSign>
+          </Setting>
+        </Icons>
       </Container>
-      {!!showSearchForm ? <Search searchRef={searchRef}/> : <></>}
+      {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
     </>
   );
 };
 const Container = styled.div`
-  background-color: ${props=>props.invert?"#5E43FF":"white"};
+  background-color: ${props => (props.invert ? '#5E43FF' : 'white')};
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: auto;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 55px 20px 40px 20px;
   justify-content: space-between;
 `;
 const Icons = styled.div`
   font-size: 22px;
-  color: ${props=>props.invert?"white":"#b0b0b0"};
+  color: ${props => (props.invert ? 'white' : '#b0b0b0')};
   & > * {
     margin: 0 0.25rem;
     &:hover {
@@ -84,11 +84,23 @@ const Icons = styled.div`
   }
 `;
 const StyledLogo = styled.img`
-  height: 30px;
+  width: 120px;
   cursor: pointer;
 `;
 const StyledInvertedLogo = styled.img`
-  height: 30px;
+  width: 120px;
   cursor: pointer;
+`;
+const Setting = styled.div`
+  position: relative;
+`;
+const AlertSign = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: red;
 `;
 export default Header;

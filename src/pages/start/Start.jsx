@@ -17,15 +17,15 @@ const Login = () => {
   }, []);
 
   return (
-    <StyledDiv>
-      <StyledSpan>
+    <StDiv>
+      <StSpan>
         환영해요 <br />
         <img src={havit} alt="" /> &emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; 은{" "}
         <br />
         처음이신가요?
-      </StyledSpan>
-      <StyledButtonDiv>
-        <StyledButton
+      </StSpan>
+      <StButtonDiv>
+        <StButton
           top="65vh"
           color="white"
           background="#5C53FF"
@@ -34,8 +34,8 @@ const Login = () => {
           }}
         >
           네, 처음이에요
-        </StyledButton>
-        <StyledButton
+        </StButton>
+        <StButton
           top="71vh"
           background="white"
           onClick={() => {
@@ -43,16 +43,16 @@ const Login = () => {
           }}
         >
           아니요, 이미 회원이에요
-        </StyledButton>
-      </StyledButtonDiv>
-    </StyledDiv>
+        </StButton>
+      </StButtonDiv>
+    </StDiv>
   );
 };
 
 export default Login;
 
-const StyledDiv = styled.div``;
-const StyledSpan = styled.span`
+const StDiv = styled.div``;
+const StSpan = styled.span`
   color: #252224;
   position: absolute;
   left: 15vw;
@@ -66,12 +66,12 @@ const StyledSpan = styled.span`
   }
 `;
 
-const StyledButtonDiv = styled.div`
+const StButtonDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const StyledButton = styled.button`
+const StButton = styled.button`
   position: absolute;
   top: ${(props) => props.top};
   width: 70vw;
