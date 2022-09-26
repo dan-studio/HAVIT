@@ -1,28 +1,31 @@
 import styled from 'styled-components';
 import React from 'react';
 import { FaStarHalfAlt } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MdPeopleAlt } from 'react-icons/md';
 import { FaBell } from 'react-icons/fa';
+import { userApis } from '../apis/auth';
 
 // import groupProfile from "../img/profile.jpg";
 
 import { BsTrophy } from 'react-icons/bs';
 
-const UserProfile = () => {
+const UserProfile = ({ data, type = 'shadow', nickName }) => {
+  console.log('🚀 ⁝ UserProfile ⁝ data', data);
+
   return (
     <div>
       <StProfile>
         <StUserBox>
           <StUserRight>
-            <StUserPhoto src="https://images.unsplash.com/photo-1616994503361-04ac7f5f6aac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80"></StUserPhoto>
+            <StUserPhoto src='https://images.unsplash.com/photo-1616994503361-04ac7f5f6aac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80'></StUserPhoto>
           </StUserRight>
           <StUserLeft>
             <UserName>
-              <span>김병처리</span> 님
+              <span>{nickName}</span> 님
             </UserName>
             <StUserIntr>세상에서 제일가는 장난꾸러기</StUserIntr>
-            <StPercentage value="50" max="100"></StPercentage>
+            <StPercentage value='50' max='100'></StPercentage>
             <StAchievements>
               <FaStarHalfAlt /> 시작이 반이다 <br />
               <BsTrophy /> 첫 완수
