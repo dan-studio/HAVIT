@@ -16,8 +16,13 @@ export const authApi = axios.create({
 });
 
 export const mockApi = axios.create({
-  baseURL: getLocalAPI(),
-});
+    baseURL: getLocalAPI(),
+    headers: {
+		"content-type": "application/json;charset=UTF-8",
+		accept: "application/json,",
+	},
+	withCredentials: true,
+})
 
 authApi.interceptors.request.use(async req => {
   const token = getToken();
@@ -28,27 +33,29 @@ authApi.interceptors.request.use(async req => {
 });
 
 authApi.interceptors.response.use(
-  res => res,
-  err => {
-    const status = err.response?.status;
-    if (status === 403 || status === 401) {
-      const refresh_token = getToken();
-      if (refresh_token) {
-        axios
-          .post('/api/auth/reissue', {
-            headers: {
-              common: {
-                refresh_token: `Bearer ${refresh_token}`,
-              },
-            },
-          })
-          .then(req => {
-            setToken(req.data);
-          })
-          .catch(() => {
-            window.location.reload();
-          });
-      } else window.location.reload();
+    (res) => res,
+    (err) => {
+        const status = err.response?.status;
+        if (status === 403 || status === 401) {
+            const refresh_token = getToken();
+            if (refresh_token) {
+                axios
+                    .post("/api/auth/reissue", {
+                        headers: {
+                            common: {
+                                refresh_token: `Bearer ${refresh_token}`,
+                            },
+                        },
+                    })
+                    .then((req) => {
+                        setToken(req.data);
+                    })
+                    .catch((err) => {
+                       console.log(err)
+                    });
+            } 
+        }
+        return Promise.reject(err);
     }
     return Promise.reject(err);
   }
