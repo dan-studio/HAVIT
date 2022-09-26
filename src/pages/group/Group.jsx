@@ -3,7 +3,7 @@ import { Row, Select } from "antd";
 import styled from "styled-components";
 import CrewInfo from "@components/cards/CrewInfo";
 import styles from "./group_list.module.less";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
 import React, { useEffect, useState } from "react";
 import { userApis } from "../../apis/auth";
@@ -21,6 +21,7 @@ const Group = () => {
         console.log(err);
       });
   }, []);
+ 
   return (
     <Container id={"content"}>
       <Row>
