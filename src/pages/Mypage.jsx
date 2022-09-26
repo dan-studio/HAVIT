@@ -15,8 +15,9 @@ const Mypage = () => {
   const dispatch = useDispatch();
 
   const [group, setGroup] = useState('');
-  const [user, setUser] = useState('');
+  const [friends, setFriends] = useState('');
 
+  // 레이아웃 관련 설정
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -24,13 +25,21 @@ const Mypage = () => {
     };
   }, []);
 
+  // 그룹 가져오기
   useEffect(() => {
     userApis.getgroup().then(res => {
       setGroup(res.data);
+      console.log('🚀 * userApis.getgroup * setGroup', setGroup);
     });
   }, []);
 
-  console.log(group);
+  // 사람 가져오기
+  useEffect(() => {
+    userApis.usersInfo().then(res => {
+      setFriends(res.data);
+      console.log('🚀 * userApis.userInfo * setFriends', setFriends);
+    });
+  }, []);
 
   return (
     <Wrap>
@@ -44,8 +53,7 @@ const Mypage = () => {
           <h2>내가 속한 크루</h2>
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
-        {group && group.map((item, idx) => <CrewInfo {...item} key={idx}/> )}
-        
+        {group && group.map((item, idx) => <CrewInfo {...item} key={idx} />)}
       </Crews>
 
       {/* 알림 */}
@@ -54,7 +62,7 @@ const Mypage = () => {
           <h2>알림</h2>
           <IoIosArrowForward style={{ fontSize: '20px' }} />
         </div>
-        <AlertUser />
+        {friends && friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
       </Alert>
     </Wrap>
   );
