@@ -36,19 +36,9 @@ export const userApis = {
     const response = await authApi.post("/api/auth/certify/", data);
     return response;
   },
-  
-   // 마이페이지내에서의 유저정보
+  // 마이페이지내에서의 유저정보
   usersInfo: async (nickname, profileUrl, crew) => {
     const response = await mockApi.get('/users', { nickname, profileUrl, crew });
     return response;
-  },
-
-  editProfile: async (nickname, password, passwordConfirm) => {
-    const response = await mockApi.post('/users', {
-      nickname,
-      password,
-      passwordConfirm,
-    });
-    return response.data;
   },
 };
