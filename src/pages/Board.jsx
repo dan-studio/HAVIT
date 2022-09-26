@@ -1,8 +1,24 @@
 import styled from "styled-components";
 import React from "react";
 import {IoSearch} from 'react-icons/io5'
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Board = () => {
+
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const {id}  = useParams();
+  // const certify_list = useSelector((state) => state.certify)
+  // useEffect(() => {
+  //   dispatch(getCertify(id))
+
+  // }, []);
+
 
 
   return (
@@ -14,13 +30,21 @@ const Board = () => {
           src="http://www.gugaktimes.com/data/photos/20211251/art_16403326245363_ac1021.jpg"></ProfilePhoto>
           <ProfileBox>
           <ProfileName>김병처리</ProfileName>
+          {/* <ProfileName>{certify_list.crew_Name}</ProfileName> */}
+
           <ProfileRole>추장</ProfileRole>
+          {/* <ProfileRole>{certify_list.member}</ProfileRole> */}
           </ProfileBox>
         </Profile>
         <Title>
           <ChallengeName>갓생의 시작 매일 6시 기상</ChallengeName>
+          {/* <ChallengeName>{certify_list.title}</ChallengeName> */}
+
           <ChallengeBox>
           <ChallengeTitle>00월 00일 6시기상했어요</ChallengeTitle>
+          {/* <ChallengeTitle>{certify_list.title}</ChallengeTitle> */}
+          
+
           <ChallengeLocation>Seoul, Korea</ChallengeLocation>
 
 

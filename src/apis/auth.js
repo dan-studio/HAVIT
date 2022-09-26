@@ -14,7 +14,6 @@ export const userApis = {
   },
   logout: async()=>{
     const response = await authApi.post("/api/auth/logout",{
-
     })
     return response
   }
@@ -33,4 +32,9 @@ export const userApis = {
    console.log(findDetail)
     return findDetail
   }
+    uploadImage: async (data) => {
+    const response = await mockApi.post(`/certify`, data);
+    console.log("response",response)
+    return response;
+  },
 };
