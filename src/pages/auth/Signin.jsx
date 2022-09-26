@@ -59,6 +59,7 @@ const Signin = () => {
     .catch((error)=>{
       if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){
         alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
+        console.log(error.response.data.errorMsg.message)
       }
     })
   }
