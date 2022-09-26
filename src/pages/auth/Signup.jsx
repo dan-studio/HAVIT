@@ -39,23 +39,24 @@ const Signup = () => {
     const data = {
       email, nickname, password, passwordConfirm
     }
-    console.log(data)
     userApis.signup(data)
     .then((res)=>{
       alert('회원가입이 완료되었어요 😉')
       navigate('/signin')
       console.log(res)
     }).catch((error)=>{
-      console.log(error.response.data.errorMsg.message)
       if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
-        alert("중복된 이메일주소가 존재합니다.")
+        alert(error.response.data.errorMsg.message)
+      }
+      if(error.response.data.errorMsg.code==="INVALID_EMAIL"){
+        alert(error.response.data.errorMsg.message)
       }
     })
   };
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      /([\w-.]{2,})@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
 

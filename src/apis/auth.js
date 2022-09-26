@@ -5,6 +5,7 @@ export const userApis = {
     const response = await restApi.post("/api/signup", data);
     return response.data;
   },
+
   signin: async (email, password) => {
     const response = await authApi.post("/api/login", {
       email,
@@ -12,10 +13,16 @@ export const userApis = {
     });
     return response;
   },
-  userProfile: async (data) => {
-    const reponse = await restApi.get("api/mypage", data);
-    return reponse.data;
+
+  editProfile: async (nickname, password, passwordConfirm) => {
+    const response = await authApi.post('/api/auth/mypage', {
+      nickname,
+      password,
+      passwordConfirm,
+    });
+    return response.data;
   },
+  
   getgroup: async () => {
     const response = await authApi.get("/api/group");
     return response;

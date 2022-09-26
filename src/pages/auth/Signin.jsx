@@ -1,34 +1,34 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import havit from "@/assets/havitLogoPurple.png";
-import team from "@assets/havitTeam2.png";
-import naverButton from "@assets/naverButton.png";
-import kakaoButton from "@assets/kakaoButton.png";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { resetLayout, setLayout } from "@redux/layout";
-import { userApis } from "../../apis/auth";
-import { setToken } from "../../apis/config";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import havit from '@/assets/havitLogoPurple.png';
+import team from '@assets/havitTeam2.png';
+import naverButton from '@assets/naverButton.png';
+import kakaoButton from '@assets/kakaoButton.png';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { resetLayout, setLayout } from '@redux/layout';
+import { userApis } from '../../apis/auth';
+import { setToken } from '../../apis/config';
 
 const Signin = () => {
   const navigate = useNavigate();
-  const layout = useSelector((state) => state.layout, shallowEqual);
+  const layout = useSelector(state => state.layout, shallowEqual);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    return ()=>{
+    return () => {
       dispatch(resetLayout());
-    }
+    };
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
-  const onChangeEmail = useCallback((e) => {
+  const onChangeEmail = useCallback(e => {
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
     if (!emailCurrent) {
@@ -37,7 +37,7 @@ const Signin = () => {
       setIsEmail(true);
     }
   }, []);
-  const onChangePassword = useCallback((e) => {
+  const onChangePassword = useCallback(e => {
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
 
@@ -59,10 +59,10 @@ const Signin = () => {
     .catch((error)=>{
       if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){
         alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
+        console.log(error.response.data.errorMsg.message)
       }
     })
   }
-
   return (
     <StDiv>
       <StSpan>
@@ -175,7 +175,7 @@ const StButton = styled.button`
 `;
 const StInput = styled.input`
   position: absolute;
-  top: ${(props) => props.top};
+  top: ${props => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
   padding: 10px 30px;
