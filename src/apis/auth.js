@@ -15,16 +15,21 @@ export const userApis = {
   },
 
   editProfile: async (nickname, password, passwordConfirm) => {
-    const response = await authApi.post('/api/auth/mypage', {
+    const response = await authApi.post("/api/auth/mypage", {
       nickname,
       password,
       passwordConfirm,
     });
     return response.data;
   },
-  
+
   getgroup: async () => {
     const response = await authApi.get("/api/group");
+    return response;
+  },
+  uploadImage: async (data) => {
+    const response = await mockApi.post(`/certify`, data);
+    console.log("response",response)
     return response;
   },
 };

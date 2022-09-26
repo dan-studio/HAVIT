@@ -7,93 +7,17 @@ import Location from "../components/layout/Location";
 import axios from "axios";
 import Uploader from "../components/input/Uploader";
 import { Upload } from "antd";
+import { userApis } from "../apis/auth";
 
 import { IoLocationOutline } from "react-icons/io5";
 
 const Write = () => {
+  const [image, setImage] = useState([])
   // const register = console.log("등록완료");
   const [challengeTitle, setChallengeTitle] = useState("");
 
   const onChangeTitle = (e) => {
     setChallengeTitle(e.target.value);
-  };
-
-  // const register = axios.post("http://localhost:3000/api/auth/certify",
-  // const register = ()=> {axios.post("http://localhost:3001/certify",
-  // {
-  //     imgUrl: "",
-  //     challengeTitle: challengeTitle,
-  //     challengeLocation: "",
-  //     crewName: "",
-  //     startDate: "",
-  //     leaderName: "",
-  // },
-  // )};
-
-  const [image, setImage] = useState({
-    image_file: "",
-    preview_URL: "",
-  });
-  let inputRef;
-
-  // const saveImage = (e) => {
-  //   e.preventDefault();
-  //   const fileReader = new FileReader();
-
-  //   if(e.target.files[0]){
-
-  //     fileReader.readAsDataURL(e.target.files[0])
-  //   }
-  //   fileReader.onload = () => {
-  //     setImage(
-  //       {
-  //         image_file: e.target.files[0],
-  //         preview_URL: fileReader.result,
-  //         challengeTitle:challengeTitle
-  //       }
-  //     )
-  //   }
-  // }
-  const saveImage = (e) => {
-    e.preventDefault();
-    if (e.target.files[0]) {
-      // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
-      URL.revokeObjectURL(image.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      console.log("previewurl 조회", preview_URL);
-      setImage(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL,
-        challengeTitle: challengeTitle,
-      }));
-    }
-  };
-  useEffect(() => {
-    // 컴포넌트가 언마운트되면 createObjectURL()을 통해 생성한 기존 URL을 폐기
-    return () => {
-      URL.revokeObjectURL(image.preview_URL);
-    };
-  }, []);
-
-  const sendImageToServer = async () => {
-    if (image.image_file) {
-      const formData = new FormData();
-      formData.append("file", image.image_file);
-      await axios.post("http://localhost:3001/certify", formData);
-      alert("서버에 등록이 완료되었습니다!");
-      console.log("image.image_file조회", image.image_file);
-      console.log("formData조회", formData);
-      console.log("image 조회", image);
-      //cinta banget ㄳㄳ~
-      setImage({
-        image_file: "",
-        preview_URL: image.preview_URL,
-        challengeTitle: challengeTitle,
-      });
-      console.log("image 조회", image);
-    } else {
-      alert("사진을 등록하세요!");
-    }
   };
 
   const imageInput = useRef();
@@ -116,6 +40,27 @@ const Write = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
+  const onChangeImg = e => {
+    e.preventDefault()
+    if(e.target.files){
+      const img = e.target.files[0]
+      const formData = new FormData()
+      formData.append('image', img)
+      userApis.uploadImage(formData)
+      .then((res)=>{
+        const image = res.data.data
+        const pushImage=(img)=>{
+          setImage((prev)=>[...prev, img])
+        }
+        pushImage(image)
+        console.log("image",image)
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+  }
+
 
   return (
     <div>
@@ -129,14 +74,15 @@ const Write = () => {
             />
             <input
               type="file"
+              accept="image/jpg, image/png, image/jpg, image/jpeg"
               style={{ display: "none" }}
               ref={imageInput}
-              onChange={saveImage}
               onClick={(e) => (e.target.value = null)}
+              onChange={onChangeImg}
               // ref={refParam => inputRef = refParam}
             />
             <div className="img-wrapper">
-              <img src={image.preview_URL} style={{ height: "160px" }} />
+              <img src={""} style={{ height: "160px" }} alt=""/>
             </div>
           </IconBox>
         </AddPhoto>
@@ -162,7 +108,7 @@ const Write = () => {
         </div>
         {!!showLocationForm ? <Location /> : <> </>}
         <WriteBtn style={{ marginTop: "5.625rem" }}>
-          <PrimaryButton buttonName={"등록"} onClick={sendImageToServer} />
+          <PrimaryButton buttonName={"등록"}  />
           <SubButton buttonName={"취소"} />
         </WriteBtn>
       </WriteBox>
