@@ -3,25 +3,24 @@ import { setLayout } from '@redux/layout';
 import { useEffect, useState, useCallback } from 'react';
 import { resetLayout } from '../redux/layout';
 import styled, { css } from 'styled-components';
-// import { userApis } from '../../apis/auth';
-// import { setToken } from '../../apis/config';
+import { userApis } from '@/apis/auth';
+import { setToken } from '@/apis/config';
 
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
 import EditInput from '../components/editprofile/EditInput';
 import PrimaryButton from '../components/PrimaryButton';
 import SubButton from '../components/SubButton';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const MypageEdit = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(setLayout({ showHeader: false }));
-    return () => {
-      dispatch(resetLayout());
-    };
-  }, []);
+  useEffect(()=>{
+    dispatch()
+  })
+
   // ###########################################
   // ## SECTION State                        ###
   // ###########################################
@@ -44,24 +43,10 @@ const MypageEdit = () => {
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
   // ###########################################
-  // ## SECTION 핸들러                        ###
+  // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = () => {
-    console.log('바보');
-    // userApis
-    //   .signin(email, password)
-    //   .then(response => {
-    //     console.log(response);
-    //     alert(`${response.data.data.nickname}님 환영합니다!`);
-    //     const temp = { access_token: response.headers.authorization, refresh_token: response.headers['refresh-token'] };
-    //     setToken(temp);
-    //     navigate('/main');
-    //   })
-    //   .catch(error => {
-    //     if (error.response.data.errorMsg.code === 'MEMBER_NOT_FOUND') {
-    //       alert('입력하신 이메일 또는 비밀번호가 일치하지 않습니다.');
-    //     }
-    //   });
+  const onSubmitHandler = e => {
+    
   };
 
   // ###########################################
