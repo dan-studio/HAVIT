@@ -12,7 +12,7 @@ import { userApis } from "../apis/auth";
 import { IoLocationOutline } from "react-icons/io5";
 
 const Write = () => {
-  const [image, setImage] = useState([])
+  const [image, setImage] = useState([]);
   // const register = console.log("등록완료");
   const [challengeTitle, setChallengeTitle] = useState("");
 
@@ -40,27 +40,28 @@ const Write = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
-  const onChangeImg = e => {
-    e.preventDefault()
-    if(e.target.files){
-      const img = e.target.files[0]
-      const formData = new FormData()
-      formData.append('image', img)
-      userApis.uploadImage(formData)
-      .then((res)=>{
-        const image = res.data.data
-        const pushImage=(img)=>{
-          setImage((prev)=>[...prev, img])
-        }
-        pushImage(image)
-        console.log("image",image)
-        console.log(res)
-      }).catch((err)=>{
-        console.log(err)
-      })
+  const onChangeImg = (e) => {
+    e.preventDefault();
+    if (e.target.files) {
+      const img = e.target.files[0];
+      const formData = new FormData();
+      formData.append("image", img);
+      userApis
+        .uploadImage(formData)
+        .then((res) => {
+          const image = res.data.data;
+          const pushImage = (img) => {
+            setImage((prev) => [...prev, img]);
+          };
+          pushImage(image);
+          console.log("image", image);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }
-
+  };
 
   return (
     <div>
@@ -77,12 +78,11 @@ const Write = () => {
               accept="image/jpg, image/png, image/jpg, image/jpeg"
               style={{ display: "none" }}
               ref={imageInput}
-              onClick={(e) => (e.target.value = null)}
               onChange={onChangeImg}
               // ref={refParam => inputRef = refParam}
             />
             <div className="img-wrapper">
-              <img src={""} style={{ height: "160px" }} alt=""/>
+              <img src={""} style={{ height: "160px" }} alt="" />
             </div>
           </IconBox>
         </AddPhoto>
@@ -108,7 +108,7 @@ const Write = () => {
         </div>
         {!!showLocationForm ? <Location /> : <> </>}
         <WriteBtn style={{ marginTop: "5.625rem" }}>
-          <PrimaryButton buttonName={"등록"}  />
+          <PrimaryButton buttonName={"등록"} />
           <SubButton buttonName={"취소"} />
         </WriteBtn>
       </WriteBox>
