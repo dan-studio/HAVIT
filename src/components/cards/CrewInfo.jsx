@@ -1,22 +1,20 @@
-import styled, { css } from 'styled-components';
-import { useState } from 'react';
-import { MdPeopleAlt } from 'react-icons/md';
-import { HiStar } from 'react-icons/hi';
+import styled, { css } from "styled-components";
+import { MdPeopleAlt } from "react-icons/md";
+import { HiStar } from "react-icons/hi";
 
 // 컴포넌트
-import DayBadge from '../DayBadge';
-import Tags from '../Tag';
-import { Tag } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import Tags from "../Tag";
+import { useNavigate} from "react-router-dom";
 
 const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, imgUrl, groupTag, favorite }) => {
   const navigate = useNavigate();
   console.log(groupId);
   const routeHandler = () => {
     console.log(groupId);
-    navigate(`/group/detail/${groupId}`);
+    navigate(`/group/${groupId}`);
   };
   return (
+    <>
     <StCard type={type}>
       <StGroupImg src={imgUrl} onClick={routeHandler} />
       <StGroupInfo>
@@ -33,6 +31,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
         </StPeople>
         <StTagDiv>{groupTag && groupTag.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
       </StGroupInfo>
+     
       {favorite && (
         <HiStar
           style={{
@@ -46,6 +45,8 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
         />
       )}
     </StCard>
+     
+     </>
   );
 };
 export default CrewInfo;

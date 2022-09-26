@@ -5,7 +5,6 @@ export const userApis = {
     const response = await restApi.post('/api/signup', data);
     return response.data;
   },
-
   signin: async (email, password) => {
     const response = await authApi.post('/api/login', {
       email,
@@ -21,22 +20,22 @@ export const userApis = {
     const reponse = await restApi.get("api/mypage", data);
     return reponse.data;
   },
-
   getGroup: async () => {
-    const response = await mockApi.get('/group');
+    // const response = await authApi.get("/api/auth/group/");
+    const response = await mockApi.get("/group");
     return response;
   },
   getGroupDetail: async (id) => {
+    // const response = await mockApi.get("/api/auth/group/"+id);
     const response = await mockApi.get("/group");
-    const findDetail = response.data.find((item) => item.groupId === id);
-    console.log(findDetail);
-    return findDetail;
+    console.log(response)
+    const detail = response.data.find(item=>item.groupId===id)
+    return detail;
   },
   uploadImage: async (data) => {
     const response = await authApi.post("/api/auth/certify/", data);
     return response;
   },
-
   // 마이페이지내에서의 유저정보
   usersInfo: async (nickname, profileUrl, crew) => {
     const response = await mockApi.get('/users', { nickname, profileUrl, crew });
