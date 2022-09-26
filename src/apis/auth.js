@@ -19,15 +19,6 @@ export const userApis = {
     return response;
   },
 
-  editProfile: async (nickname, password, passwordConfirm) => {
-    const response = await mockApi.post('/users', {
-      nickname,
-      password,
-      passwordConfirm,
-    });
-    return response.data;
-  },
-
   getgroup: async data => {
     const response = await mockApi.get('/group', data);
     return response;
