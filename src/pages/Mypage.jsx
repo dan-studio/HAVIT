@@ -27,9 +27,9 @@ const Mypage = () => {
 
   // 그룹 가져오기
   useEffect(() => {
-    userApis.getgroup().then(res => {
+    userApis.getGroup().then(res => {
       setGroup(res.data);
-      console.log('🚀 * userApis.getgroup * setGroup', setGroup);
+      console.log('🚀 * userApis.getGroup * setGroup', setGroup);
     });
   }, []);
 
