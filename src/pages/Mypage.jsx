@@ -14,6 +14,7 @@ const Mypage = () => {
   const invertHeader = useSelector(state => state.layout);
   const dispatch = useDispatch();
 
+  const [userInfo, setUserInfo] = useState('');
   const [group, setGroup] = useState('');
   const [friends, setFriends] = useState('');
 
@@ -23,6 +24,14 @@ const Mypage = () => {
     return () => {
       dispatch(resetLayout());
     };
+  }, []); 
+
+  // 내정보 가져오기
+  useEffect(() => {
+    userApis.userProfile().then(res => {
+      setUserInfo(res.data);
+      console.log('🚀 * userApis.userInfo * setUserInfo', setUserInfo);
+    });
   }, []);
 
   // 그룹 가져오기
@@ -45,6 +54,7 @@ const Mypage = () => {
     <Wrap>
       {/* 프로필 */}
       <UserProfile />
+      {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
 
       {/* 크루 정보 */}
       <Crews>

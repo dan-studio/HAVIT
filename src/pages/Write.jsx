@@ -1,22 +1,22 @@
-import styled from "styled-components";
-import React, { useEffect, useState, useRef } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import PrimaryButton from "../components/PrimaryButton";
-import SubButton from "../components/SubButton";
-import Location from "../components/layout/Location";
-import axios from "axios";
-import Uploader from "../components/input/Uploader";
-import { Upload } from "antd";
-import { userApis } from "../apis/auth";
+import styled from 'styled-components';
+import React, { useEffect, useState, useRef } from 'react';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
+import PrimaryButton from '../components/PrimaryButton';
+import SubButton from '../components/SubButton';
+import Location from '../components/layout/Location';
+import axios from 'axios';
+import Uploader from '../components/input/Uploader';
+import { Upload } from 'antd';
+import { userApis } from '../apis/auth';
 
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline } from 'react-icons/io5';
 
 const Write = () => {
   const [image, setImage] = useState([]);
   // const register = console.log("등록완료");
-  const [challengeTitle, setChallengeTitle] = useState("");
+  const [challengeTitle, setChallengeTitle] = useState('');
 
-  const onChangeTitle = (e) => {
+  const onChangeTitle = e => {
     setChallengeTitle(e.target.value);
   };
 
@@ -30,34 +30,34 @@ const Write = () => {
   const locationRef = React.useRef();
   const [showLocationForm, setShowLocationForm] = useState(false);
   useEffect(() => {
-    let handler = (e) => {
+    let handler = e => {
       if (!locationRef.current?.contains(e.target)) {
         setShowLocationForm(false);
       }
     };
-    document.addEventListener("mousedown", handler);
+    document.addEventListener('mousedown', handler);
     return () => {
-      document.removeEventListener("mousedown", handler);
+      document.removeEventListener('mousedown', handler);
     };
   });
-  const onChangeImg = (e) => {
+  const onChangeImg = e => {
     e.preventDefault();
     if (e.target.files) {
       const img = e.target.files[0];
       const formData = new FormData();
-      formData.append("image", img);
+      formData.append('image', img);
       userApis
         .uploadImage(formData)
-        .then((res) => {
+        .then(res => {
           const image = res.data.data;
-          const pushImage = (img) => {
-            setImage((prev) => [...prev, img]);
+          const pushImage = img => {
+            setImage(prev => [...prev, img]);
           };
           pushImage(image);
-          console.log("image", image);
+          console.log('image', image);
           console.log(res);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     }
@@ -68,48 +68,38 @@ const Write = () => {
       <WriteBox>
         <AddPhoto>
           <IconBox>
-            <AiOutlinePlusCircle
-              size="60"
-              color="lightgray"
-              onClick={onCickImageUpload}
-            />
+            <AiOutlinePlusCircle size='60' color='lightgray' onClick={onCickImageUpload} />
             <input
-              type="file"
-              accept="image/jpg, image/png, image/jpg, image/jpeg"
-              style={{ display: "none" }}
+              type='file'
+              accept='image/jpg, image/png, image/jpg, image/jpeg'
+              style={{ display: 'none' }}
               ref={imageInput}
               onChange={onChangeImg}
               // ref={refParam => inputRef = refParam}
             />
-            <div className="img-wrapper">
-              <img src={""} style={{ height: "160px" }} alt="" />
+            <div className='img-wrapper'>
+              <img src={''} style={{ height: '160px' }} alt='' />
             </div>
           </IconBox>
         </AddPhoto>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <InputTitle placeholder="제목입력" onChange={onChangeTitle} />
-          <AddLocation
-            style={{ marginTop: "10px", display: "flex", alignItems: "center" }}
-            onClick={() => setShowLocationForm(true)}
-          >
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <InputTitle placeholder='제목입력' onChange={onChangeTitle} />
+          <AddLocation style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }} onClick={() => setShowLocationForm(true)}>
             {/* <LibraryAddIcon /> */}
-            <IoLocationOutline
-              style={{ fontSize: "18px", color: "#DE4242", marginRight: "5px" }}
-            />
+            <IoLocationOutline style={{ fontSize: '18px', color: '#DE4242', marginRight: '5px' }} />
             위치추가
           </AddLocation>
         </div>
         {!!showLocationForm ? <Location /> : <> </>}
-        <WriteBtn style={{ marginTop: "5.625rem" }}>
-          <PrimaryButton buttonName={"등록"} />
-          <SubButton buttonName={"취소"} />
+        <WriteBtn style={{ marginTop: '5.625rem' }}>
+          <PrimaryButton buttonName={'등록'} />
+          <SubButton buttonName={'취소'} />
         </WriteBtn>
       </WriteBox>
     </div>

@@ -13,78 +13,55 @@ import PrimaryButton from '../components/PrimaryButton';
 import SubButton from '../components/SubButton';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-const MypageEdit = () => {
+const EnterMyapgeEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    userApis.userProfile().then(res => {
+      // NOTE 이메일만 가져오는 방법을 알고싶습니다.
+      console.log('🚀 ⁝ userApis.userProfile ⁝ res.data', res.data[0].email);
+      setEmail(res.data[0].email);
+      console.log('🚀 ⁝ userApis.userProfile ⁝ setEmail', setEmail);
+    });
+  }, []);
 
   // ###########################################
   // ## SECTION State                        ###
   // ###########################################
 
   // WHAT 원래 상태
-  const [nickname, setNickname] = useState('기본아이디');
+  const [email, setEmail] = useState('기존이메일');
   const [password, setPassword] = useState('기존비번');
-  const [newPw, setNewPw] = useState('');
-  const [newPwConfirm, setNewPwConfirm] = useState('');
-  const [userProfile, setUserProfile] = useState('');
 
   // WHAT 상태 메세지
-  const [nicknameMsg, setNicknameMsg] = useState('');
-  const [newPwMsg, setNewPwMsg] = useState('');
-  const [newPwConfirmMsg, setNewPwConfirmMsg] = useState('');
+  const [passwordMsg, setPasswordMsg] = useState('');
 
   // WHAT 상태
-  const [isNickname, setIsNickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
   // ###########################################
   // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = e => {};
+  const onSubmitHandler = (e) => {
+    Navigate('/MypageEdit');
+  };
 
   // ###########################################
   // ## SECTION 유효성검사                     ###
   // ###########################################
 
-  // WHAT 닉네임 확인
-  const onChangeNickname = useCallback(e => {
-    setNickname(e.target.value);
-    if (e.target.value < 2) {
-      setNicknameMsg('2글자 이상 입력해주세요');
-      setIsNickname(false);
-    } else {
-      setNicknameMsg('사용할 수 있는 닉네임입니다');
-      setIsNickname(true);
-    }
-  });
-
-  // WHAT 새로운 비번 입력
-  const onChangePw = useCallback(e => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const newPwCurent = e.target.value;
-    setNewPw(newPwCurent);
-
-    if (!passwordRegex.test(newPwCurent)) {
-      setNewPwMsg('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
-      setIsPassword(false);
-    } else {
-      setNewPwMsg('안전한 비밀번호에요');
-      setIsPassword(true);
-    }
-  }, []);
-
-  // WHAT 새로운 비번 확인
+  // WHAT 비번 확인
   const onChangePwConfirm = useCallback(e => {
     const pwConfirmCurrent = e.target.value;
-    setNewPwConfirm(pwConfirmCurrent);
+    setPassword(pwConfirmCurrent);
 
-    if (newPw === pwConfirmCurrent) {
-      setNewPwConfirmMsg('비밀번호가 일치합니다');
-      setIsPasswordConfirm(true);
+    if (password === pwConfirmCurrent) {
+      setPasswordMsg('비밀번호가 일치합니다');
+      setIsPassword(true);
     } else {
-      setNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
-      setIsPasswordConfirm(false);
+      setPasswordMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
+      setIsPassword(false);
     }
   });
 
@@ -95,40 +72,37 @@ const MypageEdit = () => {
     <>
       <h2 style={{ fontWeight: '700', fontSize: '20px', margin: '20px', lineHeight: '24px' }}>개인정보 수정</h2>
 
-      {/* WHAT 유저 프로필 */}
-      <UserImgForm />
-
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <DivBox>
-          <EditInput inputLabel={'닉네임 변경'} type={'text'} onChange={onChangeNickname} />
-          {nickname.length > 0 && (
-            <ConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
-              {nicknameMsg}
-            </ConfirmMsg>
-          )}
-        </DivBox>
+        <StDivBox>
+          {/** @NOTE db내 이메일을 어떻게 받아서 전달해줄쥐?  */}
+          <EditInput inputLabel={'이메일'} type={'text'} value='asdf@naver.com' disabled={true} />
+        </StDivBox>
 
         {/* WHAT 비밀번호 부분 */}
-        <EditInput inputLabel={'현재 비밀번호'} type={'password'} placeHolder={password} />
 
-        <DivBox>
+        <StDivBox>
+          {/** @NOTE db내 비밀번호와 입력한 비밀번호를 비교해야합니다 ^^  */}
+          <EditInput inputLabel={'현재 비밀번호'} type={'password'} onChange={onChangePwConfirm} />
+        </StDivBox>
+
+        {/* <StDivBox>
           <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
           {newPw.length > 0 && (
             <ConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
-              {newPwMsg}
+              {passwordMsg}
             </ConfirmMsg>
           )}
-        </DivBox>
+        </StDivBox> */}
 
-        <DivBox>
+        {/* <StDivBox>
           <EditInput inputLabel={'비밀번호 확인'} type={'password'} onChange={onChangePwConfirm} />
           {newPwConfirm.length > 0 && (
             <ConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
               {newPwConfirmMsg}
             </ConfirmMsg>
           )}
-        </DivBox>
+        </StDivBox> */}
       </div>
 
       {/* WHAT 버튼 */}
@@ -140,7 +114,7 @@ const MypageEdit = () => {
   );
 };
 
-const DivBox = styled.div`
+const StDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -163,4 +137,4 @@ const ConfirmMsg = styled.span`
   }
 `;
 
-export default MypageEdit;
+export default EnterMyapgeEdit;
