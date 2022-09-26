@@ -48,13 +48,18 @@ const Write = () => {
       formData.append('image', img)
       userApis.uploadImage(formData)
       .then((res)=>{
-        const image = res.data.data
+        const image = res.data
         const pushImage=(img)=>{
           setImage((prev)=>[...prev, img])
         }
         pushImage(image)
+        console.log("img",img)
+        // img(e.target.files[0])파일 있는것 확인
         console.log("image",image)
-        console.log(res)
+        // image(res.data일때) id만 담김 
+        // image(res일때) data안에 id만 담김 
+        console.log("res조회",res)
+        //res에도 id만 담김
       }).catch((err)=>{
         console.log(err)
       })
@@ -74,11 +79,12 @@ const Write = () => {
             />
             <input
               type="file"
-              accept="image/jpg, image/png, image/jpg, image/jpeg"
+              accept="image/*"
               style={{ display: "none" }}
               ref={imageInput}
               onClick={(e) => (e.target.value = null)}
               onChange={onChangeImg}
+              
               // ref={refParam => inputRef = refParam}
             />
             <div className="img-wrapper">

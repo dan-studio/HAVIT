@@ -28,7 +28,7 @@ export const userApis = {
     return response;
   },
   uploadImage: async (data) => {
-    const response = await mockApi.post(`/certify`, data);
+    const response = await authApi.post(`/api/auth/certify/`, data);
     console.log("response",response)
     return response;
   },
