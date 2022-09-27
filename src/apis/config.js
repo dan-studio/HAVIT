@@ -14,6 +14,7 @@ export const restApi = axios.create({
 
 export const authApi = axios.create({
   baseURL: getAPIHost(),
+  withCredentials: true,
 });
 
 export const mockApi = axios.create({
@@ -28,8 +29,9 @@ export const mockApi = axios.create({
 authApi.interceptors.request.use(async (req) => {
   const token = getToken();
   if (token) {
-    req.headers.common.authorization = `Bearer ${token.access_token}`;
+    req.headers.common.authorization = token.access_token;
   }
+  console.log(req)
   return req;
 });
 
@@ -44,7 +46,7 @@ authApi.interceptors.response.use(
           .post(getAPIHost() + "/api/auth/reissue", {
             headers: {
               common: {
-                refresh_token: `Bearer ${refresh_token}`,
+                refresh_token: `BEARER ${refresh_token}`,
               },
             },
           })
