@@ -9,8 +9,8 @@ import { setToken } from '@/apis/config';
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
 import EditInput from '../components/editprofile/EditInput';
-import PrimaryButton from '../components/PrimaryButton';
-import SubButton from '../components/SubButton';
+import PrimaryButton from '../components/button/PrimaryButton';
+import SubButton from '../components/button/SubButton';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const MypageEdit = () => {
