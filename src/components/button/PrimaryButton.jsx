@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import ToggleSwitch from './ToggleSwitch';
 
 const PrimaryButton = ({ buttonName, onClick }) => {
-  return <StyleButton type='submit' onClick={onClick}>{buttonName}</StyleButton>;
+  return (
+    <>
+      <StyleButton type='submit' onClick={onClick}>
+        {buttonName}
+      </StyleButton>
+    </>
+  );
 };
 
 const StyleButton = styled.button`
