@@ -9,11 +9,11 @@ import Tags from '../Tag';
 import { Tag } from 'antd';
 import PrimaryButton from '../PrimaryButton';
 import SubButton from '../SubButton';
+import { useNavigate } from 'react-router';
 
-const CrewInfo = ({ data, type = 'shadow' }) => {
-  const [userName, setUserName] = useState('김병처리');
-  const [crewName, setCrewName] = useState('배그 5판 연속 치킨');
-  const [numberOfPeople, setNumberOfPeopf] = useState(1);
+const AlertUser = ({ data, type = 'shadow', nickName, profileUrl, crew }) => {
+  const navigate = useNavigate();
+  console.log('🚀 * CrewInfo * nickName', nickName);
 
   return (
     <Card type={type}>
@@ -21,9 +21,9 @@ const CrewInfo = ({ data, type = 'shadow' }) => {
         <UserImg />
 
         <UserInfo>
-          <span style={{ marginBottom: '3px' }}>{crewName}</span>
+          <span style={{ marginBottom: '3px' }}>{crew}</span>
           <div style={{ height: '23px' }}>
-            <h3>{userName}</h3>
+            <h3>{nickName}</h3>
             <Tag style={{ margin: '0 .5rem', opacity: '.5', color: '#252224' }}>12시간</Tag>
           </div>
         </UserInfo>
@@ -46,7 +46,7 @@ const CrewInfo = ({ data, type = 'shadow' }) => {
     </Card>
   );
 };
-export default CrewInfo;
+export default AlertUser;
 
 const Card = styled.div`
   display: flex;

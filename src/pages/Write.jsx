@@ -8,16 +8,43 @@ import axios from "axios";
 import Uploader from "../components/input/Uploader";
 import { Upload } from "antd";
 import { userApis } from "../apis/auth";
-
 import { IoLocationOutline } from "react-icons/io5";
 
 const Write = () => {
-  const [image, setImage] = useState([])
-  // const register = console.log("등록완료");
+  const [image, setImage] = useState("");
   const [challengeTitle, setChallengeTitle] = useState("");
+  const challengeTitleInfo = (challengeTitle) => {
+    setChallengeTitle(challengeTitle);
+  };
+  const imageInfo = (image) => {
+    setImage(image);
+  };
+  // const addCertify = {
+  //   challengeTitle: challengeTitle,
+  //   image:image
+  // };
+  const addCertify = {
+    challengeTitle: challengeTitle,
+    image:image
+  };
+  console.log("image조회",image)
+  const handleChange = (e) => {
+    setImage(e.target.files[0]);
+    imageInfo(e.target.files[0]);
+  };
+  //textBox부분
+
+  const textareaHandler = (e) => {
+    setChallengeTitle(e.target.value); 
+    challengeTitleInfo(e.target.value); 
+    console.log("title",challengeTitle)
+  };
+  // contentInfo 부분
+
 
   const onChangeTitle = (e) => {
     setChallengeTitle(e.target.value);
+
   };
 
   const imageInput = useRef();
@@ -40,33 +67,46 @@ const Write = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
-  const onChangeImg = e => {
-    e.preventDefault()
-    if(e.target.files){
-      const img = e.target.files[0]
-      const formData = new FormData()
-      formData.append('image', img)
-      userApis.uploadImage(formData)
-      .then((res)=>{
-        const image = res.data
-        const pushImage=(img)=>{
-          setImage((prev)=>[...prev, img])
-        }
-        pushImage(image)
-        console.log("img",img)
-        // img(e.target.files[0])파일 있는것 확인
-        console.log("image",image)
-        // image(res.data일때) id만 담김 
-        // image(res일때) data안에 id만 담김 
-        console.log("res조회",res)
-        //res에도 id만 담김
-      }).catch((err)=>{
-        console.log(err)
-      })
+
+  console.log(addCertify)
+  const addClickHandler = () => {
+    let formData = new FormData();
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(addCertify)], { type: "application/json" })
+      // new Blob([JSON.stringify(addCertify)], { type: "image/json" })
+      // new Blob([JSON.stringify(addCertify)], { type: "application/octet-stream" })
+    );
+    formData.append("file", image);
+    for (let i of formData.entries()) {
+      console.log("i", i[1]);
+      console.log("formdata", formData);
     }
-  }
+    // dispatch(_addPost(formData));
+    // axios.post("http://localhost:3001/certify",formData)
+  
+    // await axios.post("http://localhost:3001/certify",addCertify)
+    // userApis.uploadImage(addCertify)
+    userApis.uploadImage(formData)
 
+    .then(res=>{
+      console.log(res)
 
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+    // userApis.uploadImage(formData)
+
+    axios.post("http://localhost:3001/certify",addCertify)
+    // axios.post("http://localhost:3001/certify",formData)
+
+    console.log("formdata조회",formData)
+    //이동할때 새로고침하고 들어가짐(위험?)
+    // window.location.replace("/group/detail/write");
+  };
+  // console.log(textareaHandler)
+  
   return (
     <div>
       <WriteBox>
@@ -76,19 +116,20 @@ const Write = () => {
               size="60"
               color="lightgray"
               onClick={onCickImageUpload}
+              onChange={handleChange}
+
             />
             <input
               type="file"
               accept="image/*"
               style={{ display: "none" }}
               ref={imageInput}
-              onClick={(e) => (e.target.value = null)}
-              onChange={onChangeImg}
+              onChange={handleChange}
               
               // ref={refParam => inputRef = refParam}
             />
             <div className="img-wrapper">
-              <img src={""} style={{ height: "160px" }} alt=""/>
+              <img src={""} style={{ height: "160px" }} alt="" />
             </div>
           </IconBox>
         </AddPhoto>
@@ -100,7 +141,7 @@ const Write = () => {
             alignItems: "center",
           }}
         >
-          <InputTitle placeholder="제목입력" onChange={onChangeTitle} />
+          <InputTitle placeholder="제목입력" onChange={textareaHandler} />
           <AddLocation
             style={{ marginTop: "10px", display: "flex", alignItems: "center" }}
             onClick={() => setShowLocationForm(true)}
@@ -114,7 +155,7 @@ const Write = () => {
         </div>
         {!!showLocationForm ? <Location /> : <> </>}
         <WriteBtn style={{ marginTop: "5.625rem" }}>
-          <PrimaryButton buttonName={"등록"}  />
+          <PrimaryButton buttonName={"등록"} onClick={addClickHandler} />
           <SubButton buttonName={"취소"} />
         </WriteBtn>
       </WriteBox>

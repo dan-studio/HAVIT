@@ -9,6 +9,7 @@ import ChallengeCard from '../components/cards/ChallengeCard';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 
+
 const Index = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();

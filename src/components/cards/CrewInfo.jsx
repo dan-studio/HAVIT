@@ -1,60 +1,47 @@
-import styled, { css } from "styled-components";
-import { useState } from "react";
-import { MdPeopleAlt } from "react-icons/md";
-import { HiStar } from "react-icons/hi";
+import styled, { css } from 'styled-components';
+import { useState } from 'react';
+import { MdPeopleAlt } from 'react-icons/md';
+import { HiStar } from 'react-icons/hi';
 
 // 컴포넌트
-import DayBadge from "../DayBadge";
-import Tags from "../Tag";
-import { Tag } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
+import DayBadge from '../DayBadge';
+import Tags from '../Tag';
+import { Tag } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CrewInfo = ({
-  data,
-  type = "shadow",
-  groupId,
-  title,
-  startDate,
-  memberCount,
-  imgUrl,
-  groupTag,
-  favorite,
-}) => {
+const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, imgUrl, groupTag, favorite }) => {
   const navigate = useNavigate();
-console.log(groupId)
+  console.log(groupId);
   const routeHandler = () => {
     console.log(groupId);
     navigate(`/group/detail/${groupId}`);
   };
   return (
     <StCard type={type}>
-      <StGroupImg src={imgUrl} onClick={routeHandler}/>
+      <StGroupImg src={imgUrl} onClick={routeHandler} />
       <StGroupInfo>
-        <h2>{title}</h2>
+        <h2 onClick={routeHandler}>{title}</h2>
         <StDayInfo>
           <span>{startDate} 생성됨</span>
-          <StCycle color={"#5e43ff"} style={{ margin: "0 .5rem" }}>
+          <StCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
             매일
           </StCycle>
         </StDayInfo>
         <StPeople>
-          <MdPeopleAlt color="#5e43ff" />
+          <MdPeopleAlt color='#5e43ff' />
           <StSpan>{memberCount}명</StSpan>
         </StPeople>
-        <StTagDiv>
-          {groupTag &&
-            groupTag.map((item, idx) => <Tags item={item} key={idx} />)}
-        </StTagDiv>
+        <StTagDiv>{groupTag && groupTag.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
       </StGroupInfo>
       {favorite && (
         <HiStar
           style={{
-            color: "#ECA51B",
-            fontSize: "20px",
-            position: "absolute",
-            zIndex: "10",
-            top: "10px",
-            right: "10px",
+            color: '#ECA51B',
+            fontSize: '20px',
+            position: 'absolute',
+            zIndex: '10',
+            top: '10px',
+            right: '10px',
           }}
         />
       )}
@@ -73,13 +60,13 @@ const StCard = styled.div`
   background-color: #ffffff;
   ${({ type }) => {
     switch (type) {
-      case "shadow":
+      case 'shadow':
         return ShadowCard;
-      case "list":
+      case 'list':
         return css`
           border-bottom: 0.5px solid #d9d9d9;
         `;
-      case "detail":
+      case 'detail':
         return Detail;
       default:
         return ShadowCard;
