@@ -15,33 +15,33 @@ const UserProfile = ({ data, type = 'shadow', nickName }) => {
 
   return (
     <div>
-      <StProfile>
-        <StUserBox>
-          <StUserRight>
-            <StUserPhoto src='https://images.unsplash.com/photo-1616994503361-04ac7f5f6aac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80'></StUserPhoto>
-          </StUserRight>
-          <StUserLeft>
-            <UserName>
+      <StyleProfile>
+        <StyleUserBox>
+          <StyleUserRight>
+            <StyleUserPhoto src='https://images.unsplash.com/photo-1616994503361-04ac7f5f6aac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80'></StyleUserPhoto>
+          </StyleUserRight>
+          <StyleUserLeft>
+            <StyleUserName>
               <span>{nickName}</span> 님
-            </UserName>
-            <StUserIntr>세상에서 제일가는 장난꾸러기</StUserIntr>
-            <StPercentage value='50' max='100'></StPercentage>
-            <StAchievements>
+            </StyleUserName>
+            <StyleUserIntr>세상에서 제일가는 장난꾸러기</StyleUserIntr>
+            <StylePercentage value='50' max='100'></StylePercentage>
+            <StyleAchievements>
               <FaStarHalfAlt /> 시작이 반이다 <br />
               <BsTrophy /> 첫 완수
-            </StAchievements>
-          </StUserLeft>
-          <StAlert>
+            </StyleAchievements>
+          </StyleUserLeft>
+          <StyleAlert>
             <FaBell />
-            <StAlertSign></StAlertSign>
-          </StAlert>
-        </StUserBox>
-      </StProfile>
+            <StyleAlertSign></StyleAlertSign>
+          </StyleAlert>
+        </StyleUserBox>
+      </StyleProfile>
     </div>
   );
 };
 
-const StProfile = styled.div`
+const StyleProfile = styled.div`
   height: 168px;
   width: 350px;
   margin: 0 auto 3.125rem;
@@ -51,17 +51,17 @@ const StProfile = styled.div`
   border-radius: 20px;
   padding: 20px;
 `;
-const StUserBox = styled.div`
+const StyleUserBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
-const StUserRight = styled.div`
+const StyleUserRight = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5px 0 0 10px;
 `;
 
-const StUserPhoto = styled.img`
+const StyleUserPhoto = styled.img`
   width: 110px;
   height: 110px;
   border-radius: 50%;
@@ -69,10 +69,10 @@ const StUserPhoto = styled.img`
   object-fit: cover;
 `;
 
-const StUserLeft = styled.div`
+const StyleUserLeft = styled.div`
   margin: 5px 0 0 10px;
 `;
-const StPercentage = styled.progress`
+const StylePercentage = styled.progress`
   height: 8px;
   appearance: none;
   ::-webkit-progress-bar {
@@ -85,25 +85,25 @@ const StPercentage = styled.progress`
     background: #2cdf3d;
   }
 `;
-const UserName = styled.div`
+const StyleUserName = styled.div`
   font-size: 16px;
   span {
     font-size: 18px;
     font-weight: 700;
   }
 `;
-const StUserIntr = styled.div`
+const StyleUserIntr = styled.div`
   color: gray;
   font-size: 12px;
 `;
-const StAchievements = styled.div`
+const StyleAchievements = styled.div`
   font-size: 10px;
 `;
-const StAlert = styled.div`
+const StyleAlert = styled.div`
   position: relative;
   color: #d2d2d2;
 `;
-const StAlertSign = styled.div`
+const StyleAlertSign = styled.div`
   position: absolute;
   top: 3px;
   right: 0;

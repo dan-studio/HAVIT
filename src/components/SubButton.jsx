@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SubButton = ({ buttonName, onClick }) => {
-  return <Button type='button' onClick={onClick}>{buttonName}</Button>;
+  return <StyleButton type='button' onClick={onClick}>{buttonName}</StyleButton>;
 };
 
-const Button = styled.button`
+const StyleButton = styled.button`
   cursor: pointer;
   min-width: 98px;
   height: 34px;

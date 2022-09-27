@@ -31,7 +31,7 @@ const MypageEdit = () => {
   // WHAT 상태 메세지
   const [nicknameMsg, setNicknameMsg] = useState('');
   const [newPwMsg, setNewPwMsg] = useState('');
-  const [newPwConfirmMsg, setNewPwConfirmMsg] = useState('');
+  const [StylenewPwConfirmMsg, StylesetNewPwConfirmMsg] = useState('');
 
   // WHAT 상태
   const [isNickname, setIsNickname] = useState(false);
@@ -80,10 +80,10 @@ const MypageEdit = () => {
     setNewPwConfirm(pwConfirmCurrent);
 
     if (newPw === pwConfirmCurrent) {
-      setNewPwConfirmMsg('비밀번호가 일치합니다');
+      StylesetNewPwConfirmMsg('비밀번호가 일치합니다');
       setIsPasswordConfirm(true);
     } else {
-      setNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
+      StylesetNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
       setIsPasswordConfirm(false);
     }
   });
@@ -100,35 +100,35 @@ const MypageEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <DivBox>
+        <StyleDivBox>
           <EditInput inputLabel={'닉네임 변경'} type={'text'} onChange={onChangeNickname} />
           {nickname.length > 0 && (
-            <ConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
+            <StyleConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {nicknameMsg}
-            </ConfirmMsg>
+            </StyleConfirmMsg>
           )}
-        </DivBox>
+        </StyleDivBox>
 
         {/* WHAT 비밀번호 부분 */}
         <EditInput inputLabel={'현재 비밀번호'} type={'password'} placeHolder={password} />
 
-        <DivBox>
+        <StyleDivBox>
           <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
           {newPw.length > 0 && (
-            <ConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
+            <StyleConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {newPwMsg}
-            </ConfirmMsg>
+            </StyleConfirmMsg>
           )}
-        </DivBox>
+        </StyleDivBox>
 
-        <DivBox>
+        <StyleDivBox>
           <EditInput inputLabel={'비밀번호 확인'} type={'password'} onChange={onChangePwConfirm} />
           {newPwConfirm.length > 0 && (
-            <ConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
-              {newPwConfirmMsg}
-            </ConfirmMsg>
+            <StyleConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
+              {StylenewPwConfirmMsg}
+            </StyleConfirmMsg>
           )}
-        </DivBox>
+        </StyleDivBox>
       </div>
 
       {/* WHAT 버튼 */}
@@ -140,7 +140,7 @@ const MypageEdit = () => {
   );
 };
 
-const DivBox = styled.div`
+const StyleDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -150,7 +150,7 @@ const DivBox = styled.div`
   }
 `;
 
-const ConfirmMsg = styled.span`
+const StyleConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;

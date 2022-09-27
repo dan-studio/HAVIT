@@ -9,17 +9,17 @@ const EditInput = ({ inputLabel, type, value, onChange, disabled }) => {
   const [inputValue, setInputValue] = React.useState('');
 
   return (
-    <Wrap>
+    <StyleWrap>
       <label style={{ fontWeight: '600', fontSize: '16px', lineHeight: '24px', marginBottom: '10px' }} htmlFor='userEditInput'>
         {inputLabel}
       </label>
 
       <input type={type} id='userEditInput' value={value} onChange={onChange} required disabled={disabled}></input>
-    </Wrap>
+    </StyleWrap>
   );
 };
 
-const Wrap = styled.div`
+const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 12px 20px 2px 20px;

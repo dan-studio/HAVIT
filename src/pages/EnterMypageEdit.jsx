@@ -43,7 +43,7 @@ const EnterMyapgeEdit = () => {
   // ###########################################
   // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = e => {
     Navigate('/MypageEdit');
   };
 
@@ -74,17 +74,17 @@ const EnterMyapgeEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <StDivBox>
+        <StyleDivBox>
           {/** @NOTE db내 이메일을 어떻게 받아서 전달해줄쥐?  */}
           <EditInput inputLabel={'이메일'} type={'text'} value='asdf@naver.com' disabled={true} />
-        </StDivBox>
+        </StyleDivBox>
 
         {/* WHAT 비밀번호 부분 */}
 
-        <StDivBox>
+        <StyleDivBox>
           {/** @NOTE db내 비밀번호와 입력한 비밀번호를 비교해야합니다 ^^  */}
           <EditInput inputLabel={'현재 비밀번호'} type={'password'} onChange={onChangePwConfirm} />
-        </StDivBox>
+        </StyleDivBox>
 
         {/* <StDivBox>
           <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
@@ -114,7 +114,7 @@ const EnterMyapgeEdit = () => {
   );
 };
 
-const StDivBox = styled.div`
+const StyleDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -124,7 +124,7 @@ const StDivBox = styled.div`
   }
 `;
 
-const ConfirmMsg = styled.span`
+const StyleConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;
