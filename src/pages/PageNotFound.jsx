@@ -4,24 +4,24 @@ import logo from "../assets/havit_black.svg";
 
 const PageNotFound = () => {
   return (
-    <StDiv>
-      <StImg src={logo} />
-      <StParagraph>요청하신 페이지를 찾을 수 없습니다.</StParagraph>
-    </StDiv>
+    <StyledDiv>
+      <StyledImg src={logo} />
+      <StyledParagraph>요청하신 페이지를 찾을 수 없습니다.</StyledParagraph>
+    </StyledDiv>
   );
 };
 
 export default PageNotFound;
-const StDiv = styled.div`
+const StyledDiv = styled.div`
   height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const StImg = styled.img`
+const StyledImg = styled.img`
   width: 200px;
 `;
-const StParagraph = styled.p`
+const StyledParagraph = styled.p`
   margin-top: 25vh;
   position: absolute;
   font-size: 25px;

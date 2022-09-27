@@ -25,28 +25,28 @@ const Index = () => {
       <UserProfile />
       {/* </StyledTopDiv> */}
       <StyledBottomDiv>
-        <Group>
+        <StyledGroup>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2>김병처리님 이런그룹은 어떠세요?</h2>
             <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} onClick={()=>{navigate('/group')}}/>
           </div>
-        </Group>
-        <GroupPhotoBox>
+        </StyledGroup>
+        <StyledGroupPhotoBox>
           <GroupCard />
           <GroupCard />
           <GroupCard />
           <GroupCard />
-        </GroupPhotoBox>
-        <Challenge>
-          <ChallengeTitle>함께 챌린지를 완수해요</ChallengeTitle>
+        </StyledGroupPhotoBox>
+        <StyledChallenge>
+          <StyledChallengeTitle>함께 챌린지를 완수해요</StyledChallengeTitle>
           <ChallengeCard />
           <ChallengeCard />
           <ChallengeCard />
           <ChallengeCard />
           <ChallengeCard />
           <ChallengeCard />
-        </Challenge>
-        <DragLine></DragLine>
+        </StyledChallenge>
+        <StyledDragLine></StyledDragLine>
       </StyledBottomDiv>
     </div>
   );
@@ -63,7 +63,7 @@ const StyledBottomDiv = styled.div`
   background-color: #fff;
   border-radius: 30px 30px 0 0;
 `;
-const DragLine = styled.div`
+const StyledDragLine = styled.div`
   position: absolute;
   top: 2vh;
   left: 50%;
@@ -76,7 +76,7 @@ const DragLine = styled.div`
   }};
 `;
 
-const Group = styled.div`
+const StyledGroup = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -96,12 +96,12 @@ const Group = styled.div`
   }
 `;
 
-const GroupTitle = styled.div`
+const StyledGroupTitle = styled.div`
   margin: 0 10px 10px;
   font-weight: bold;
   font-size: 15px;
 `;
-const GroupPhotoBox = styled.div`
+const StyledGroupPhotoBox = styled.div`
   display: flex;
   width: 100vw;
   height: 12.5rem; 
@@ -112,13 +112,13 @@ const GroupPhotoBox = styled.div`
     display: none;
   }
 `;
-const Challenge = styled.div`
+const StyledChallenge = styled.div`
   /* position: absolute; */
   /* top: 35vh; */
   width: 100vw;
   margin: 0 auto;
 `;
-const ChallengeTitle = styled.div`
+const StyledChallengeTitle = styled.div`
   font-weight: bold;
   font-size: 20px;
   margin-left: 20px;

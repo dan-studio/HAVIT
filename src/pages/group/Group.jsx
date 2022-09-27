@@ -22,16 +22,16 @@ const Group = () => {
         console.log(err);
       });
   }, []);
- 
+ console.log(crew)
   return (
-    <Container id={"content"}>
+    <StyledContainer id={"content"}>
       <Row>
         <Select className={styles.pop_radius} defaultValue={"all"}>
           <Select.Option value="all">전체</Select.Option>
         </Select>
       </Row>
       <Row>
-        <AddGroupContainer onClick={() => navigate("create")}>
+        <StyledAddGroupContainer onClick={() => navigate("create")}>
           <PlusCircleFilled
             style={{
               color: "rgba(58,58,58,0.3)",
@@ -39,26 +39,26 @@ const Group = () => {
             }}
           />
           새 크루 생성
-        </AddGroupContainer>
+        </StyledAddGroupContainer>
       </Row>
-      {crew&&crew.map((item, idx)=><CrewInfo type="list" {...item} key={idx}/>)}
-      <Box>
+      {/* {crew&&crew?.map((item, idx)=><CrewInfo type="list" {...item} key={idx}/>)} */}
+      <StyledBox>
         더이상 그룹이 없어요.
         <ArrowButton />
-      </Box>
-    </Container>
+      </StyledBox>
+    </StyledContainer>
   );
 };
 
 export default React.memo(Group);
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   flex-direction: column;
   display: flex;
   gap: 1rem 0;
 `;
 
-const AddGroupContainer = styled.div`
+const StyledAddGroupContainer = styled.div`
   width: 100%;
   height: 162px;
   display: flex;
@@ -77,7 +77,7 @@ const AddGroupContainer = styled.div`
   }
 `;
 
-const Box = styled.div`
+const StyledBox = styled.div`
   position: relative;
   width: 100%;
   height: 54px;
