@@ -14,6 +14,7 @@ const Mypage = () => {
   const invertHeader = useSelector(state => state.layout);
   const dispatch = useDispatch();
 
+  const [userInfo, setUserInfo] = useState('');
   const [group, setGroup] = useState('');
   const [friends, setFriends] = useState('');
 
@@ -23,13 +24,21 @@ const Mypage = () => {
     return () => {
       dispatch(resetLayout());
     };
+  }, []); 
+
+  // 내정보 가져오기
+  useEffect(() => {
+    userApis.userProfile().then(res => {
+      setUserInfo(res.data);
+      console.log('🚀 * userApis.userInfo * setUserInfo', setUserInfo);
+    });
   }, []);
 
   // 그룹 가져오기
   useEffect(() => {
-    userApis.getgroup().then(res => {
+    userApis.getGroup().then(res => {
       setGroup(res.data);
-      console.log('🚀 * userApis.getgroup * setGroup', setGroup);
+      console.log('🚀 * userApis.getGroup * setGroup', setGroup);
     });
   }, []);
 
@@ -42,33 +51,34 @@ const Mypage = () => {
   }, []);
 
   return (
-    <Wrap>
+    <StyleWrap>
       {/* 프로필 */}
       <UserProfile />
+      {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
 
       {/* 크루 정보 */}
-      <Crews>
+      <StyleCrews>
         {/* <Bar /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>내가 속한 크루</h2>
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
         {group && group.map((item, idx) => <CrewInfo {...item} key={idx} />)}
-      </Crews>
+      </StyleCrews>
 
       {/* 알림 */}
-      <Alert>
+      <StyleAlert>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>알림</h2>
           <IoIosArrowForward style={{ fontSize: '20px' }} />
         </div>
         {friends && friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
-      </Alert>
-    </Wrap>
+      </StyleAlert>
+    </StyleWrap>
   );
 };
 
-const Wrap = styled.div`
+const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
@@ -76,7 +86,7 @@ const Wrap = styled.div`
   background-color: #5e43ff;
 `;
 
-const Crews = styled.div`
+const StyleCrews = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -105,7 +115,7 @@ const Bar = styled.div`
   border-radius: 5px;
 `;
 
-const Alert = styled.div`
+const StyleAlert = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -8,8 +8,8 @@ import axios from "axios";
 import Uploader from "../components/input/Uploader";
 import { Upload } from "antd";
 import { userApis } from "../apis/auth";
-import { IoLocationOutline } from "react-icons/io5";
 
+import { IoLocationOutline } from "react-icons/io5";
 const Write = () => {
   const [image, setImage] = useState("");
   const [challengeTitle, setChallengeTitle] = useState("");
@@ -25,9 +25,9 @@ const Write = () => {
   // };
   const addCertify = {
     challengeTitle: challengeTitle,
-    image:image
+    image: image,
   };
-  console.log("image조회",image)
+  console.log("image조회", image);
   const handleChange = (e) => {
     setImage(e.target.files[0]);
     imageInfo(e.target.files[0]);
@@ -35,16 +35,13 @@ const Write = () => {
   //textBox부분
 
   const textareaHandler = (e) => {
-    setChallengeTitle(e.target.value); 
-    challengeTitleInfo(e.target.value); 
-    console.log("title",challengeTitle)
+    setChallengeTitle(e.target.value);
+    challengeTitleInfo(e.target.value);
+    console.log("title", challengeTitle);
   };
   // contentInfo 부분
-
-
   const onChangeTitle = (e) => {
     setChallengeTitle(e.target.value);
-
   };
 
   const imageInput = useRef();
@@ -68,7 +65,7 @@ const Write = () => {
     };
   });
 
-  console.log(addCertify)
+  console.log(addCertify);
   const addClickHandler = () => {
     let formData = new FormData();
     formData.append(
@@ -82,85 +79,94 @@ const Write = () => {
       console.log("i", i[1]);
       console.log("formdata", formData);
     }
-    // dispatch(_addPost(formData));
-    // axios.post("http://localhost:3001/certify",formData)
-  
-    // await axios.post("http://localhost:3001/certify",addCertify)
-    // userApis.uploadImage(addCertify)
-    userApis.uploadImage(formData)
 
-    .then(res=>{
-      console.log(res)
+      // dispatch(_addPost(formData));
+      // axios.post("http://localhost:3001/certify",formData)
 
-    })
-    .catch(err=>{
-      console.log(err)
-    })
-    // userApis.uploadImage(formData)
+      // await axios.post("http://localhost:3001/certify",addCertify)
+      // userApis.uploadImage(addCertify)
+      userApis
+        .uploadImage(formData)
 
-    axios.post("http://localhost:3001/certify",addCertify)
-    // axios.post("http://localhost:3001/certify",formData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // userApis.uploadImage(formData)
 
-    console.log("formdata조회",formData)
-    //이동할때 새로고침하고 들어가짐(위험?)
-    // window.location.replace("/group/detail/write");
-  };
-  // console.log(textareaHandler)
-  
-  return (
-    <div>
-      <WriteBox>
-        <AddPhoto>
-          <IconBox>
-            <AiOutlinePlusCircle
-              size="60"
-              color="lightgray"
-              onClick={onCickImageUpload}
-              onChange={handleChange}
+      axios.post("http://localhost:3001/certify", addCertify);
+      // axios.post("http://localhost:3001/certify",formData)
 
-            />
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              ref={imageInput}
-              onChange={handleChange}
-              
-              // ref={refParam => inputRef = refParam}
-            />
-            <div className="img-wrapper">
-              <img src={""} style={{ height: "160px" }} alt="" />
-            </div>
-          </IconBox>
-        </AddPhoto>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <InputTitle placeholder="제목입력" onChange={textareaHandler} />
-          <AddLocation
-            style={{ marginTop: "10px", display: "flex", alignItems: "center" }}
-            onClick={() => setShowLocationForm(true)}
+      console.log("formdata조회", formData);
+      //이동할때 새로고침하고 들어가짐(위험?)
+      // window.location.replace("/group/detail/write");
+    };
+    // console.log(textareaHandler)
+
+    return (
+      <div>
+        <WriteBox>
+          <AddPhoto>
+            <IconBox>
+              <AiOutlinePlusCircle
+                size="60"
+                color="lightgray"
+                onClick={onCickImageUpload}
+                onChange={handleChange}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                ref={imageInput}
+                onChange={handleChange}
+
+                // ref={refParam => inputRef = refParam}
+              />
+              <div className="img-wrapper">
+                <img src={""} style={{ height: "160px" }} alt="" />
+              </div>
+            </IconBox>
+          </AddPhoto>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            {/* <LibraryAddIcon /> */}
-            <IoLocationOutline
-              style={{ fontSize: "18px", color: "#DE4242", marginRight: "5px" }}
-            />
-            위치추가
-          </AddLocation>
-        </div>
-        {!!showLocationForm ? <Location /> : <> </>}
-        <WriteBtn style={{ marginTop: "5.625rem" }}>
-          <PrimaryButton buttonName={"등록"} onClick={addClickHandler} />
-          <SubButton buttonName={"취소"} />
-        </WriteBtn>
-      </WriteBox>
-    </div>
-  );
+            <InputTitle placeholder="제목입력" onChange={textareaHandler} />
+            <AddLocation
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                alignItems: "center",
+              }}
+              onClick={() => setShowLocationForm(true)}
+            >
+              {/* <LibraryAddIcon /> */}
+              <IoLocationOutline
+                style={{
+                  fontSize: "18px",
+                  color: "#DE4242",
+                  marginRight: "5px",
+                }}
+              />
+              위치추가
+            </AddLocation>
+          </div>
+          {!!showLocationForm ? <Location /> : <> </>}
+          <WriteBtn style={{ marginTop: "5.625rem" }}>
+            <PrimaryButton buttonName={"등록"} onClick={addClickHandler} />
+            <SubButton buttonName={"취소"} />
+          </WriteBtn>
+        </WriteBox>
+      </div>
+    );
+  
 };
 
 const WriteBox = styled.div`
