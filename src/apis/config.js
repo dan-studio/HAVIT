@@ -11,6 +11,7 @@ export const getLocalAPI = () => {
 export const restApi = axios.create({
   baseURL: getAPIHost(),
 });
+
 export const authApi = axios.create({
   baseURL: getAPIHost(),
 });

@@ -8,7 +8,8 @@ import { useNavigate} from "react-router-dom";
 
 const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, imgUrl, groupTag, favorite }) => {
   const navigate = useNavigate();
-  console.log(groupId);
+  console.log('🚀 ⁝ CrewInfo ⁝ groupId', groupId);
+
   const routeHandler = () => {
     console.log(groupId);
     navigate(`/group/${groupId}`);
@@ -29,7 +30,8 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
           <MdPeopleAlt color='#5e43ff' />
           <StSpan>{memberCount}명</StSpan>
         </StPeople>
-        <StTagDiv>{groupTag && groupTag.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
+        <StTagDiv>
+          {groupTag && groupTag.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
       </StGroupInfo>
      
       {favorite && (

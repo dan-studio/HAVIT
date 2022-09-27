@@ -3,12 +3,12 @@ import Uploader from '../input/Uploader';
 
 const UserImgForm = () => {
   return (
-    <UserImg>
+    <StyleUserImg>
       <Uploader />
-    </UserImg>
+    </StyleUserImg>
   );
 };
-const UserImg = styled.div`
+const StyleUserImg = styled.div`
   width: 130px;
   height: 130px;
   margin: 20px auto;
