@@ -10,9 +10,10 @@ import { userApis } from '../apis/auth';
 
 import { BsTrophy } from 'react-icons/bs';
 
+
 const UserProfile = ({ data, type = 'shadow', nickName }) => {
   console.log('🚀 ⁝ UserProfile ⁝ data', data);
-
+}
   return (
     <div>
       <StyleProfile>

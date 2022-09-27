@@ -1,11 +1,13 @@
 import { PlusCircleFilled } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const PhotoList = () => {
+const PhotoList = ({groupId}) => {
+    const navigate = useNavigate()
     return (
         <Container>
             <div>
-                <PlusCircleFilled style={{ color: "#eeeeee" }} />
+                <PlusCircleFilled style={{ color: "#eeeeee" }} onClick={()=>{navigate(`/group/${groupId}/write`)}}/>
             </div>
             <div></div>
             <div></div>
