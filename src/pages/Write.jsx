@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import React, { useEffect, useState, useRef } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import PrimaryButton from '../components/PrimaryButton';
-import SubButton from '../components/SubButton';
+import PrimaryButton from '../components/button/PrimaryButton';
+import SubButton from '../components/button/SubButton';
 import Location from '../components/layout/Location';
 import axios from 'axios';
 import Uploader from '../components/input/Uploader';

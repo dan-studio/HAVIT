@@ -7,9 +7,9 @@ import { FaBell } from 'react-icons/fa';
 import DayBadge from '../DayBadge';
 import Tags from '../Tag';
 import { Tag } from 'antd';
-import PrimaryButton from '../PrimaryButton';
-import SubButton from '../SubButton';
 import { useNavigate } from 'react-router';
+import PrimaryButton from '../button/PrimaryButton';
+import SubButton from './../button/SubButton';
 
 const AlertUser = ({ data, type = 'shadow', nickName, profileUrl, crew }) => {
   const navigate = useNavigate();

@@ -7,8 +7,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { userApis } from "../../apis/auth";
 import { useState } from "react";
-import PrimaryButton from "../../components/PrimaryButton";
-import SubButton from "../../components/SubButton";
+import PrimaryButton from "../../components/button/PrimaryButton";
+import SubButton from "../../components/button/SubButton";
 
 // /grup
 const GroupDetail = () => {
