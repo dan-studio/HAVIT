@@ -17,7 +17,6 @@ export const userApis = {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
   },
-  
   userProfile: async (data) => {
     const reponse = await restApi.get("api/mypage", data);
     return reponse.data;
@@ -27,7 +26,6 @@ export const userApis = {
     const response = await authApi.get("/api/auth/group/");
     return response;
   },
-
   getGroupDetail: async (id) => {
     const response = await authApi.get("/api/auth/group/"+id);
     return response;
@@ -40,17 +38,15 @@ export const userApis = {
     const response = await authApi.delete("api/auth/participate/"+data)
     return response
   },
-
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
     return response;
   },
-
   // 마이페이지 내에서의 내 정보
   userProfile: async () => {
     const reponse = await mockApi.get('/users');
-    console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
-    console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
+    // console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
+    // console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
     return reponse;
   },
 
