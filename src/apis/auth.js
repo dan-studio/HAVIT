@@ -1,6 +1,7 @@
 import { authApi, mockApi, restApi } from './config';
 
 export const userApis = {
+  //Auth
   signup: async data => {
     const response = await restApi.post('/api/signup', data);
     return response.data;
@@ -12,7 +13,6 @@ export const userApis = {
     });
     return response;
   },
-
   logout: async () => {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
@@ -22,19 +22,23 @@ export const userApis = {
     const reponse = await restApi.get("api/mypage", data);
     return reponse.data;
   },
-  
+  //Group
   getGroup: async () => {
     const response = await authApi.get("/api/auth/group/");
-    // const response = await mockApi.get("/group");
     return response;
   },
 
   getGroupDetail: async (id) => {
-    // const response = await mockApi.get("/api/auth/group/"+id);
-    const response = await mockApi.get("/group");
-    console.log(response)
-    const detail = response.data.find(item=>item.groupId===id)
-    return detail;
+    const response = await authApi.get("/api/auth/group/"+id);
+    return response;
+  },
+  joinGroup: async (data) => {
+    const response = await authApi.post("api/auth/participate/"+data)
+    return response
+  },
+  leaveGroup: async (data) => {
+    const response = await authApi.delete("api/auth/participate/"+data)
+    return response
   },
 
   uploadImage: async data => {
