@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import MemberInfo from "../cards/MemberInfo";
 
-const List = ({ data, type }) => {
+const List = ({ data, type, memberList}) => {
+    console.log(memberList)
     return (
         <Container>
             <div className="title">
@@ -15,14 +16,9 @@ const List = ({ data, type }) => {
                 )}
             </div>
             <aside>
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
+                {memberList?.map((item, idx)=>
+                <MemberInfo {...item} width={79} height={30} key={idx}/>
+                )}
             </aside>
         </Container>
     );
