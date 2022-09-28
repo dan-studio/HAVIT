@@ -31,7 +31,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
           <StSpan>{memberCount}명</StSpan>
         </StPeople>
         <StTagDiv>
-          {groupTag && groupTag?.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
+          {groupTag?.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
       </StGroupInfo>
      
       {favorite && (

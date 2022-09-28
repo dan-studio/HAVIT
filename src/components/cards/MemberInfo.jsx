@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-const MemberInfo = ({ width, height }) => {
+const MemberInfo = ({ width, height, nickname, profileUrl}) => {
     return (
         <Container width={width} height={height}>
             <img
-                alt="프로필 이미지"
-                src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ys5jqwvg6pgtpacb5kqb/IMG%20%EC%9B%94%EB%93%9C%20%EC%98%A4%EB%B8%8C%20%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98%20%EC%9E%85%EC%9E%A5%EA%B6%8C.jpg"
+                alt=""
+                src={profileUrl}
             ></img>
             <div>
-                <div>타이틀</div>
+                <div>{nickname}</div>
                 <span>역할</span>
             </div>
         </Container>
