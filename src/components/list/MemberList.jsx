@@ -9,7 +9,7 @@ const List = ({ data, type, memberList}) => {
                 {data?.title ? (
                     <>
                         {data.title}
-                        <icon>▼</icon>
+                        <span>▼</span>
                     </>
                 ) : (
                     <></>
@@ -43,7 +43,7 @@ const Container = styled.div`
         flex-wrap: wrap;
         gap: 1rem 0.5rem;
     }
-    icon {
+    span {
         font-size: 8px;
         margin-left: 0.25rem;
     }
