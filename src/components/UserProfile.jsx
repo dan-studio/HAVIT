@@ -9,10 +9,11 @@ import { userApis } from '../apis/auth';
 // import groupProfile from "../img/profile.jpg";
 
 import { BsTrophy } from 'react-icons/bs';
-
+import { useNavigate } from 'react-router';
 
 const UserProfile = ({ data, type = 'shadow', nickName }) => {
-  console.log('🚀 ⁝ UserProfile ⁝ data', data);
+  const navigate = useNavigate();
+
   return (
     <div>
       <StyleProfile>
@@ -32,7 +33,11 @@ const UserProfile = ({ data, type = 'shadow', nickName }) => {
             </StyleAchievements>
           </StyleUserLeft>
           <StyleAlert>
-            <FaBell />
+            <FaBell
+              onClick={() => {
+                navigate('/mypage/edit');
+              }}
+            />
             <StyleAlertSign></StyleAlertSign>
           </StyleAlert>
         </StyleUserBox>

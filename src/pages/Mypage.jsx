@@ -51,7 +51,7 @@ const Mypage = () => {
   }, []);
 
   return (
-    <StyleWrap>
+    <StyleWrap >
       {/* 프로필 */}
       <UserProfile />
       {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
