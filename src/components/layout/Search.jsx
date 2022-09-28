@@ -19,7 +19,6 @@ const Search = ({ searchRef }) => {
   return (
     <StyleCover>
       <StyleContainer ref={searchRef} className={`${searchRef ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'}`}>
-        {/* {visibleAnimation && searchRef} */}
         <StyleSearchBox>
           <Input
             type='search'

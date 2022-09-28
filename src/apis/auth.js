@@ -17,23 +17,23 @@ export const userApis = {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
   },
-  
-  userProfile: async (data) => {
-    const reponse = await restApi.get("api/mypage", data);
+
+  userProfile: async data => {
+    const reponse = await restApi.get('api/mypage', data);
     return reponse.data;
   },
-  
+
   getGroup: async () => {
-    const response = await authApi.get("/api/auth/group/");
+    const response = await restApi.get('/api/auth/group/');
     // const response = await mockApi.get("/group");
     return response;
   },
 
-  getGroupDetail: async (id) => {
+  getGroupDetail: async id => {
     // const response = await mockApi.get("/api/auth/group/"+id);
-    const response = await mockApi.get("/group");
-    console.log(response)
-    const detail = response.data.find(item=>item.groupId===id)
+    const response = await mockApi.get('/group');
+    console.log(response);
+    const detail = response.data.find(item => item.groupId === id);
     return detail;
   },
 
@@ -44,15 +44,14 @@ export const userApis = {
 
   // 마이페이지 내에서의 내 정보
   userProfile: async () => {
-    const reponse = await mockApi.get('/users');
-    console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
-    console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
+    const reponse = await authApi.get('/api/auth/mypage/');
+    console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse)
     return reponse;
   },
 
   // 마이페이지 내에서의 유저 정보
   usersInfo: async (nickname, profileUrl, crew, email) => {
-    const response = await mockApi.get('/users', { nickname, profileUrl, crew, email });
+    const response = await authApi.get('/api/auth/main', { nickname, profileUrl, crew, email });
     return response;
   },
 };

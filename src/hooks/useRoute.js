@@ -122,7 +122,7 @@ const pages = [
     isMenu: true,
   },
   {
-    path: '/mypage',
+    path: '/mypage/:userId',
     title: '마이페이지',
     screen: Mypage,
     icon: '',

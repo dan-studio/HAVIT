@@ -24,7 +24,7 @@ const Mypage = () => {
     return () => {
       dispatch(resetLayout());
     };
-  }, []); 
+  }, []);
 
   // 내정보 가져오기
   useEffect(() => {
@@ -51,7 +51,7 @@ const Mypage = () => {
   }, []);
 
   return (
-    <StyleWrap >
+    <StyleWrap>
       {/* 프로필 */}
       <UserProfile />
       {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
