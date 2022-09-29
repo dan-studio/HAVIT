@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { FaStarHalfAlt } from "react-icons/fa";
-import { FaBell, FaUserEdit } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
 import { userApis } from "../apis/auth";
 import { BsTrophy } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -21,11 +21,7 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            {/* {myInfo?.profileUrl? */}
-            {/* <StyleUserPhoto src={myInfo?.profileUrl} alt=""></StyleUserPhoto>: */}
-            {/* <StyleUserPhoto src={photo} alt=""></StyleUserPhoto> */}
             <StyleUserPhoto alt=''></StyleUserPhoto>
-            {/* } */}
           </StyleUserRight>
           <StyleUserLeft>
             <StyleUserName>
