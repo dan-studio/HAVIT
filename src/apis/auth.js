@@ -17,9 +17,9 @@ export const userApis = {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
   },
-  userProfile: async (data) => {
-    const reponse = await restApi.get("api/mypage", data);
-    return reponse.data;
+  myProfile: async () => {
+    const reponse = await authApi.get("api/auth/info");
+    return reponse.data.data;
   },
   //Group
   getGroup: async () => {
