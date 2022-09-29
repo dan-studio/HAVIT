@@ -14,7 +14,7 @@ const Mypage = () => {
   const invertHeader = useSelector(state => state.layout);
   const dispatch = useDispatch();
 
-  const [userInfo, setUserInfo] = useState('');
+  const [myInfo, setMyInfo] = useState();
   const [group, setGroup] = useState('');
   const [friends, setFriends] = useState('');
 
@@ -24,14 +24,18 @@ const Mypage = () => {
     return () => {
       dispatch(resetLayout());
     };
-  }, []); 
+  }, []);
 
-  // 내정보 가져오기
+  // 내 정보 가져오기
   useEffect(() => {
-    userApis.userProfile().then(res => {
-      setUserInfo(res.data);
-      console.log('🚀 * userApis.userInfo * setUserInfo', setUserInfo);
-    });
+    userApis
+      .myProfile()
+      .then(res => {
+        setMyInfo(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
 
   // 그룹 가져오기
@@ -43,42 +47,44 @@ const Mypage = () => {
   }, []);
 
   // 사람 가져오기
-  useEffect(() => {
-    userApis.usersInfo().then(res => {
-      setFriends(res.data);
-      console.log('🚀 * userApis.userInfo * setFriends', setFriends);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.usersInfo().then(res => {
+  //     setFriends(res.data);
+  //     console.log('🚀 * userApis.userInfo * setFriends', setFriends);
+  //   });
+  // }, []);
 
   return (
-    <StyleWrap>
+    <StyledWrap>
       {/* 프로필 */}
-      <UserProfile />
-      {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
+      <UserProfile myInfo={myInfo} />
 
       {/* 크루 정보 */}
-      <StyleCrews>
+      <StyledCrews>
         {/* <Bar /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>내가 속한 크루</h2>
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
-        {group && group.map((item, idx) => <CrewInfo {...item} key={idx} />)}
-      </StyleCrews>
+        {/* {group?.map((item, idx) => (
+          <CrewInfo {...item} key={idx} />
+        ))} */}
+        {console.log(group)}
+      </StyledCrews>
 
       {/* 알림 */}
-      <StyleAlert>
+      <StyledAlert>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>알림</h2>
           <IoIosArrowForward style={{ fontSize: '20px' }} />
         </div>
         {friends && friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
-      </StyleAlert>
-    </StyleWrap>
+      </StyledAlert>
+    </StyledWrap>
   );
 };
 
-const StyleWrap = styled.div`
+const StyledWrap = styled.div`
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
@@ -86,7 +92,7 @@ const StyleWrap = styled.div`
   background-color: #5e43ff;
 `;
 
-const StyleCrews = styled.div`
+const StyledCrews = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -115,7 +121,7 @@ const Bar = styled.div`
   border-radius: 5px;
 `;
 
-const StyleAlert = styled.div`
+const StyledAlert = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

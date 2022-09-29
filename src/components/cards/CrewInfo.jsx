@@ -33,7 +33,6 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
         <StTagDiv>
           {groupTag?.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
       </StGroupInfo>
-     
       {favorite && (
         <HiStar
           style={{
@@ -47,7 +46,6 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
         />
       )}
     </StCard>
-     
      </>
   );
 };

@@ -1,4 +1,5 @@
-import { authApi, mockApi, restApi, formApi } from './config';
+
+import { authApi, formApi, mockApi, restApi } from './config';
 
 export const userApis = {
   //Auth
@@ -17,31 +18,33 @@ export const userApis = {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
   },
-  userProfile: async (data) => {
-    const reponse = await restApi.get("api/mypage", data);
-    return reponse.data;
+  myProfile: async () => {
+    const reponse = await authApi.get('api/auth/info');
+    console.log('🚀 ⁝ myProfile: ⁝ reponse', reponse);
+    return reponse.data.data;
   },
+
   //Group
   getGroup: async () => {
     const response = await authApi.get("/api/auth/group/");
+    return response.data.data;
+  },
+  getGroupDetail: async id => {
+    const response = await authApi.get('/api/auth/group/' + id);
     return response;
   },
-  getGroupDetail: async (id) => {
-    const response = await authApi.get("/api/auth/group/"+id);
+  joinGroup: async data => {
+    const response = await authApi.post('api/auth/participate/' + data);
     return response;
   },
-  joinGroup: async (data) => {
-    const response = await authApi.post("api/auth/participate/"+data)
-    return response
-  },
-  leaveGroup: async (data) => {
-    const response = await authApi.delete("api/auth/participate/"+data)
-    return response
+  leaveGroup: async data => {
+    const response = await authApi.delete('api/auth/participate/' + data);
+    return response;
   },
   //certify
-  uploadImage: async data => {
+  uploadImage: async (data) => {
     const response = await authApi.post('/api/auth/certify/', data);
-    console.log(data)
+    console.log(response)
     return response;
   },
 
@@ -51,7 +54,7 @@ export const userApis = {
 
   // 마이페이지 내에서의 내 정보
   userProfile: async () => {
-    const reponse = await mockApi.get('/users');
+    const reponse = await authApi.get('/users');
     // console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
     // console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
     return reponse;
@@ -59,12 +62,24 @@ export const userApis = {
 
   // 마이페이지 내에서의 유저 정보
   usersInfo: async (nickname, profileUrl, crew, email) => {
-    const response = await mockApi.get('/users', { nickname, profileUrl, crew, email });
-    return response;
-  },
-  getgroup: async () => {
-    const response = await authApi.get("/api/group");
+    const response = await authApi.get('/users', { nickname, profileUrl, crew, email });
     return response;
   },
 
+  // 마이페이지에서 비밀번호 확인하기
+  userPwCheck: async password => {
+    const response = await authApi.post('/api/auth/mypage/check', { password });
+    console.log('🚀 ⁝ password', typeof password);
+
+    return response;
+  },
+  getgroup: async () => {
+    const response = await authApi.get('/api/group');
+    return response;
+  },
+  updateProfile: async data => {
+    const response = await authApi.put('/api/auth/mypage/', data);
+    console.log('🚀 ⁝ response', response);
+    return response;
+  },
 };

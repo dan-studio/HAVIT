@@ -35,6 +35,10 @@ const StyleWrap = styled.div`
       background-color: #eaeaea;
       color: #b0b0b0;
     }
+
+    :focus {
+      outline: 2px solid #5e43ff;
+    }
   }
 `;
 

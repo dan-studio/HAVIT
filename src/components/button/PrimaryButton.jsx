@@ -5,14 +5,14 @@ import ToggleSwitch from './ToggleSwitch';
 const PrimaryButton = ({ buttonName, onClick }) => {
   return (
     <>
-      <StyleButton type='submit' onClick={onClick}>
+      <StyledButton type='submit' onClick={onClick}>
         {buttonName}
-      </StyleButton>
+      </StyledButton>
     </>
   );
 };
 
-const StyleButton = styled.button`
+const StyledButton = styled.button`
   cursor: pointer;
   min-width: 98px;
   height: 34px;

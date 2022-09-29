@@ -1,39 +1,45 @@
-import styled from 'styled-components';
-import React from 'react';
-import { FaStarHalfAlt } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
-import { MdPeopleAlt } from 'react-icons/md';
-import { FaBell } from 'react-icons/fa';
-import { userApis } from '../apis/auth';
+import styled from "styled-components";
+import React from "react";
+import { FaStarHalfAlt } from "react-icons/fa";
+import { FaBell, FaUserEdit } from "react-icons/fa";
+import { userApis } from "../apis/auth";
+import { BsTrophy } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
-// import groupProfile from "../img/profile.jpg";
+const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
+  const navigate = useNavigate();
 
-import { BsTrophy } from 'react-icons/bs';
-
-
-const UserProfile = ({ data, type = 'shadow', nickName }) => {
-  console.log('🚀 ⁝ UserProfile ⁝ data', data);
+  const getRandom = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
+  const randomNum = getRandom(1, 12);
+  console.log(randomNum);
   return (
     <div>
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            <StyleUserPhoto src='https://images.unsplash.com/photo-1616994503361-04ac7f5f6aac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80'></StyleUserPhoto>
+            {/* {myInfo?.profileUrl? */}
+            {/* <StyleUserPhoto src={myInfo?.profileUrl} alt=""></StyleUserPhoto>: */}
+            {/* <StyleUserPhoto src={photo} alt=""></StyleUserPhoto> */}
+            <StyleUserPhoto alt=''></StyleUserPhoto>
+            {/* } */}
           </StyleUserRight>
           <StyleUserLeft>
             <StyleUserName>
-              <span>{nickName}</span> 님
+              <span>{myInfo?.nickname}</span> 님
             </StyleUserName>
-            <StyleUserIntr>세상에서 제일가는 장난꾸러기</StyleUserIntr>
-            <StylePercentage value='50' max='100'></StylePercentage>
+            <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
+            <StylePercentage value='3' max='20'></StylePercentage>
             <StyleAchievements>
               <FaStarHalfAlt /> 시작이 반이다 <br />
               <BsTrophy /> 첫 완수
             </StyleAchievements>
           </StyleUserLeft>
           <StyleAlert>
-            <FaBell />
-            <StyleAlertSign></StyleAlertSign>
+            <FaUserEdit />
           </StyleAlert>
         </StyleUserBox>
       </StyleProfile>
@@ -92,7 +98,7 @@ const StyleUserName = styled.div`
     font-weight: 700;
   }
 `;
-const StyleUserIntr = styled.div`
+const StyleUserContent = styled.div`
   color: gray;
   font-size: 12px;
 `;
@@ -100,6 +106,7 @@ const StyleAchievements = styled.div`
   font-size: 10px;
 `;
 const StyleAlert = styled.div`
+font-size: 18px;
   position: relative;
   color: #d2d2d2;
 `;
