@@ -1,15 +1,15 @@
-import { useDispatch } from 'react-redux';
 import { setLayout } from '@redux/layout';
+import { useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import { resetLayout } from '../redux/layout';
-import styled, { css } from 'styled-components';
 import { userApis } from '@/apis/auth';
 import { setToken } from '@/apis/config';
 
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
 import EditInput from '../components/editprofile/EditInput';
-import { Navigate, useNavigate } from 'react-router-dom';
 import PrimaryButton from './../components/button/PrimaryButton';
 import SubButton from '../components/button/SubButton';
 
@@ -17,14 +17,14 @@ const EnterMyapgeEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    userApis.userProfile().then(res => {
-      // NOTE 이메일만 가져오는 방법을 알고싶습니다.
-      console.log('🚀 ⁝ userApis.userProfile ⁝ res.data', res.data[0].email);
-      setEmail(res.data[0].email);
-      console.log('🚀 ⁝ userApis.userProfile ⁝ setEmail', setEmail);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.userProfile().then(res => {
+  //     // NOTE 이메일만 가져오는 방법을 알고싶습니다.
+  //     console.log('🚀 ⁝ userApis.userProfile ⁝ res.data', res.data[0].email);
+  //     setEmail(res.data[0].email);
+  //     console.log('🚀 ⁝ userApis.userProfile ⁝ setEmail', setEmail);
+  //   });
+  // }, []);
 
   // ###########################################
   // ## SECTION State                        ###
@@ -43,8 +43,18 @@ const EnterMyapgeEdit = () => {
   // ###########################################
   // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = e => {
-    Navigate('/MypageEdit');
+  const onSubmitHandler = () => {
+    userApis
+      .userPwCheck(password)
+      .then(res => {
+        console.log('🚀 ⁝ userApis.userPwCheck ⁝ res', res);
+        // const temp = { access_token: res.headers.authorization, refresh_token: res.headers['refresh-token'] };
+        // setToken(temp);
+        navigate('/MypageEdit');
+      })
+      .catch(err => {
+        console.log('🚀 ⁝ onSubmitHandler ⁝ err', err);
+      });
   };
 
   // ###########################################
@@ -108,7 +118,7 @@ const EnterMyapgeEdit = () => {
       {/* WHAT 버튼 */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
-        <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
+        <SubButton buttonName={'취소'} onClick={() => navigate(-1)} />
       </div>
     </>
   );

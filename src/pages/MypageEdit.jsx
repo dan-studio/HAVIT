@@ -100,35 +100,39 @@ const MypageEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <StyleDivBox>
+        <StyledDivBox>
           <EditInput inputLabel={'닉네임 변경'} type={'text'} onChange={onChangeNickname} />
           {nickname.length > 0 && (
-            <StyleConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
+            <StyledConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {nicknameMsg}
-            </StyleConfirmMsg>
+            </StyledConfirmMsg>
           )}
-        </StyleDivBox>
+        </StyledDivBox>
+
+        <StyledDivBox>
+          <EditInput inputLabel={'상태메세지'} type={'text'} />
+        </StyledDivBox>
 
         {/* WHAT 비밀번호 부분 */}
         <EditInput inputLabel={'현재 비밀번호'} type={'password'} placeHolder={password} />
 
-        <StyleDivBox>
+        <StyledDivBox>
           <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
           {newPw.length > 0 && (
-            <StyleConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
+            <StyledConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {newPwMsg}
-            </StyleConfirmMsg>
+            </StyledConfirmMsg>
           )}
-        </StyleDivBox>
+        </StyledDivBox>
 
-        <StyleDivBox>
+        <StyledDivBox>
           <EditInput inputLabel={'비밀번호 확인'} type={'password'} onChange={onChangePwConfirm} />
           {newPwConfirm.length > 0 && (
-            <StyleConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
+            <StyledConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
               {StylenewPwConfirmMsg}
-            </StyleConfirmMsg>
+            </StyledConfirmMsg>
           )}
-        </StyleDivBox>
+        </StyledDivBox>
       </div>
 
       {/* WHAT 버튼 */}
@@ -140,7 +144,7 @@ const MypageEdit = () => {
   );
 };
 
-const StyleDivBox = styled.div`
+const StyledDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -150,7 +154,7 @@ const StyleDivBox = styled.div`
   }
 `;
 
-const StyleConfirmMsg = styled.span`
+const StyledConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;

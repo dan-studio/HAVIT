@@ -27,28 +27,28 @@ const Mypage = () => {
   }, []);
 
   // 내정보 가져오기
-  useEffect(() => {
-    userApis.userProfile().then(res => {
-      setUserInfo(res.data);
-      console.log('🚀 * userApis.userInfo * setUserInfo', setUserInfo);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.userProfile().then(res => {
+  //     setUserInfo(res.data);
+  //     console.log('🚀 * userApis.userInfo * setUserInfo', setUserInfo);
+  //   });
+  // }, []);
 
   // 그룹 가져오기
-  useEffect(() => {
-    userApis.getGroup().then(res => {
-      setGroup(res.data);
-      console.log('🚀 * userApis.getGroup * setGroup', setGroup);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.getGroup().then(res => {
+  //     setGroup(res.data);
+  //     console.log('🚀 * userApis.getGroup * setGroup', setGroup);
+  //   });
+  // }, []);
 
   // 사람 가져오기
-  useEffect(() => {
-    userApis.usersInfo().then(res => {
-      setFriends(res.data);
-      console.log('🚀 * userApis.userInfo * setFriends', setFriends);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.usersInfo().then(res => {
+  //     setFriends(res.data);
+  //     console.log('🚀 * userApis.userInfo * setFriends', setFriends);
+  //   });
+  // }, []);
 
   return (
     <StyleWrap>
@@ -63,7 +63,10 @@ const Mypage = () => {
           <h2>내가 속한 크루</h2>
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
-        {group && group.map((item, idx) => <CrewInfo {...item} key={idx} />)}
+        {/* {group?.map((item, idx) => (
+          <CrewInfo {...item} key={idx} />
+        ))} */}
+        {console.log(group)}
       </StyleCrews>
 
       {/* 알림 */}
