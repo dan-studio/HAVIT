@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { resetLayout, setLayout } from '../redux/layout';
-import UserProfile from '../components/UserProfile';
-import GroupCard from '../components/cards/GroupCard';
-import ChallengeCard from '../components/cards/ChallengeCard';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import { resetLayout, setLayout } from "../redux/layout";
+import UserProfile from "../components/UserProfile";
+import GroupCard from "../components/cards/GroupCard";
+import ChallengeCard from "../components/cards/ChallengeCard";
 
-import { IoIosArrowForward } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import { IoIosArrowForward } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { userApis } from "../apis/auth";
 
-const Index = () => {
-  const navigate = useNavigate()
+const Main = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
@@ -19,16 +20,39 @@ const Index = () => {
     };
   }, []);
 
+  const [myInfo, setMyInfo] = useState();
+  useEffect(() => {
+    userApis
+      .myProfile()
+      .then((res) => {
+        setMyInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', background: '#5e43ff' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        background: "#5e43ff",
+      }}
+    >
       {/* <StyledTopDiv> */}
-      <UserProfile />
+      <UserProfile myInfo={myInfo} />
       {/* </StyledTopDiv> */}
       <StyledBottomDiv>
         <StyledGroup>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <h2>김병처리님 이런그룹은 어떠세요?</h2>
-            <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} onClick={()=>{navigate('/group')}}/>
+            <IoIosArrowForward
+              style={{ fontSize: "20px", color: "#DE4242" }}
+              onClick={() => {
+                navigate("/group");
+              }}
+            />
           </div>
         </StyledGroup>
         <StyledGroupPhotoBox>
@@ -52,7 +76,7 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Main;
 
 const StyledBottomDiv = styled.div`
   display: flex;
@@ -104,7 +128,7 @@ const StyledGroupTitle = styled.div`
 const StyledGroupPhotoBox = styled.div`
   display: flex;
   width: 100vw;
-  height: 12.5rem; 
+  height: 12.5rem;
   margin-bottom: 70px;
   overflow-x: scroll;
   overflow-y: hidden;

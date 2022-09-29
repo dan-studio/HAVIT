@@ -17,9 +17,9 @@ export const userApis = {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
   },
-  userProfile: async (data) => {
-    const reponse = await restApi.get("api/mypage", data);
-    return reponse.data;
+  myProfile: async () => {
+    const reponse = await authApi.get("api/auth/info");
+    return reponse.data.data;
   },
   //Group
   getGroup: async () => {
@@ -38,9 +38,10 @@ export const userApis = {
     const response = await authApi.delete("api/auth/participate/"+data)
     return response
   },
+  //certify
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
-    console.log('🚀 ⁝ response', response);
+    console.log(data)
     return response;
   },
   // 마이페이지 내에서의 내 정보
@@ -61,6 +62,16 @@ export const userApis = {
     const response = await authApi.post('/api/auth/mypage/check', { password });
     console.log('🚀 ⁝ password', typeof password);
 
+    return response;
+  },
+  getgroup: async () => {
+    const response = await authApi.get("/api/group");
+    return response;
+  },
+  uploadImage: async (data) => {
+    // const response = await authApi.post(`/api/auth/certify/`, data);
+    const response = await authApi.post(`/api/auth/certify/`, data);
+    console.log("response",response)
     return response;
   },
 };

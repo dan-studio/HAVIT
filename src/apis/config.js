@@ -36,8 +36,8 @@ authApi.interceptors.request.use(async req => {
 });
 
 authApi.interceptors.response.use(
-  res => res,
-  err => {
+  (res) => res,
+  (err) => {
     const status = err.response?.status;
     if (status === 403 || status === 401) {
       const refresh_token = getToken();

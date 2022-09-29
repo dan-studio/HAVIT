@@ -35,7 +35,7 @@ const pages = [
     isMenu: true,
     child: [
       {
-        path: '/detail',
+        path: '/:groupId',
         title: '샘플 자식 리스트',
         screen: Detail,
         isMenu: true,
@@ -47,7 +47,7 @@ const pages = [
             isMenu: true,
           },
           {
-            path: '/board',
+            path: '/:boardId',
             title: '샘플등록(pathvariable)',
             screen: Board,
             isMenu: true,
