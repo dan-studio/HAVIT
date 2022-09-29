@@ -9,6 +9,7 @@ import Uploader from "../components/input/Uploader";
 import { Upload } from "antd";
 import { userApis } from "../apis/auth";
 import { IoLocationOutline } from 'react-icons/io5';
+import { useParams } from "react-router-dom";
 
 const Write = () => {
   const [image, setImage] = useState("");
@@ -19,13 +20,12 @@ const Write = () => {
   const imageInfo = (image) => {
     setImage(image);
   };
-  // const addCertify = {
-  //   challengeTitle: challengeTitle,
-  //   image:image
-  // };
+  const url = useParams()
+  console.log(url.groupId)
   const addCertify = {
+    groupId: url.groupId,
     title: challengeTitle,
-    // image: image,
+    imgFile: image,
   };
   console.log("image조회", image);
   const handleChange = (e) => {
@@ -64,47 +64,43 @@ const Write = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
+  console.log("challengeTitle타입조회", typeof(challengeTitle))
 
   console.log("addcertify",addCertify);
   const addClickHandler = () => {
     let formData = new FormData();
-    formData.append(
-      "data",
-      new Blob([JSON.stringify(addCertify)], { type: "application/json" })
-      // new Blob([JSON.stringify(addCertify)], { type: "image/json" })
-      // new Blob([JSON.stringify(addCertify)], { type: "application/octet-stream" })
-    );
-    formData.append("file", image);
+    // formData.append(
+    //   "data",
+    //   new Blob([JSON.stringify(addCertify)], { type: "application/json" })
+    // );
+    formData.append("imgFile", image);
+    formData.append("groupId",url.groupId );
+    formData.append("title", challengeTitle);
+
+
     for (let i of formData.entries()) {
       console.log("i", i[1]);
-      console.log("formdata", formData);
+      console.log("formdata반복문조회", formData);
     }
 
       // dispatch(_addPost(formData));
       // axios.post("http://localhost:3001/certify",formData)
 
       // await axios.post("http://localhost:3001/certify",addCertify)
+      userApis
+        .uploadImage(formData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       // userApis.uploadImage(addCertify)
-      // userApis
-      //   .uploadImage(formData)
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-      userApis.uploadImage(addCertify)
 
-      // axios.post("http://localhost:3001/certify", addCertify);
-      // axios.post("http://13.209.88.134/api/auth/certify/", addCertify);
-      // axios.post("http://13.209.88.134/api/auth/certify/", formData);
-
-      // axios.post("http://localhost:3001/certify",formData)
       // console.log("formdata조회", formData);
       //이동할때 새로고침하고 들어가짐(위험?)
       // window.location.replace("/group/detail/write");
     };
-    // console.log(textareaHandler)
 
     return (
       <div>
