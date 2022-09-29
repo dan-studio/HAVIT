@@ -15,8 +15,7 @@ const Group = () => {
     userApis
       .getGroup()
       .then((res) => {
-        console.log(res)
-        setCrew(res.data.data)
+        setCrew(res)
       })
       .catch((err) => {
         console.log(err);

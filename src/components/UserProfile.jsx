@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { FaStarHalfAlt } from "react-icons/fa";
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaUserEdit } from "react-icons/fa";
 import { userApis } from "../apis/auth";
 import { BsTrophy } from "react-icons/bs";
 
@@ -37,8 +37,7 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
             </StyleAchievements>
           </StyleUserLeft>
           <StyleAlert>
-            <FaBell />
-            <StyleAlertSign></StyleAlertSign>
+            <FaUserEdit />
           </StyleAlert>
         </StyleUserBox>
       </StyleProfile>
@@ -105,6 +104,7 @@ const StyleAchievements = styled.div`
   font-size: 10px;
 `;
 const StyleAlert = styled.div`
+font-size: 18px;
   position: relative;
   color: #d2d2d2;
 `;

@@ -2,16 +2,16 @@ import styled from 'styled-components';
 import React from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 
-const GroupCard = () => {
+const GroupCard = ({title, imgUrl, memberCount}) => {
   return (
     <div>
       <GroupCardBox>
-        <GroupPhoto src='https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'></GroupPhoto>
-        <GroupTitle>오운완챌린지ㅋ</GroupTitle>
+        <GroupPhoto src={imgUrl}/>
+        <GroupTitle>{title}</GroupTitle>
         <HeadBox>
           <div style={{display:'flex', alignItems:'center', margin:'0 .3125rem'}}>
             <BsPeopleFill color='#5e43ff' />
-            <HeadCount>1명</HeadCount>
+            <HeadCount>{memberCount}</HeadCount>
           </div>
         </HeadBox>
       </GroupCardBox>

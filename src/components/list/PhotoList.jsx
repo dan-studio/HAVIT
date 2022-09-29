@@ -24,7 +24,6 @@ const Container = styled.div`
     gap: 5px;
     display: flex;
     flex-wrap: wrap;
-
     & > div {
         width: 113px;
         height: 113px;

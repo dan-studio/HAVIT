@@ -14,17 +14,18 @@ export const restApi = axios.create({
 
 export const authApi = axios.create({
   baseURL: getAPIHost(),
+  // headers: {
+  //   'Content-Type': 'multipart/form-data'
+  // },
   withCredentials: true,
 });
 
-export const mockApi = axios.create({
-  baseURL: getLocalAPI(),
+export const formApi = axios.create({
+  baseURL: getAPIHost(),
   headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json,",
-  },
-  withCredentials: true,
-});
+    'Content-Type': 'multipart/form-data'
+  }
+})
 
 authApi.interceptors.request.use(async (req) => {
   const token = getToken();
