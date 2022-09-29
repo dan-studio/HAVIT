@@ -22,11 +22,27 @@ const Myprofile = () => {
   // ###########################################
 
   // WHAT 원래 상태
-  const [nickname, setNickname] = useState('기본아이디');
-  const [password, setPassword] = useState('기존비번');
-  const [newPw, setNewPw] = useState('');
-  const [newPwConfirm, setNewPwConfirm] = useState('');
   const [userProfile, setUserProfile] = useState('');
+  const [nickname, setNickname] = useState('기본아이디');
+  const [introduce, setIntroduce] = useState('기본소개');
+
+  // ###########################################
+  // ## SECTION 내정보 가져오기                 ###
+  // ###########################################
+
+  useEffect(() => {
+    userApis
+      .myProfile()
+      .then(res => {
+        console.log('🚀 ⁝ userApis.Myprofile ⁝ res', res);
+        setUserProfile(res.profileUrl);
+        setNickname(res.nickname);
+        setIntroduce(res.introduce);
+      })
+      .catch(err => {
+        console.log('🚀 ⁝ Myprofile ⁝ err', err);
+      });
+  }, []);
 
   // WHAT 상태 메세지
   const [nicknameMsg, setNicknameMsg] = useState('');
@@ -41,7 +57,22 @@ const Myprofile = () => {
   // ###########################################
   // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = e => {};
+  const onSubmitHandler = () => {
+    userApis
+      .updateProfile()
+      .then(response => {
+        console.log(response);
+        alert(`${response.data.data.nickname}님 환영합니다!`);
+        const temp = { access_token: response.headers.authorization, refresh_token: response.headers['refresh-token'] };
+        setToken(temp);
+        navigate('/main');
+      })
+      .catch(error => {
+        if (error.response.data.errorMsg.code === 'MEMBER_NOT_FOUND') {
+          alert('입력하신 이메일 또는 비밀번호가 일치하지 않습니다.');
+        }
+      });
+  };
 
   // ###########################################
   // ## SECTION 유효성검사                     ###
@@ -59,35 +90,6 @@ const Myprofile = () => {
     }
   });
 
-  // WHAT 새로운 비번 입력
-  const onChangePw = useCallback(e => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const newPwCurent = e.target.value;
-    setNewPw(newPwCurent);
-
-    if (!passwordRegex.test(newPwCurent)) {
-      setNewPwMsg('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
-      setIsPassword(false);
-    } else {
-      setNewPwMsg('안전한 비밀번호에요');
-      setIsPassword(true);
-    }
-  }, []);
-
-  // WHAT 새로운 비번 확인
-  const onChangePwConfirm = useCallback(e => {
-    const pwConfirmCurrent = e.target.value;
-    setNewPwConfirm(pwConfirmCurrent);
-
-    if (newPw === pwConfirmCurrent) {
-      StylesetNewPwConfirmMsg('비밀번호가 일치합니다');
-      setIsPasswordConfirm(true);
-    } else {
-      StylesetNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
-      setIsPasswordConfirm(false);
-    }
-  });
-
   // ###########################################
   // ## SECTION VIEW 부분                     ###
   // ###########################################
@@ -101,7 +103,7 @@ const Myprofile = () => {
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
         <StyledDivBox>
-          <EditInput inputLabel={'닉네임 변경'} type={'text'} onChange={onChangeNickname} />
+          <EditInput inputLabel={'닉네임'} value={nickname} type={'text'} onChange={onChangeNickname} />
           {nickname.length > 0 && (
             <StyledConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {nicknameMsg}
@@ -111,10 +113,10 @@ const Myprofile = () => {
 
         {/* 자기소개 */}
         <StyledDivBox>
-          <EditInput inputLabel={'자기소개'} type={'text'} />
+          <EditInput inputLabel={'자기소개'} value={introduce} type={'text'} />
         </StyledDivBox>
 
-        <span style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }} onClick={() => Navigate('/mypage/edit/private')}>
+        <span onClick={() => navigate(`/mypage/edit/private`)} style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }}>
           비밀번호 변경
         </span>
       </div>
@@ -122,7 +124,7 @@ const Myprofile = () => {
       {/* WHAT 버튼 */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '6.25rem auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
-        <SubButton buttonName={'취소'} onClick={navigate('/mypage/edit/private')} />
+        <SubButton buttonName={'취소'} onClick={() => navigate(-1)} />
       </div>
     </>
   );

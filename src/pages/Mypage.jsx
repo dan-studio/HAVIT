@@ -14,7 +14,7 @@ const Mypage = () => {
   const invertHeader = useSelector(state => state.layout);
   const dispatch = useDispatch();
 
-  const [userInfo, setUserInfo] = useState('');
+  const [myInfo, setMyInfo] = useState();
   const [group, setGroup] = useState('');
   const [friends, setFriends] = useState('');
 
@@ -26,21 +26,25 @@ const Mypage = () => {
     };
   }, []);
 
-  // 내정보 가져오기
-  // useEffect(() => {
-  //   userApis.userProfile().then(res => {
-  //     setUserInfo(res.data);
-  //     console.log('🚀 * userApis.userInfo * setUserInfo', setUserInfo);
-  //   });
-  // }, []);
+  // 내 정보 가져오기
+  useEffect(() => {
+    userApis
+      .myProfile()
+      .then(res => {
+        setMyInfo(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   // 그룹 가져오기
-  // useEffect(() => {
-  //   userApis.getGroup().then(res => {
-  //     setGroup(res.data);
-  //     console.log('🚀 * userApis.getGroup * setGroup', setGroup);
-  //   });
-  // }, []);
+  useEffect(() => {
+    userApis.getGroup().then(res => {
+      setGroup(res.data);
+      console.log('🚀 * userApis.getGroup * setGroup', setGroup);
+    });
+  }, []);
 
   // 사람 가져오기
   // useEffect(() => {
@@ -53,8 +57,7 @@ const Mypage = () => {
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <UserProfile />
-      {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
+      <UserProfile myInfo={myInfo} />
 
       {/* 크루 정보 */}
       <StyledCrews>
