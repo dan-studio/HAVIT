@@ -17,6 +17,11 @@ export const authApi = axios.create({
   withCredentials: true,
 });
 
+export const formApi = axios.create({
+  baseURL: getAPIHost(),
+  headers: { "Content-Type": "multipart/form-data" },
+});
+
 export const mockApi = axios.create({
   baseURL: getLocalAPI(),
   headers: {
@@ -31,12 +36,11 @@ authApi.interceptors.request.use(async (req) => {
   if (token) {
     req.headers.common.authorization = token.access_token;
   }
-  console.log(req)
+  console.log(req);
   return req;
 });
 
 authApi.interceptors.response.use(
-
   (res) => res,
   (err) => {
     const status = err.response?.status;
