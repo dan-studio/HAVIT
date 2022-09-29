@@ -1,20 +1,21 @@
-import styled from "styled-components";
-import React from "react";
-import { FaStarHalfAlt } from "react-icons/fa";
-import { FaBell } from "react-icons/fa";
-import { userApis } from "../apis/auth";
-import { BsTrophy } from "react-icons/bs";
+import styled from 'styled-components';
+import React from 'react';
+import { FaStarHalfAlt } from 'react-icons/fa';
+import { FaBell } from 'react-icons/fa';
+import { userApis } from '../apis/auth';
+import { BsTrophy } from 'react-icons/bs';
+import { useNavigate } from 'react-router';
 
+const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
+  const navigate = useNavigate();
 
-
-const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
   const getRandom = (min, max) => {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max-min)) + min
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
   };
-  const randomNum=getRandom(1,12)
-  console.log(randomNum)
+  const randomNum = getRandom(1, 12);
+  console.log(randomNum);
   return (
     <div>
       <StyleProfile>
@@ -23,7 +24,7 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
             {/* {myInfo?.profileUrl? */}
             {/* <StyleUserPhoto src={myInfo?.profileUrl} alt=""></StyleUserPhoto>: */}
             {/* <StyleUserPhoto src={photo} alt=""></StyleUserPhoto> */}
-            <StyleUserPhoto alt=""></StyleUserPhoto>
+            <StyleUserPhoto alt=''></StyleUserPhoto>
             {/* } */}
           </StyleUserRight>
           <StyleUserLeft>
@@ -31,7 +32,7 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
               <span>{myInfo?.nickname}</span> 님
             </StyleUserName>
             <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
-            <StylePercentage value="3" max="20"></StylePercentage>
+            <StylePercentage value='3' max='20'></StylePercentage>
             <StyleAchievements>
               <FaStarHalfAlt /> 시작이 반이다 <br />
               <BsTrophy /> 첫 완수
@@ -40,7 +41,7 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
           <StyleAlert>
             <FaBell
               onClick={() => {
-                navigate('/mypage/:memberId/myprofile');
+                navigate('/mypage/edit');
               }}
             />
             <StyleAlertSign></StyleAlertSign>

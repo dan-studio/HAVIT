@@ -75,6 +75,35 @@ const MyPwEdit = () => {
     }
   });
 
+    // // WHAT 새로운 비번 입력
+    // const onChangePw = useCallback(e => {
+    //   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    //   const newPwCurent = e.target.value;
+    //   setNewPw(newPwCurent);
+  
+    //   if (!passwordRegex.test(newPwCurent)) {
+    //     setNewPwMsg('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
+    //     setIsPassword(false);
+    //   } else {
+    //     setNewPwMsg('안전한 비밀번호에요');
+    //     setIsPassword(true);
+    //   }
+    // }, []);
+  
+    // // WHAT 새로운 비번 확인
+    // const onChangePwConfirm = useCallback(e => {
+    //   const pwConfirmCurrent = e.target.value;
+    //   setNewPwConfirm(pwConfirmCurrent);
+  
+    //   if (newPw === pwConfirmCurrent) {
+    //     StylesetNewPwConfirmMsg('비밀번호가 일치합니다');
+    //     setIsPasswordConfirm(true);
+    //   } else {
+    //     StylesetNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
+    //     setIsPasswordConfirm(false);
+    //   }
+    // });
+
   // ###########################################
   // ## SECTION VIEW 부분                     ###
   // ###########################################
