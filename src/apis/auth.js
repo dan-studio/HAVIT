@@ -1,4 +1,4 @@
-import { authApi, mockApi, restApi } from './config';
+import { authApi, formApi, mockApi, restApi } from './config';
 
 export const userApis = {
   //Auth
@@ -25,8 +25,8 @@ export const userApis = {
 
   //Group
   getGroup: async () => {
-    const response = await authApi.get('/api/auth/group/');
-    return response;
+    const response = await authApi.get("/api/auth/group/");
+    return response.data.data;
   },
   getGroupDetail: async id => {
     const response = await authApi.get('/api/auth/group/' + id);
@@ -41,9 +41,22 @@ export const userApis = {
     return response;
   },
   //certify
-  uploadImage: async data => {
+  uploadImage: async (data) => {
     const response = await authApi.post('/api/auth/certify/', data);
-    console.log(data);
+    console.log(response)
+    return response;
+  },
+  // 마이페이지 내에서의 내 정보
+  userProfile: async () => {
+    const reponse = await authApi.get('/users');
+    // console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
+    // console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
+    return reponse;
+  },
+
+  // 마이페이지 내에서의 유저 정보
+  usersInfo: async (nickname, profileUrl, crew, email) => {
+    const response = await authApi.get('/users', { nickname, profileUrl, crew, email });
     return response;
   },
 
@@ -56,12 +69,6 @@ export const userApis = {
   },
   getgroup: async () => {
     const response = await authApi.get('/api/group');
-    return response;
-  },
-  uploadImage: async data => {
-    // const response = await authApi.post(`/api/auth/certify/`, data);
-    const response = await authApi.post(`/api/auth/certify/`, data);
-    console.log('response', response);
     return response;
   },
   updateProfile: async data => {

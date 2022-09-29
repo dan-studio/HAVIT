@@ -14,15 +14,9 @@ export const restApi = axios.create({
 
 export const authApi = axios.create({
   baseURL: getAPIHost(),
-  withCredentials: true,
-});
-
-export const mockApi = axios.create({
-  baseURL: getLocalAPI(),
-  headers: {
-    'content-type': 'application/json;charset=UTF-8',
-    accept: 'application/json,',
-  },
+  // headers: {
+  //   'Content-Type': 'multipart/form-data'
+  // },
   withCredentials: true,
 });
 

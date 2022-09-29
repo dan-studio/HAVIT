@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import React from 'react';
-import { FaStarHalfAlt } from 'react-icons/fa';
-import { FaBell } from 'react-icons/fa';
-import { userApis } from '../apis/auth';
-import { BsTrophy } from 'react-icons/bs';
-import { useNavigate } from 'react-router';
+import styled from "styled-components";
+import React from "react";
+import { FaStarHalfAlt } from "react-icons/fa";
+import { FaBell, FaUserEdit } from "react-icons/fa";
+import { userApis } from "../apis/auth";
+import { BsTrophy } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
   const navigate = useNavigate();
@@ -39,12 +39,7 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
             </StyleAchievements>
           </StyleUserLeft>
           <StyleAlert>
-            <FaBell
-              onClick={() => {
-                navigate('/mypage/edit');
-              }}
-            />
-            <StyleAlertSign></StyleAlertSign>
+            <FaUserEdit />
           </StyleAlert>
         </StyleUserBox>
       </StyleProfile>
@@ -111,6 +106,7 @@ const StyleAchievements = styled.div`
   font-size: 10px;
 `;
 const StyleAlert = styled.div`
+font-size: 18px;
   position: relative;
   color: #d2d2d2;
 `;

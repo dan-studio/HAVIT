@@ -32,6 +32,18 @@ const Main = () => {
       });
   }, []);
   
+  const [crew, setCrew] = useState()
+  useEffect(() => {
+    userApis
+      .getGroup()
+      .then((res) => {
+        setCrew(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(crew)
   return (
     <div
       style={{
@@ -56,10 +68,7 @@ const Main = () => {
           </div>
         </StyledGroup>
         <StyledGroupPhotoBox>
-          <GroupCard />
-          <GroupCard />
-          <GroupCard />
-          <GroupCard />
+          {crew?.map((item, idx)=><GroupCard {...item} key={idx}/>)}
         </StyledGroupPhotoBox>
         <StyledChallenge>
           <StyledChallengeTitle>함께 챌린지를 완수해요</StyledChallengeTitle>
