@@ -17,27 +17,32 @@ export const userApis = {
     const response = await authApi.post('/api/auth/logout', {});
     return response;
   },
-
+  userProfile: async (data) => {
+    const reponse = await restApi.get("api/mypage", data);
+    return reponse.data;
+  },
   //Group
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
     return response;
   },
-
-  getGroupDetail: async id => {
-    // const response = await mockApi.get("/api/auth/group/"+id);
-    const response = await mockApi.get('/group');
-    console.log(response);
-    const detail = response.data.find(item => item.groupId === id);
-    return detail;
+  getGroupDetail: async (id) => {
+    const response = await authApi.get("/api/auth/group/"+id);
+    return response;
   },
-
+  joinGroup: async (data) => {
+    const response = await authApi.post("api/auth/participate/"+data)
+    return response
+  },
+  leaveGroup: async (data) => {
+    const response = await authApi.delete("api/auth/participate/"+data)
+    return response
+  },
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
     console.log('🚀 ⁝ response', response);
     return response;
   },
-
   // 마이페이지 내에서의 내 정보
   // userProfile: async data => {
   //   const reponse = await authApi.get('/users');
