@@ -122,7 +122,7 @@ const pages = [
     isMenu: true,
   },
   {
-    path: '/mypage/:userId',
+    path: '/mypage/:memberId',
     title: '마이페이지',
     screen: Mypage,
     icon: '',
@@ -135,7 +135,7 @@ const pages = [
         isMenu: true,
         child: [
           {
-            path: '/:userId/edit',
+            path: '/:memberId/edit',
             title: '마이페이지 수정',
             screen: MypageEdit,
             isMenu: true,
