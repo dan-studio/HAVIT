@@ -1,28 +1,24 @@
 import styled from "styled-components";
 import MemberInfo from "../cards/MemberInfo";
 
-const List = ({ data, type }) => {
+const List = ({ data, type, memberList}) => {
+    console.log(memberList)
     return (
         <Container>
             <div className="title">
                 {data?.title ? (
                     <>
                         {data.title}
-                        <icon>▼</icon>
+                        <span>▼</span>
                     </>
                 ) : (
                     <></>
                 )}
             </div>
             <aside>
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
-                <MemberInfo width={79} height={30} />
+                {memberList?.map((item, idx)=>
+                <MemberInfo {...item} width={79} height={30} key={idx}/>
+                )}
             </aside>
         </Container>
     );
@@ -47,7 +43,7 @@ const Container = styled.div`
         flex-wrap: wrap;
         gap: 1rem 0.5rem;
     }
-    icon {
+    span {
         font-size: 8px;
         margin-left: 0.25rem;
     }

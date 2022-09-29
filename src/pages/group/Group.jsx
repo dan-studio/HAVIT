@@ -9,20 +9,20 @@ import React, { useEffect, useState } from "react";
 import { userApis } from "../../apis/auth";
 // /grup
 const Group = () => {
-  const [crew, setCrew] = useState('')
+  const [crew, setCrew] = useState()
   const navigate = useNavigate();
   useEffect(() => {
     userApis
       .getGroup()
       .then((res) => {
         console.log(res)
-        setCrew(res.data)
+        setCrew(res.data.data)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
- console.log(crew)
+  console.log(crew)
   return (
     <StyledContainer id={"content"}>
       <Row>
@@ -41,7 +41,7 @@ const Group = () => {
           새 크루 생성
         </StyledAddGroupContainer>
       </Row>
-      {/* {crew&&crew?.map((item, idx)=><CrewInfo type="list" {...item} key={idx}/>)} */}
+      {crew?.map((item, idx)=><CrewInfo type="list" {...item} key={idx}/>)}
       <StyledBox>
         더이상 그룹이 없어요.
         <ArrowButton />
