@@ -58,7 +58,7 @@ const Main = () => {
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h2>김병처리님 이런그룹은 어떠세요?</h2>
+            <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242" }}
               onClick={() => {
@@ -71,13 +71,9 @@ const Main = () => {
           {crew?.map((item, idx)=><GroupCard {...item} key={idx}/>)}
         </StyledGroupPhotoBox>
         <StyledChallenge>
-          <StyledChallengeTitle>함께 챌린지를 완수해요</StyledChallengeTitle>
+          <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
           <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
+         
         </StyledChallenge>
         <StyledDragLine></StyledDragLine>
       </StyledBottomDiv>
