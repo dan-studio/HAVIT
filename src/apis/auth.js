@@ -18,25 +18,27 @@ export const userApis = {
     return response;
   },
   myProfile: async () => {
-    const reponse = await authApi.get("api/auth/info");
+    const reponse = await authApi.get('api/auth/info');
+    console.log('🚀 ⁝ myProfile: ⁝ reponse', reponse);
     return reponse.data.data;
   },
+
   //Group
   getGroup: async () => {
     const response = await authApi.get("/api/auth/group/");
     return response.data.data;
   },
-  getGroupDetail: async (id) => {
-    const response = await authApi.get("/api/auth/group/"+id);
+  getGroupDetail: async id => {
+    const response = await authApi.get('/api/auth/group/' + id);
     return response;
   },
-  joinGroup: async (data) => {
-    const response = await authApi.post("api/auth/participate/"+data)
-    return response
+  joinGroup: async data => {
+    const response = await authApi.post('api/auth/participate/' + data);
+    return response;
   },
-  leaveGroup: async (data) => {
-    const response = await authApi.delete("api/auth/participate/"+data)
-    return response
+  leaveGroup: async data => {
+    const response = await authApi.delete('api/auth/participate/' + data);
+    return response;
   },
   //certify
   uploadImage: async (data) => {
@@ -57,8 +59,21 @@ export const userApis = {
     const response = await authApi.get('/users', { nickname, profileUrl, crew, email });
     return response;
   },
+
+  // 마이페이지에서 비밀번호 확인하기
+  userPwCheck: async password => {
+    const response = await authApi.post('/api/auth/mypage/check', { password });
+    console.log('🚀 ⁝ password', typeof password);
+
+    return response;
+  },
   getgroup: async () => {
-    const response = await authApi.get("/api/group");
+    const response = await authApi.get('/api/group');
+    return response;
+  },
+  updateProfile: async data => {
+    const response = await authApi.put('/api/auth/mypage/', data);
+    console.log('🚀 ⁝ response', response);
     return response;
   },
 };

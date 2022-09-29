@@ -13,7 +13,7 @@ import PrimaryButton from '../components/button/PrimaryButton';
 import SubButton from '../components/button/SubButton';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-const MypageEdit = () => {
+const Myprofile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,11 +22,27 @@ const MypageEdit = () => {
   // ###########################################
 
   // WHAT 원래 상태
-  const [nickname, setNickname] = useState('기본아이디');
-  const [password, setPassword] = useState('기존비번');
-  const [newPw, setNewPw] = useState('');
-  const [newPwConfirm, setNewPwConfirm] = useState('');
   const [userProfile, setUserProfile] = useState('');
+  const [nickname, setNickname] = useState('기본아이디');
+  const [introduce, setIntroduce] = useState('기본소개');
+
+  // ###########################################
+  // ## SECTION 내정보 가져오기                 ###
+  // ###########################################
+
+  useEffect(() => {
+    userApis
+      .myProfile()
+      .then(res => {
+        console.log('🚀 ⁝ userApis.Myprofile ⁝ res', res);
+        setUserProfile(res.profileUrl);
+        setNickname(res.nickname);
+        setIntroduce(res.introduce);
+      })
+      .catch(err => {
+        console.log('🚀 ⁝ Myprofile ⁝ err', err);
+      });
+  }, []);
 
   // WHAT 상태 메세지
   const [nicknameMsg, setNicknameMsg] = useState('');
@@ -41,7 +57,22 @@ const MypageEdit = () => {
   // ###########################################
   // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = e => {};
+  const onSubmitHandler = () => {
+    userApis
+      .updateProfile()
+      .then(response => {
+        console.log(response);
+        alert(`${response.data.data.nickname}님 환영합니다!`);
+        const temp = { access_token: response.headers.authorization, refresh_token: response.headers['refresh-token'] };
+        setToken(temp);
+        navigate('/main');
+      })
+      .catch(error => {
+        if (error.response.data.errorMsg.code === 'MEMBER_NOT_FOUND') {
+          alert('입력하신 이메일 또는 비밀번호가 일치하지 않습니다.');
+        }
+      });
+  };
 
   // ###########################################
   // ## SECTION 유효성검사                     ###
@@ -59,35 +90,6 @@ const MypageEdit = () => {
     }
   });
 
-  // WHAT 새로운 비번 입력
-  const onChangePw = useCallback(e => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const newPwCurent = e.target.value;
-    setNewPw(newPwCurent);
-
-    if (!passwordRegex.test(newPwCurent)) {
-      setNewPwMsg('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
-      setIsPassword(false);
-    } else {
-      setNewPwMsg('안전한 비밀번호에요');
-      setIsPassword(true);
-    }
-  }, []);
-
-  // WHAT 새로운 비번 확인
-  const onChangePwConfirm = useCallback(e => {
-    const pwConfirmCurrent = e.target.value;
-    setNewPwConfirm(pwConfirmCurrent);
-
-    if (newPw === pwConfirmCurrent) {
-      StylesetNewPwConfirmMsg('비밀번호가 일치합니다');
-      setIsPasswordConfirm(true);
-    } else {
-      StylesetNewPwConfirmMsg('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요');
-      setIsPasswordConfirm(false);
-    }
-  });
-
   // ###########################################
   // ## SECTION VIEW 부분                     ###
   // ###########################################
@@ -100,47 +102,35 @@ const MypageEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <StyleDivBox>
-          <EditInput inputLabel={'닉네임 변경'} type={'text'} onChange={onChangeNickname} />
+        <StyledDivBox>
+          <EditInput inputLabel={'닉네임'} value={nickname} type={'text'} onChange={onChangeNickname} />
           {nickname.length > 0 && (
-            <StyleConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
+            <StyledConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {nicknameMsg}
-            </StyleConfirmMsg>
+            </StyledConfirmMsg>
           )}
-        </StyleDivBox>
+        </StyledDivBox>
 
-        {/* WHAT 비밀번호 부분 */}
-        <EditInput inputLabel={'현재 비밀번호'} type={'password'} placeHolder={password} />
+        {/* 자기소개 */}
+        <StyledDivBox>
+          <EditInput inputLabel={'자기소개'} value={introduce} type={'text'} />
+        </StyledDivBox>
 
-        <StyleDivBox>
-          <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
-          {newPw.length > 0 && (
-            <StyleConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
-              {newPwMsg}
-            </StyleConfirmMsg>
-          )}
-        </StyleDivBox>
-
-        <StyleDivBox>
-          <EditInput inputLabel={'비밀번호 확인'} type={'password'} onChange={onChangePwConfirm} />
-          {newPwConfirm.length > 0 && (
-            <StyleConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
-              {StylenewPwConfirmMsg}
-            </StyleConfirmMsg>
-          )}
-        </StyleDivBox>
+        <span onClick={() => navigate(`/mypage/edit/private`)} style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }}>
+          비밀번호 변경
+        </span>
       </div>
 
       {/* WHAT 버튼 */}
-      <div style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '6.25rem auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
-        <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
+        <SubButton buttonName={'취소'} onClick={() => navigate(-1)} />
       </div>
     </>
   );
 };
 
-const StyleDivBox = styled.div`
+const StyledDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -150,7 +140,7 @@ const StyleDivBox = styled.div`
   }
 `;
 
-const StyleConfirmMsg = styled.span`
+const StyledConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;
@@ -163,4 +153,4 @@ const StyleConfirmMsg = styled.span`
   }
 `;
 
-export default MypageEdit;
+export default Myprofile;

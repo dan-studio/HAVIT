@@ -1,11 +1,24 @@
+import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
-import React from 'react';
 import styled from 'styled-components';
+
 const Search = ({ searchRef }) => {
+  const [visibleAnimation, setVisibleAnimation] = React.useState(false);
+
+  React.useEffect(() => {
+    if (searchRef) {
+      setVisibleAnimation(true);
+    } else {
+      setTimeout(() => {
+        setVisibleAnimation(false);
+      }, 0.4);
+    }
+  }, [searchRef]);
+
   return (
     <StyleCover>
-      <StyleContainer ref={searchRef}>
+      <StyleContainer ref={searchRef} className={`${searchRef ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'}`}>
         <StyleSearchBox>
           <Input
             type='search'
@@ -55,16 +68,46 @@ const StyleContainer = styled.div`
   background-color: white;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  animation: 500ms dropdown forwards 1;
-  top: -100%;
-  left: 0;
-  @keyframes dropdown {
-    from {
-      top: -100%;
+  /* animation: 500ms dropdown forwards 1; */
+  /* top: -100%; */
+  /* left: 0; */
+  /* fade in */
+  @keyframes slide-fade-in-dropdown-animation {
+    0% {
+      transform: translateY(-100%);
     }
-    to {
-      top: 0%;
+
+    100% {
+      transform: translateY(0);
     }
+  }
+
+  &.slide-fade-in-dropdown {
+    overflow: hidden;
+  }
+
+  &.slide-fade-in-dropdown {
+    animation: slide-fade-in-dropdown-animation 0.4s ease-in-out;
+  }
+
+  /* fade out */
+  @keyframes slide-fade-out-dropdown-animation {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  &.slide-fade-out-dropdown {
+    overflow: hidden;
+  }
+
+  &.slide-fade-out-dropdown {
+    animation: slide-fade-out-dropdown-animation 0.4s ease;
+    animation-fill-mode: forwards;
   }
 `;
 const StyleSearchBox = styled.div`
