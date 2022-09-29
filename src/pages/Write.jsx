@@ -24,8 +24,8 @@ const Write = () => {
   //   image:image
   // };
   const addCertify = {
-    challengeTitle: challengeTitle,
-    image: image,
+    title: challengeTitle,
+    // image: image,
   };
   console.log("image조회", image);
   const handleChange = (e) => {
@@ -65,7 +65,7 @@ const Write = () => {
     };
   });
 
-  console.log(addCertify);
+  console.log("addcertify",addCertify);
   const addClickHandler = () => {
     let formData = new FormData();
     formData.append(
@@ -85,21 +85,22 @@ const Write = () => {
 
       // await axios.post("http://localhost:3001/certify",addCertify)
       // userApis.uploadImage(addCertify)
-      userApis
-        .uploadImage(formData)
+      // userApis
+      //   .uploadImage(formData)
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+      userApis.uploadImage(addCertify)
 
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      // userApis.uploadImage(formData)
+      // axios.post("http://localhost:3001/certify", addCertify);
+      // axios.post("http://13.209.88.134/api/auth/certify/", addCertify);
+      // axios.post("http://13.209.88.134/api/auth/certify/", formData);
 
-      axios.post("http://localhost:3001/certify", addCertify);
       // axios.post("http://localhost:3001/certify",formData)
-
-      console.log("formdata조회", formData);
+      // console.log("formdata조회", formData);
       //이동할때 새로고침하고 들어가짐(위험?)
       // window.location.replace("/group/detail/write");
     };

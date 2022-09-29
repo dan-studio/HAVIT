@@ -38,8 +38,10 @@ export const userApis = {
     const response = await authApi.delete("api/auth/participate/"+data)
     return response
   },
+  //certify
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
+    console.log(data)
     return response;
   },
   // 마이페이지 내에서의 내 정보
@@ -61,7 +63,7 @@ export const userApis = {
   },
   uploadImage: async (data) => {
     // const response = await authApi.post(`/api/auth/certify/`, data);
-    const response = await mockApi.post(`/certify`, data);
+    const response = await authApi.post(`/api/auth/certify/`, data);
     console.log("response",response)
     return response;
   },
