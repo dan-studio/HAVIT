@@ -23,7 +23,7 @@ const Search = ({ searchRef }) => {
                 }}></SearchOutlined>
             }></Input>
         </StyleSearchBox>
-        Style<StyleHistoryBox>
+        <StyleHistoryBox>
           <h2>최근검색기록</h2>
           <div>내일군대감</div>
           <div>등산모임</div>
