@@ -24,8 +24,8 @@ export const userApis = {
   },
   
   getGroup: async () => {
-    // const response = await authApi.get("/api/auth/group/");
-    const response = await mockApi.get("/group");
+    const response = await authApi.get("/api/auth/group/");
+    // const response = await mockApi.get("/group");
     return response;
   },
 

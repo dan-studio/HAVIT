@@ -115,15 +115,15 @@ const Signup = () => {
   );
 
   return (
-    <StDiv>
-      <StSpan>
+    <StyledDiv>
+      <StyledSpan>
         Come aboard, <br />
         Let's make <br />
         <img src={havit} alt="" />
         <br />
         Together!
-      </StSpan>
-      <StInput
+      </StyledSpan>
+      <StyledInput
         type="email"
         top="32vh"
         placeholder="✉  E-Mail"
@@ -137,7 +137,7 @@ const Signup = () => {
           {emailMessage}
         </span>
       )}
-      <StInput
+      <StyledInput
         type="text"
         top="40vh"
         placeholder="🙋‍♂️  닉네임"
@@ -151,7 +151,7 @@ const Signup = () => {
           {nicknameMessage}
         </span>
       )}
-      <StInput
+      <StyledInput
         type="password"
         top="48vh"
         placeholder="🔒  비밀번호"
@@ -165,7 +165,7 @@ const Signup = () => {
           {passwordMessage}
         </span>
       )}
-      <StInput
+      <StyledInput
         type="password"
         top="56vh"
         placeholder="🔒  비밀번호 확인"
@@ -181,8 +181,8 @@ const Signup = () => {
         </span>
       )}
       <img className="team" src={team} alt="" height="125vh" />
-      <StButtonDiv>
-        <StButton
+      <StyledButtonDiv>
+        <StyledButton
           top="80vh"
           color="white"
           background="#5C53FF"
@@ -191,8 +191,8 @@ const Signup = () => {
           disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
         >
           회원가입 완료
-        </StButton>
-        <StButton
+        </StyledButton>
+        <StyledButton
           top="87vh"
           background="white"
           onClick={() => {
@@ -200,15 +200,15 @@ const Signup = () => {
           }}
         >
           뒤로가기
-        </StButton>
-      </StButtonDiv>
-    </StDiv>
+        </StyledButton>
+      </StyledButtonDiv>
+    </StyledDiv>
   );
 };
 
 export default Signup;
 
-const StDiv = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   .team {
@@ -227,7 +227,7 @@ const StDiv = styled.div`
     }
   }
 `;
-const StSpan = styled.span`
+const StyledSpan = styled.span`
   color: #252224;
   position: absolute;
   left: 15vw;
@@ -242,12 +242,12 @@ const StSpan = styled.span`
   }
 `;
 
-const StButtonDiv = styled.div`
+const StyledButtonDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const StButton = styled.button`
+const StyledButton = styled.button`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;
@@ -263,7 +263,7 @@ const StButton = styled.button`
     border: 1px solid #ccc;
 }
 `;
-const StInput = styled.input`
+const StyledInput = styled.input`
   position: absolute;
   top: ${(props) => props.top};
   width: 80vw;

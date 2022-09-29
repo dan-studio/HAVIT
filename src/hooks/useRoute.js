@@ -14,6 +14,7 @@ import Detail from '@pages/group/Detail';
 import Write from '@pages/Write';
 import Board from '@pages/Board';
 import Main from '@pages/Main';
+import Setting from '@pages/Setting'
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
@@ -97,8 +98,8 @@ const pages = [
     screen: Group,
     child: [
       {
-        path: "/:groupId",
-        title: "그룹 상세",
+        path: '/:groupId',
+        title: '그룹 상세',
         screen: GroupDetail,
       },
       {
@@ -112,6 +113,13 @@ const pages = [
         screen: GroupEdit,
       },
     ],
+  },
+  {
+    path: '/setting',
+    title: '환경설정',
+    icon: '',
+    screen: Setting,
+    isMenu: true,
   },
   {
     path: '/mypage',
