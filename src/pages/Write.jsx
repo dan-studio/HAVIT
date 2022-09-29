@@ -69,13 +69,15 @@ const Write = () => {
   console.log("addcertify",addCertify);
   const addClickHandler = () => {
     let formData = new FormData();
-    formData.append(
-      "data",
-      new Blob([JSON.stringify(addCertify)], { type: "application/json" })
-      // new Blob([JSON.stringify(addCertify)], { type: "image/json" })
-      // new Blob([JSON.stringify(addCertify)], { type: "application/octet-stream" })
-    );
-    formData.append("file", image);
+    // formData.append(
+    //   "data",
+    //   new Blob([JSON.stringify(addCertify)], { type: "application/json" })
+    // );
+    formData.append("imgFile", image);
+    formData.append("groupId",url.groupId );
+    formData.append("title", challengeTitle);
+
+
     for (let i of formData.entries()) {
       console.log("i", i[1]);
       console.log("formdata반복문조회", formData);
@@ -94,6 +96,7 @@ const Write = () => {
           console.log(err);
         });
       // userApis.uploadImage(addCertify)
+
       // console.log("formdata조회", formData);
       //이동할때 새로고침하고 들어가짐(위험?)
       // window.location.replace("/group/detail/write");

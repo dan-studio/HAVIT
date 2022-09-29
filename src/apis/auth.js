@@ -47,7 +47,11 @@ export const userApis = {
     console.log(response)
     return response;
   },
-
+  getCertify: async (data, groupId) => {
+    const response = await authApi.get(`/api/auth/group/3`, data);
+    console.log(response)
+    return response;
+  },
     // headers: {
     //   "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
     // },
