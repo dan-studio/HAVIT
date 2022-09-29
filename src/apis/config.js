@@ -36,6 +36,7 @@ authApi.interceptors.request.use(async (req) => {
 });
 
 authApi.interceptors.response.use(
+
   (res) => res,
   (err) => {
     const status = err.response?.status;

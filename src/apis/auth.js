@@ -38,8 +38,10 @@ export const userApis = {
     const response = await authApi.delete("api/auth/participate/"+data)
     return response
   },
+  //certify
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
+    console.log(data)
     return response;
   },
   // 마이페이지 내에서의 내 정보
@@ -53,6 +55,16 @@ export const userApis = {
   // 마이페이지 내에서의 유저 정보
   usersInfo: async (nickname, profileUrl, crew, email) => {
     const response = await mockApi.get('/users', { nickname, profileUrl, crew, email });
+    return response;
+  },
+  getgroup: async () => {
+    const response = await authApi.get("/api/group");
+    return response;
+  },
+  uploadImage: async (data) => {
+    // const response = await authApi.post(`/api/auth/certify/`, data);
+    const response = await authApi.post(`/api/auth/certify/`, data);
+    console.log("response",response)
     return response;
   },
 };
