@@ -6,7 +6,7 @@ import styles from "./group_list.module.less";
 import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
 import React, { useEffect, useState } from "react";
-import { userApis } from "../../apis/auth";
+import { userApis } from "@apis/auth";
 // /grup
 const Group = () => {
   const [crew, setCrew] = useState()

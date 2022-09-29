@@ -23,7 +23,7 @@ export const authApi = axios.create({
 authApi.interceptors.request.use(async req => {
   const token = getToken();
   if (token) {
-    req.headers.common.authorization = token.access_token;
+    req.headers.authorization = token.access_token;
   }
   console.log(req);
   return req;
@@ -39,9 +39,7 @@ authApi.interceptors.response.use(
         axios
           .post(getAPIHost() + '/api/auth/reissue', {
             headers: {
-              common: {
-                refresh_token: `BEARER ${refresh_token}`,
-              },
+                refresh_token: `${refresh_token}`,
             },
           })
           .then(req => {

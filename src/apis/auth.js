@@ -1,4 +1,4 @@
-import { authApi, formApi, mockApi, restApi } from './config';
+import { authApi, formApi, mockApi, restApi, setToken } from './config';
 
 export const userApis = {
   //Auth
@@ -11,6 +11,11 @@ export const userApis = {
       email,
       password,
     });
+    if(response.status === 200){
+
+      const token = { access_token: response.headers.authorization, refresh_token:response.headers["refresh-token"]}
+      setToken(token);
+    }
     return response;
   },
   logout: async () => {
