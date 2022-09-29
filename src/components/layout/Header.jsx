@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
 
-
-
 const Header = () => {
   const searchRef = useRef();
+  const invert = useSelector(state => state.layout);
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
-  const invert = useSelector((state) => state.layout);
+
   useEffect(() => {
     let handler = e => {
       if (!searchRef.current?.contains(e.target)) {
@@ -20,9 +19,9 @@ const Header = () => {
       }
     };
     document.addEventListener('mousedown', handler);
-    return () => {
-      document.removeEventListener('mousedown', handler);
-    };
+    // return () => {
+    //   document.removeEventListener('mousedown', handler);
+    // };
   });
 
   return (
@@ -48,7 +47,9 @@ const Header = () => {
 
         <Icons invert={invert.isInvert}>
           <Setting>
-            <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }} />
+            {/* NOTE SEARCH 부분 */}
+            <FiSearch onClick={e => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
+
             <FiSettings
               onClick={() => {
                 navigate('mypage/edit');
@@ -57,8 +58,9 @@ const Header = () => {
             <AlertSign></AlertSign>
           </Setting>
         </Icons>
+        {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
+        {/* {!showSearchForm ? <></> : <></>} */}
       </Container>
-      {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
     </>
   );
 };

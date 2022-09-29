@@ -4,10 +4,11 @@ import './ToggleSwitch.css';
 const ToggleSwitch = ({id}) => {
   return (
     <div className='onoffswitch'>
-      <input type='checkbox' name='onoffswitch' className='onoffswitch-checkbox' id={id} tabIndex='0' onChange='checked' />
+      <input type='checkbox' name='onoffswitch' className='onoffswitch-checkbox' id={id} tabIndex='0' />
       <label className='onoffswitch-label' htmlFor={id}></label>
     </div>
   );
 };
 
 export default ToggleSwitch;
+// onChange='checked'

@@ -13,7 +13,7 @@ import PrimaryButton from '../components/button/PrimaryButton';
 import SubButton from '../components/button/SubButton';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-const MypageEdit = () => {
+const Myprofile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -100,47 +100,35 @@ const MypageEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <StyleDivBox>
+        <StyledDivBox>
           <EditInput inputLabel={'닉네임 변경'} type={'text'} onChange={onChangeNickname} />
           {nickname.length > 0 && (
-            <StyleConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
+            <StyledConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {nicknameMsg}
-            </StyleConfirmMsg>
+            </StyledConfirmMsg>
           )}
-        </StyleDivBox>
+        </StyledDivBox>
 
-        {/* WHAT 비밀번호 부분 */}
-        <EditInput inputLabel={'현재 비밀번호'} type={'password'} placeHolder={password} />
+        {/* 자기소개 */}
+        <StyledDivBox>
+          <EditInput inputLabel={'자기소개'} type={'text'} />
+        </StyledDivBox>
 
-        <StyleDivBox>
-          <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
-          {newPw.length > 0 && (
-            <StyleConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
-              {newPwMsg}
-            </StyleConfirmMsg>
-          )}
-        </StyleDivBox>
-
-        <StyleDivBox>
-          <EditInput inputLabel={'비밀번호 확인'} type={'password'} onChange={onChangePwConfirm} />
-          {newPwConfirm.length > 0 && (
-            <StyleConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
-              {StylenewPwConfirmMsg}
-            </StyleConfirmMsg>
-          )}
-        </StyleDivBox>
+        <span style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }} onClick={() => Navigate('/mypage/edit/private')}>
+          비밀번호 변경
+        </span>
       </div>
 
       {/* WHAT 버튼 */}
-      <div style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '6.25rem auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
-        <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
+        <SubButton buttonName={'취소'} onClick={navigate('/mypage/edit/private')} />
       </div>
     </>
   );
 };
 
-const StyleDivBox = styled.div`
+const StyledDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -150,7 +138,7 @@ const StyleDivBox = styled.div`
   }
 `;
 
-const StyleConfirmMsg = styled.span`
+const StyledConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;
@@ -163,4 +151,4 @@ const StyleConfirmMsg = styled.span`
   }
 `;
 
-export default MypageEdit;
+export default Myprofile;

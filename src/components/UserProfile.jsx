@@ -6,6 +6,7 @@ import { userApis } from "../apis/auth";
 import { BsTrophy } from "react-icons/bs";
 
 
+
 const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
   const getRandom = (min, max) => {
     min = Math.ceil(min)
@@ -37,7 +38,11 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
             </StyleAchievements>
           </StyleUserLeft>
           <StyleAlert>
-            <FaBell />
+            <FaBell
+              onClick={() => {
+                navigate('/mypage/:memberId/myprofile');
+              }}
+            />
             <StyleAlertSign></StyleAlertSign>
           </StyleAlert>
         </StyleUserBox>

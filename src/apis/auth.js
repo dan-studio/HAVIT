@@ -23,7 +23,7 @@ export const userApis = {
   },
   //Group
   getGroup: async () => {
-    const response = await authApi.get("/api/auth/group/");
+    const response = await authApi.get('/api/auth/group/');
     return response;
   },
   getGroupDetail: async (id) => {
@@ -45,16 +45,23 @@ export const userApis = {
     return response;
   },
   // 마이페이지 내에서의 내 정보
-  userProfile: async () => {
-    const reponse = await mockApi.get('/users');
-    // console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
-    // console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
-    return reponse;
-  },
+  // userProfile: async data => {
+  //   const reponse = await authApi.get('/users');
+  //   console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse);
+  //   return reponse;
+  // },
 
   // 마이페이지 내에서의 유저 정보
-  usersInfo: async (nickname, profileUrl, crew, email) => {
-    const response = await mockApi.get('/users', { nickname, profileUrl, crew, email });
+  // usersInfo: async (nickname, profileUrl, crew, email) => {
+  //   const response = await authApi.get('/api/auth/main', { nickname, profileUrl, crew, email });
+  //   return response;
+  // },
+
+  // 마이페이지에서 비밀번호 확인하기
+  userPwCheck: async password => {
+    const response = await authApi.post('/api/auth/mypage/check', { password });
+    console.log('🚀 ⁝ password', typeof password);
+
     return response;
   },
   getgroup: async () => {

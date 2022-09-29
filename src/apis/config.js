@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const getAPIHost = () => {
   return process.env.REACT_APP_API_HOST;
 };
 
 export const getLocalAPI = () => {
-  return "http://localhost:3001";
+  return 'http://localhost:3001';
 };
 
 export const restApi = axios.create({
@@ -20,23 +20,22 @@ export const authApi = axios.create({
 export const mockApi = axios.create({
   baseURL: getLocalAPI(),
   headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json,",
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
   },
   withCredentials: true,
 });
 
-authApi.interceptors.request.use(async (req) => {
+authApi.interceptors.request.use(async req => {
   const token = getToken();
   if (token) {
     req.headers.common.authorization = token.access_token;
   }
-  console.log(req)
+  console.log(req);
   return req;
 });
 
 authApi.interceptors.response.use(
-
   (res) => res,
   (err) => {
     const status = err.response?.status;
@@ -44,17 +43,17 @@ authApi.interceptors.response.use(
       const refresh_token = getToken();
       if (refresh_token) {
         axios
-          .post(getAPIHost() + "/api/auth/reissue", {
+          .post(getAPIHost() + '/api/auth/reissue', {
             headers: {
               common: {
                 refresh_token: `BEARER ${refresh_token}`,
               },
             },
           })
-          .then((req) => {
+          .then(req => {
             setToken(req.data);
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           });
       }
@@ -72,9 +71,9 @@ export const getToken = () => {
   return false;
 };
 
-export const setToken = (token) => {
+export const setToken = token => {
   if (!token?.access_token) {
-    localStorage.setItem(process.env.REACT_APP_TOKEN_SAVE_KEY, "");
+    localStorage.setItem(process.env.REACT_APP_TOKEN_SAVE_KEY, '');
     return false;
   }
   const { access_token, refresh_token } = token;
@@ -82,10 +81,7 @@ export const setToken = (token) => {
     access_token,
     refresh_token,
   };
-  localStorage.setItem(
-    process.env.REACT_APP_TOKEN_SAVE_KEY,
-    JSON.stringify(auth_data)
-  );
+  localStorage.setItem(process.env.REACT_APP_TOKEN_SAVE_KEY, JSON.stringify(auth_data));
 
   return auth_data;
 };

@@ -1,30 +1,30 @@
-import { useDispatch } from 'react-redux';
 import { setLayout } from '@redux/layout';
+import { useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import { resetLayout } from '../redux/layout';
-import styled, { css } from 'styled-components';
 import { userApis } from '@/apis/auth';
 import { setToken } from '@/apis/config';
 
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
 import EditInput from '../components/editprofile/EditInput';
-import { Navigate, useNavigate } from 'react-router-dom';
-import PrimaryButton from './../components/button/PrimaryButton';
+import PrimaryButton from '../components/button/PrimaryButton';
 import SubButton from '../components/button/SubButton';
 
-const EnterMyapgeEdit = () => {
+const MyPwEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    userApis.userProfile().then(res => {
-      // NOTE 이메일만 가져오는 방법을 알고싶습니다.
-      console.log('🚀 ⁝ userApis.userProfile ⁝ res.data', res.data[0].email);
-      setEmail(res.data[0].email);
-      console.log('🚀 ⁝ userApis.userProfile ⁝ setEmail', setEmail);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.userProfile().then(res => {
+  //     // NOTE 이메일만 가져오는 방법을 알고싶습니다.
+  //     console.log('🚀 ⁝ userApis.userProfile ⁝ res.data', res.data[0].email);
+  //     setEmail(res.data[0].email);
+  //     console.log('🚀 ⁝ userApis.userProfile ⁝ setEmail', setEmail);
+  //   });
+  // }, []);
 
   // ###########################################
   // ## SECTION State                        ###
@@ -43,8 +43,18 @@ const EnterMyapgeEdit = () => {
   // ###########################################
   // ## SECTION 수정 핸들러                        ###
   // ###########################################
-  const onSubmitHandler = e => {
-    Navigate('/MypageEdit');
+  const onSubmitHandler = () => {
+    userApis
+      .userPwCheck(password)
+      .then(res => {
+        console.log('🚀 ⁝ userApis.userPwCheck ⁝ res', res);
+        // const temp = { access_token: res.headers.authorization, refresh_token: res.headers['refresh-token'] };
+        // setToken(temp);
+        navigate('/MypageEdit');
+      })
+      .catch(err => {
+        console.log('🚀 ⁝ onSubmitHandler ⁝ err', err);
+      });
   };
 
   // ###########################################
@@ -74,17 +84,17 @@ const EnterMyapgeEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <StyleDivBox>
+        <StyledDivBox>
           {/** @NOTE db내 이메일을 어떻게 받아서 전달해줄쥐?  */}
           <EditInput inputLabel={'이메일'} type={'text'} value='asdf@naver.com' disabled={true} />
-        </StyleDivBox>
+        </StyledDivBox>
 
         {/* WHAT 비밀번호 부분 */}
 
-        <StyleDivBox>
+        <StyledDivBox>
           {/** @NOTE db내 비밀번호와 입력한 비밀번호를 비교해야합니다 ^^  */}
           <EditInput inputLabel={'현재 비밀번호'} type={'password'} onChange={onChangePwConfirm} />
-        </StyleDivBox>
+        </StyledDivBox>
 
         {/* <StDivBox>
           <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
@@ -108,13 +118,13 @@ const EnterMyapgeEdit = () => {
       {/* WHAT 버튼 */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
-        <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
+        <SubButton buttonName={'취소'} onClick={() => navigate(-1)} />
       </div>
     </>
   );
 };
 
-const StyleDivBox = styled.div`
+const StyledDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -124,7 +134,7 @@ const StyleDivBox = styled.div`
   }
 `;
 
-const StyleConfirmMsg = styled.span`
+const StyledConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;
@@ -137,4 +147,4 @@ const StyleConfirmMsg = styled.span`
   }
 `;
 
-export default EnterMyapgeEdit;
+export default MyPwEdit;
