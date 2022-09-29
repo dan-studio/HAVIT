@@ -51,13 +51,13 @@ const Mypage = () => {
   // }, []);
 
   return (
-    <StyleWrap>
+    <StyledWrap>
       {/* 프로필 */}
       <UserProfile />
       {/* {userInfo && userInfo((item, idx) => <UserProfile {...item} key={idx} />)} */}
 
       {/* 크루 정보 */}
-      <StyleCrews>
+      <StyledCrews>
         {/* <Bar /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>내가 속한 크루</h2>
@@ -67,21 +67,21 @@ const Mypage = () => {
           <CrewInfo {...item} key={idx} />
         ))} */}
         {console.log(group)}
-      </StyleCrews>
+      </StyledCrews>
 
       {/* 알림 */}
-      <StyleAlert>
+      <StyledAlert>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>알림</h2>
           <IoIosArrowForward style={{ fontSize: '20px' }} />
         </div>
         {friends && friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
-      </StyleAlert>
-    </StyleWrap>
+      </StyledAlert>
+    </StyledWrap>
   );
 };
 
-const StyleWrap = styled.div`
+const StyledWrap = styled.div`
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
@@ -89,7 +89,7 @@ const StyleWrap = styled.div`
   background-color: #5e43ff;
 `;
 
-const StyleCrews = styled.div`
+const StyledCrews = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -118,7 +118,7 @@ const Bar = styled.div`
   border-radius: 5px;
 `;
 
-const StyleAlert = styled.div`
+const StyledAlert = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

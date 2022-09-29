@@ -8,8 +8,8 @@ import Signin from '@pages/auth/Signin';
 import Signup from '@pages/auth/Signup';
 import PageNotFound from '@pages/PageNotFound';
 import Mypage from '@pages/Mypage';
-import MypageEdit from '@pages/MypageEdit';
-import EnterMypageEdit from '@pages/EnterMypageEdit';
+import Myprofile from '@pages/Myprofile';
+import MyPwEdit from '@pages/MyPwEdit';
 import Detail from '@pages/group/Detail';
 import Write from '@pages/Write';
 import Board from '@pages/Board';
@@ -122,22 +122,23 @@ const pages = [
     isMenu: true,
   },
   {
-    path: '/mypage/:memberId',
+    path: '/mypage', // mypage
     title: '마이페이지',
     screen: Mypage,
     icon: '',
     isMenu: true,
     child: [
       {
-        path: '/edit',
-        title: '마이페이지 수정 진입',
-        screen: EnterMypageEdit,
+        // 닉네임 / 한줄소개
+        path: '/edit', // mypage/edit 
+        title: '프로필 수정',
+        screen: Myprofile,
         isMenu: true,
         child: [
           {
-            path: '/:memberId/edit',
-            title: '마이페이지 수정',
-            screen: MypageEdit,
+            path: '/private', // mypage/edit/private
+            title: '개인정보 수정',
+            screen: MyPwEdit,
             isMenu: true,
           },
         ],

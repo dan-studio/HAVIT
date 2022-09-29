@@ -10,10 +10,10 @@ import { setToken } from '@/apis/config';
 // components
 import UserImgForm from '../components/editprofile/UserImgForm';
 import EditInput from '../components/editprofile/EditInput';
-import PrimaryButton from './../components/button/PrimaryButton';
+import PrimaryButton from '../components/button/PrimaryButton';
 import SubButton from '../components/button/SubButton';
 
-const EnterMyapgeEdit = () => {
+const MyPwEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,17 +84,17 @@ const EnterMyapgeEdit = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
-        <StyleDivBox>
+        <StyledDivBox>
           {/** @NOTE db내 이메일을 어떻게 받아서 전달해줄쥐?  */}
           <EditInput inputLabel={'이메일'} type={'text'} value='asdf@naver.com' disabled={true} />
-        </StyleDivBox>
+        </StyledDivBox>
 
         {/* WHAT 비밀번호 부분 */}
 
-        <StyleDivBox>
+        <StyledDivBox>
           {/** @NOTE db내 비밀번호와 입력한 비밀번호를 비교해야합니다 ^^  */}
           <EditInput inputLabel={'현재 비밀번호'} type={'password'} onChange={onChangePwConfirm} />
-        </StyleDivBox>
+        </StyledDivBox>
 
         {/* <StDivBox>
           <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
@@ -124,7 +124,7 @@ const EnterMyapgeEdit = () => {
   );
 };
 
-const StyleDivBox = styled.div`
+const StyledDivBox = styled.div`
   display: flex;
   height: 88px;
   margin-bottom: 18px;
@@ -134,7 +134,7 @@ const StyleDivBox = styled.div`
   }
 `;
 
-const StyleConfirmMsg = styled.span`
+const StyledConfirmMsg = styled.span`
   &.message {
     font-size: 1.4vh;
     font-weight: 500;
@@ -147,4 +147,4 @@ const StyleConfirmMsg = styled.span`
   }
 `;
 
-export default EnterMyapgeEdit;
+export default MyPwEdit;

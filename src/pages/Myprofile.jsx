@@ -13,7 +13,7 @@ import PrimaryButton from '../components/button/PrimaryButton';
 import SubButton from '../components/button/SubButton';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-const MypageEdit = () => {
+const Myprofile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -109,36 +109,20 @@ const MypageEdit = () => {
           )}
         </StyledDivBox>
 
+        {/* 자기소개 */}
         <StyledDivBox>
-          <EditInput inputLabel={'상태메세지'} type={'text'} />
+          <EditInput inputLabel={'자기소개'} type={'text'} />
         </StyledDivBox>
 
-        {/* WHAT 비밀번호 부분 */}
-        <EditInput inputLabel={'현재 비밀번호'} type={'password'} placeHolder={password} />
-
-        <StyledDivBox>
-          <EditInput inputLabel={'비밀번호 변경'} type={'password'} onChange={onChangePw} />
-          {newPw.length > 0 && (
-            <StyledConfirmMsg className={`message ${isPassword ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
-              {newPwMsg}
-            </StyledConfirmMsg>
-          )}
-        </StyledDivBox>
-
-        <StyledDivBox>
-          <EditInput inputLabel={'비밀번호 확인'} type={'password'} onChange={onChangePwConfirm} />
-          {newPwConfirm.length > 0 && (
-            <StyledConfirmMsg className={`message ${isPasswordConfirm ? 'success' : 'error'}`} style={{ top: '54vh', fontSize: '12px' }}>
-              {StylenewPwConfirmMsg}
-            </StyledConfirmMsg>
-          )}
-        </StyledDivBox>
+        <span style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }} onClick={() => Navigate('/mypage/edit/private')}>
+          비밀번호 변경
+        </span>
       </div>
 
       {/* WHAT 버튼 */}
-      <div style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '6.25rem auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmitHandler} />
-        <SubButton buttonName={'취소'} onClick={() => Navigate(-1)} />
+        <SubButton buttonName={'취소'} onClick={navigate('/mypage/edit/private')} />
       </div>
     </>
   );
@@ -167,4 +151,4 @@ const StyledConfirmMsg = styled.span`
   }
 `;
 
-export default MypageEdit;
+export default Myprofile;

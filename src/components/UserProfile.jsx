@@ -35,7 +35,7 @@ const UserProfile = ({ data, type = 'shadow', nickName }) => {
           <StyleAlert>
             <FaBell
               onClick={() => {
-                navigate('/mypage/edit');
+                navigate('/mypage/:memberId/myprofile');
               }}
             />
             <StyleAlertSign></StyleAlertSign>
