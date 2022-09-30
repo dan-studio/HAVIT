@@ -1,30 +1,42 @@
 import React from "react";
-import { Spin } from "antd";
-import { Route, Routes } from "react-router-dom";
-import { useCustomRoute } from "../hooks/useRoute";
+import { Route, Routes, useLocation, useNavigate, useResolvedPath } from "react-router-dom";
+import { useCustomRoute } from "@hooks/useRoute";
 import styled from "styled-components";
 import Header from "@components/layout/Header";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import Loading from "./start/Loading";
+import { me } from "../redux/auth";
 
 const childRenderer = (page) => {
   const args = {
-    path: page.path,
+    path: page?.path,
   };
   if (page.screen) {
     const Elem = page.screen;
-    args.element = <Elem />;
+    args.element = < Elem />;
   }
   return <Route key={page.path} {...args} />;
 };
 
 const BasicLayout = ({ childrens, loading }) => {
   const { routes } = useCustomRoute();
+  const naviate = useNavigate();
+  const dispatch = useDispatch();
+  const principal = useSelector((store)=>store.auth.principal);
+  const location = useLocation();
   const layout = useSelector((state) => state.layout, shallowEqual);
+  
+  React.useEffect(()=>{
+    if(location.pathname.substring(0,5)!=="/auth"){
+      dispatch(me);
+      // if(!principal)naviate("/auth");
+    }
+  },[location.pathname])
   return (
     <>
       {!!loading ? (
         <Cover>
-          <Spin></Spin>
+          <Loading></Loading>
         </Cover>
       ) : (
         <>

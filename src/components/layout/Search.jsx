@@ -3,22 +3,10 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import styled from 'styled-components';
 
-const Search = ({ searchRef }) => {
-  const [visibleAnimation, setVisibleAnimation] = React.useState(false);
-
-  React.useEffect(() => {
-    if (searchRef) {
-      setVisibleAnimation(true);
-    } else {
-      setTimeout(() => {
-        setVisibleAnimation(false);
-      }, 0.4);
-    }
-  }, [searchRef]);
-
+const Search = ({onClose}) => {
   return (
     <StyleCover>
-      <StyleContainer ref={searchRef} className={`${searchRef ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'}`}>
+    <StyleContainer id ="searchContainer">
         <StyleSearchBox>
           <Input
             type='search'
@@ -38,20 +26,27 @@ const Search = ({ searchRef }) => {
         </StyleSearchBox>
         <StyleHistoryBox>
           <h2>최근검색기록</h2>
-          <div>내일군대감</div>
-          <div>등산모임</div>
-          <div>배그 5판 연속 치킨</div>
-          <div>김병처리</div>
-          <div>미라클 모닝</div>
         </StyleHistoryBox>
         <StyleDragLine></StyleDragLine>
       </StyleContainer>
+      <StyleUpCover onClick={()=>{
+        document.getElementById("searchContainer").style.animationName="slide-fade-up-animation";
+        setTimeout(() => {
+          onClose(true);
+        }, 500);
+      }}></StyleUpCover>
     </StyleCover>
   );
 };
 
-export default Search;
-
+export default React.memo(Search);
+const StyleUpCover = styled.div`
+  position:fixed;
+  bottom:0;
+  height:calc(840px - 675px);
+  left:0;
+  width:100%;
+`
 const StyleCover = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
   width: 100%;
@@ -68,46 +63,26 @@ const StyleContainer = styled.div`
   background-color: white;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  /* animation: 500ms dropdown forwards 1; */
-  /* top: -100%; */
-  /* left: 0; */
-  /* fade in */
-  @keyframes slide-fade-in-dropdown-animation {
+  animation: 500ms slide-fade-in-animation forwards 1;
+  top: -100%; 
+  left: 0; 
+  @keyframes slide-fade-in-animation {
     0% {
-      transform: translateY(-100%);
+      top: -100%;
     }
 
     100% {
-      transform: translateY(0);
+      top: 0;
     }
   }
-
-  &.slide-fade-in-dropdown {
-    overflow: hidden;
-  }
-
-  &.slide-fade-in-dropdown {
-    animation: slide-fade-in-dropdown-animation 0.4s ease-in-out;
-  }
-
-  /* fade out */
-  @keyframes slide-fade-out-dropdown-animation {
+  @keyframes slide-fade-up-animation {
     0% {
-      transform: translateY(0);
+      top: 0;
     }
 
     100% {
-      transform: translateY(-100%);
+      top: -100;
     }
-  }
-
-  &.slide-fade-out-dropdown {
-    overflow: hidden;
-  }
-
-  &.slide-fade-out-dropdown {
-    animation: slide-fade-out-dropdown-animation 0.4s ease;
-    animation-fill-mode: forwards;
   }
 `;
 const StyleSearchBox = styled.div`

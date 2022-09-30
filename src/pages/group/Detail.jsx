@@ -1,69 +1,57 @@
 import styled from "styled-components";
 import CrewInfo from "@components/cards/CrewInfo";
-import { Divider } from "antd";
+import { Divider, Modal } from "antd";
 import List from "@components/list/MemberList";
 import PhotoList from "@components/list/PhotoList";
-import React, { useEffect } from "react";
+import React , { useState }from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { userApis } from "../../apis/auth";
-import { useState } from "react";
-import PrimaryButton from "../../components/button/PrimaryButton";
-import SubButton from "../../components/button/SubButton";
-import useDecodeToken from "../../hooks/useDecodeToken";
+import PrimaryButton from "@components/button/PrimaryButton";
+import SubButton from "@components/button/SubButton";
+import { getGroupDetail, getMyGroupList, groupParticipating } from "../../apis/group/group";
 
 // /grup
 const GroupDetail = () => {
-  const [detail, setDetail] = useState();
-  const navigate = useNavigate();
   const { groupId } = useParams();
-  useEffect(() => {
-    userApis
-      .getGroupDetail(groupId)
-      .then((res) => {
-        setDetail(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  const getToken = localStorage.getItem("APP_TOKEN_DATA");
-  const accessToken = JSON.parse(getToken).access_token;
-  const decode = useDecodeToken(accessToken);
-  const joinGroup = () => {
-    userApis.joinGroup(groupId)
-      // setDetail((prev) => {
-      //   return {
-      //     ...prev,
-      //     memberList: userApis.joinGroup(groupId)
-      //   };
-      // });
-    alert("가입이 완료되었습니다");
-  };
-  const leaveGroup = () => {
-    userApis.leaveGroup(groupId);
-    alert("탈퇴 처리되었습니다");
-    //새로고침 없이 탈퇴시 멤버리스트에서 제거
-    // setDetail((prev) => {
-    //   return {
-    //     ...prev,
-    //     memberList: prev.memberList.filter(
-    //       (member) => member.memberId !== decode
-    //     ),
-    //   };
-    // });
-  };
-  const members = detail?.memberList?.find(
-    (member) => member.memberId === decode
-  );
+  const [detail, setDetail] = useState();
+  const [isParticipate, setIsParticipate] = useState(false);
+  const navigate = useNavigate();
+
+  React.useEffect(()=>{
+    getGroupDetail(groupId).then((res)=>{
+        setDetail(res.data);
+    }).catch(err=>{});
+    getMyGroupList().then(res=>{
+        const result = res.data.filter((el)=>(el?.groupId === groupId));
+        if(result.length <= 0)setIsParticipate(false);
+        else setIsParticipate(true);
+    }).catch(err=>{
+        setIsParticipate(false);
+    })
+  },[])
+  const leaveGroup = ()=>{
+    // groupParticipating(groupId)
+  }
+  const joinGroup = ()=>{
+    Modal.confirm({
+        okText:"가입하기", 
+        cancelText:"취소하기",
+        content:<>
+            {detail?.title}와 정말 함께 하시겠습니까?
+        </>,
+        // onOk:()=>{
+        //     get
+        // }
+    })
+  }
   return (
-    <Container id={"content"}>
-      <CrewInfo type="detail" {...detail}></CrewInfo>
+    <Container>
+      <CrewInfo type="detail" imgUrl={detail?.imageId} leaderName={detail?.leaderName} crewName={detail?.crewName} {...detail}></CrewInfo>
       <StyledGroupDesc>{detail?.content}</StyledGroupDesc>
       <Divider style={{ margin: "0" }}></Divider>
       <List data={{ title: "맴버들" }} {...detail} />
       <PhotoList groupId={groupId}></PhotoList>
       <StyledButtonDiv>
-        {members ? (
+        {isParticipate ? (
           <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
         ) : (
           <PrimaryButton buttonName={"가입하기"} onClick={joinGroup} />
@@ -84,6 +72,8 @@ export default React.memo(GroupDetail);
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items:center;
+  padding:1rem;
   gap: 1rem 0;
 `;
 const StyledButtonDiv = styled.div`

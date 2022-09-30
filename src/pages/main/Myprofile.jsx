@@ -1,21 +1,25 @@
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { UserOutlined } from "@ant-design/icons";
+
 import { setLayout } from '@redux/layout';
 import { useEffect, useState, useCallback } from 'react';
-import { resetLayout } from '../redux/layout';
+import { resetLayout } from '@redux/layout';
 import styled, { css } from 'styled-components';
 import { userApis } from '@/apis/auth';
 import { setToken } from '@/apis/config';
 
 // components
-import UserImgForm from '../components/editprofile/UserImgForm';
-import EditInput from '../components/editprofile/EditInput';
-import PrimaryButton from '../components/button/PrimaryButton';
-import SubButton from '../components/button/SubButton';
+import EditInput from '@components/editprofile/EditInput';
+import PrimaryButton from '@components/button/PrimaryButton';
+import SubButton from '@components/button/SubButton';
 import { Navigate, useNavigate } from 'react-router-dom';
+import useInputs from '@hooks/useInput';
+import Uploader from '../../components/input/Uploader';
 
 const Myprofile = () => {
-  const dispatch = useDispatch();
+  const principal = useSelector((state)=>state.auth.principal, shallowEqual);
   const navigate = useNavigate();
+  const [form, onChange, reset] = useInputs({...principal});
 
   // ###########################################
   // ## SECTION State                        ###
@@ -98,12 +102,12 @@ const Myprofile = () => {
       <h2 style={{ fontWeight: '700', fontSize: '20px', margin: '20px', lineHeight: '24px' }}>개인정보 수정</h2>
 
       {/* WHAT 유저 프로필 */}
-      <UserImgForm />
+      <Uploader className={"profile_uploader"} children={<UserOutlined style={{"fontSize":"2rem", color:"lightgray"}}/>}></Uploader>
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
         <StyledDivBox>
-          <EditInput inputLabel={'닉네임'} value={nickname} type={'text'} onChange={onChangeNickname} />
+          <EditInput inputLabel={'닉네임'} placeholder={'닉네임'} name={"nickname"} value={form?.nickname} type={'text'} onChange={onChange} />
           {nickname.length > 0 && (
             <StyledConfirmMsg className={`message ${isNickname ? 'success' : 'error'}`} style={{ top: '47vh', fontSize: '12px' }}>
               {nicknameMsg}
@@ -113,7 +117,7 @@ const Myprofile = () => {
 
         {/* 자기소개 */}
         <StyledDivBox>
-          <EditInput inputLabel={'자기소개'} value={introduce} type={'text'} />
+          <EditInput inputLabel={'자기소개'} placeholder={'소개'} name={"introduce"} value={form?.introduce} onChange={onChange} type={'text'} />
         </StyledDivBox>
 
         <span onClick={() => navigate(`/mypage/edit/private`)} style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }}>

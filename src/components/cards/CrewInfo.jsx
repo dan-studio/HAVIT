@@ -5,19 +5,19 @@ import { HiStar } from "react-icons/hi";
 // 컴포넌트
 import Tags from "../Tag";
 import { useNavigate} from "react-router-dom";
+import { fileUrlHost } from "@apis/config";
 
 const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, imgUrl, groupTag, favorite }) => {
   const navigate = useNavigate();
   console.log('🚀 ⁝ CrewInfo ⁝ groupId', groupId);
 
   const routeHandler = () => {
-    console.log(groupId);
     navigate(`/group/${groupId}`);
   };
   return (
     <>
     <StCard type={type}>
-      <StGroupImg src={imgUrl} onClick={routeHandler} />
+      <StGroupImg src={fileUrlHost() + imgUrl} onClick={routeHandler} />
       <StGroupInfo>
         <h2 onClick={routeHandler}>{title}</h2>
         <StDayInfo>
@@ -27,7 +27,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
           </StCycle>
         </StDayInfo>
         <StPeople>
-          <MdPeopleAlt color='#5e43ff' />
+          <MdPeopleAlt style={{fontSize:"16px"}} color='#5e43ff' />
           <StSpan>{memberCount}명</StSpan>
         </StPeople>
         <StTagDiv>
@@ -116,7 +116,11 @@ const StPeople = styled.div`
   align-items: center;
 `;
 const StSpan = styled.span`
-  font-size: 15px;
+  display:flex;
+  align-item:center;
+  font-size: 12px;
+  font-weight:bold;
+  margin-left:.25rem;
 `;
 const StDayInfo = styled.div`
   display: flex;

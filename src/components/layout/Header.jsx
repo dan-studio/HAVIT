@@ -1,28 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
 import { FiSettings, FiSearch } from 'react-icons/fi';
 import Search from '@components/layout/Search';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
 
 const Header = () => {
-  const searchRef = useRef();
   const invert = useSelector(state => state.layout);
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
-
-  useEffect(() => {
-    let handler = e => {
-      if (!searchRef.current?.contains(e.target)) {
-        setShowSearchForm(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    // return () => {
-    //   document.removeEventListener('mousedown', handler);
-    // };
-  });
 
   return (
     <>
@@ -46,20 +32,16 @@ const Header = () => {
         )}
 
         <Icons invert={invert.isInvert}>
-          <Setting>
             {/* NOTE SEARCH 부분 */}
-            <FiSearch onClick={e => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
-
+            <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
             <FiSettings
               onClick={() => {
                 navigate('mypage/edit');
               }}
             />
             <AlertSign></AlertSign>
-          </Setting>
         </Icons>
-        {!!showSearchForm ? <Search searchRef={searchRef} /> : <></>}
-        {/* {!showSearchForm ? <></> : <></>} */}
+        {!!showSearchForm ? <Search onClose={(e)=>{setShowSearchForm(!e)}} /> : <></>}
       </Container>
     </>
   );

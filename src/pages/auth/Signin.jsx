@@ -1,19 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import havit from '@/assets/havitLogoPurple.png';
 import team from '@assets/havitTeam2.png';
 import naverButton from '@assets/naverButton.png';
 import kakaoButton from '@assets/kakaoButton.png';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { resetLayout, setLayout } from '@redux/layout';
-import { userApis } from '../../apis/auth';
-import { setToken } from '../../apis/config';
+import useInputs from '@hooks/useInput';
+import { signin } from '@apis/auth/principal';
 
 const Signin = () => {
   const navigate = useNavigate();
-  const layout = useSelector(state => state.layout, shallowEqual);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
@@ -22,73 +20,53 @@ const Signin = () => {
     };
   }, []);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, onChange, reset] =  useInputs({
+    email:"",
+    password:"",
+  });
 
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-
-  const onChangeEmail = useCallback(e => {
-    const emailCurrent = e.target.value;
-    setEmail(emailCurrent);
-    if (!emailCurrent) {
-      setIsEmail(false);
-    } else {
-      setIsEmail(true);
-    }
-  }, []);
-  const onChangePassword = useCallback(e => {
-    const passwordCurrent = e.target.value;
-    setPassword(passwordCurrent);
-
-    if (!passwordCurrent) {
-      setIsPassword(false);
-    } else {
-      setIsPassword(true);
-    }
-  }, []);
-  const onSubmitHandler = () =>{
-    userApis.signin(email, password)
-    .then((response)=>{
-      console.log(response)
-        alert(`${response.data.data.nickname}님 환영합니다!`)
-        const temp = {access_token: response.headers.authorization , refresh_token: response.headers["refresh-token"]}
-        setToken(temp)
-        navigate('/main')
-    })
-    .catch((error)=>{
-      if(error.response.data.errorMsg.code ==="MEMBER_NOT_FOUND"){
-        alert("입력하신 이메일 또는 비밀번호가 일치하지 않습니다.")
+  const submmitHandler = ()=>{
+    signin(form).then((res)=>{
+      if(res.status == 200){
+        alert(`${res.data.nickname}님 환영합니다!`);
+        navigate("/");
       }
+    }).catch((err)=>{
+      if(err){
+          alert(err)
+      } 
     })
   }
   return (
     <StyledDiv>
       <StyledSpan>
-        Sign in to
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
       <StyledInput
         type="email"
         top="24vh"
+        
         placeholder="✉  E-Mail"
-        onChange={onChangeEmail}
+        value={form?.email}
+        name={"email"}
+        onChange={onChange}
       />
       <StyledInput
         type="password"
         top="32vh"
         placeholder="🔒  비밀번호"
-        onChange={onChangePassword}
+        value={form?.password}
+        name={"password"}
+        onChange={onChange}
       />
       <StyledButtonDiv>
         <StyledButton
           top="40vh"
           color="white"
           background="#5C53FF"
-          disabled={!(isEmail && isPassword)}
           type="submit"
-          onClick={onSubmitHandler}
+          onClick={submmitHandler}
         >
           로그인
         </StyledButton>
@@ -96,10 +74,10 @@ const Signin = () => {
           top="47vh"
           background="white"
           onClick={() => {
-            navigate('/startpage');
+            navigate('/auth');
           }}
         >
-          뒤로가기
+          뒤로가기 
         </StyledButton>
       </StyledButtonDiv>
       <StyledOrDiv>

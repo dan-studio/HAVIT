@@ -12,11 +12,12 @@ export const restApi = axios.create({
   baseURL: getAPIHost(),
 });
 
+export const fileUrlHost = ()=>{
+  return process.env.REACT_APP_FILE_HOST;
+}
+
 export const authApi = axios.create({
   baseURL: getAPIHost(),
-  // headers: {
-  //   'Content-Type': 'multipart/form-data'
-  // },
   withCredentials: true,
 });
 
@@ -25,7 +26,6 @@ authApi.interceptors.request.use(async req => {
   if (token) {
     req.headers.authorization = token.access_token;
   }
-  console.log(req);
   return req;
 });
 

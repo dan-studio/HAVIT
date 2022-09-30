@@ -6,13 +6,10 @@ export const userApis = {
     const response = await restApi.post('/api/signup', data);
     return response.data;
   },
-  signin: async (email, password) => {
-    const response = await authApi.post('/api/login', {
-      email,
-      password,
-    });
+  // 
+  signin: async (data) => {
+    const response = await authApi.post('/api/login', data);
     if(response.status === 200){
-
       const token = { access_token: response.headers.authorization, refresh_token:response.headers["refresh-token"]}
       setToken(token);
     }

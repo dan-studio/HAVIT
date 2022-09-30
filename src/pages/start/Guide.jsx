@@ -5,7 +5,7 @@ import havit from "@assets/havitLogoPurple.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 
-const Login = () => {
+const Guide = () => {
   const navigate = useNavigate();
   const layout = useSelector((state) => state.layout, shallowEqual);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Login = () => {
           color="white"
           background="#5C53FF"
           onClick={() => {
-            navigate("/signup");
+            navigate("signup");
           }}
         >
           네, 처음이에요
@@ -39,7 +39,7 @@ const Login = () => {
           top="71vh"
           background="white"
           onClick={() => {
-            navigate("/signin");
+            navigate("signin");
           }}
         >
           아니요, 이미 회원이에요
@@ -49,7 +49,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Guide;
 
 const StDiv = styled.div``;
 const StSpan = styled.span`

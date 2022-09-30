@@ -1,7 +1,9 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import { useState } from 'react';
+import { uploadImage } from '@apis/auth/upload';
 
+// 알아서 찾아보시는걸로
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -24,12 +26,16 @@ const Uploader = props => {
     setLoading(true);
   };
   const handleChange = ({ file: newFile, fileList: newFileList }) => {
+    console.log(newFile);
     handlePreview(newFile);
     setFileList(newFileList);
+    uploadImage(newFile).then((res)=>{
+      console.log(res);
+    })
   };
 
   const uploadButton = (
-    <div style={{ background: 'red' }}>
+    !props?.children ? (<div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
@@ -37,32 +43,22 @@ const Uploader = props => {
         }}>
         Upload
       </div>
-    </div>
+    </div>) : (props.children)
   );
   return (
     <div style={{display:'flex'}}>
       <Upload
         name='avatar'
+        accept='image/*'
         listType='picture-card'
         className={props?.className ? props.className + ' avatar-uploader' : 'avatar-uploader'}
         showUploadList={false}
         fileList={fileList}
-        action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-        onChange={handleChange}
-        style={{
-          width: '92px',
-          height: '92px',
-          background:'blue'
-        }}>
+        onChange={handleChange}>
         {imageUrl ? (
           <img
             src={imageUrl}
             alt='avatar'
-            style={{
-              width: '92px',
-              height: '92px',
-              objectFit: 'cover',
-            }}
           />
         ) : (
           uploadButton

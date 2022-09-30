@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RiPencilFill } from 'react-icons/ri';
-import { Button } from 'antd';
-import { userApis } from '../../apis/auth';
-import { useSelector } from 'react-redux';
 
-const EditInput = ({ inputLabel, type, value, onChange, disabled }) => {
+const EditInput = ({ inputLabel,name, type, value, onChange, disabled , placeholder}) => {
   const [inputValue, setInputValue] = React.useState('');
 
   return (
@@ -14,7 +10,7 @@ const EditInput = ({ inputLabel, type, value, onChange, disabled }) => {
         {inputLabel}
       </label>
 
-      <input type={type} id='userEditInput' value={value} onChange={onChange} required disabled={disabled}></input>
+      <input type={type} name={name} value={value} onChange={onChange} required disabled={disabled} placeholder={placeholder}></input>
     </StyleWrap>
   );
 };

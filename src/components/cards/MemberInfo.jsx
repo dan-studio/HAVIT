@@ -1,15 +1,18 @@
 import styled from "styled-components";
+import { fileUrlHost } from "../../apis/config";
 
-const MemberInfo = ({ width, height, nickname, profileUrl}) => {
+const MemberInfo = ({ width, height, nickname, imageId, roleName}) => {
     return (
         <Container width={width} height={height}>
-            <img
-                alt=""
-                src={profileUrl}
-            ></img>
+            {
+                imageId ? (<StyledProfileImg
+                    alt="user_profile"
+                    src={fileUrlHost() + imageId}
+                ></StyledProfileImg>):(<StyledProfileDiv></StyledProfileDiv>)                
+            }
             <div>
                 <div>{nickname}</div>
-                <span>역할</span>
+                <span>{roleName || "역할"}</span>
             </div>
         </Container>
     );
@@ -27,23 +30,38 @@ const Container = styled.div`
         return height + "px" || "100%";
     }};
     justify-content: space-between;
-    & > img {
-        border-radius: 100%;
-        width: ${({ height }) => height}px;
-        height: 100%;
-    }
     & > div {
         display: flex;
         flex-direction: column;
 
         div {
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis;
+            width: 47px;
             font-size: 12px;
             color: ${({ theme }) => theme.color.black};
             font-weight: bold;
         }
         span {
+            margin:0px;
             font-size: 8px;
             color: ${({ theme }) => theme.color.gray};
         }
     }
 `;
+
+const StyledProfileImg = styled.img`
+border-radius: 100%;
+width: ${({ height }) => height}px;
+height: 100%;
+width:30px;
+`
+
+const StyledProfileDiv = styled.div`
+border-radius: 100%;
+width: ${({ height }) => height}px;
+height: 100%;
+width:30px;
+border:1px solid lightgray;
+`

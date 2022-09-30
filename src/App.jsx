@@ -1,11 +1,11 @@
-import '@/App.less';
+import './App.less';
 import store from '@redux/store';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import BasicLayout from '@pages/BasicLayout';
-
+import {me} from "@redux/auth";
 const theme = {
   color: {
     primary_color: '#5E43FF',
@@ -23,9 +23,10 @@ const theme = {
 
 const Container = React.memo(() => {
   const [loading, setLoading] = React.useState(true);
+  const dispatch = useDispatch();
   React.useEffect(() => {
     const loadData = async () => {
-      // 이곳에 앱(사이트) 처음 실행시 해줄 dispatch를 넣어주세요~
+      dispatch(me());
     };
 
     loadData()

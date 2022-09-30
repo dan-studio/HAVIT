@@ -1,25 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import logo from "@assets/havit_black.svg";
-import { useNavigate } from "react-router-dom";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { resetLayout, setLayout } from "../../redux/layout";
 
-const Start = () => {
-  const navigate = useNavigate();
-  const layout = useSelector((state) => state.layout, shallowEqual);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setLayout({ showHeader: false }));
-    return ()=>{
-      dispatch(resetLayout());
-    }
-  }, []);
-  useEffect(() => {
-    setTimeout(() => {
-      navigate("/startpage");
-    }, 2000);
-  }, );
+const Loading = () => {
   return (
     <StDiv>
       <StImg src={logo} />
@@ -29,7 +12,7 @@ const Start = () => {
   );
 };
 
-export default Start;
+export default Loading;
 
 const StDiv = styled.div`
   height: 80vh;

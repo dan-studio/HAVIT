@@ -2,26 +2,23 @@ import styled from "styled-components";
 import React from "react";
 import { FaStarHalfAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
-import { userApis } from "../apis/auth";
 import { BsTrophy } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import {
+  UserOutlined
+} from '@ant-design/icons';
+// import { getRandom } from "../utils/math";
 
 const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
-  const navigate = useNavigate();
 
-  const getRandom = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-  const randomNum = getRandom(1, 12);
-  console.log(randomNum);
+  // const randomNum = getRandom(1, 12);
+  // console.log(randomNum);
   return (
     <div>
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            <StyleUserPhoto alt=''></StyleUserPhoto>
+            {!!myInfo?.profileUrl ? (<StyleUserPhoto alt='profile' src = {myInfo?.profileUrl}></StyleUserPhoto>) 
+            : (<StyleUserNonePhoto><UserOutlined /></StyleUserNonePhoto>)}
           </StyleUserRight>
           <StyleUserLeft>
             <StyleUserName>
@@ -66,10 +63,21 @@ const StyleUserRight = styled.div`
 const StyleUserPhoto = styled.img`
   width: 110px;
   height: 110px;
-  border-radius: 50%;
   margin: 0 20px 0 0;
-  object-fit: cover;
 `;
+
+const StyleUserNonePhoto = styled.div`
+  width:110px;
+  height:110px;
+  margin:0 20px 0 0;
+  border-radius:100%;
+  border:1px solid lightgray;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:2.5rem;
+  color:gray;
+`
 
 const StyleUserLeft = styled.div`
   margin: 5px 0 0 10px;
@@ -106,13 +114,13 @@ font-size: 18px;
   position: relative;
   color: #d2d2d2;
 `;
-const StyleAlertSign = styled.div`
-  position: absolute;
-  top: 3px;
-  right: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: red;
-`;
+// const StyleAlertSign = styled.div`
+//   position: absolute;
+//   top: 3px;
+//   right: 0;
+//   width: 6px;
+//   height: 6px;
+//   border-radius: 50%;
+//   background-color: red;
+// `;
 export default UserProfile;

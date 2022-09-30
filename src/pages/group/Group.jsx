@@ -6,22 +6,17 @@ import styles from "./group_list.module.less";
 import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
 import React, { useEffect, useState } from "react";
-import { userApis } from "@apis/auth";
+import { getAllGroupList } from "@apis/group/group";
 // /grup
 const Group = () => {
-  const [crew, setCrew] = useState()
+  const [crew, setCrew] = useState();
   const navigate = useNavigate();
   useEffect(() => {
-    userApis
-      .getGroup()
-      .then((res) => {
-        setCrew(res)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
-  console.log(crew)
+
+  const getGroupList = async ()=>{
+    return getAllGroupList();
+  } 
   return (
     <StyledContainer id={"content"}>
       <Row>

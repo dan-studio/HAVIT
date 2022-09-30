@@ -1,7 +1,8 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Input, Tag, Tooltip } from "antd";
 import React, { useRef } from "react";
-const TagInput = () => {
+import { useEffect } from "react";
+const TagInput = ({name,value,onChange}) => {
     const [tags, setTags] = React.useState([]);
     const [inputVisible, setInputVisible] = React.useState(false);
     const [inputValue, setInputValue] = React.useState("");
@@ -9,6 +10,9 @@ const TagInput = () => {
     const [editInputValue, setEditInputValue] = React.useState("");
     const inputRef = useRef(null);
     const editInputRef = useRef(null);
+    useEffect(()=>{
+        onChange({name, value:tags});
+    },[tags])
     React.useEffect(() => {
         if (inputVisible) {
             inputRef.current?.focus();
@@ -19,7 +23,6 @@ const TagInput = () => {
     }, [inputValue]);
     const handleClose = (removedTag) => {
         const newTags = tags.filter((tag) => tag !== removedTag);
-        console.log(newTags);
         setTags(newTags);
     };
 
@@ -60,7 +63,7 @@ const TagInput = () => {
                             ref={editInputRef}
                             key={tag}
                             size="small"
-                            style={{ width: "28px" }}
+                            style={{ width: "28px" , borderRadius:"2rem"}}
                             className="tag-input"
                             value={editInputValue}
                             onChange={handleEditInputChange}
@@ -121,4 +124,4 @@ const TagInput = () => {
     );
 };
 
-export default TagInput;
+export default React.memo(TagInput);

@@ -1,16 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { restApi } from '@apis/config';
+import { getMe } from '@apis/auth/principal';
 
 // initialState
-export const me = createAsyncThunk('principal/get', async thunkAPI => {
-  const { data: principal } = await restApi.get(`/accounts/authentication`);
+export const me = createAsyncThunk('principal/get', async () => {
+  const data = await getMe();
+  const principal = data;
   return { principal };
 });
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    principal: [],
+    principal: null,
   },
   reducers: {
     setPrincipal: (state, action) => {

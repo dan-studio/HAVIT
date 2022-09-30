@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { resetLayout, setLayout } from "../redux/layout";
-import UserProfile from "../components/UserProfile";
-import GroupCard from "../components/cards/GroupCard";
-import ChallengeCard from "../components/cards/ChallengeCard";
+import { resetLayout, setLayout } from "@redux/layout";
+import UserProfile from "@components/UserProfile";
+import GroupCard from "@components/cards/GroupCard";
+import ChallengeCard from "@components/cards/ChallengeCard";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { userApis } from "../apis/auth";
+import { getAllGroupList } from "@apis/group/group";
 
 const Main = () => {
+  const principal = useSelector((state)=>state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,30 +21,16 @@ const Main = () => {
     };
   }, []);
 
-  const [myInfo, setMyInfo] = useState();
-  useEffect(() => {
-    userApis
-      .myProfile()
-      .then((res) => {
-        setMyInfo(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   
   const [crew, setCrew] = useState()
   useEffect(() => {
-    userApis
-      .getGroup()
-      .then((res) => {
-        setCrew(res)
+    getAllGroupList().then(
+      res=>{
+        setCrew(res.data);
+        console.log(res);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  console.log(crew)
+    }, []);
+
   return (
     <div
       style={{
@@ -52,13 +39,11 @@ const Main = () => {
         background: "#5e43ff",
       }}
     >
-      {/* <StyledTopDiv> */}
-      <UserProfile myInfo={myInfo} />
-      {/* </StyledTopDiv> */}
+      <UserProfile myInfo={principal} />
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
+            <h2>{principal?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242" }}
               onClick={() => {
@@ -68,12 +53,18 @@ const Main = () => {
           </div>
         </StyledGroup>
         <StyledGroupPhotoBox>
-          {crew?.map((item, idx)=><GroupCard {...item} key={idx}/>)}
+          {crew?.map((item, idx)=><GroupCard {...item} imgUrl={item?.imageId} key={idx} onClick={()=>{
+            navigate(`/group/${item?.groupId}`)
+          }}/>)}
         </StyledGroupPhotoBox>
+        <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
         <StyledChallenge>
-          <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
           <ChallengeCard />
-         
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />
+          <ChallengeCard />     
         </StyledChallenge>
         <StyledDragLine></StyledDragLine>
       </StyledBottomDiv>
@@ -146,6 +137,8 @@ const StyledChallenge = styled.div`
   /* top: 35vh; */
   width: 100vw;
   margin: 0 auto;
+  height:19.5rem;
+  overflow-y:scroll;
 `;
 const StyledChallengeTitle = styled.div`
   font-weight: bold;

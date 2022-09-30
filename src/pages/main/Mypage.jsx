@@ -6,17 +6,15 @@ import AlertUser from '@components/cards/AlertUser';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { resetLayout, setLayout } from '../redux/layout';
-import UserProfile from '../components/UserProfile';
-import { userApis } from './../apis/auth';
+import { resetLayout, setLayout } from '@redux/layout';
+import UserProfile from '@components/UserProfile';
 
 const Mypage = () => {
-  const invertHeader = useSelector(state => state.layout);
   const dispatch = useDispatch();
 
   const [myInfo, setMyInfo] = useState();
-  const [group, setGroup] = useState('');
-  const [friends, setFriends] = useState('');
+  const [group, setGroup] = useState([]);
+  const [friends, setFriends] = useState([]);
 
   // 레이아웃 관련 설정
   useEffect(() => {
@@ -26,25 +24,15 @@ const Mypage = () => {
     };
   }, []);
 
-  // 내 정보 가져오기
-  useEffect(() => {
-    userApis
-      .myProfile()
-      .then(res => {
-        setMyInfo(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
 
-  // 그룹 가져오기
-  useEffect(() => {
-    userApis.getGroup().then(res => {
-      setGroup(res.data);
-      console.log('🚀 * userApis.getGroup * setGroup', setGroup);
-    });
-  }, []);
+
+  // // 그룹 가져오기
+  // useEffect(() => {
+  //   userApis.getGroup().then(res => {
+  //     setGroup(res.data);
+  //     console.log('🚀 * userApis.getGroup * setGroup', setGroup);
+  //   });
+  // }, []);
 
   // 사람 가져오기
   // useEffect(() => {
@@ -66,10 +54,9 @@ const Mypage = () => {
           <h2>내가 속한 크루</h2>
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
-        {/* {group?.map((item, idx) => (
+        {group?.map((item, idx) => (
           <CrewInfo {...item} key={idx} />
-        ))} */}
-        {console.log(group)}
+        ))}
       </StyledCrews>
 
       {/* 알림 */}

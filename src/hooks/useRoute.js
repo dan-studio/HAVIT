@@ -1,97 +1,41 @@
-import Splash from '@pages/start/Splash';
-import Start from '@pages/start/Start';
 import Group from '@pages/group/Group';
 import GroupDetail from '@pages/group/Detail';
 import GroupCreate from '@pages/group/Create';
 import GroupEdit from '@pages/group/Edit';
 import Signin from '@pages/auth/Signin';
 import Signup from '@pages/auth/Signup';
-import PageNotFound from '@pages/PageNotFound';
-import Mypage from '@pages/Mypage';
-import Myprofile from '@pages/Myprofile';
-import MyPwEdit from '@pages/MyPwEdit';
-import Detail from '@pages/group/Detail';
-import Write from '@pages/Write';
-import Board from '@pages/Board';
-import Main from '@pages/Main';
+import Mypage from '@pages/main/Mypage';
+import Myprofile from '@pages/main/Myprofile';
+import MyPwEdit from '@pages/main/MyPwEdit';
+import Main from '@pages/main/Main';
 import Setting from '@pages/Setting'
+import Guide from '@pages/start/Guide';
+import Write from '@pages/group/Write';
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
   {
-    path: '/main',
-    title: '메인페이지',
-    screen: Main,
-    icon: '',
-    isMenu: true,
-    child: [],
-  },
-
-  {
-    path: '/group',
-    title: '그룹',
-    screen: Group,
-    icon: '',
-    isMenu: true,
-    child: [
-      {
-        path: '/:groupId',
-        title: '샘플 자식 리스트',
-        screen: Detail,
-        isMenu: true,
-        child: [
-          {
-            path: '/write',
-            title: '샘플등록(pathvariable)',
-            screen: Write,
-            isMenu: true,
-          },
-          {
-            path: '/:boardId',
-            title: '샘플등록(pathvariable)',
-            screen: Board,
-            isMenu: true,
-          },
-        ],
-      },
-    ],
-  },
-
-  {
     path: '/',
-    title: '스플래쉬',
-    icon: '',
-    screen: Splash,
-    isMenu: true,
+    title: '메인',
+    screen: Main,
   },
   {
-    path: '/pagenotfound',
-    title: '404',
-    icon: '',
-    screen: PageNotFound,
+    path: '/auth',
+    title: '가이드',
+    screen: Guide,
+    child:[
+      {
+        path: '/signin',
+        title: '로그인',
+        screen: Signin,
+      },
+      {
+        path: '/signup',
+        title: '회원가입',
+        screen: Signup,
+      },
+    ]
   },
-  {
-    path: '/startpage',
-    title: '시작 페이지',
-    icon: '',
-    screen: Start,
-    isMenu: true,
-  },
-  {
-    path: '/signin',
-    title: '로그인',
-    icon: '',
-    screen: Signin,
-    isMenu: true,
-  },
-  {
-    path: '/signup',
-    title: '회원가입',
-    icon: '',
-    screen: Signup,
-    isMenu: true,
-  },
-
   {
     path: '/group',
     title: '그룹',
@@ -101,6 +45,13 @@ const pages = [
         path: '/:groupId',
         title: '그룹 상세',
         screen: GroupDetail,
+        child:[
+          {
+            path:'/write',
+            title:"인증샷",
+            screen:Write
+          }
+        ]
       },
       {
         path: '/create',
@@ -110,7 +61,13 @@ const pages = [
       {
         path: '/edit',
         title: '그룹 수정',
-        screen: GroupEdit,
+        child:[
+          {
+            path:"/:id",
+            title: '그룹 수정',
+            screen:GroupEdit
+          }
+        ]
       },
     ],
   },

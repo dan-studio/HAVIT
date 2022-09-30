@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
+import { fileUrlHost } from '@apis/config';
 
-const GroupCard = ({title, imgUrl, memberCount}) => {
+const GroupCard = ({title, imgUrl, memberCount, onClick}) => {
+  const [src, setSrc] = React.useState(fileUrlHost() + imgUrl)
   return (
-    <div>
+    <div onClick={onClick}>
       <GroupCardBox>
-        <GroupPhoto src={imgUrl}/>
+        {!!imgUrl ? (<GroupPhoto src={src} />) : (<EmptyPhoto>이미지 없음</EmptyPhoto>)}
         <GroupTitle>{title}</GroupTitle>
         <HeadBox>
           <div style={{display:'flex', alignItems:'center', margin:'0 .3125rem'}}>
@@ -27,9 +29,11 @@ const GroupTitle = styled.div`
   font-size: 16px;
   font-family: 'Inter';
   font-style: normal;
+  max-width:150px;
   font-weight: 600;
   line-height: 19px;
   margin: 5px 5px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 `;
 const HeadCount = styled.div`
   font-size: 14px;
@@ -44,5 +48,15 @@ const GroupPhoto = styled.img`
   height: 150px;
   border-radius: 10px;
   object-fit: cover;
+`;
+
+const EmptyPhoto = styled.div`
+  border:1px solid lightgray;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 `;
 export default GroupCard;
