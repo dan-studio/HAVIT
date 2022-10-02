@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { authApi, formApi, mockApi, restApi, setToken } from './config';
-=======
-
-import { authApi, formApi, mockApi, restApi } from './config';
->>>>>>> 3edcd34915b49fb3abca49f104132efd548373f6
+import { authApi, restApi, setToken } from './config';
 
 export const userApis = {
   //Auth
