@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { authApi, formApi, mockApi, restApi, setToken } from './config';
+=======
+
+import { authApi, formApi, mockApi, restApi } from './config';
+>>>>>>> 3edcd34915b49fb3abca49f104132efd548373f6
 
 export const userApis = {
   //Auth
@@ -46,6 +51,15 @@ export const userApis = {
     const response = await authApi.post('/api/auth/certify/', data);
     return response;
   },
+  getCertify: async (data, groupId) => {
+    const response = await authApi.get(`/api/auth/group/3`, data);
+    console.log(response)
+    return response;
+  },
+    // headers: {
+    //   "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
+    // },
+
   // 마이페이지 내에서의 내 정보
   userProfile: async () => {
     const reponse = await authApi.get('/users');

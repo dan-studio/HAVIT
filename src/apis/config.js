@@ -21,6 +21,7 @@ export const authApi = axios.create({
   withCredentials: true,
 });
 
+<<<<<<< HEAD
 export const kakaoApi = axios.create({
 });
 
@@ -29,6 +30,10 @@ export const fileUrlHost = (number)=>{
 }
 
 authApi.interceptors.request.use(req => {
+=======
+
+authApi.interceptors.request.use(async req => {
+>>>>>>> 3edcd34915b49fb3abca49f104132efd548373f6
   const token = getToken();
   if (token) {
     req.headers.authorization = token.access_token;
