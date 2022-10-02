@@ -2,7 +2,6 @@ import styled from "styled-components";
 import MemberInfo from "../cards/MemberInfo";
 
 const List = ({ data, type, memberList, leaderName, crewName}) => {
-    console.log(memberList)
     return (
         <Container>
             <div className="title">

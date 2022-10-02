@@ -21,7 +21,6 @@ export const userApis = {
   },
   myProfile: async () => {
     const reponse = await authApi.get('api/auth/info');
-    console.log('🚀 ⁝ myProfile: ⁝ reponse', reponse);
     return reponse.data.data;
   },
 
@@ -45,7 +44,6 @@ export const userApis = {
   //certify
   uploadImage: async (data) => {
     const response = await authApi.post('/api/auth/certify/', data);
-    console.log(response)
     return response;
   },
   // 마이페이지 내에서의 내 정보
@@ -65,7 +63,6 @@ export const userApis = {
   // 마이페이지에서 비밀번호 확인하기
   userPwCheck: async password => {
     const response = await authApi.post('/api/auth/mypage/check', { password });
-    console.log('🚀 ⁝ password', typeof password);
 
     return response;
   },

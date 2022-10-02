@@ -12,11 +12,11 @@ const Group = () => {
   const [crew, setCrew] = useState();
   const navigate = useNavigate();
   useEffect(() => {
+    getAllGroupList().then((res)=>{
+      setCrew(res.data);
+    }).catch(err=>{console.log(err);})
   }, []);
 
-  const getGroupList = async ()=>{
-    return getAllGroupList();
-  } 
   return (
     <StyledContainer id={"content"}>
       <Row>
@@ -35,7 +35,7 @@ const Group = () => {
           새 크루 생성
         </StyledAddGroupContainer>
       </Row>
-      {crew?.map((item, idx)=><CrewInfo type="list" {...item} key={idx}/>)}
+      {crew?.map((item, idx)=><CrewInfo type="list" imgUrl={item?.imageId} {...item} key={idx}/>)}
       <StyledBox>
         더이상 그룹이 없어요.
         <ArrowButton />

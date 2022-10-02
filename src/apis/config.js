@@ -8,20 +8,27 @@ export const getLocalAPI = () => {
   return 'http://localhost:3001';
 };
 
+export const getKakaoAPIHost = ()=>{
+  return 'dapi.kakao.com';
+}
+
 export const restApi = axios.create({
   baseURL: getAPIHost(),
 });
-
-export const fileUrlHost = ()=>{
-  return process.env.REACT_APP_FILE_HOST;
-}
 
 export const authApi = axios.create({
   baseURL: getAPIHost(),
   withCredentials: true,
 });
 
-authApi.interceptors.request.use(async req => {
+export const kakaoApi = axios.create({
+});
+
+export const fileUrlHost = (number)=>{
+  return process.env.REACT_APP_FILE_HOST + number;
+}
+
+authApi.interceptors.request.use(req => {
   const token = getToken();
   if (token) {
     req.headers.authorization = token.access_token;
@@ -53,6 +60,12 @@ authApi.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
+kakaoApi.interceptors.request.use(req=>{
+  req.headers.Authorization = `KakaoAK ${process.env.REACT_APP_KAKAO_RESTAPI_KEY}`
+  return req;
+});
+
 
 export const getToken = () => {
   const item = localStorage.getItem(process.env.REACT_APP_TOKEN_SAVE_KEY);

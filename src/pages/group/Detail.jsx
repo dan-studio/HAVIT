@@ -46,10 +46,10 @@ const GroupDetail = () => {
   return (
     <Container>
       <CrewInfo type="detail" imgUrl={detail?.imageId} leaderName={detail?.leaderName} crewName={detail?.crewName} {...detail}></CrewInfo>
-      <StyledGroupDesc>{detail?.content}</StyledGroupDesc>
+      <StyledGroupDesc value={detail?.content} disabled></StyledGroupDesc>
       <Divider style={{ margin: "0" }}></Divider>
       <List data={{ title: "맴버들" }} {...detail} />
-      <PhotoList groupId={groupId}></PhotoList>
+      <PhotoList groupId={groupId} list={detail?.certifyList}></PhotoList>
       <StyledButtonDiv>
         {isParticipate ? (
           <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
@@ -78,10 +78,17 @@ const Container = styled.div`
 `;
 const StyledButtonDiv = styled.div`
   display: flex;
+  margin:2rem 0;
   align-items: center;
   justify-content: center;
 `;
-const StyledGroupDesc = styled.div`
+const StyledGroupDesc = styled.textarea`
   margin: 0 auto;
-  width: 90%;
+  width: 100%;
+  outline:none;
+  border:none;
+  resize: none;
+  background: transparent;
+  padding: 1px 6px;
+  height:190px;
 `;

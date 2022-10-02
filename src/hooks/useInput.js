@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
 
 const useInputs = (initialForm) => {
-    const [form, setForm] = useState(initialForm);
+    let initValue = initialForm;
+    const [form, setForm] = useState(initValue);
     // change
     const onChange = useCallback((e) => {
         if (e?.target) {
@@ -13,8 +14,10 @@ const useInputs = (initialForm) => {
         }
     }, []);
     // reset
-    const reset = useCallback(() => setForm(initialForm), [initialForm]);
+    const reset = useCallback(() => setForm(initValue), [initValue]);
 
-    return [form, onChange, reset];
+    // changeInitialValue
+    const changeInitial=(changeValue) => {initValue = changeValue; setForm(initValue)}
+    return [form, onChange, reset, changeInitial];
 }
 export default useInputs;

@@ -1,7 +1,6 @@
 import './App.less';
-import store from '@redux/store';
 import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import BasicLayout from '@pages/BasicLayout';
@@ -26,26 +25,24 @@ const Container = React.memo(() => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     const loadData = async () => {
-      dispatch(me());
+      await dispatch(me());
     };
-
     loadData()
       .catch(console.warn)
       .then(() => setLoading(false));
-  }, []);
+  }, [dispatch]);
 
   return <BasicLayout loading={loading} />;
 });
 
+
 function App() {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Container />
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Container />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

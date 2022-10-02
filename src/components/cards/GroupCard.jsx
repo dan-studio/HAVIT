@@ -4,7 +4,7 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { fileUrlHost } from '@apis/config';
 
 const GroupCard = ({title, imgUrl, memberCount, onClick}) => {
-  const [src, setSrc] = React.useState(fileUrlHost() + imgUrl)
+  const [src, setSrc] = React.useState(fileUrlHost(imgUrl))
   return (
     <div onClick={onClick}>
       <GroupCardBox>

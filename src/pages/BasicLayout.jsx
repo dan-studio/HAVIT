@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useLocation, useNavigate, useResolvedPath } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useCustomRoute } from "@hooks/useRoute";
 import styled from "styled-components";
 import Header from "@components/layout/Header";
@@ -22,16 +22,20 @@ const BasicLayout = ({ childrens, loading }) => {
   const { routes } = useCustomRoute();
   const naviate = useNavigate();
   const dispatch = useDispatch();
-  const principal = useSelector((store)=>store.auth.principal);
   const location = useLocation();
   const layout = useSelector((state) => state.layout, shallowEqual);
   
   React.useEffect(()=>{
-    if(location.pathname.substring(0,5)!=="/auth"){
-      dispatch(me);
-      // if(!principal)naviate("/auth");
-    }
-  },[location.pathname])
+    dispatch(me()).then((result)=>{
+      const principal = result.payload?.principal;
+      if(!principal){
+        if(location.pathname.substring(0,5)!=="/auth"){
+          naviate("/auth");
+        } 
+      }
+    })
+  },[location.pathname, dispatch, naviate])
+
   return (
     <>
       {!!loading ? (

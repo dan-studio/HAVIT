@@ -1,19 +1,37 @@
 import { PlusCircleFilled } from "@ant-design/icons";
+import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { fileUrlHost } from "../../apis/config";
 
-const PhotoList = ({groupId}) => {
+const MAX_PREVIEW = 5;
+
+const PhotoList = ({groupId, list}) => {
     const navigate = useNavigate()
+    const [previewList, setPreviewList] = React.useState();
+    useEffect(()=>{
+        setPreview();
+    },[list])
+    const setPreview = ()=>{
+        const length = list?.length < MAX_PREVIEW ? list?.length : MAX_PREVIEW;
+        if(!list?.length) return;
+        const previewTemp = [];
+        for(let i=0; i < length; i++){
+            previewTemp.push(list[i]);
+        }
+        setPreviewList(previewTemp)
+    }
     return (
         <Container>
-            <div>
-                <PlusCircleFilled style={{ color: "#eeeeee" }} onClick={()=>{navigate(`/group/${groupId}/write`)}}/>
+            <div className="adder" onClick={()=>{navigate(`/group/${groupId}/write`)}}>
+                <PlusCircleFilled/>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            {
+                previewList?.map((el)=>(<div key={el?.certifyId} onClick={()=>{
+                    navigate(`/group/${groupId}/detail/${el?.certifyId}`);
+                }}><img alt="" src={fileUrlHost(el?.imageId)}></img></div>))
+            }
         </Container>
     );
 };
@@ -28,11 +46,22 @@ const Container = styled.div`
         width: 113px;
         height: 113px;
         border: 0.5px solid #eeeeee;
+        overflow:hidden;
+        &>img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
     }
-    & > div:first-of-type {
+    & > .adder {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 2rem;
+        color: #eeeeee;
+        &:hover{
+            border:1px solid black;
+            color:black;
+        }
     }
 `;

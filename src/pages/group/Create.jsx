@@ -9,12 +9,17 @@ import TagInput from "@components/input/TagInput";
 import ModalCancle from "@components/modal/ModalCancel";
 import useInputs from "@hooks/useInput";
 import { createGroup } from "@apis/group/group";
+import moment from "moment";
+import {FORMAT_DATE} from "@utils/format/time";
+import { useNavigate } from "react-router-dom";
 const GroupCreate = () => {    
+    const navigate = useNavigate();
     const [form, onChange, reset] = useInputs({
         title:"",
         leaderName:"",
+        imageId:0,
         crewName:"",
-        startDate:"",
+        startDate:moment().format(FORMAT_DATE),
         content:"",
         groupTag:[]
     });
@@ -25,10 +30,13 @@ const GroupCreate = () => {
             okText:"확인",
             cancelText:"취소",
             onOk:()=>{
-                createGroup.then((res)=>{
-                    console.log(res);
-                }).error((err)=>{
-                    console.log(err);
+                createGroup(form).then((res)=>{
+                    if(res.status === 200){
+                        alert("그룹 생성이 완료되었습니다.");
+                        navigate(`/group/${res.data.groupId}`);
+                    }
+                }).catch((err)=>{
+                    alert("Group Create Fail error:",err);
                 })
             },
         })
@@ -37,7 +45,9 @@ const GroupCreate = () => {
         <StyledContainer id="content">
             <Row>
                 <Col span={6}>
-                    <Uploader className={styles.upload}></Uploader>
+                    <Uploader className={styles.upload} value={form.imageId} onChange={(e)=>{
+                        form.imageId = e;
+                    }}></Uploader>
                 </Col>
                 <Col span={18}>
                     <Form.Item>

@@ -1,34 +1,58 @@
 import styled from "styled-components";
 import { EditFilled } from "@ant-design/icons";
-import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Modal, Row } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import styles from "./group_create.module.less";
-import List from "@components/list/MemberList";
 import React from "react";
 import Uploader from "@components/input/Uploader";
 import TagInput from "@components/input/TagInput";
-import useInputs from "@hooks/useInput";
 import ModalCancle from "@components/modal/ModalCancel";
-const GroupEdit = () => {
-    const [form, onChange, reset] = useInputs({
-        title:"",
-        leaderName:"",
-        crewName:"",
-        startDate:"",
-        content:"",
-        groupTag:[]
-    });
+import useInputs from "@hooks/useInput";
+import { getGroupDetail, modifyGroupDetail } from "@apis/group/group";
+import { useNavigate, useParams } from "react-router-dom";
+
+const GroupEdit = () => {    
+    const navigate = useNavigate();
+    const {id} = useParams();
+    const [form, onChange, reset, changeInitial] = useInputs();
+
+    React.useEffect(()=>{
+        getGroupDetail(id).then(res=>{
+            changeInitial(res.data);
+        }).catch(err=>console.log(err));
+    },[id]);
+
+    const submitHandler = ()=>{
+        Modal.confirm({
+            title:"확인",
+            content:<div>그룹을 <b>수정</b> 하시겠습니까?</div>,
+            okText:"확인",
+            cancelText:"취소",
+            onOk:()=>{
+                modifyGroupDetail(id,form).then((res)=>{
+                    if(res.status === 200){
+                        alert("그룹 수정이 완료되었습니다.");
+                        navigate(`/group/${res.data.groupId}`);
+                    }
+                }).catch((err)=>{
+                    alert("Group Create Fail error:",err);
+                })
+            },
+        })
+    }
     return (
-        <Container id="content">
+        <StyledContainer id="content">
             <Row>
                 <Col span={6}>
-                    <Uploader className={styles.upload}></Uploader>
+                    <Uploader className={styles.upload} value={form?.imageId} onChange={(e)=>{
+                        form.imageId = e;
+                    }}></Uploader>
                 </Col>
                 <Col span={18}>
                     <Form.Item>
                         <Input
                             name="title"
-                            value={form.title}
+                            value={form?.title}
                             onChange={onChange}
                             className={styles.title_input}
                             type="search"
@@ -41,7 +65,7 @@ const GroupEdit = () => {
                     >
                         <TagInput name="groupTag"
                             title={"groupTag"}
-                            value={form.groupTag}
+                            value={form?.groupTag}
                             onChange={onChange}/>
                     </Form.Item>
                 </Col>
@@ -51,7 +75,7 @@ const GroupEdit = () => {
                     <Form.Item>
                         <TextArea
                             name="content"
-                            value={form.content}
+                            value={form?.content}
                             onChange={onChange}
                             placeholder="그룹을 소개 해주세요"
                             className={styles.text_area}
@@ -68,7 +92,7 @@ const GroupEdit = () => {
                 <Col span={11}>
                     <Input
                         name="leaderName"
-                        value={form.leaderName}
+                        value={form?.leaderName}
                         onChange={onChange}
                         type="text"
                         placeholder="크루장"
@@ -78,7 +102,7 @@ const GroupEdit = () => {
                 <Col span={11} offset={2}>
                     <Input
                         name="crewName"
-                        value={form.crewName}
+                        value={form?.crewName}
                         onChange={onChange}
                         type="text"
                         placeholder="크루원"
@@ -91,15 +115,15 @@ const GroupEdit = () => {
                 className={styles.button_group}
                 style={{ top: "250px" }}
             >
-                <Button type="primary">수정</Button>
+                <Button type="primary" onClick={submitHandler}>수정</Button>
                 <Button type="default" onClick={()=>{ModalCancle(reset)}}>취소</Button>
             </Row>
-        </Container>
+        </StyledContainer>
     );
 };
 
 export default React.memo(GroupEdit);
-const Container = styled.div``;
+const StyledContainer = styled.div``;
 const StyledTitle = styled.div`
     font-family: "Inter";
     font-style: normal;

@@ -3,7 +3,6 @@ import { Input, Tag, Tooltip } from "antd";
 import React, { useRef } from "react";
 import { useEffect } from "react";
 const TagInput = ({name,value,onChange}) => {
-    const [tags, setTags] = React.useState([]);
     const [inputVisible, setInputVisible] = React.useState(false);
     const [inputValue, setInputValue] = React.useState("");
     const [editInputIndex, setEditInputIndex] = React.useState(-1);
@@ -11,8 +10,8 @@ const TagInput = ({name,value,onChange}) => {
     const inputRef = useRef(null);
     const editInputRef = useRef(null);
     useEffect(()=>{
-        onChange({name, value:tags});
-    },[tags])
+        onChange({name, value});
+    })
     React.useEffect(() => {
         if (inputVisible) {
             inputRef.current?.focus();
@@ -22,8 +21,8 @@ const TagInput = ({name,value,onChange}) => {
         editInputRef.current?.focus();
     }, [inputValue]);
     const handleClose = (removedTag) => {
-        const newTags = tags.filter((tag) => tag !== removedTag);
-        setTags(newTags);
+        const newTags = value?.filter((tag) => tag !== removedTag);
+        value = newTags;
     };
 
     const showInput = () => {
@@ -35,8 +34,8 @@ const TagInput = ({name,value,onChange}) => {
     };
 
     const handleInputConfirm = () => {
-        if (inputValue && tags.indexOf(inputValue) === -1) {
-            setTags([...tags, inputValue]);
+        if (inputValue && value?.indexOf(inputValue) === -1) {
+            onChange({name, value:[...value, inputValue]});
         }
 
         setInputVisible(false);
@@ -48,15 +47,15 @@ const TagInput = ({name,value,onChange}) => {
     };
 
     const handleEditInputConfirm = () => {
-        const newTags = [...tags];
+        const newTags = [...value];
         newTags[editInputIndex] = editInputValue;
-        setTags(newTags);
+        value = newTags;
         setEditInputIndex(-1);
         setInputValue("");
     };
     return (
         <>
-            {tags.map((tag, index) => {
+            {value?.map((tag, index) => {
                 if (editInputIndex === index) {
                     return (
                         <Input

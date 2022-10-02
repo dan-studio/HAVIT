@@ -88,7 +88,6 @@ const HistoryBox = styled.div`
     font-weight: bold;
     letter-spacing: -2px;
     color: ${({ theme }) => {
-      console.log(theme.color.neongreen);
       return theme.color.neongreen;
     }};
     margin-bottom: 1rem;

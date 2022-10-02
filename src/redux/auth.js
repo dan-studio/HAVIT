@@ -26,9 +26,11 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: {
+    [me.pending]:state=>{
+      state.principal = true;
+    },
     [me.fulfilled]: (state, action) => {
       state.principal = action.payload.principal;
-      state.permission = action.payload.permission;
     },
     [me.rejected]: state => {
       state.principal = null;

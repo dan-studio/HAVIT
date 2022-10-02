@@ -21,3 +21,11 @@ export const logout= async () => {
   const response = await authApi.post('/api/auth/logout', {});
   return response;
 }
+
+export const modifyMyInfo = async (body)=>{
+  return await authApi.put('/api/auth/mypage/', body); 
+}
+
+export const modifyPassword = async (body)=>{
+  return await authApi.put('/api/auth/mypage/private', body); 
+}

@@ -1,15 +1,16 @@
 import styled, { css } from "styled-components";
 import { MdPeopleAlt } from "react-icons/md";
 import { HiStar } from "react-icons/hi";
-
+import {FORMAT_DATE} from "@utils/format/time";
 // 컴포넌트
 import Tags from "../Tag";
 import { useNavigate} from "react-router-dom";
 import { fileUrlHost } from "@apis/config";
+import moment from "moment";
+import { Image } from "antd";
 
 const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, imgUrl, groupTag, favorite }) => {
   const navigate = useNavigate();
-  console.log('🚀 ⁝ CrewInfo ⁝ groupId', groupId);
 
   const routeHandler = () => {
     navigate(`/group/${groupId}`);
@@ -17,11 +18,11 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
   return (
     <>
     <StCard type={type}>
-      <StGroupImg src={fileUrlHost() + imgUrl} onClick={routeHandler} />
+      <Image className="circleImage" src={fileUrlHost(imgUrl)} onClick={routeHandler} />
       <StGroupInfo>
         <h2 onClick={routeHandler}>{title}</h2>
         <StDayInfo>
-          <span>{startDate} 생성됨</span>
+          <span>{moment(startDate).format(FORMAT_DATE)} 생성됨</span>
           <StCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
             매일
           </StCycle>
@@ -59,6 +60,14 @@ const StCard = styled.div`
   position: relative;
   height: 162px;
   background-color: #ffffff;
+  & .circleImage, & .ant-image-mask{
+    width: 110px;
+    height: 110px;
+    margin-right: 20px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+  }
   ${({ type }) => {
     switch (type) {
       case 'shadow':

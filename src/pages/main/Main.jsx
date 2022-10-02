@@ -27,7 +27,6 @@ const Main = () => {
     getAllGroupList().then(
       res=>{
         setCrew(res.data);
-        console.log(res);
       })
     }, []);
 

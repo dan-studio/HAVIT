@@ -13,7 +13,6 @@ import SubButton from './../button/SubButton';
 
 const AlertUser = ({ data, type = 'shadow', nickName, profileUrl, crew }) => {
   const navigate = useNavigate();
-  console.log('🚀 * CrewInfo * nickName', nickName);
 
   return (
     <Card type={type}>

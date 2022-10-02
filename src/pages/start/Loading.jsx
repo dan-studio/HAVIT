@@ -15,8 +15,9 @@ const Loading = () => {
 export default Loading;
 
 const StDiv = styled.div`
-  height: 80vh;
+  height: 100%;
   display: flex;
+  flex-direction:column;
   align-items: center;
   justify-content: center;
 `;
@@ -24,21 +25,14 @@ const StImg = styled.img`
   width: 200px;
 `;
 const StParagraph = styled.p`
-  margin-top: 35vh;
-  position: absolute;
+  margin:3rem 0;
   font-size: 16px;
   text-align: center;
   color: #575757;
 `;
 const StSpinner = styled.div`
-  box-sizing: border-box;
-  position: absolute;
-  top: 65vh;
-  left: 50%;
   width: 64px;
   height: 64px;
-  margin-top: -32px;
-  margin-left: -32px;
   border-radius: 50%;
   border: 8px solid transparent;
   border-top-color: #575757;

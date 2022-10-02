@@ -6,10 +6,10 @@ import { BsTrophy } from "react-icons/bs";
 import {
   UserOutlined
 } from '@ant-design/icons';
+import { fileUrlHost } from "../apis/config";
 // import { getRandom } from "../utils/math";
 
 const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
-
   // const randomNum = getRandom(1, 12);
   // console.log(randomNum);
   return (
@@ -17,7 +17,7 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            {!!myInfo?.profileUrl ? (<StyleUserPhoto alt='profile' src = {myInfo?.profileUrl}></StyleUserPhoto>) 
+            {!!myInfo?.imageId ? (<StyleUserPhoto alt='profile' src = {fileUrlHost(myInfo.imageId)}></StyleUserPhoto>) 
             : (<StyleUserNonePhoto><UserOutlined /></StyleUserNonePhoto>)}
           </StyleUserRight>
           <StyleUserLeft>
@@ -64,6 +64,8 @@ const StyleUserPhoto = styled.img`
   width: 110px;
   height: 110px;
   margin: 0 20px 0 0;
+  border-radius:100%;
+  border:1px solid lightgray;
 `;
 
 const StyleUserNonePhoto = styled.div`

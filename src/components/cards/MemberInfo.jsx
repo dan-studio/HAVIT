@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { fileUrlHost } from "../../apis/config";
+import {UserOutlined } from "@ant-design/icons";
+import { fileUrlHost } from "@apis/config";
 
 const MemberInfo = ({ width, height, nickname, imageId, roleName}) => {
     return (
         <Container width={width} height={height}>
             {
                 imageId ? (<StyledProfileImg
-                    alt="user_profile"
-                    src={fileUrlHost() + imageId}
-                ></StyledProfileImg>):(<StyledProfileDiv></StyledProfileDiv>)                
+                    alt=""
+                    src={fileUrlHost(imageId)}
+                ></StyledProfileImg>):(<StyledProfileDiv><UserOutlined style={{fontSize:"12px"}}></UserOutlined></StyledProfileDiv>)                
             }
             <div>
                 <div>{nickname}</div>
@@ -64,4 +65,7 @@ width: ${({ height }) => height}px;
 height: 100%;
 width:30px;
 border:1px solid lightgray;
+display:flex;
+justify-content:center;
+align-items:center;
 `

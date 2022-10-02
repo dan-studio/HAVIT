@@ -10,6 +10,10 @@ const Header = () => {
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
 
+  const onClickLogo = ()=>{
+    navigate('/');
+
+  }
   return (
     <>
       <Container id='header' invert={invert.isInvert}>
@@ -17,17 +21,13 @@ const Header = () => {
           <StyledInvertedLogo
             alt='logo'
             src={require('@assets/HavitWhite.png')}
-            onClick={() => {
-              navigate('/main');
-            }}
+            onClick={onClickLogo}
           />
         ) : (
           <StyledLogo
             alt='logo'
             src={require('@assets/havit.png')}
-            onClick={() => {
-              navigate('/main');
-            }}
+            onClick={onClickLogo}
           />
         )}
 
