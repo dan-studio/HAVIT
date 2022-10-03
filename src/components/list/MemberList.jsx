@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import MemberInfo from "../cards/MemberInfo";
 
-const List = ({ data, type, memberList, leaderName, crewName}) => {
+const List = ({ data, type, memberList, leaderName, crewName, leader}) => {
     return (
         <Container>
             <div className="title">
@@ -16,7 +16,7 @@ const List = ({ data, type, memberList, leaderName, crewName}) => {
             </div>
             <aside>
                 {memberList?.map((item, idx)=>{
-                    if(idx===0) return <MemberInfo {...item} roleName={leaderName} width={79} height={30} key={idx}/>
+                    if(leader) return <MemberInfo key={idx} {...item} roleName={leaderName} width={79} height={30} leader={leader}/>
                     return <MemberInfo {...item} roleName={crewName} width={79} height={30} key={idx}/>
                 })}
             </aside>

@@ -12,12 +12,12 @@ const Search = ({onClose}) => {
   const [searchResult, setSearchResult] = useState([])
   const navigate = useNavigate()
   const onChange = e => {
-    setSearch(e.target.value)
     userApis.search(search).then(res=>{
       setSearchResult(res)
     }).catch(err=>{
       console.log(err)
     })
+    setSearch(e.target.value)
   }
 
   return (

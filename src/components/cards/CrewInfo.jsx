@@ -9,9 +9,14 @@ import { fileUrlHost } from "@apis/config";
 import moment from "moment";
 import { Image } from "antd";
 
-const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, memberList, imgUrl, groupTag, favorite }) => {
+const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, memberList, imgUrl, groupTag, favorite, createdAt }) => {
   const navigate = useNavigate();
-
+  const createdDate = createdAt?.slice(2, 10).split('-')
+  const yyyy_mm_dd = ()=>{
+    if(createdDate&&createdDate.length>0){
+    return createdDate[0]+"년 "+createdDate[1]+"월 "+createdDate[2]+"일"
+    }
+  }
   const routeHandler = () => {
     navigate(`/group/${groupId}`);
   };
@@ -22,7 +27,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
       <StGroupInfo>
         <h2 onClick={routeHandler}>{title}</h2>
         <StDayInfo>
-          <span>{moment(startDate).format(FORMAT_DATE)} 생성됨</span>
+          <span>{yyyy_mm_dd()} 생성됨</span>
           <StCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
             매일
           </StCycle>
