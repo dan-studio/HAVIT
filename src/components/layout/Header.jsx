@@ -12,7 +12,6 @@ const Header = () => {
 
   const onClickLogo = ()=>{
     navigate('/');
-
   }
   return (
     <>

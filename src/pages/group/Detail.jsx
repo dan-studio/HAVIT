@@ -24,7 +24,6 @@ const GroupDetail = () => {
         setDetail(res.data);
     }).catch(err=>{});
     getMyGroupList().then(res=>{
-      console.log(res)
         const result = res.data.find((el)=>(el?.groupId === groupId));
         if(result.length <= 0)setIsParticipate(false);
         else setIsParticipate(true);
@@ -37,6 +36,7 @@ const GroupDetail = () => {
       console.log(err)
     })
   },[])
+  
   const leaveGroup = ()=>{
     Modal.confirm({
       okText:"탈퇴하기", 
@@ -76,19 +76,24 @@ const GroupDetail = () => {
     })
   }
   const isMember= detail?.memberList?.find((member)=>member?.memberId === myInfo?.memberId)
+  const isLeader= detail?.nickname===myInfo?.nickname&&isMember
   return (
     <Container>
       <CrewInfo type="detail" imgUrl={detail?.imageId} leaderName={detail?.leaderName} crewName={detail?.crewName} {...detail}></CrewInfo>
       <StyledGroupDesc value={detail?.content} disabled></StyledGroupDesc>
       <Divider style={{ margin: "0" }}></Divider>
-      <List data={{ title: "맴버들" }} {...detail} />
+      <List data={{ title: "맴버들" }} {...detail} leader={isLeader}/>
       <PhotoList groupId={groupId} list={detail?.certifyList}></PhotoList>
       <StyledButtonDiv>
-        {isMember ? (
-          <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
-        ) : (
-          <PrimaryButton buttonName={"가입하기"} onClick={joinGroup} />
-        )}
+
+        {isLeader? (
+          <PrimaryButton buttonName={"수정하기"} onClick={()=>{navigate('/group/edit/'+groupId)}} />
+          ) : isMember?(
+            <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
+          ):(
+            <PrimaryButton buttonName={"가입하기"} onClick={joinGroup} />
+        )
+        }
         <SubButton
           buttonName={"뒤로가기"}
           onClick={() => {
