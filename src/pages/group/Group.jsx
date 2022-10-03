@@ -16,7 +16,7 @@ const Group = () => {
       setCrew(res.data);
     }).catch(err=>{console.log(err);})
   }, []);
-
+console.log(crew)
   return (
     <StyledContainer id={"content"}>
       <Row>

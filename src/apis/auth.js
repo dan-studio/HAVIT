@@ -21,7 +21,13 @@ export const userApis = {
   },
   myProfile: async () => {
     const reponse = await authApi.get('api/auth/info');
-    return reponse.data.data;
+    return reponse.data;
+  },
+  
+  //Search
+  search: async data => {
+    const response = await authApi.get('/api/auth/main/search?search=' + data);
+    return response.data;
   },
 
   //Group

@@ -36,7 +36,7 @@ const Header = () => {
             <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
             <FiSettings
               onClick={() => {
-                navigate('mypage/edit');
+                navigate('setting');
               }}
             />
             <AlertSign></AlertSign>

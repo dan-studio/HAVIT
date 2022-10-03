@@ -6,7 +6,7 @@ import styles from "./group_create.module.less";
 import React from "react";
 import Uploader from "@components/input/Uploader";
 import TagInput from "@components/input/TagInput";
-import ModalCancle from "@components/modal/ModalCancel";
+import ModalCancel from "@components/modal/ModalCancel";
 import useInputs from "@hooks/useInput";
 import { createGroup } from "@apis/group/group";
 import moment from "moment";
@@ -38,6 +38,17 @@ const GroupCreate = () => {
                 }).catch((err)=>{
                     alert("Group Create Fail error:",err);
                 })
+            },
+        })
+    }
+    const ModalCancel = ()=>{
+        Modal.confirm({
+            title:"안내",
+            content:<div><div>모든 내용이 지워집니다.</div><div>정말 취소하시겠습니까?</div></div>,
+            okText:"확인",
+            cancelText:"취소",
+            onOk:()=>{
+                navigate(-1)
             },
         })
     }
@@ -117,7 +128,7 @@ const GroupCreate = () => {
                 style={{ top: "250px" }}
             >
                 <Button type="primary" onClick={submitHandler}>생성</Button>
-                <Button type="default" onClick={()=>{ModalCancle(reset)}}>취소</Button>
+                <Button type="default" onClick={ModalCancel}>취소</Button>
             </Row>
         </StyledContainer>
     );

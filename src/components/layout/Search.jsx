@@ -2,8 +2,24 @@ import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { userApis } from '../../apis/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Search = ({onClose}) => {
+
+  const [search, setSearch] = useState('')
+  const [searchResult, setSearchResult] = useState([])
+  const navigate = useNavigate()
+  const onChange = e => {
+    setSearch(e.target.value)
+    userApis.search(search).then(res=>{
+      setSearchResult(res)
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
+
   return (
     <StyleCover>
     <StyleContainer id ="searchContainer">
@@ -22,10 +38,16 @@ const Search = ({onClose}) => {
                   fontSize: '1.25rem',
                   fontWeight: 'bold',
                 }}></SearchOutlined>
-            }></Input>
+            }
+            onChange={onChange}
+            ></Input>
         </StyleSearchBox>
         <StyleHistoryBox>
           <h2>최근검색기록</h2>
+          {search.length>=2&&
+          searchResult.map((item, idx)=>
+          <div key={idx} onClick={()=>{navigate('/group/'+item.groupId)}}>{item.title}</div>
+          )}
         </StyleHistoryBox>
         <StyleDragLine></StyleDragLine>
       </StyleContainer>
