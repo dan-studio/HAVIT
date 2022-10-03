@@ -9,7 +9,7 @@ import { fileUrlHost } from "@apis/config";
 import moment from "moment";
 import { Image } from "antd";
 
-const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, imgUrl, groupTag, favorite }) => {
+const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, memberList, imgUrl, groupTag, favorite }) => {
   const navigate = useNavigate();
 
   const routeHandler = () => {
@@ -29,7 +29,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
         </StDayInfo>
         <StPeople>
           <MdPeopleAlt style={{fontSize:"16px"}} color='#5e43ff' />
-          <StSpan>{memberCount}명</StSpan>
+          <StSpan>{memberList?memberList.length:memberCount}명</StSpan>
         </StPeople>
         <StTagDiv>
           {groupTag?.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>

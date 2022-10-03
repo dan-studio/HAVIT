@@ -4,45 +4,78 @@ import { Divider, Modal } from "antd";
 import List from "@components/list/MemberList";
 import PhotoList from "@components/list/PhotoList";
 import React , { useState }from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "@components/button/PrimaryButton";
 import SubButton from "@components/button/SubButton";
 import { getGroupDetail, getMyGroupList, groupParticipating } from "../../apis/group/group";
+import { userApis } from "../../apis/auth";
 
 // /grup
 const GroupDetail = () => {
   const { groupId } = useParams();
   const [detail, setDetail] = useState();
+  const [myInfo, setMyInfo] = useState()
   const [isParticipate, setIsParticipate] = useState(false);
   const navigate = useNavigate();
+  const {state} = useLocation()
 
   React.useEffect(()=>{
     getGroupDetail(groupId).then((res)=>{
         setDetail(res.data);
     }).catch(err=>{});
     getMyGroupList().then(res=>{
-        const result = res.data.filter((el)=>(el?.groupId === groupId));
+      console.log(res)
+        const result = res.data.find((el)=>(el?.groupId === groupId));
         if(result.length <= 0)setIsParticipate(false);
         else setIsParticipate(true);
     }).catch(err=>{
         setIsParticipate(false);
     })
+    userApis.myProfile().then((res)=>{
+      setMyInfo(res)
+    }).catch(err=>{
+      console.log(err)
+    })
   },[])
   const leaveGroup = ()=>{
-    // groupParticipating(groupId)
+    Modal.confirm({
+      okText:"탈퇴하기", 
+      cancelText:"취소하기",
+      content:<>
+          {detail?.title}에서 정말 탈퇴하시겠습니까?
+      </>,
+      onOk:()=>{
+        userApis.leaveGroup(groupId)
+        setDetail((prev)=>{
+          return {
+            ...prev,
+            memberList: prev.memberList.filter(
+              (member)=>member.memberId !==myInfo.memberId
+            )
+          }
+        })
+      }
+  })
   }
   const joinGroup = ()=>{
     Modal.confirm({
         okText:"가입하기", 
         cancelText:"취소하기",
         content:<>
-            {detail?.title}와 정말 함께 하시겠습니까?
+            {detail?.title}와 정말 함께하시겠습니까?
         </>,
-        // onOk:()=>{
-        //     get
-        // }
+        onOk:()=>{
+          userApis.joinGroup(groupId)
+          setDetail((prev)=>{
+            return {
+              ...prev,
+              memberList: [...prev.memberList, myInfo]
+            }
+          })
+        }
     })
   }
+  const isMember= detail?.memberList?.find((member)=>member?.memberId === myInfo?.memberId)
   return (
     <Container>
       <CrewInfo type="detail" imgUrl={detail?.imageId} leaderName={detail?.leaderName} crewName={detail?.crewName} {...detail}></CrewInfo>
@@ -51,7 +84,7 @@ const GroupDetail = () => {
       <List data={{ title: "맴버들" }} {...detail} />
       <PhotoList groupId={groupId} list={detail?.certifyList}></PhotoList>
       <StyledButtonDiv>
-        {isParticipate ? (
+        {isMember ? (
           <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
         ) : (
           <PrimaryButton buttonName={"가입하기"} onClick={joinGroup} />
@@ -59,7 +92,7 @@ const GroupDetail = () => {
         <SubButton
           buttonName={"뒤로가기"}
           onClick={() => {
-            navigate(-1);
+            navigate(state||-1);
           }}
         />
       </StyledButtonDiv>

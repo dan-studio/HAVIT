@@ -9,9 +9,11 @@ import Uploader from "../components/input/Uploader";
 import { Upload } from "antd";
 import { userApis } from "../apis/auth";
 import { IoLocationOutline } from 'react-icons/io5';
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Write = () => {
+  const state =useLocation()
+  const navigate = useNavigate()
   const [image, setImage] = useState("");
   const [challengeTitle, setChallengeTitle] = useState("");
   const challengeTitleInfo = (challengeTitle) => {
@@ -21,7 +23,6 @@ const Write = () => {
     setImage(image);
   };
   const url = useParams()
-  console.log(url.groupId)
   const addCertify = {
     groupId: url.groupId,
     title: challengeTitle,
@@ -158,7 +159,10 @@ const Write = () => {
           {!!showLocationForm ? <Location /> : <> </>}
           <WriteBtn style={{ marginTop: "5.625rem" }}>
             <PrimaryButton buttonName={"등록"} onClick={addClickHandler} />
-            <SubButton buttonName={"취소"} />
+            <SubButton buttonName={"뒤로가기"} 
+             onClick={() => {
+              navigate("/group/" + url.groupId, {state:'/group'});
+            }}/>
           </WriteBtn>
         </WriteBox>
       </div>
@@ -185,7 +189,6 @@ const AddPhoto = styled.div`
   /* background-color:pink; */
   border: 0.5px solid #eaeaea;
   background-color: #ffffff;
-
   margin: 0 auto;
 `;
 const InputTitle = styled.input`
