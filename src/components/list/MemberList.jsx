@@ -2,10 +2,7 @@ import styled from "styled-components";
 import MemberInfo from "../cards/MemberInfo";
 
 const List = ({ data, type, memberList, leaderName, crewName, leader}) => {
-    console.log(leader)
-    console.log(memberList)
     const crewLeader = memberList?.find(item=>item.memberId===leader?.memberId)
-    console.log(crewLeader)
     return (
         <Container>
             <div className="title">

@@ -47,6 +47,10 @@ export const userApis = {
     const response = await authApi.delete('api/auth/participate/' + data);
     return response;
   },
+  deleteGroup: async data => {
+    const response = await authApi.delete('/api/auth/group/'+data)
+    return response
+  },
   //certify
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);

@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initial = {
     // 헤더 보여줄지 여부
     showHeader: true,
-    isInvert: false
+    isInvert: false,
+    smallType: false,
 };
 
 export const layoutSlice = createSlice({
