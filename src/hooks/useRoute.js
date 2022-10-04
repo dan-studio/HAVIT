@@ -53,7 +53,7 @@ const pages = [
             screen:Write
           },
           {
-            path:'/detail/:id',
+            path:'/:certifyId',
             title:"게시물 보기",
             screen:CertifyDetail
           }

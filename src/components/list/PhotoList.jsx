@@ -34,7 +34,7 @@ const PhotoList = ({groupId, list, isMember}) => {
             }
             {
                 previewList?.map((el)=>(<div key={el?.certifyId} onClick={()=>{
-                    navigate(`/group/${groupId}/detail/${el?.certifyId}`);
+                    navigate(`/group/${groupId}/${el?.certifyId}`);
                 }}><CertifyImg alt="" src={fileUrlHost(el?.imageId)}></CertifyImg></div>))
             }
         </StyledContainer>
