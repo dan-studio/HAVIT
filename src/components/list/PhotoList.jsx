@@ -7,7 +7,7 @@ import { fileUrlHost } from "../../apis/config";
 
 const MAX_PREVIEW = 5;
 
-const PhotoList = ({groupId, list}) => {
+const PhotoList = ({groupId, list, isMember}) => {
     const navigate = useNavigate()
     const [previewList, setPreviewList] = React.useState();
     useEffect(()=>{
@@ -24,9 +24,14 @@ const PhotoList = ({groupId, list}) => {
     }
     return (
         <StyledContainer>
+            {isMember?
             <div className="adder" onClick={()=>{navigate(`/group/${groupId}/write`)}}>
                 <PlusCircleFilled/>
+            </div>:
+            <div className="adder">
+                <PlusCircleFilled/>
             </div>
+            }
             {
                 previewList?.map((el)=>(<div key={el?.certifyId} onClick={()=>{
                     navigate(`/group/${groupId}/detail/${el?.certifyId}`);
@@ -59,15 +64,12 @@ const StyledContainer = styled.div`
         align-items: center;
         font-size: 2rem;
         color: #eeeeee;
-        &:hover{
-            border:1px solid black;
-            color:black;
-        }
     }
 `;
 const CertifyImg = styled.img`
         width: 113px;
         height: 113px;
         border: 0.5px solid #eeeeee;
+        object-fit: cover;
 `
 

@@ -69,6 +69,7 @@ const StyleUserPhoto = styled.img`
   margin: 0 20px 0 0;
   border-radius:100%;
   border:1px solid lightgray;
+  object-fit: cover;
 `;
 
 const StyleUserNonePhoto = styled.div`

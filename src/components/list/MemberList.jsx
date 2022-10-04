@@ -2,6 +2,10 @@ import styled from "styled-components";
 import MemberInfo from "../cards/MemberInfo";
 
 const List = ({ data, type, memberList, leaderName, crewName, leader}) => {
+    console.log(leader)
+    console.log(memberList)
+    const crewLeader = memberList?.find(item=>item.memberId===leader?.memberId)
+    console.log(crewLeader)
     return (
         <Container>
             <div className="title">
@@ -15,10 +19,10 @@ const List = ({ data, type, memberList, leaderName, crewName, leader}) => {
                 )}
             </div>
             <aside>
-                {memberList?.map((item, idx)=>{
-                    if(leader) return <MemberInfo key={idx} {...item} roleName={leaderName} width={79} height={30} leader={leader}/>
-                    return <MemberInfo {...item} roleName={crewName} width={79} height={30} key={idx}/>
-                })}
+                {memberList?.map((item, idx)=>
+                    item.memberId===leader.memberId? <MemberInfo key={idx} {...item} roleName={leaderName} width={79} height={30} leader={crewLeader}/>:
+                     <MemberInfo {...item} roleName={crewName} width={79} height={30} key={idx}/>
+                )}
             </aside>
         </Container>
     );

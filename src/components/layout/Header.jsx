@@ -38,7 +38,6 @@ const Header = () => {
                 navigate('setting');
               }}
             />
-            <AlertSign></AlertSign>
         </Icons>
         {!!showSearchForm ? <Search onClose={(e)=>{setShowSearchForm(!e)}} /> : <></>}
       </Container>
@@ -74,16 +73,5 @@ const StyledInvertedLogo = styled.img`
   width: 120px;
   cursor: pointer;
 `;
-const Setting = styled.div`
-  position: relative;
-`;
-const AlertSign = styled.div`
-  position: absolute;
-  top: 3px;
-  right: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: red;
-`;
+
 export default Header;
