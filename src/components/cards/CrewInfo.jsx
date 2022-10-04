@@ -124,6 +124,12 @@ const StyledGroupInfo = styled.div`
   display: flex;
   flex-direction: column;
   & > h2 {
+    width: 190px;
+    word-break: nowrap;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 22px;
