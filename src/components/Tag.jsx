@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Tags = (props) => {
-  return <HashTag>#{props.item}</HashTag>;
+  return <StyledHashTag>#{props.item}</StyledHashTag>;
 };
 
-const HashTag = styled.div`
-  margin: 2px;
+const StyledHashTag = styled.div`
+  margin: 2px 4px 2px 0;
   padding: 2px 10px;
   border: 0.5px solid #b0b0b0;
   border-radius: 20px;
