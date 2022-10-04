@@ -56,14 +56,18 @@ export const userApis = {
     const response = await authApi.post('/api/auth/certify/', data);
     return response;
   },
-  getCertify: async (data, groupId) => {
-    const response = await authApi.get(`/api/auth/group/3`, data);
-    console.log(response);
-    return response;
+
+  getCertify: async (groupId) => {
+    const response = await authApi.get('/api/auth/certify/'+groupId);
+    console.log(response)
+    return response.data.certifyImgUrlList;
   },
-  // headers: {
-  //   "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
-  // },
+  getCertifyDetail: async (groupId) => {
+    const response = await authApi.get('/api/auth/certify/'+groupId);
+    console.log(response)
+    return response.data;
+  },
+
 
   // 마이페이지 : 내 정보
   userProfile: async () => {
@@ -71,7 +75,25 @@ export const userApis = {
     return reponse;
   },
 
-  // 마이페이지 : 유저 정보
+   //comment
+  writeComment: async (data) => {
+    const response = await authApi.post('/api/auth/comment/', data)
+    return response
+  },
+  editComment: async (commentId) => {
+    const response = await authApi.put('/api/auth/comment/'+commentId)
+    return response
+  },
+  deleteComment: async (commentId) => {
+    const response = await authApi.delete('/api/auth/comment/'+commentId)
+    return response
+  },
+  getComment: async (certifyId) => {
+    const response = await authApi.get('/api/auth/comment/',certifyId)
+    return response
+  },
+  // 마이페이지 내에서의 유저 정보
+
   usersInfo: async (nickname, profileUrl, crew, email) => {
     const response = await authApi.get('/users', { nickname, profileUrl, crew, email });
     return response;
@@ -85,9 +107,10 @@ export const userApis = {
   },
 
   // 마이페이지 : 내 그룹 가져오기
-  getmyGroup: async data => {
-    const response = await authApi.get('/api/auth/mypage/group', data);
-    console.log('🚀 ⁝ data', data);
+  getmyGroup: async () => {
+    const response = await authApi.get('/api/auth/mypage/group');
+    console.log('🚀 ⁝ getmyGroup: ⁝ response', response);
+
     return response;
   },
 

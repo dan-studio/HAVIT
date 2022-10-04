@@ -54,6 +54,12 @@ const Myprofile = () => {
       });
   };
 
+  const onCancel = () => {
+    reset();
+    navigate('/mypage')
+  };
+
+
   // ###########################################
   // ## SECTION VIEW 부분                    ###
   // ###########################################
@@ -91,7 +97,7 @@ const Myprofile = () => {
       {/* WHAT 버튼 */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '6.25rem auto' }}>
         <PrimaryButton buttonName={'수정하기'} onClick={onSubmmit} />
-        <SubButton buttonName={'취소'} onClick={() => reset()} />
+        <SubButton buttonName={'취소'} onClick={onCancel} />
       </div>
     </>
   );
