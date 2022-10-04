@@ -16,6 +16,7 @@ import { BsArrowUpCircleFill } from "react-icons/bs";
 // import Comment from "@pages/comment/Comment";
 import PrimaryButton from "../../components/button/PrimaryButton";
 import SubButton from "../../components/button/SubButton";
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
@@ -24,33 +25,58 @@ const CertifyDetail = () => {
   const { certifyId } = useParams();
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
-
+  const [comment, setComment] = useState("");
+  const navigate = useNavigate()
+  const commentHandler = (e) => {
+    setComment(e.target.value);
+  };
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
-      console.log(res);
       userApis.getGroupDetail(res.groupId).then((res) => {
         setGroupDetail(res.data);
       });
     });
   }, []);
+  const addComment = () => {
+    const commentMsg = {
+      certifyId: certifyId,
+      content: comment,
+    };
+    userApis
+      .writeComment(commentMsg)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  const leader = groupDetail?.writer
+  const crewLeader = groupDetail?.memberList?.find(item=>item.memberId===leader?.memberId)
+  console.log(groupDetail)
+  console.log(crewLeader)
   return (
     <BoardBox>
       <Profile>
+      <MdOutlineArrowBackIosNew
+              style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px"}}
+              onClick={() => {navigate(-1)
+              }}
+            />
         <ProfilePhoto
           src={fileUrlHost(certifyDetail.profileImageId)}
         ></ProfilePhoto>
         <ProfileBox>
           <ProfileName>{certifyDetail.nickname}</ProfileName>
-          <ProfileRole>{certifyDetail.crewName}</ProfileRole>
+          <ProfileRole>{groupDetail.crewName}</ProfileRole>
           {/* 리더/크루원 구분 필요 */}
         </ProfileBox>
       </Profile>
       <Title>
-        <ChallengeName>{groupDetail.content}</ChallengeName>
+        <ChallengeName>{groupDetail.title}</ChallengeName>
         <ChallengeBox>
-          <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
           <ChallengeLocation>
             <IoLocationOutline
               style={{
@@ -63,11 +89,26 @@ const CertifyDetail = () => {
           </ChallengeLocation>
         </ChallengeBox>
       </Title>
-      <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)}></ChallengePhoto>
+      <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)} />
+      <StyledTitleDiv>
+        <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
+      </StyledTitleDiv>
       <StyledCommentDiv>
-        <Comment certifyId={certifyId} groupDetail={groupDetail} {...certifyDetail}/>
+        <Comment
+          certifyId={certifyId}
+          groupDetail={groupDetail}
+          {...certifyDetail}
+        />
       </StyledCommentDiv>
-      <CommentInput></CommentInput>
+      <CommentBar>
+        <CommentInput onChange={commentHandler}></CommentInput>
+        <BsArrowUpCircleFill
+          color="#5e43ff"
+          size="18"
+          zindex="100"
+          onClick={addComment}
+        />
+      </CommentBar>
     </BoardBox>
   );
 };
@@ -122,16 +163,20 @@ const ChallengeBox = styled.div`
 `;
 
 const ChallengeName = styled.div`
-  font-size: 10px;
+  font-size: 15px;
   color: gray;
   font-weight: bold;
 `;
 const ChallengeTitle = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: white;
+  z-index: 10;
+  opacity: 1;
+  margin-left: 10px;
 `;
 const ChallengeLocation = styled.div`
   color: gray;
@@ -145,43 +190,38 @@ const ChallengeLocation = styled.div`
 
 const ChallengePhoto = styled.img`
   object-fit: cover;
-  width: 354px;
-  height: 354px;
+  width: 345px;
+  height: 345px;
+  margin: 10px auto;
+  border: 1px solid #e8e8e8;
 `;
 
-const Comments = styled.div`
-  margin-top: 2rem;
+const CommentBar = styled.div`
   display: flex;
-  flex-direction: row;
-`;
-
-const CommentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 10px 0 10px;
-  width: 80%;
-  & > div {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
-const CommentMsg = styled.div``;
-const CommentInput = styled.input`
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
   border: 1px solid lightgray;
   border-radius: 25px;
-  margin-top: 15px;
+  margin: 10px 0;
   padding: 4px 8px;
+  background-color: white;
+`;
+const CommentInput = styled.input`
+  width: 90%;
+  border: none;
   :focus {
     outline: none;
-    border: 1px solid
-      ${({ theme }) => {
-        return theme.color.primary_color;
-      }};
   }
 `;
-
-const ReplyIcon = styled.div`
-  color: gray;
+const StyledTitleDiv = styled.div`
+  height: 40px;
+  width: 345px;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50px);
+  display: flex;
+  align-items: center;
 `;
+
 const StyledCommentDiv = styled.div``;
