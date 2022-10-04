@@ -5,17 +5,21 @@ import React, { useEffect, useState, useRef } from "react";
 import { userApis } from "../../apis/auth";
 import { MdModeEdit, MdDelete, MdReply } from "react-icons/md";
 
+// const CommentDetail = ({ commentList, groupDetail }) => {
 const CommentDetail = ({ commentList, groupDetail }) => {
-  const deleteComment = () => {
+  const [isChange, setIsChange] = useState(false) 
+  const deleteComment = (commentId) => {
     userApis
-      .deleteComment(commentList.commentId)
+      .deleteComment(commentId)
       .then((res) => {
+        setIsChange(!isChange)
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(commentList)
   return (
     <StyledDiv>
       {commentList?.map((el) => {
@@ -30,12 +34,11 @@ const CommentDetail = ({ commentList, groupDetail }) => {
               <CommentMsg key={el.commentId} value={commentList}>
                 {el.content}
               </CommentMsg>
-              <CommentMsg></CommentMsg>
             </CommentBox>
             <StyledReplyIcon>
               {/* <MdModeEdit color="#B7B7B7" size="15" /> */}
               {/* <MdReply color="#B7B7B7" size="15" /> */}
-              <MdDelete color="#B7B7B7" size="15" onClick={deleteComment} />
+              <MdDelete color="#B7B7B7" size="15" onClick= {()=> {deleteComment(el.commentId)}} />
             </StyledReplyIcon>
           </StyledComment>
         );
