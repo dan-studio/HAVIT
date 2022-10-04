@@ -6,22 +6,52 @@ import styles from "./group_list.module.less";
 import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
 import React, { useEffect, useState } from "react";
-import { getAllGroupList } from "@apis/group/group";
-// /grup
+import { getAllGroupList, getMyGroupList } from "@apis/group/group";
+// /group
 const Group = () => {
-  const [crew, setCrew] = useState();
+  const selectList = ["전체", "내 크루", "인기순"]
+  const [selected, setSelected] = useState("전체");
+  const [crew, setCrew] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    getAllGroupList().then((res)=>{
-      setCrew(res.data);
-    }).catch(err=>{console.log(err);})
-  }, []);
-console.log(crew)
+    if (selected === "전체") {
+      getAllGroupList()
+        .then((res) => {
+          setCrew(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (selected === "내 크루") {
+      getMyGroupList()
+        .then((res) => {
+          setCrew(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }else if (selected === "인기순"){
+      getAllGroupList().then(res=>{
+        const popular = res.data.sort((a,b)=>b.memberCount-a.memberCount)
+        setCrew(popular)
+      })
+    }
+  }, [ selected]);
+  const handleSelect = (e) => {
+    setSelected(e);
+  };
   return (
     <StyledContainer id={"content"}>
       <Row>
-        <Select className={styles.pop_radius} defaultValue={"all"}>
-          <Select.Option value="all">전체</Select.Option>
+        <Select
+          className={styles.pop_radius}
+          value={selected}
+          onChange={handleSelect}
+        >
+          {selectList.map(item=>
+          <Select.Option value={item} key={item}>{item}</Select.Option>
+            )}
         </Select>
       </Row>
       <Row>
@@ -35,7 +65,9 @@ console.log(crew)
           새 크루 생성
         </StyledAddGroupContainer>
       </Row>
-      {crew?.map((item, idx)=><CrewInfo type="list" imgUrl={item?.imageId} {...item} key={idx}/>)}
+      {crew?.map((item, idx) => (
+        <CrewInfo type="list" imgUrl={item?.imageId} {...item} key={idx} />
+      ))}
       <StyledBox>
         더이상 그룹이 없어요.
         <ArrowButton />
