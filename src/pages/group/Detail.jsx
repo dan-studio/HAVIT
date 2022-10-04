@@ -18,7 +18,6 @@ const GroupDetail = () => {
   const [isParticipate, setIsParticipate] = useState(false);
   const navigate = useNavigate();
   const {state} = useLocation()
-
   React.useEffect(()=>{
     getGroupDetail(groupId).then((res)=>{
         setDetail(res.data);
