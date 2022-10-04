@@ -8,10 +8,17 @@ import CommentDetail from "./CommentDetail";
 import { fileUrlHost } from "../../apis/config";
 
 const Comment = ({ certifyId, groupDetail, commentList }) => {
-  const deleteComment = () => {
+  const [comments, setComments] = useState([])  
+  const [isChange, setIsChange] = useState(false)
+  useEffect(()=> {
+
+  }, [isChange] ) 
+
+  const deleteComment = (commentId) => {
     userApis
-      .deleteComment(commentList.commentId)
+      .deleteComment(commentId)
       .then((res) => {
+        setIsChange(!isChange)
         console.log(res);
       })
       .catch((err) => {
@@ -21,6 +28,7 @@ const Comment = ({ certifyId, groupDetail, commentList }) => {
 
 
   return (
+
     <>
       {commentList?.map((el) => {
         return (
@@ -34,7 +42,8 @@ const Comment = ({ certifyId, groupDetail, commentList }) => {
               <StyledContent>{el.content}</StyledContent>
               <StyledOptions>
                 <div onClick={()=>{}}>답글쓰기</div>
-                <div onClick={()=>{console.log("삭제")}}>삭제하기</div>
+                {/* <div onClick={()=>{console.log("삭제")}}>삭제하기</div> */}
+                <div onClick={()=>{deleteComment(el.commentId)}}>삭제하기</div>
               </StyledOptions>
             </StyledCommentBox>
           </StyledDiv>

@@ -6,15 +6,31 @@ import { userApis } from "../../apis/auth";
 import { MdModeEdit, MdDelete, MdReply } from "react-icons/md";
 import { fileUrlHost } from "../../apis/config";
 
-const CommentDetail = ({ commentList, groupDetail }) => {
-  
-  console.log(commentList)
+
+const CommentDetail = ({ certifyId,commentList }) => {
+  const [comments, setComments] = useState([])  
+  const [isChange, setIsChange] = useState(false)
+  useEffect(()=> {
+
+  }, [isChange] ) 
+  const deleteComment = (commentId) => {
+    userApis
+      .deleteComment(commentId)
+      .then((res) => {
+        setIsChange(!isChange)
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <StyledDiv>
       {commentList?.map((el) => {
         return (
           <StyledComment key={el.commentId}>
-           
+
           </StyledComment>
         );
       })}
