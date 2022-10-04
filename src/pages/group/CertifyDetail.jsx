@@ -1,21 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import useInputs from "@hooks/useInput";
 import { IoLocationOutline } from "react-icons/io5";
-import { AiOutlineComment } from "react-icons/ai";
-import { IoSearch } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdLocationOn } from "react-icons/md";
-import { FaShare } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 // import Comment from "@pages/comment/Comment";
-import PrimaryButton from "../../components/button/PrimaryButton";
-import SubButton from "../../components/button/SubButton";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
@@ -26,6 +16,7 @@ const CertifyDetail = () => {
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
   const [comment, setComment] = useState("");
+  const [myInfo, setMyInfo] = useState('')
   const navigate = useNavigate()
   const commentHandler = (e) => {
     setComment(e.target.value);
@@ -37,6 +28,11 @@ const CertifyDetail = () => {
         setGroupDetail(res.data);
       });
     });
+    userApis.myProfile().then(res=>{
+      setMyInfo(res)
+    }).catch(err=>{
+      console.log(err)
+    })
   }, []);
   const addComment = () => {
     const commentMsg = {
@@ -55,6 +51,7 @@ const CertifyDetail = () => {
 
   const leader = groupDetail?.writer
   const crewLeader = groupDetail?.memberList?.find(item=>item.memberId===leader?.memberId)
+  console.log(certifyDetail)
   console.log(groupDetail)
   console.log(crewLeader)
   return (
@@ -70,7 +67,7 @@ const CertifyDetail = () => {
         ></ProfilePhoto>
         <ProfileBox>
           <ProfileName>{certifyDetail.nickname}</ProfileName>
-          <ProfileRole>{groupDetail.crewName}</ProfileRole>
+          <ProfileRole>{certifyDetail?.memberId===leader?.memberId?groupDetail.leaderName:groupDetail.crewName}</ProfileRole>
           {/* 리더/크루원 구분 필요 */}
         </ProfileBox>
       </Profile>
@@ -98,6 +95,7 @@ const CertifyDetail = () => {
           certifyId={certifyId}
           groupDetail={groupDetail}
           {...certifyDetail}
+          {...myInfo}
         />
       </StyledCommentDiv>
       <CommentBar>

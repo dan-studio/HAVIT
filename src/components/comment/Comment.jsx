@@ -7,7 +7,7 @@ import { MdDelete, MdReply, MdModeEdit } from "react-icons/md";
 import CommentDetail from "./CommentDetail";
 import { fileUrlHost } from "../../apis/config";
 
-const Comment = ({ certifyId, groupDetail, commentList }) => {
+const Comment = ({ certifyId, groupDetail, commentList, memberId }) => {
   const [comments, setComments] = useState([])  
   const [isChange, setIsChange] = useState(false)
   useEffect(()=> {
@@ -25,8 +25,7 @@ const Comment = ({ certifyId, groupDetail, commentList }) => {
         console.log(err);
       });
   };
-
-
+  console.log(commentList);
   return (
 
     <>
@@ -41,9 +40,10 @@ const Comment = ({ certifyId, groupDetail, commentList }) => {
               </StyledName>
               <StyledContent>{el.content}</StyledContent>
               <StyledOptions>
-                <div onClick={()=>{}}>답글쓰기</div>
-                {/* <div onClick={()=>{console.log("삭제")}}>삭제하기</div> */}
-                <div onClick={()=>{deleteComment(el.commentId)}}>삭제하기</div>
+                <div onClick={() => {}}>답글쓰기</div>
+                {memberId === el.memberId && (
+                  <div onClick={deleteComment(el.commentId)}>삭제하기</div>
+                )}
               </StyledOptions>
             </StyledCommentBox>
           </StyledDiv>
@@ -89,12 +89,12 @@ const StyledName = styled.div`
 const StyledContent = styled.div`
   width: 100%;
   word-break: break-all;
-`
+`;
 const StyledOptions = styled.div`
   display: flex;
   font-size: 10px;
   margin-top: 5px;
-  div{
+  div {
     margin-right: 7px;
   }
-`
+`;
