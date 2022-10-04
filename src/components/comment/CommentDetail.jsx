@@ -4,6 +4,7 @@ import { BsArrowUpCircleFill } from "react-icons/bs";
 import React, { useEffect, useState, useRef } from "react";
 import { userApis } from "../../apis/auth";
 import { MdModeEdit, MdDelete, MdReply } from "react-icons/md";
+import { fileUrlHost } from "../../apis/config";
 
 const CommentDetail = ({ commentList, groupDetail }) => {
   const deleteComment = () => {
@@ -16,12 +17,13 @@ const CommentDetail = ({ commentList, groupDetail }) => {
         console.log(err);
       });
   };
+  console.log(commentList)
   return (
     <StyledDiv>
       {commentList?.map((el) => {
         return (
-          <StyledComment>
-            <StyledProfilePhotoComment src="http://file.osen.co.kr/article_thumb/2019/03/04/201903041941777108_5c7d015030247_300x.jpg"></StyledProfilePhotoComment>
+          <StyledComment key={el.commentId}>
+            <StyledProfilePhotoComment src={fileUrlHost(el.profileImageId)}/>
             <CommentBox>
               <StyledProfileName>
                 {el.nickname}
@@ -57,8 +59,8 @@ const StyledComment = styled.div`
 const StyledProfilePhotoComment = styled.img`
   width: 35px;
   height: 35px;
-  border-radius: 25px;
-  margin: 5px 0 0 10px;
+  border-radius: 50%;
+  margin: 5px 0;
   object-fit: cover;
 `;
 const StyledProfileName = styled.div`

@@ -6,18 +6,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { userApis } from "../../apis/auth";
 import CommentDetail from "./CommentDetail";
 
+const Comment = ({ certifyId, groupDetail, commentList}) => {
 
-const Comment = ({ certifyId, groupDetail }) => {
-  const [commentList, setCommentList] = useState([]);
-
-  console.log(groupDetail)
-  useEffect(() => {
-    userApis.getCertifyDetail(certifyId).then((res) => {
-      setCommentList(res.commentList);
-      // setGroupId(res.groupId)
-      console.log(res);
-    });
-  }, []);
   console.log(commentList);
   const [comment, setComment] = useState("");
   const commentHandler = (e) => {
@@ -41,7 +31,7 @@ const Comment = ({ certifyId, groupDetail }) => {
 
   return (
     <StyledDiv>
-            <CommentDetail commentList={commentList} groupDetail={groupDetail}/>
+      <CommentDetail commentList={commentList} groupDetail={groupDetail} />
       <CommentInputBox>
         <CommentInput
           placeholder="댓글입력"
