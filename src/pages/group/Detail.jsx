@@ -76,17 +76,18 @@ const GroupDetail = () => {
     })
   }
   const isMember= detail?.memberList?.find((member)=>member?.memberId === myInfo?.memberId)
-  const isLeader= detail?.nickname===myInfo?.nickname&&isMember
+  const leader= detail?.writer
+  console.log(isMember)
   return (
     <Container>
       <CrewInfo type="detail" imgUrl={detail?.imageId} leaderName={detail?.leaderName} crewName={detail?.crewName} {...detail}></CrewInfo>
       <StyledGroupDesc value={detail?.content} disabled></StyledGroupDesc>
       <Divider style={{ margin: "0" }}></Divider>
-      <List data={{ title: "맴버들" }} {...detail} leader={isLeader}/>
-      <PhotoList groupId={groupId} list={detail?.certifyList}></PhotoList>
+      <List data={{ title: "맴버들" }} {...detail} leader={leader}/>
+      <PhotoList groupId={groupId} list={detail?.certifyList} isMember={isMember}></PhotoList>
       <StyledButtonDiv>
 
-        {isLeader? (
+        {leader?.memberId===myInfo?.memberId? (
           <PrimaryButton buttonName={"수정하기"} onClick={()=>{navigate('/group/edit/'+groupId)}} />
           ) : isMember?(
             <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
