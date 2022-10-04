@@ -17,7 +17,7 @@ const Signup = () => {
     return ()=>{
       dispatch(resetLayout());
     }
-  }, []);
+  }, []); 
 
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
