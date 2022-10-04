@@ -1,71 +1,75 @@
-import styled, { css } from "styled-components";
-import { MdPeopleAlt } from "react-icons/md";
-import { HiStar } from "react-icons/hi";
-import {FORMAT_DATE} from "@utils/format/time";
+import styled, { css } from 'styled-components';
+import { MdPeopleAlt } from 'react-icons/md';
+import { HiStar } from 'react-icons/hi';
+import { FORMAT_DATE } from '@utils/format/time';
 // 컴포넌트
-import Tags from "../Tag";
-import { useNavigate} from "react-router-dom";
-import { fileUrlHost } from "@apis/config";
-import moment from "moment";
-import { Image } from "antd";
+import Tags from '../Tag';
+import { useNavigate } from 'react-router-dom';
+import { fileUrlHost } from '@apis/config';
+import moment from 'moment';
+import { Image } from 'antd';
 
 const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, memberList, imgUrl, groupTag, favorite, createdAt }) => {
   const navigate = useNavigate();
-  const createdDate = createdAt?.slice(2, 10).split('-')
-  const yyyy_mm_dd = ()=>{
-    if(createdDate&&createdDate.length>0){
-    return createdDate[0]+"년 "+createdDate[1]+"월 "+createdDate[2]+"일"
+  const createdDate = createdAt?.slice(2, 10).split('-');
+  const yyyy_mm_dd = () => {
+    if (createdDate && createdDate.length > 0) {
+      return createdDate[0] + '년 ' + createdDate[1] + '월 ' + createdDate[2] + '일';
     }
-  }
+  };
   const routeHandler = () => {
     navigate(`/group/${groupId}`);
   };
   return (
     <>
-    <StCard type={type}>
-      <Image className="circleImage" src={fileUrlHost(imgUrl)} onClick={routeHandler} />
-      <StGroupInfo>
-        <h2 onClick={routeHandler}>{title}</h2>
-        <StDayInfo>
-          <span>{yyyy_mm_dd()} 생성됨</span>
-          <StCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
-            매일
-          </StCycle>
-        </StDayInfo>
-        <StPeople>
-          <MdPeopleAlt style={{fontSize:"16px"}} color='#5e43ff' />
-          <StSpan>{memberList?memberList.length:memberCount}명</StSpan>
-        </StPeople>
-        <StTagDiv>
-          {groupTag?.map((item, idx) => <Tags item={item} key={idx} />)}</StTagDiv>
-      </StGroupInfo>
-      {favorite && (
-        <HiStar
-          style={{
-            color: '#ECA51B',
-            fontSize: '20px',
-            position: 'absolute',
-            zIndex: '10',
-            top: '10px',
-            right: '10px',
-          }}
-        />
-      )}
-    </StCard>
-     </>
+      <StyledCard type={type}>
+        <Image className='circleImage' src={fileUrlHost(imgUrl)} onClick={routeHandler} />
+        <StyledGroupInfo>
+          <h2 onClick={routeHandler}>{title}</h2>
+          <StyledDayInfo>
+            <span>{yyyy_mm_dd()} 생성</span>
+            <StyledCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
+              매일
+            </StyledCycle>
+          </StyledDayInfo>
+          <StyledPeople>
+            <MdPeopleAlt style={{ fontSize: '16px' }} color='#5e43ff' />
+            <StyledSpan>{memberList ? memberList.length : memberCount}명</StyledSpan>
+          </StyledPeople>
+          <StyledTagDiv>
+            {groupTag?.map((item, idx) => (
+              <Tags item={item} key={idx} />
+            ))}
+          </StyledTagDiv>
+        </StyledGroupInfo>
+        {favorite && (
+          <HiStar
+            style={{
+              color: '#ECA51B',
+              fontSize: '20px',
+              position: 'absolute',
+              zIndex: '10',
+              top: '10px',
+              right: '10px',
+            }}
+          />
+        )}
+      </StyledCard>
+    </>
   );
 };
 export default CrewInfo;
 
-const StCard = styled.div`
+const StyledCard = styled.div`
   display: flex;
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   position: relative;
-  height: 162px;
+  min-height: 162px;
   background-color: #ffffff;
-  & .circleImage, & .ant-image-mask{
+  & .circleImage,
+  & .ant-image-mask {
     width: 110px;
     height: 110px;
     margin-right: 20px;
@@ -90,7 +94,7 @@ const StCard = styled.div`
 `;
 
 const Detail = css``;
-const StCycle = styled.div`
+const StyledCycle = styled.div`
   background-color: #5e43ff;
   color: white;
   border-radius: 10px;
@@ -107,7 +111,7 @@ const ShadowCard = css`
   padding: 15px;
 `;
 
-const StGroupImg = styled.img`
+const StyledGroupImg = styled.img`
   width: 110px;
   height: 110px;
   margin-right: 20px;
@@ -116,7 +120,7 @@ const StGroupImg = styled.img`
   object-fit: cover;
 `;
 
-const StGroupInfo = styled.div`
+const StyledGroupInfo = styled.div`
   display: flex;
   flex-direction: column;
   & > h2 {
@@ -125,25 +129,25 @@ const StGroupInfo = styled.div`
     line-height: 22px;
   }
 `;
-const StPeople = styled.div`
+const StyledPeople = styled.div`
   display: flex;
   align-items: center;
 `;
-const StSpan = styled.span`
-  display:flex;
-  align-item:center;
+const StyledSpan = styled.span`
+  display: flex;
+  align-item: center;
   font-size: 12px;
-  font-weight:bold;
-  margin-left:.25rem;
+  font-weight: bold;
+  margin-left: 0.25rem;
 `;
-const StDayInfo = styled.div`
+const StyledDayInfo = styled.div`
   display: flex;
   align-items: center;
   & > span {
     font-weight: bold;
   }
 `;
-const StTagDiv = styled.div`
+const StyledTagDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 190px;
