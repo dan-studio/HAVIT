@@ -6,8 +6,15 @@ import { userApis } from "../../apis/auth";
 import { MdModeEdit, MdDelete, MdReply } from "react-icons/md";
 
 // const CommentDetail = ({ commentList, groupDetail }) => {
-const CommentDetail = ({ commentList, groupDetail }) => {
-  const [isChange, setIsChange] = useState(false) 
+const CommentDetail = ({ certifyId }) => {
+  const [comments, setComments] = useState([])  
+  const [isChange, setIsChange] = useState(false)
+  useEffect(()=> {
+  userApis.getCertifyDetail(certifyId)
+  .then((res) => {
+  setComments(res.commentList)
+  })
+  }, [isChange] ) 
   const deleteComment = (commentId) => {
     userApis
       .deleteComment(commentId)
@@ -19,19 +26,19 @@ const CommentDetail = ({ commentList, groupDetail }) => {
         console.log(err);
       });
   };
-  console.log(commentList)
+  console.log(comments)
   return (
     <StyledDiv>
-      {commentList?.map((el) => {
+      {comments?.map((el) => {
         return (
-          <StyledComment>
+          <StyledComment key={el.commentId}>
             <StyledProfilePhotoComment src="http://file.osen.co.kr/article_thumb/2019/03/04/201903041941777108_5c7d015030247_300x.jpg"></StyledProfilePhotoComment>
             <CommentBox>
               <StyledProfileName>
                 {el.nickname}
                 <StyledDate>{el.dateTime}</StyledDate>
               </StyledProfileName>
-              <CommentMsg key={el.commentId} value={commentList}>
+              <CommentMsg >
                 {el.content}
               </CommentMsg>
             </CommentBox>

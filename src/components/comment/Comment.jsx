@@ -41,7 +41,7 @@ const Comment = ({ certifyId, groupDetail }) => {
 
   return (
     <StyledDiv>
-            <CommentDetail commentList={commentList} groupDetail={groupDetail}/>
+            <CommentDetail certifyId={certifyId} commentList={commentList} groupDetail={groupDetail}/>
       <CommentInputBox>
         <CommentInput
           placeholder="댓글입력"
