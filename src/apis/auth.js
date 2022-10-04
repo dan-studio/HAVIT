@@ -103,9 +103,10 @@ export const userApis = {
   },
 
   // 마이페이지 : 내 그룹 가져오기
-  getmyGroup: async data => {
-    const response = await authApi.get('/api/auth/mypage/group', data);
-    console.log('🚀 ⁝ data', data);
+  getmyGroup: async () => {
+    const response = await authApi.get('/api/auth/mypage/group');
+    console.log('🚀 ⁝ getmyGroup: ⁝ response', response);
+
     return response;
   },
 
