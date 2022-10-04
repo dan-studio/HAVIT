@@ -64,7 +64,6 @@ export const userApis = {
   },
   getCertifyDetail: async (groupId) => {
     const response = await authApi.get('/api/auth/certify/'+groupId);
-    console.log(response)
     return response.data;
   },
 
