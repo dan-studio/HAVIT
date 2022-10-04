@@ -21,30 +21,26 @@ import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
 
 const CertifyDetail = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { certifyId } = useParams();
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
-  const [groupId, setGroupId] = useState();
-  console.log("groupdetail", groupDetail);
-  console.log("certifyId", certifyId);
 
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
-      setGroupId(res.groupId);
+      console.log(res);
       userApis.getGroupDetail(res.groupId).then((res) => {
         setGroupDetail(res.data);
       });
     });
   }, []);
-  console.log("certifyDetail", certifyDetail);
-  console.log("groupDetail", groupDetail);
+
   return (
     <BoardBox>
       <Profile>
-        <ProfilePhoto src="http://www.gugaktimes.com/data/photos/20211251/art_16403326245363_ac1021.jpg"></ProfilePhoto>
+        <ProfilePhoto
+          src={fileUrlHost(certifyDetail.profileImageId)}
+        ></ProfilePhoto>
         <ProfileBox>
           <ProfileName>{certifyDetail.nickname}</ProfileName>
           <ProfileRole>{certifyDetail.crewName}</ProfileRole>
@@ -55,7 +51,6 @@ const CertifyDetail = () => {
         <ChallengeName>{groupDetail.content}</ChallengeName>
         <ChallengeBox>
           <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
-
           <ChallengeLocation>
             <IoLocationOutline
               style={{
@@ -70,7 +65,7 @@ const CertifyDetail = () => {
       </Title>
       <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)}></ChallengePhoto>
       <StyledCommentDiv>
-        <Comment certifyId={certifyId} groupDetail={groupDetail} />
+        <Comment certifyId={certifyId} groupDetail={groupDetail} {...certifyDetail}/>
       </StyledCommentDiv>
       <CommentInput></CommentInput>
     </BoardBox>
@@ -98,6 +93,7 @@ const ProfilePhoto = styled.img`
   width: 35px;
   height: 35px;
   border-radius: 100%;
+  object-fit: cover;
 `;
 const ProfileName = styled.div`
   font-size: 15px;
