@@ -31,7 +31,7 @@ const BasicLayout = ({ childrens, loading }) => {
       if(!principal){
         if(location.pathname.substring(0,5)!=="/auth"){
           naviate("/auth");
-        } 
+        }
       }
     })
   },[location.pathname, dispatch, naviate])
