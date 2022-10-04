@@ -1,26 +1,16 @@
 import styled from "styled-components";
-import { MdReply } from "react-icons/md";
 // import ReComment from "./ReComment";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 import React, { useEffect, useState, useRef } from "react";
 import { userApis } from "../../apis/auth";
+import { MdDelete, MdReply, MdModeEdit } from "react-icons/md";
 import CommentDetail from "./CommentDetail";
+import { fileUrlHost } from "../../apis/config";
 
-const Comment = ({ certifyId, groupDetail, commentList}) => {
-
-  console.log(commentList);
-  const [comment, setComment] = useState("");
-  const commentHandler = (e) => {
-    setComment(e.target.value);
-  };
-  console.log(comment);
-  const addComment = () => {
-    const commentMsg = {
-      certifyId: certifyId,
-      content: comment,
-    };
+const Comment = ({ certifyId, groupDetail, commentList }) => {
+  const deleteComment = () => {
     userApis
-      .writeComment(commentMsg)
+      .deleteComment(commentList.commentId)
       .then((res) => {
         console.log(res);
       })
@@ -29,96 +19,73 @@ const Comment = ({ certifyId, groupDetail, commentList}) => {
       });
   };
 
+
   return (
-    <StyledDiv>
-      <CommentDetail commentList={commentList} groupDetail={groupDetail} />
-      <CommentInputBox>
-        <CommentInput
-          placeholder="댓글입력"
-          onChange={commentHandler}
-        ></CommentInput>
-        <CommnetRegister>
-          <BsArrowUpCircleFill
-            color="#5e43ff"
-            size="18"
-            zindex="100"
-            onClick={addComment}
-          />
-        </CommnetRegister>
-      </CommentInputBox>
-    </StyledDiv>
+    <>
+      {commentList?.map((el) => {
+        return (
+          <StyledDiv key={el.commentId}>
+            <StyledProfileImg src={fileUrlHost(el.profileImageId)} />
+            <StyledCommentBox>
+              <StyledName>
+                <div className="name">{el.nickname}</div>
+                <div className="date">{el.dateTime}</div>
+              </StyledName>
+              <StyledContent>{el.content}</StyledContent>
+              <StyledOptions>
+                <div onClick={()=>{}}>답글쓰기</div>
+                <div onClick={()=>{console.log("삭제")}}>삭제하기</div>
+              </StyledOptions>
+            </StyledCommentBox>
+          </StyledDiv>
+        );
+      })}
+    </>
   );
 };
 
 export default Comment;
 
-const StyledDiv = styled.div``;
-
-const StyledComment = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 7px;
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  margin-bottom: 20px;
 `;
-const StyledProfilePhotoComment = styled.img`
+const StyledProfileImg = styled.img`
   width: 35px;
   height: 35px;
-  border-radius: 25px;
-  margin: 5px 0 0 10px;
+  border-radius: 50%;
+  margin: 5px 0;
   object-fit: cover;
 `;
-const StyledProfileName = styled.div`
-  display: flex;
-  flex-direction: row;
-  font-size: 14px;
-  color: #9c9c9c;
-`;
-const StyledDate = styled.div`
-  display: flex;
-  margin-top: 5px;
-  font-size: 9px;
-  margin-left: 10px;
-  color: #9c9c9c;
-`;
-const CommentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 10px 20px 10px;
-  height: 26px;
-`;
-const StyledReplyIcon = styled.div`
-  position: absolute;
-  right: 0;
-  margin: 20px 30px 0 0;
-`;
-const CommentMsg = styled.div`
-  width: 290px;
-`;
-const StyledRecommentDiv = styled.div`
-  margin-left: 10vw;
-`;
-const CommentInput = styled.input`
-  width: 300px;
-  height: 20px;
-  /* border-radius: 25px;
-  border-color: gray; */
-  border: transparent;
-  margin: 20px 0 20px 20px;
-  /* position: relative; */
+const StyledCommentBox = styled.div`
+  display: grid;
+  grid-template-rows: 1fr;
 `;
 
-const CommentInputBox = styled.div`
+const StyledName = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 25px;
-  width: 350px;
-  height: 30px;
-  /* border-color: gray; */
-  margin-left: 15px;
-  margin-top: 15px;
-  border: 1px solid gray;
+  .name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #9c9c9c;
+  }
+  .date {
+    margin-top: 5px;
+    font-size: 9px;
+    margin-left: 10px;
+    color: #9c9c9c;
+  }
 `;
-const CommnetRegister = styled.div`
-  margin: 3px 0 0 0;
-  z-index: 100;
-`;
+const StyledContent = styled.div`
+  width: 100%;
+  word-break: break-all;
+`
+const StyledOptions = styled.div`
+  display: flex;
+  font-size: 10px;
+  margin-top: 5px;
+  div{
+    margin-right: 7px;
+  }
+`
