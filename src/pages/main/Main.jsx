@@ -22,8 +22,8 @@ const Main = () => {
     };
   }, []);
 
-  
   const [crew, setCrew] = useState()
+
   useEffect(() => {
     getAllGroupList().then(
       res=>{

@@ -34,7 +34,7 @@ const Write = () => {
           .then((res) => {
             if (res.status === 200) {
               alert("게시물 생성이 완료되었습니다.");
-              navigate('/group/'+groupId+"/"+res.data.certifyId)
+              navigate('/group/'+groupId+"/"+res.data.certifyId, {state: '/group/'+groupId})
             }
           })
           .catch((err) => {

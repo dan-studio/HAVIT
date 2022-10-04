@@ -60,6 +60,7 @@ const Uploader = props => {
           <img
             src={fileUrlHost(imageUrl)}
             alt='avatar'
+            style={{objectFit:"cover"}}
           />
         ) : (
           uploadButton

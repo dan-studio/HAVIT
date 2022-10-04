@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IoLocationOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
 
 const CertifyDetail = () => {
+  const {state} = useLocation()
   const { certifyId } = useParams();
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
@@ -50,16 +51,12 @@ const CertifyDetail = () => {
   };
 
   const leader = groupDetail?.writer
-  const crewLeader = groupDetail?.memberList?.find(item=>item.memberId===leader?.memberId)
-  console.log(certifyDetail)
-  console.log(groupDetail)
-  console.log(crewLeader)
   return (
     <BoardBox>
       <Profile>
       <MdOutlineArrowBackIosNew
               style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px"}}
-              onClick={() => {navigate(-1)
+              onClick={() => {navigate(state||-1, {state: '/group'})
               }}
             />
         <ProfilePhoto
