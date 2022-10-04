@@ -6,11 +6,11 @@ export const userApis = {
     const response = await restApi.post('/api/signup', data);
     return response.data;
   },
-  // 
-  signin: async (data) => {
+  //
+  signin: async data => {
     const response = await authApi.post('/api/login', data);
-    if(response.status === 200){
-      const token = { access_token: response.headers.authorization, refresh_token:response.headers["refresh-token"]}
+    if (response.status === 200) {
+      const token = { access_token: response.headers.authorization, refresh_token: response.headers['refresh-token'] };
       setToken(token);
     }
     return response;
@@ -23,7 +23,7 @@ export const userApis = {
     const reponse = await authApi.get('api/auth/info');
     return reponse.data;
   },
-  
+
   //Search
   search: async data => {
     const response = await authApi.get('/api/auth/main/search?search=' + data);
@@ -32,7 +32,7 @@ export const userApis = {
 
   //Group
   getGroup: async () => {
-    const response = await authApi.get("/api/auth/group/");
+    const response = await authApi.get('/api/auth/group/');
     return response.data.data;
   },
   getGroupDetail: async id => {
@@ -48,46 +48,47 @@ export const userApis = {
     return response;
   },
   //certify
-  uploadImage: async (data) => {
+  uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
     return response;
   },
   getCertify: async (data, groupId) => {
     const response = await authApi.get(`/api/auth/group/3`, data);
-    console.log(response)
+    console.log(response);
     return response;
   },
-    // headers: {
-    //   "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
-    // },
+  // headers: {
+  //   "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
+  // },
 
-  // 마이페이지 내에서의 내 정보
+  // 마이페이지 : 내 정보
   userProfile: async () => {
     const reponse = await authApi.get('/users');
-    // console.log('🚀 ⁝ userProfile: ⁝ reponse', reponse.data);
-    // console.log('🚀 ⁝ userProfile: ⁝ type', typeof reponse);
     return reponse;
   },
 
-  // 마이페이지 내에서의 유저 정보
+  // 마이페이지 : 유저 정보
   usersInfo: async (nickname, profileUrl, crew, email) => {
     const response = await authApi.get('/users', { nickname, profileUrl, crew, email });
     return response;
   },
 
-  // 마이페이지에서 비밀번호 확인하기
+  // 마이페이지 : 비밀번호 확인하기
   userPwCheck: async password => {
     const response = await authApi.post('/api/auth/mypage/check', { password });
 
     return response;
   },
-  getgroup: async () => {
-    const response = await authApi.get('/api/group');
+
+  // 마이페이지 : 내 그룹 가져오기
+  getmyGroup: async data => {
+    const response = await authApi.get('/api/auth/mypage/group', data);
+    console.log('🚀 ⁝ data', data);
     return response;
   },
+
   updateProfile: async data => {
     const response = await authApi.put('/api/auth/mypage/', data);
-    console.log('🚀 ⁝ response', response);
     return response;
   },
 };

@@ -14,6 +14,7 @@ const Main = () => {
   const principal = useSelector((state)=>state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
