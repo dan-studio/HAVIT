@@ -2,17 +2,18 @@ import styled from 'styled-components';
 import Profile from '@components/cards/Profile';
 import CrewInfo from '@components/cards/CrewInfo';
 import AlertUser from '@components/cards/AlertUser';
+import { userApis } from '../../apis/auth';
 
 import { IoIosArrowForward } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { resetLayout, setLayout } from '@redux/layout';
 import UserProfile from '@components/UserProfile';
 
 const Mypage = () => {
+  const principal = useSelector(state => state.auth.principal, shallowEqual);
   const dispatch = useDispatch();
 
-  const [myInfo, setMyInfo] = useState();
   const [group, setGroup] = useState([]);
   const [friends, setFriends] = useState([]);
 
@@ -24,28 +25,25 @@ const Mypage = () => {
     };
   }, []);
 
-
-
-  // // 그룹 가져오기
-  // useEffect(() => {
-  //   userApis.getGroup().then(res => {
-  //     setGroup(res.data);
-  //     console.log('🚀 * userApis.getGroup * setGroup', setGroup);
-  //   });
-  // }, []);
+  // 그룹 가져오기
+  useEffect(() => {
+    userApis.getmyGroup().then(res => {
+      setGroup([...group], res.data);
+    });
+  }, []);
 
   // 사람 가져오기
-  // useEffect(() => {
-  //   userApis.usersInfo().then(res => {
-  //     setFriends(res.data);
-  //     console.log('🚀 * userApis.userInfo * setFriends', setFriends);
-  //   });
-  // }, []);
+  useEffect(() => {
+    userApis.usersInfo().then(res => {
+      setFriends(res.data);
+      console.log('🚀 * userApis.userInfo * setFriends', setFriends);
+    });
+  }, []);
 
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <UserProfile myInfo={myInfo} />
+      <UserProfile myInfo={principal} />
 
       {/* 크루 정보 */}
       <StyledCrews>
