@@ -28,7 +28,7 @@ const Mypage = () => {
   // 그룹 가져오기
   useEffect(() => {
     userApis.getmyGroup().then(res => {
-      setGroup([...group], res.data);
+      setGroup(res.data);
     });
   }, []);
 
@@ -53,7 +53,7 @@ const Mypage = () => {
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
         {group?.map((item, idx) => (
-          <CrewInfo {...item} key={idx} />
+          <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />
         ))}
       </StyledCrews>
 
