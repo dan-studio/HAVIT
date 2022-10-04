@@ -1,5 +1,5 @@
 import { shallowEqual, useSelector } from 'react-redux';
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -16,9 +16,9 @@ const Myprofile = () => {
   // ###########################################
   // ## SECTION State                        ###
   // ###########################################
-  const principal = useSelector((state)=>state.auth.principal, shallowEqual);
+  const principal = useSelector(state => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
-  const [form, onChange, reset] = useInputs({...principal});
+  const [form, onChange, reset] = useInputs({ ...principal });
 
   // WHAT 상태 메세지
   const [nicknameMsg, setNicknameMsg] = useState('');
@@ -28,9 +28,9 @@ const Myprofile = () => {
   // ###########################################
   // ## SECTION 유효성검사                     ###
   // ###########################################
-  useEffect(()=>{
+  useEffect(() => {
     setValidateCheck(onChangeValidate());
-  },[form])
+  }, [form]);
   // WHAT 닉네임 확인
   const onChangeValidate = () => {
     if (form.nickname?.length < 2) {
@@ -40,16 +40,25 @@ const Myprofile = () => {
       setNicknameMsg('사용할 수 있는 닉네임입니다');
     }
     return true;
-  }
+  };
 
-  const onSubmmit = ()=>{
-    modifyMyInfo(form).then((res)=>{
-      if(res.status !== 200) return;
-      alert("프로필 수정이 완료되었습니다.");
-    }).catch((err)=>{
-      alert("Fail Modify User Info", err);
-    })
-  }
+  const onSubmmit = () => {
+    modifyMyInfo(form)
+      .then(res => {
+        if (res.status !== 200) return;
+        alert('프로필 수정이 완료되었습니다.');
+        navigate('/mypage');
+      })
+      .catch(err => {
+        alert('Fail Modify User Info', err);
+      });
+  };
+
+  const onCancel = () => {
+    reset();
+    navigate('/mypage')
+  };
+
 
   // ###########################################
   // ## SECTION VIEW 부분                    ###
@@ -59,21 +68,25 @@ const Myprofile = () => {
       <h2 style={{ fontWeight: '700', fontSize: '20px', margin: '20px', lineHeight: '24px' }}>개인정보 수정</h2>
 
       {/* WHAT 유저 프로필 */}
-      <Uploader className={"profile_uploader"} value={form?.imageId} name="imageId" children={<UserOutlined style={{"fontSize":"2rem", color:"lightgray"}}/>} onChange={(e)=>{form.imageId = e}}></Uploader>
+      <Uploader
+        className={'profile_uploader'}
+        value={form?.imageId}
+        name='imageId'
+        children={<UserOutlined style={{ fontSize: '2rem', color: 'lightgray' }} />}
+        onChange={e => {
+          form.imageId = e;
+        }}></Uploader>
 
       <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '44px' }}>
         {/** 닉네임 부분 */}
         <StyledDivBox>
-          <EditInput inputLabel={'닉네임'} placeholder={'닉네임'} name={"nickname"} value={form?.nickname} type={'text'} onChange={onChange} />
-            <StyledConfirmMsg style={{ top: '47.3vh', fontSize: '12px' , padding:"2px 5px"}}>
-              {validateCheck ? <div style={{color:"#5e43ff"}}>{nicknameMsg}</div>: <div style={{color:"#e94560"}}>{nicknameMsg}</div>}
-            </StyledConfirmMsg>
-          
+          <EditInput inputLabel={'닉네임'} placeholder={'닉네임'} name={'nickname'} value={form?.nickname} type={'text'} onChange={onChange} />
+          <StyledConfirmMsg style={{ top: '47.3vh', fontSize: '12px', padding: '2px 5px' }}>{validateCheck ? <div style={{ color: '#5e43ff' }}>{nicknameMsg}</div> : <div style={{ color: '#e94560' }}>{nicknameMsg}</div>}</StyledConfirmMsg>
         </StyledDivBox>
 
         {/* 자기소개 */}
         <StyledDivBox>
-          <EditInput inputLabel={'자기소개'} placeholder={'소개'} name={"introduce"} value={form?.introduce} onChange={onChange} type={'text'} />
+          <EditInput inputLabel={'자기소개'} placeholder={'소개'} name={'introduce'} value={form?.introduce} onChange={onChange} type={'text'} />
         </StyledDivBox>
 
         <span onClick={() => navigate(`/mypage/edit/private`)} style={{ fontSize: '1rem', color: '#b0b0b0', margin: '.625rem 1.25rem 0 1.25rem', textDecoration: 'underline' }}>
@@ -83,8 +96,8 @@ const Myprofile = () => {
 
       {/* WHAT 버튼 */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '6.25rem auto' }}>
-        <PrimaryButton buttonName={'수정하기'} onClick={onSubmmit}/>
-        <SubButton buttonName={'취소'} onClick={() => reset()} />
+        <PrimaryButton buttonName={'수정하기'} onClick={onSubmmit} />
+        <SubButton buttonName={'취소'} onClick={onCancel} />
       </div>
     </>
   );

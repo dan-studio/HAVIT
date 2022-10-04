@@ -37,7 +37,7 @@ const Group = () => {
         setCrew(popular)
       })
     }
-  }, [ selected]);
+  }, [selected]);
   const handleSelect = (e) => {
     setSelected(e);
   };
