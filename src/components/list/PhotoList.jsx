@@ -7,7 +7,7 @@ import { fileUrlHost } from "../../apis/config";
 
 const MAX_PREVIEW = 5;
 
-const PhotoList = ({groupId, list, isMember}) => {
+const PhotoList = ({groupId, list, isMember, height}) => {
     const navigate = useNavigate()
     const [previewList, setPreviewList] = React.useState();
     useEffect(()=>{
@@ -23,7 +23,7 @@ const PhotoList = ({groupId, list, isMember}) => {
         setPreviewList(previewTemp)
     }
     return (
-        <StyledContainer>
+        <StyledContainer height={height}>
             {isMember?
             <div className="adder" onClick={()=>{navigate(`/group/${groupId}/write`)}}>
                 <PlusCircleFilled/>
@@ -44,6 +44,7 @@ export default PhotoList;
 
 const StyledContainer = styled.div`
     width: 100%;
+    height:${({height})=>(height)}px;
     gap: 5px;
     display: flex;
     flex-wrap: wrap;

@@ -27,7 +27,7 @@ const Signin = () => {
 
   const submmitHandler = ()=>{
     signin(form).then((res)=>{
-      if(res.status == 200){
+      if(res.status === 200){
         alert(`${res.data.nickname}님 환영합니다!`);
         navigate("/");
       }

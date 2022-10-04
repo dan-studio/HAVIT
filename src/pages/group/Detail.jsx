@@ -9,6 +9,8 @@ import PrimaryButton from "@components/button/PrimaryButton";
 import SubButton from "@components/button/SubButton";
 import { getGroupDetail, getMyGroupList, groupParticipating } from "../../apis/group/group";
 import { userApis } from "../../apis/auth";
+import { resetLayout, setLayout } from "../../redux/layout";
+import { useDispatch } from "react-redux";
 
 // /grup
 const GroupDetail = () => {
@@ -18,6 +20,15 @@ const GroupDetail = () => {
   const [isParticipate, setIsParticipate] = useState(false);
   const navigate = useNavigate();
   const {state} = useLocation()
+
+  const dispatch = useDispatch()
+
+  React.useEffect(()=>{
+    dispatch(setLayout({ smallType: true }));
+    return () => {
+      dispatch(resetLayout());
+    };
+  })
 
   React.useEffect(()=>{
     getGroupDetail(groupId).then((res)=>{
@@ -50,7 +61,7 @@ const GroupDetail = () => {
           return {
             ...prev,
             memberList: prev.memberList.filter(
-              (member)=>member.memberId !==myInfo.memberId
+              (member)=>member.memberId!==myInfo.memberId
             )
           }
         })
@@ -77,14 +88,13 @@ const GroupDetail = () => {
   }
   const isMember= detail?.memberList?.find((member)=>member?.memberId === myInfo?.memberId)
   const leader= detail?.writer
-  console.log(isMember)
   return (
     <Container>
       <CrewInfo type="detail" imgUrl={detail?.imageId} leaderName={detail?.leaderName} crewName={detail?.crewName} {...detail}></CrewInfo>
       <StyledGroupDesc value={detail?.content} disabled></StyledGroupDesc>
       <Divider style={{ margin: "0" }}></Divider>
       <List data={{ title: "맴버들" }} {...detail} leader={leader}/>
-      <PhotoList groupId={groupId} list={detail?.certifyList} isMember={isMember}></PhotoList>
+      <PhotoList height={"230"} groupId={groupId} list={detail?.certifyList} isMember={isMember}></PhotoList>
       <StyledButtonDiv>
 
         {leader?.memberId===myInfo?.memberId? (
@@ -129,5 +139,5 @@ const StyledGroupDesc = styled.textarea`
   resize: none;
   background: transparent;
   padding: 1px 6px;
-  height:190px;
+  height:100px;
 `;

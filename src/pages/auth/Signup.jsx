@@ -9,7 +9,6 @@ import { userApis } from "../../apis/auth";
 
 const Signup = () => {
   const navigate = useNavigate();
-
   const layout = useSelector((state) => state.layout, shallowEqual);
   const dispatch = useDispatch();
   useEffect(() => {

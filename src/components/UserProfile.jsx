@@ -15,16 +15,20 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
   // console.log(randomNum);
   const navigate = useNavigate()
 
+  const toMyPage = () => {
+    navigate('/mypage')
+  }
+
   return (
     <div>
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            {!!myInfo?.imageId ? (<StyleUserPhoto alt='profile' src = {fileUrlHost(myInfo.imageId)}></StyleUserPhoto>) 
-            : (<StyleUserNonePhoto><UserOutlined /></StyleUserNonePhoto>)}
+            {!!myInfo?.imageId ? (<StyleUserPhoto alt='profile' src = {fileUrlHost(myInfo.imageId)} onClick={toMyPage}></StyleUserPhoto>) 
+            : (<StyleUserNonePhoto onClick={toMyPage}><UserOutlined /></StyleUserNonePhoto>)}
           </StyleUserRight>
           <StyleUserLeft>
-            <StyleUserName>
+            <StyleUserName onClick={toMyPage}>
               <span>{myInfo?.nickname}</span> 님
             </StyleUserName>
             <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
