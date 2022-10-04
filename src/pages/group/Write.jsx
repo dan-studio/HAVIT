@@ -13,7 +13,6 @@ import useInputs from "@hooks/useInput";
 import { createCertify } from "@apis/group/certify";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 const Write = () => {
-  const state = useLocation();
   const navigate = useNavigate();
   const { groupId } = useParams();
   const [form, onChange, reset] = useInputs({
@@ -35,6 +34,7 @@ const Write = () => {
           .then((res) => {
             if (res.status === 200) {
               alert("게시물 생성이 완료되었습니다.");
+              navigate('/group/'+groupId+"/"+res.data.certifyId)
             }
           })
           .catch((err) => {
