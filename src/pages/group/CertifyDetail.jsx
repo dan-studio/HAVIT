@@ -58,7 +58,7 @@ const CertifyDetail = () => {
       setCoordinate({
         latitude: res.latitude,
         longitude: res.longitude,
-      })
+      }) 
       kakaoApi.get(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`)
       .then(res=>{
         if(res.status === 200){
