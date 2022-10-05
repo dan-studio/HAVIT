@@ -6,8 +6,8 @@ import React, { useEffect } from "react";
 const CoordinateConvert = () => { 
 
     const [locationObj, setLocationObj] = useState({});
-  const x = '126.9539484';
-  const y = '37.3097165';
+  const x = '126.9539484'; //위도
+  const y = '37.3097165'; //경도
 
 
   // kakaoApi.get("https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=127.1086228&y=37.4012191")
