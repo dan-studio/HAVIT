@@ -11,19 +11,26 @@ import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
 import crown from "@assets/leader.png";
+import { useRef } from "react";
 
 const CertifyDetail = () => {
-  const {state} = useLocation()
+  const { state } = useLocation();
   const { certifyId } = useParams();
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
   const [comment, setComment] = useState("");
-  const [myInfo, setMyInfo] = useState('')
-  const navigate = useNavigate()
+  const [commentId, setCommentId] = useState('')
+  const [myInfo, setMyInfo] = useState("");
+  const [subCommentTo, setSubCommentTo] = useState("");
+  const navigate = useNavigate();
+  const inputFocus = useRef()
   const commentHandler = (e) => {
     setComment(e.target.value);
+    if(comment===''){
+      setCommentId('')
+    }
   };
-  const commentList = certifyDetail?.commentList
+  const commentList = certifyDetail?.commentList;
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
@@ -31,43 +38,77 @@ const CertifyDetail = () => {
         setGroupDetail(res.data);
       });
     });
-    userApis.myProfile().then(res=>{
-      setMyInfo(res)
-    }).catch(err=>{
-      console.log(err)
-    })
+    userApis
+      .myProfile()
+      .then((res) => {
+        setMyInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [commentList]);
-  const addComment = () => {
+
+  const addComment = (commentId) => {
     const commentMsg = {
       certifyId: certifyId,
       content: comment,
     };
+    const subCommentMsg = {
+      commentId: commentId,
+      content: comment
+    }
+    if(commentId&&comment){
+      userApis.writeSubComment(subCommentMsg)
+      .then((res)=>{
+        console.log(res)
+        setComment('')
+      }).catch((err)=>{
+        console.log(err)
+      })
+      return
+    }
     userApis
       .writeComment(commentMsg)
       .then((res) => {
         console.log(res);
-        setComment('')
+        setComment("");
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const leader = groupDetail?.writer
+
+  const subComment = (nickname, commentId) => {
+    inputFocus.current.focus()
+    setSubCommentTo("@"+nickname+" ");
+    setComment(subCommentTo)
+    setCommentId(commentId)
+  };
+
+  const leader = groupDetail?.writer;
+  
   return (
     <BoardBox>
       <Profile>
-      <MdOutlineArrowBackIosNew
-              style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px"}}
-              onClick={() => {navigate(state||-1, {state: '/group'})
-              }}
-            />
+        <MdOutlineArrowBackIosNew
+          style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px" }}
+          onClick={() => {
+            navigate(state || -1, { state: "/group" });
+          }}
+        />
         <ProfilePhoto
           src={fileUrlHost(certifyDetail.profileImageId)}
-          ></ProfilePhoto>
-          {certifyDetail?.memberId===leader?.memberId && <Crown src={crown} alt="" />}
+        ></ProfilePhoto>
+        {certifyDetail?.memberId === leader?.memberId && (
+          <Crown src={crown} alt="" />
+        )}
         <ProfileBox>
           <ProfileName>{certifyDetail.nickname}</ProfileName>
-          <ProfileRole>{certifyDetail?.memberId===leader?.memberId?groupDetail.leaderName:groupDetail.crewName}</ProfileRole>
+          <ProfileRole>
+            {certifyDetail?.memberId === leader?.memberId
+              ? groupDetail.leaderName
+              : groupDetail.crewName}
+          </ProfileRole>
 
           {/* 리더/크루원 구분 필요 */}
         </ProfileBox>
@@ -96,22 +137,22 @@ const CertifyDetail = () => {
           certifyId={certifyId}
           groupDetail={groupDetail}
           {...certifyDetail}
-          {...myInfo}
+          authId={myInfo.memberId}
+          subComment={subComment}
         />
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput value={comment} onChange={commentHandler}></CommentInput>
+        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
         <BsArrowUpCircleFill
           color="#5e43ff"
           size="18"
           zindex="100"
-          onClick={addComment}
+          onClick={()=>{addComment(commentId)}}
         />
       </CommentBar>
     </BoardBox>
   );
 };
-
 export default React.memo(CertifyDetail);
 
 const BoardBox = styled.div`
