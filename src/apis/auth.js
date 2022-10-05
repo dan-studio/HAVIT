@@ -86,6 +86,17 @@ export const userApis = {
     const response = await authApi.get('/api/auth/comment/',certifyId)
     return response
   },
+  //subComment
+  writeSubComment: async(data)=>{
+    const response = await authApi.post('/api/auth/subcomment/', data)
+    return response
+  },
+  deleteSubComment: async(subCommentId)=>{
+    const response = await authApi.delete('/api/auth/subcomment/'+subCommentId)
+    return response
+  },
+
+
   // 마이페이지 내에서의 유저 정보
 
   usersInfo: async (nickname, profileUrl, crew, email) => {
