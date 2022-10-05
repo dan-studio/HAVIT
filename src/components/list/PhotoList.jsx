@@ -10,6 +10,7 @@ const MAX_PREVIEW = 5;
 const PhotoList = ({groupId, list, isMember, height}) => {
     const navigate = useNavigate()
     const [previewList, setPreviewList] = React.useState();
+    console.log(previewList)
     useEffect(()=>{
         setPreview();
     },[list])
@@ -33,7 +34,7 @@ const PhotoList = ({groupId, list, isMember, height}) => {
             </div>
             }
             {
-                previewList?.map((el)=>(<div key={el?.certifyId} onClick={()=>{
+                list?.map((el)=>(<div key={el?.certifyId} onClick={()=>{
                     navigate(`/group/${groupId}/${el?.certifyId}`);
                 }}><CertifyImg alt="" src={fileUrlHost(el?.imageId)}></CertifyImg></div>))
             }

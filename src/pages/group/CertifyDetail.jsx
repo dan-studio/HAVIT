@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IoLocationOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
@@ -10,8 +10,10 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
+import crown from "@assets/leader.png";
 
 const CertifyDetail = () => {
+  const {state} = useLocation()
   const { certifyId } = useParams();
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
@@ -21,6 +23,7 @@ const CertifyDetail = () => {
   const commentHandler = (e) => {
     setComment(e.target.value);
   };
+  const commentList = certifyDetail?.commentList
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
@@ -33,7 +36,7 @@ const CertifyDetail = () => {
     }).catch(err=>{
       console.log(err)
     })
-  }, []);
+  }, [commentList]);
   const addComment = () => {
     const commentMsg = {
       certifyId: certifyId,
@@ -43,31 +46,29 @@ const CertifyDetail = () => {
       .writeComment(commentMsg)
       .then((res) => {
         console.log(res);
+        setComment('')
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   const leader = groupDetail?.writer
-  const crewLeader = groupDetail?.memberList?.find(item=>item.memberId===leader?.memberId)
-  console.log(certifyDetail)
-  console.log(groupDetail)
-  console.log(crewLeader)
   return (
     <BoardBox>
       <Profile>
       <MdOutlineArrowBackIosNew
               style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px"}}
-              onClick={() => {navigate(-1)
+              onClick={() => {navigate(state||-1, {state: '/group'})
               }}
             />
         <ProfilePhoto
           src={fileUrlHost(certifyDetail.profileImageId)}
-        ></ProfilePhoto>
+          ></ProfilePhoto>
+          {certifyDetail?.memberId===leader?.memberId && <Crown src={crown} alt="" />}
         <ProfileBox>
           <ProfileName>{certifyDetail.nickname}</ProfileName>
           <ProfileRole>{certifyDetail?.memberId===leader?.memberId?groupDetail.leaderName:groupDetail.crewName}</ProfileRole>
+
           {/* 리더/크루원 구분 필요 */}
         </ProfileBox>
       </Profile>
@@ -99,7 +100,7 @@ const CertifyDetail = () => {
         />
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput onChange={commentHandler}></CommentInput>
+        <CommentInput value={comment} onChange={commentHandler}></CommentInput>
         <BsArrowUpCircleFill
           color="#5e43ff"
           size="18"
@@ -220,6 +221,11 @@ const StyledTitleDiv = styled.div`
   transform: translateY(-50px);
   display: flex;
   align-items: center;
+`;
+const Crown = styled.img`
+  position: absolute;
+  height: 33px;
+  transform: translate(23px, -23px);
 `;
 
 const StyledCommentDiv = styled.div``;

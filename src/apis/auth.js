@@ -57,14 +57,8 @@ export const userApis = {
     return response;
   },
 
-  getCertify: async (groupId) => {
-    const response = await authApi.get('/api/auth/certify/'+groupId);
-    console.log(response)
-    return response.data.certifyImgUrlList;
-  },
   getCertifyDetail: async (groupId) => {
     const response = await authApi.get('/api/auth/certify/'+groupId);
-    console.log(response)
     return response.data;
   },
 

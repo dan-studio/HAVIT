@@ -10,24 +10,19 @@ import { fileUrlHost } from "../../apis/config";
 const Comment = ({ certifyId, groupDetail, commentList, memberId }) => {
   const [comments, setComments] = useState([])  
   const [isChange, setIsChange] = useState(false)
-  useEffect(()=> {
-
-  }, [isChange] ) 
-
+  const getComments = () => {
+    return comments
+  }
   const deleteComment = (commentId) => {
     userApis
-      .deleteComment(commentId)
-      .then((res) => {
-        setIsChange(!isChange)
-        console.log(res);
+      .deleteComment(commentId).then(res=>{
+        console.log(res)
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  console.log(commentList);
   return (
-
     <>
       {commentList?.map((el) => {
         return (
