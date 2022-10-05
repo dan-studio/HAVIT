@@ -65,7 +65,7 @@ const GroupEdit = () => {
     });
   };
 
-  const ModalDelete = (reset) => {
+  const ModalDelete = () => {
     Modal.confirm({
       title: "안내",
       content: (

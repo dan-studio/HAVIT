@@ -86,7 +86,6 @@ const CertifyDetail = () => {
   };
 
   const leader = groupDetail?.writer;
-  
   return (
     <BoardBox>
       <Profile>
@@ -133,13 +132,15 @@ const CertifyDetail = () => {
         <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
       </StyledTitleDiv>
       <StyledCommentDiv>
-        <Comment
+        {commentList&&commentList?.map((el, idx)=>
+        <Comment key={idx}
           certifyId={certifyId}
           groupDetail={groupDetail}
-          {...certifyDetail}
+          {...el}
           authId={myInfo.memberId}
           subComment={subComment}
         />
+        )}
       </StyledCommentDiv>
       <CommentBar>
         <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>

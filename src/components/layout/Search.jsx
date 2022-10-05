@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { userApis } from '../../apis/auth';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Search = ({onClose}) => {
 
@@ -19,6 +20,8 @@ const Search = ({onClose}) => {
     })
     setSearch(e.target.value)
   }
+  useEffect(()=>{
+  },[search, searchResult])
 
   return (
     <StyleCover>
