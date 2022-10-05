@@ -22,11 +22,6 @@ const pages = [
     screen: Main,
   },
   {
-    path: '/test',
-    title: '메인',
-    screen: CoordinateConvert,
-  },
-  {
     path: '/auth',
     title: '가이드',
     screen: Guide,
