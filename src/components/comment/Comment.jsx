@@ -7,8 +7,6 @@ import { fileUrlHost } from "../../apis/config";
 import { Modal } from "antd";
 
 const Comment = ({
-  certifyId,
-  groupDetail,
   authId,
   subComment,
   commentId,
