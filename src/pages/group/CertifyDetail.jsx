@@ -12,7 +12,6 @@ import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
 import crown from "@assets/leader.png";
 import { useRef } from "react";
-import { kakaoApi } from "../../apis/config";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -20,28 +19,21 @@ const CertifyDetail = () => {
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
   const [comment, setComment] = useState("");
-  const [commentId, setCommentId] = useState("");
+  const [commentId, setCommentId] = useState('')
   const [myInfo, setMyInfo] = useState("");
   const [subCommentTo, setSubCommentTo] = useState("");
   const navigate = useNavigate();
-  const inputFocus = useRef();
+  const inputFocus = useRef()
   const commentHandler = (e) => {
     setComment(e.target.value);
-    if (comment === "") {
-      setCommentId("");
+    if(comment===''){
+      setCommentId('')
     }
   };
   const commentList = certifyDetail?.commentList;
-  const [locationObj, setLocationObj] = useState({});
-  const [coordinate, setCoordinate] = useState({});
-
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
-      // setCoordinate({
-      //   latitude: res.latitude,
-      //   longitude: res.longitude,
-      // });
       userApis.getGroupDetail(res.groupId).then((res) => {
         setGroupDetail(res.data);
       });
@@ -52,21 +44,10 @@ const CertifyDetail = () => {
         setMyInfo(res);
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
-    // }, [commentList]);
-  }, []);
+  }, );
 
-  // useEffect(() => {
-  //   userApis.getCertifyDetail(certifyId).then((res) => {
-  //     setCoordinate({
-  //       latitude: res.latitude,
-  //       longitude: res.longitude,
-  //     });
-
-  //   }, []);
-  // });
-  // console.log(coordinate)
   const addComment = (commentId) => {
     const commentMsg = {
       certifyId: certifyId,
@@ -74,19 +55,17 @@ const CertifyDetail = () => {
     };
     const subCommentMsg = {
       commentId: commentId,
-      content: comment,
-    };
-    if (commentId && comment) {
-      userApis
-        .writeSubComment(subCommentMsg)
-        .then((res) => {
-          console.log(res);
-          setComment("");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      return;
+      content: comment
+    }
+    if(commentId&&comment){
+      userApis.writeSubComment(subCommentMsg)
+      .then((res)=>{
+        console.log(res)
+        setComment('')
+      }).catch((err)=>{
+        console.log(err)
+      })
+      return
     }
     userApis
       .writeComment(commentMsg)
@@ -100,44 +79,16 @@ const CertifyDetail = () => {
   };
 
   const subComment = (nickname, commentId) => {
-    inputFocus.current.focus();
-    setSubCommentTo("@" + nickname + " ");
-    setComment(subCommentTo);
-    setCommentId(commentId);
+    inputFocus.current.focus()
+    setSubCommentTo("@"+nickname+" ");
+    setComment(subCommentTo)
+    setCommentId(commentId)
   };
 
   const leader = groupDetail?.writer;
-  // console.log(certifyDetail)
-  setCoordinate({
-    latitude: certifyDetail.latitude,
-    longitude: certifyDetail.longitude,
-  });
-  const _callApi = () => {
-
-    kakaoApi.get(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${coordinate.latitude}&y=${coordinate.longitude}`
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          const temp = res.data.documents[0];
-          setLocationObj({
-            temp: temp,
-            si: temp.region_1depth_name,
-            gu: temp.region_2depth_name,
-            dong: temp.region_3depth_name,
-          });
-          console.log(res);
-        }
-      })
-    // .catch((err) => {console.log(err);
-    //   return console.log("test");
-    // });
-    // return console.log("test");
-  };
-
   return (
     <BoardBox>
       <Profile>
-        <button onClick={_callApi()}> 위치표시 </button>
         <MdOutlineArrowBackIosNew
           style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px" }}
           onClick={() => {
@@ -172,7 +123,6 @@ const CertifyDetail = () => {
                 marginRight: "5px",
               }}
             />
-            {/* {locationObj.si} */}
             Seoul, Korea
           </ChallengeLocation>
         </ChallengeBox>
@@ -182,27 +132,23 @@ const CertifyDetail = () => {
         <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
       </StyledTitleDiv>
       <StyledCommentDiv>
-        <Comment
+        {commentList&&commentList?.map((el, idx)=>
+        <Comment key={idx}
           certifyId={certifyId}
           groupDetail={groupDetail}
-          {...certifyDetail}
+          {...el}
           authId={myInfo.memberId}
           subComment={subComment}
         />
+        )}
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput
-          ref={inputFocus}
-          value={comment}
-          onChange={commentHandler}
-        ></CommentInput>
+        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
         <BsArrowUpCircleFill
           color="#5e43ff"
           size="18"
           zindex="100"
-          onClick={() => {
-            addComment(commentId);
-          }}
+          onClick={()=>{addComment(commentId)}}
         />
       </CommentBar>
     </BoardBox>

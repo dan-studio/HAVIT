@@ -4,65 +4,76 @@ import React from "react";
 import { userApis } from "../../apis/auth";
 import CommentDetail from "./CommentDetail";
 import { fileUrlHost } from "../../apis/config";
+import { Modal } from "antd";
 
 const Comment = ({
   certifyId,
   groupDetail,
-  commentList,
   authId,
   subComment,
+  commentId,
+  profileImageId,
+  nickname,
+  dateTime,
+  content,
+  memberId,
+  subCommentList
 }) => {
-  const deleteComment = (commentId) => {
-    userApis
-      .deleteComment(commentId)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const ModalDelete = () => {
+    Modal.confirm({
+      title: "안내",
+      content: (
+        <div>
+          <div>정말 댓글을 삭제하시겠습니까?</div>
+        </div>
+      ),
+      okText: "확인",
+      cancelText: "취소",
+      onOk: () => {
+        userApis
+        .deleteComment(commentId)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      },
+    });
   };
   return (
-    <>
-      {commentList?.map((el) => {
-        return (
-          <StyledDiv key={el.commentId}>
-            <StyledProfileImg src={fileUrlHost(el.profileImageId)} />
+          <StyledDiv>
+            <StyledProfileImg src={fileUrlHost(profileImageId)} />
             <StyledCommentBox>
               <StyledName>
-                <div className="name">{el.nickname}</div>
-                <div className="date">{el.dateTime}</div>
+                <div className="name">{nickname}</div>
+                <div className="date">{dateTime}</div>
               </StyledName>
-              <StyledContent>{el.content}</StyledContent>
+              <StyledContent>{content}</StyledContent>
               <StyledOptions>
                 <div
                   onClick={() => {
-                    subComment(el.nickname, el.commentId);
+                    subComment(nickname, commentId);
                   }}
                 >
                   답글쓰기
                 </div>
-                {authId === el.memberId && (
+                {authId === memberId && (
                   <div
-                    onClick={() => {
-                      deleteComment(el.commentId);
-                    }}
+                    onClick={ModalDelete}
                   >
                     삭제하기
                   </div>
                 )}
               </StyledOptions>
               <StyledSubCommentBox>
-                {el.subCommentList &&
-                  el.subCommentList?.map((el, idx) => (
+                {subCommentList &&
+                  subCommentList?.map((el, idx) => (
                     <CommentDetail key={idx} {...el} authId={authId} />
                   ))}
               </StyledSubCommentBox>
             </StyledCommentBox>
           </StyledDiv>
-        );
-      })}
-    </>
   );
 };
 
