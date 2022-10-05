@@ -3,15 +3,39 @@ import styled from "styled-components";
 import React, { useEffect, useState, useRef } from "react";
 import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
+import { Modal } from "antd";
 
-const CommentDetail = ({ subCommentId, profileImageId,nickname, content, memberId, dateTime, authId }) => {
-  const deleteSubComment = (subCommentId) => {
-    userApis.deleteSubComment(subCommentId).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log(err)
-    })
-  } 
+const CommentDetail = ({
+  subCommentId,
+  profileImageId,
+  nickname,
+  content,
+  memberId,
+  dateTime,
+  authId,
+}) => {
+  const ModalDelete = () => {
+    Modal.confirm({
+      title: "안내",
+      content: (
+        <div>
+          <div>정말 댓글을 삭제하시겠습니까?</div>
+        </div>
+      ),
+      okText: "확인",
+      cancelText: "취소",
+      onOk: () => {
+        userApis
+          .deleteSubComment(subCommentId)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+    });
+  };
   return (
     <>
       <StyledDiv>
@@ -23,9 +47,7 @@ const CommentDetail = ({ subCommentId, profileImageId,nickname, content, memberI
           </StyledName>
           <StyledContent>{content}</StyledContent>
           <StyledOptions>
-            {authId === memberId && (
-                  <div onClick={()=>{deleteSubComment(subCommentId)}}>삭제하기</div>
-                )}
+            {authId === memberId && <div onClick={ModalDelete}>삭제하기</div>}
           </StyledOptions>
         </StyledCommentBox>
       </StyledDiv>
