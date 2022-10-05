@@ -119,6 +119,7 @@ const CertifyDetail = () => {
         console.log(err);
       });
   };
+  console.log(locationObj)
 
   const subComment = (nickname, commentId) => {
     inputFocus.current.focus();
@@ -165,7 +166,9 @@ const CertifyDetail = () => {
                 marginRight: "5px",
               }}
             />
-            {locationObj.si}{locationObj.gu}{locationObj.dong}
+            {locationObj=== {} ? "위치정보없음" : locationObj.si + " " + locationObj.gu + " " + locationObj.dong }
+            {/* {locationObj.si}{locationObj.gu}{locationObj.dong}             */}
+            {/* {locationObj.si}{locationObj.gu}{locationObj.dong} */}
           </ChallengeLocation>
         </ChallengeBox>
       </Title>
