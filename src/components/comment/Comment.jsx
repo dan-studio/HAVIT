@@ -1,22 +1,22 @@
 import styled from "styled-components";
 // import ReComment from "./ReComment";
-import { BsArrowUpCircleFill } from "react-icons/bs";
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import { userApis } from "../../apis/auth";
-import { MdDelete, MdReply, MdModeEdit } from "react-icons/md";
 import CommentDetail from "./CommentDetail";
 import { fileUrlHost } from "../../apis/config";
 
-const Comment = ({ certifyId, groupDetail, commentList, memberId }) => {
-  const [comments, setComments] = useState([])  
-  const [isChange, setIsChange] = useState(false)
-  const getComments = () => {
-    return comments
-  }
+const Comment = ({
+  certifyId,
+  groupDetail,
+  commentList,
+  authId,
+  subComment,
+}) => {
   const deleteComment = (commentId) => {
     userApis
-      .deleteComment(commentId).then(res=>{
-        console.log(res)
+      .deleteComment(commentId)
+      .then((res) => {
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -35,11 +35,29 @@ const Comment = ({ certifyId, groupDetail, commentList, memberId }) => {
               </StyledName>
               <StyledContent>{el.content}</StyledContent>
               <StyledOptions>
-                <div onClick={() => {}}>답글쓰기</div>
-                {memberId === el.memberId && (
-                  <div onClick={()=>{deleteComment(el.commentId)}}>삭제하기</div>
+                <div
+                  onClick={() => {
+                    subComment(el.nickname, el.commentId);
+                  }}
+                >
+                  답글쓰기
+                </div>
+                {authId === el.memberId && (
+                  <div
+                    onClick={() => {
+                      deleteComment(el.commentId);
+                    }}
+                  >
+                    삭제하기
+                  </div>
                 )}
               </StyledOptions>
+              <StyledSubCommentBox>
+                {el.subCommentList &&
+                  el.subCommentList?.map((el, idx) => (
+                    <CommentDetail key={idx} {...el} authId={authId} />
+                  ))}
+              </StyledSubCommentBox>
             </StyledCommentBox>
           </StyledDiv>
         );
@@ -53,7 +71,7 @@ export default Comment;
 const StyledDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr 6fr;
-  margin-bottom: 20px;
+  margin-bottom: 9px;
 `;
 const StyledProfileImg = styled.img`
   width: 35px;
@@ -93,3 +111,5 @@ const StyledOptions = styled.div`
     margin-right: 7px;
   }
 `;
+const StyledSubCommentBox = styled.div`
+margin-top: 9px`;
