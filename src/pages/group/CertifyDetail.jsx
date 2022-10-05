@@ -19,25 +19,28 @@ const CertifyDetail = () => {
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
   const [comment, setComment] = useState("");
-  const [commentId, setCommentId] = useState('')
+  const [commentId, setCommentId] = useState("");
   const [myInfo, setMyInfo] = useState("");
   const [subCommentTo, setSubCommentTo] = useState("");
   const navigate = useNavigate();
-  const inputFocus = useRef()
+  const { groupId } = useParams();
+  const inputFocus = useRef();
   const commentHandler = (e) => {
     setComment(e.target.value);
-    if(comment===''){
-      setCommentId('')
+    if (comment === "") {
+      setCommentId("");
     }
   };
   const commentList = certifyDetail?.commentList;
   useEffect(() => {
-    userApis.getCertifyDetail(certifyId).then((res) => {
-      setCertifyDetail(res);
-      userApis.getGroupDetail(res.groupId).then((res) => {
+    userApis
+      .getGroupDetail(groupId)
+      .then((res) => {
         setGroupDetail(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    });
     userApis
       .myProfile()
       .then((res) => {
@@ -46,7 +49,10 @@ const CertifyDetail = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [commentList]);
+    userApis.getCertifyDetail(certifyId).then((res) => {
+      setCertifyDetail(res);
+    });
+  }, []);
 
   const addComment = (commentId) => {
     const commentMsg = {
@@ -55,22 +61,36 @@ const CertifyDetail = () => {
     };
     const subCommentMsg = {
       commentId: commentId,
-      content: comment
-    }
-    if(commentId&&comment){
-      userApis.writeSubComment(subCommentMsg)
-      .then((res)=>{
-        console.log(res)
-        setComment('')
-      }).catch((err)=>{
-        console.log(err)
-      })
-      return
+      content: comment,
+    };
+    if (commentId && comment) {
+      userApis
+        .writeSubComment(subCommentMsg)
+        .then((res) => {
+          console.log(res);
+          setCertifyDetail((prev)=>{
+            return {
+              ...prev,
+              commentList: prev.commentList.map(comment=>comment.commentId===commentId?{...comment, subCommentList:[...comment.subCommentList, res.data]}:comment)
+            }
+          })
+          setComment("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return;
     }
     userApis
       .writeComment(commentMsg)
       .then((res) => {
         console.log(res);
+        setCertifyDetail((prev)=>{
+          return {
+            ...prev,
+            commentList: [...prev.commentList, res.data]
+          }
+        })
         setComment("");
       })
       .catch((err) => {
@@ -79,10 +99,10 @@ const CertifyDetail = () => {
   };
 
   const subComment = (nickname, commentId) => {
-    inputFocus.current.focus()
-    setSubCommentTo("@"+nickname+" ");
-    setComment(subCommentTo)
-    setCommentId(commentId)
+    inputFocus.current.focus();
+    setSubCommentTo("@" + nickname + " ");
+    setComment(subCommentTo);
+    setCommentId(commentId);
   };
 
   const leader = groupDetail?.writer;
@@ -132,23 +152,29 @@ const CertifyDetail = () => {
         <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
       </StyledTitleDiv>
       <StyledCommentDiv>
-        {commentList&&commentList?.map((el, idx)=>
-        <Comment key={idx}
-          certifyId={certifyId}
-          groupDetail={groupDetail}
-          {...el}
-          authId={myInfo.memberId}
-          subComment={subComment}
-        />
-        )}
+        {commentList &&
+          commentList?.map((el, idx) => (
+            <Comment
+              key={idx}
+              {...el}
+              authId={myInfo.memberId}
+              subComment={subComment}
+            />
+          ))}
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
+        <CommentInput
+          ref={inputFocus}
+          value={comment}
+          onChange={commentHandler}
+        ></CommentInput>
         <BsArrowUpCircleFill
           color="#5e43ff"
           size="18"
           zindex="100"
-          onClick={()=>{addComment(commentId)}}
+          onClick={() => {
+            addComment(commentId);
+          }}
         />
       </CommentBar>
     </BoardBox>
