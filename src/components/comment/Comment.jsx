@@ -42,7 +42,7 @@ const Comment = ({ certifyId, groupDetail, commentList, memberId }) => {
               <StyledOptions>
                 <div onClick={() => {}}>답글쓰기</div>
                 {memberId === el.memberId && (
-                  <div onClick={deleteComment(el.commentId)}>삭제하기</div>
+                  <div onClick={()=>{deleteComment(el.commentId)}}>삭제하기</div>
                 )}
               </StyledOptions>
             </StyledCommentBox>
