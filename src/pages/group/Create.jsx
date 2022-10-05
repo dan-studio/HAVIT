@@ -15,9 +15,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { userApis } from "../../apis/auth";
 const GroupCreate = () => {
   const navigate = useNavigate();
-  const state = useLocation();
-    console.log(state)
-    console.log(navigate)
   const [form, onChange, reset] = useInputs({
     title: "",
     leaderName: "",

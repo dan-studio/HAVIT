@@ -10,6 +10,7 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
+import crown from "@assets/leader.png";
 
 const CertifyDetail = () => {
   const {state} = useLocation()
@@ -22,6 +23,7 @@ const CertifyDetail = () => {
   const commentHandler = (e) => {
     setComment(e.target.value);
   };
+  const commentList = certifyDetail?.commentList
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
@@ -34,7 +36,7 @@ const CertifyDetail = () => {
     }).catch(err=>{
       console.log(err)
     })
-  }, []);
+  }, [commentList]);
   const addComment = () => {
     const commentMsg = {
       certifyId: certifyId,
@@ -44,12 +46,12 @@ const CertifyDetail = () => {
       .writeComment(commentMsg)
       .then((res) => {
         console.log(res);
+        setComment('')
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   const leader = groupDetail?.writer
   return (
     <BoardBox>
@@ -61,10 +63,12 @@ const CertifyDetail = () => {
             />
         <ProfilePhoto
           src={fileUrlHost(certifyDetail.profileImageId)}
-        ></ProfilePhoto>
+          ></ProfilePhoto>
+          {certifyDetail?.memberId===leader?.memberId && <Crown src={crown} alt="" />}
         <ProfileBox>
           <ProfileName>{certifyDetail.nickname}</ProfileName>
           <ProfileRole>{certifyDetail?.memberId===leader?.memberId?groupDetail.leaderName:groupDetail.crewName}</ProfileRole>
+
           {/* 리더/크루원 구분 필요 */}
         </ProfileBox>
       </Profile>
@@ -96,7 +100,7 @@ const CertifyDetail = () => {
         />
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput onChange={commentHandler}></CommentInput>
+        <CommentInput value={comment} onChange={commentHandler}></CommentInput>
         <BsArrowUpCircleFill
           color="#5e43ff"
           size="18"
@@ -217,6 +221,11 @@ const StyledTitleDiv = styled.div`
   transform: translateY(-50px);
   display: flex;
   align-items: center;
+`;
+const Crown = styled.img`
+  position: absolute;
+  height: 33px;
+  transform: translate(23px, -23px);
 `;
 
 const StyledCommentDiv = styled.div``;
