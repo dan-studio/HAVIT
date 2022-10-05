@@ -12,6 +12,7 @@ import Guide from '@pages/start/Guide';
 import Write from '@pages/group/Write';
 import MyPwEditor from '@pages/main/MyPwEditor';
 import CertifyDetail from '../pages/group/CertifyDetail';
+import CoordinateConvert from '../components/kakao/CoordinateConvert';
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
@@ -19,6 +20,11 @@ const pages = [
     path: '/',
     title: '메인',
     screen: Main,
+  },
+  {
+    path: '/test',
+    title: '메인',
+    screen: CoordinateConvert,
   },
   {
     path: '/auth',
