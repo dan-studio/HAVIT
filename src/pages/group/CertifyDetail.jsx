@@ -46,7 +46,7 @@ const CertifyDetail = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, );
+  }, [commentList]);
 
   const addComment = (commentId) => {
     const commentMsg = {
