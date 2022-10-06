@@ -29,6 +29,7 @@ const Mypage = () => {
   useEffect(() => {
     userApis.getmyGroup().then(res => {
       setGroup(res.data);
+      console.log(res.data.message);
     });
   }, []);
 
@@ -52,9 +53,7 @@ const Mypage = () => {
           <h2>내가 속한 크루</h2>
           <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
         </div>
-        {group?.map((item, idx) => (
-          <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />
-        ))}
+        {group.code === 'PARTICIPATION_NOT_FOUND' ? null : group?.map((item, idx) => <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />)}
       </StyledCrews>
 
       {/* 알림 */}
