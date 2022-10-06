@@ -18,7 +18,7 @@ const List = ({ data, type, memberList, leaderName, crewName, leader}) => {
             <aside>
                 {memberList?.map((item, idx)=>
                     item.memberId===leader.memberId? <MemberInfo key={idx} {...item} roleName={leaderName} width={79} height={30} leader={crewLeader}/>:
-                     <MemberInfo {...item} roleName={crewName} width={79} height={30} key={idx}/>
+                     <MemberInfo {...item} roleName={crewName} width={60} height={86} key={idx}/>
                 )}
             </aside>
         </Container>
