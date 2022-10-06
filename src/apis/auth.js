@@ -20,10 +20,14 @@ export const userApis = {
     return response;
   },
   myProfile: async () => {
-    const reponse = await authApi.get('api/auth/info');
+    const reponse = await authApi.get('/api/auth/info');
     return reponse.data;
   },
-
+  //Main
+  getMyMembers: async () => {
+    const response = await authApi.get('/api/auth/main/')
+    return response
+  },
   //Search
   search: async data => {
     const response = await authApi.get('/api/auth/main/search?search=' + data);

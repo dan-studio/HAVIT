@@ -187,7 +187,7 @@ const CertifyDetail = () => {
         <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
       </StyledTitleDiv>
       <StyledCommentDiv>
-        {commentList &&
+        {commentList.length>0?
           commentList?.map((el, idx) => (
             <Comment
               key={idx}
@@ -195,7 +195,7 @@ const CertifyDetail = () => {
               authId={myInfo.memberId}
               subComment={subComment}
             />
-          ))}
+          )):<p>아직 댓글이 없어요. 첫 댓글을 작성해 보세요!</p>}
       </StyledCommentDiv>
       <CommentBar>
         <CommentInput
@@ -331,4 +331,7 @@ const Crown = styled.img`
   transform: translate(23px, -23px);
 `;
 
-const StyledCommentDiv = styled.div``;
+const StyledCommentDiv = styled.div`
+display: flex;
+justify-content: center;
+`;
