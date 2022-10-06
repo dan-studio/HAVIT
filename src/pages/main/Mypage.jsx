@@ -30,6 +30,7 @@ const Mypage = () => {
   useEffect(() => {
     userApis.getmyGroup().then(res => {
       setGroup(res.data);
+      console.log(res.data.message);
     });
   }, []);
 console.log(group)
@@ -60,6 +61,7 @@ console.log(group)
         {group.code==="PARTICIPATION_NOT_FOUND"?null:group?.map((item, idx) => (
           <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />
         ))}
+
       </StyledCrews>
 
       {/* 알림 */}
