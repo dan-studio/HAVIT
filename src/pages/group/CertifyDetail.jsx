@@ -3,6 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IoLocationOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 // import Comment from "@pages/comment/Comment";
@@ -90,6 +91,7 @@ const CertifyDetail = () => {
       userApis
         .writeSubComment(subCommentMsg)
         .then((res) => {
+          console.log(res);
           setCertifyDetail((prev) => {
             return {
               ...prev,
@@ -97,7 +99,7 @@ const CertifyDetail = () => {
                 comment.commentId === commentId
                   ? {
                       ...comment,
-                      subCommentList: [...comment?.subCommentList, res.data],
+                      subCommentList: [...comment.subCommentList, res.data],
                     }
                   : comment
               ),
@@ -134,6 +136,8 @@ const CertifyDetail = () => {
   };
 
   const leader = groupDetail?.writer;
+  const imageId = certifyDetail?.profileImageId;
+  console.log(certifyDetail)
   return (
     <BoardBox>
       <Profile>
@@ -143,9 +147,15 @@ const CertifyDetail = () => {
             navigate(state || -1, { state: "/group" });
           }}
         />
-        <ProfilePhoto
-          src={fileUrlHost(certifyDetail.profileImageId)}
-        ></ProfilePhoto>
+        {imageId ? (
+          <ProfilePhoto
+            src={fileUrlHost(certifyDetail.profileImageId)}
+          ></ProfilePhoto>
+        ) : (
+          <StyledProfileDiv>
+            <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+          </StyledProfileDiv>
+        )}
         {certifyDetail?.memberId === leader?.memberId && (
           <Crown src={crown} alt="" />
         )}
@@ -162,8 +172,7 @@ const CertifyDetail = () => {
         <ChallengeName>{groupDetail.title}</ChallengeName>
         <ChallengeBox>
           <ChallengeLocation>
-            {locationObj.si !== undefined
-            ? (
+            {locationObj.si !== undefined ? (
               <IoLocationOutline
                 style={{
                   fontSize: "12px",
@@ -177,7 +186,6 @@ const CertifyDetail = () => {
 
             {locationObj.si === undefined
               ? ""
-
               : locationObj.si + " " + locationObj.gu + " " + locationObj.dong}
           </ChallengeLocation>
         </ChallengeBox>
@@ -187,15 +195,19 @@ const CertifyDetail = () => {
         <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
       </StyledTitleDiv>
       <StyledCommentDiv>
-        {commentList.length>0?
+        {commentList?.length > 0 ? (
           commentList?.map((el, idx) => (
             <Comment
               key={idx}
               {...el}
               authId={myInfo.memberId}
               subComment={subComment}
+              setCertifyDetail={setCertifyDetail}
             />
-          )):<p>아직 댓글이 없어요. 첫 댓글을 작성해 보세요!</p>}
+          ))
+        ) : (
+          <p>아직 댓글이 없어요. 첫 댓글을 작성해 보세요!</p>
+        )}
       </StyledCommentDiv>
       <CommentBar>
         <CommentInput
@@ -332,6 +344,17 @@ const Crown = styled.img`
 `;
 
 const StyledCommentDiv = styled.div`
-display: flex;
-justify-content: center;
+  p {
+    display: flex;
+    justify-content: center;
+  }
+`;
+const StyledProfileDiv = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

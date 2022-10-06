@@ -26,7 +26,7 @@ export const userApis = {
   //Main
   getMyMembers: async () => {
     const response = await authApi.get('/api/auth/main/')
-    return response
+    return response.data
   },
   //Search
   search: async data => {
@@ -111,7 +111,6 @@ export const userApis = {
   // 마이페이지 : 비밀번호 확인하기
   userPwCheck: async password => {
     const response = await authApi.post('/api/auth/mypage/check', { password });
-
     return response;
   },
 
@@ -119,7 +118,6 @@ export const userApis = {
   getmyGroup: async () => {
     const response = await authApi.get('/api/auth/mypage/group');
     console.log('🚀 ⁝ getmyGroup: ⁝ response', response);
-
     return response;
   },
 

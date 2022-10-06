@@ -9,28 +9,30 @@ import ChallengeCard from "@components/cards/ChallengeCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { getAllGroupList } from "@apis/group/group";
+import { userApis } from "../../apis/auth";
 
 const Main = () => {
-  const principal = useSelector((state)=>state.auth.principal, shallowEqual);
+  const principal = useSelector((state) => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  const [myGroupMembers, setMyGroupMembers] = useState([]);
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
       dispatch(resetLayout());
     };
   }, []);
-
-  const [crew, setCrew] = useState()
+console.log(myGroupMembers)
+  const [crew, setCrew] = useState();
 
   useEffect(() => {
-    getAllGroupList().then(
-      res=>{
-        setCrew(res.data);
-      })
-    }, []);
-
+    getAllGroupList().then((res) => {
+      setCrew(res.data);
+    });
+    userApis.getMyMembers().then((res) => {
+      setMyGroupMembers(res);
+    });
+  }, []);
   return (
     <div
       style={{
@@ -45,7 +47,7 @@ const Main = () => {
           <div style={{ display: "flex", alignItems: "center" }}>
             <h2>{principal?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
-              style={{ fontSize: "20px", color: "#DE4242" }}
+              style={{ fontSize: "20px", color: "#DE4242", cursor:"pointer" }}
               onClick={() => {
                 navigate("/group");
               }}
@@ -53,18 +55,22 @@ const Main = () => {
           </div>
         </StyledGroup>
         <StyledGroupPhotoBox>
-          {crew?.map((item, idx)=><GroupCard {...item} imgUrl={item?.imageId} key={idx} onClick={()=>{
-            navigate(`/group/${item?.groupId}`)
-          }}/>)}
+          {crew?.map((item, idx) => (
+            <GroupCard
+              {...item}
+              imgUrl={item?.imageId}
+              key={idx}
+              onClick={() => {
+                navigate(`/group/${item?.groupId}`);
+              }}
+            />
+          ))}
         </StyledGroupPhotoBox>
         <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
         <StyledChallenge>
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />
-          <ChallengeCard />     
+          {myGroupMembers.code==="PARTICIPATION_NOT_FOUND"?null:myGroupMembers?.map((member, idx) => (
+            <ChallengeCard key={idx} {...member.member} />
+          ))}
         </StyledChallenge>
         <StyledDragLine></StyledDragLine>
       </StyledBottomDiv>
@@ -137,8 +143,8 @@ const StyledChallenge = styled.div`
   /* top: 35vh; */
   width: 100vw;
   margin: 0 auto;
-  height:19.5rem;
-  overflow-y:scroll;
+  height: 19.5rem;
+  overflow-y: scroll;
 `;
 const StyledChallengeTitle = styled.div`
   font-weight: bold;
