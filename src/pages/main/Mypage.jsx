@@ -9,11 +9,12 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { resetLayout, setLayout } from '@redux/layout';
 import UserProfile from '@components/UserProfile';
+import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {
   const principal = useSelector(state => state.auth.principal, shallowEqual);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const [group, setGroup] = useState([]);
   const [friends, setFriends] = useState([]);
 
@@ -32,7 +33,7 @@ const Mypage = () => {
       console.log(res.data.message);
     });
   }, []);
-
+console.log(group)
   // 사람 가져오기
   useEffect(() => {
     userApis.usersInfo().then(res => {
@@ -40,7 +41,6 @@ const Mypage = () => {
       console.log('🚀 * userApis.userInfo * setFriends', setFriends);
     });
   }, []);
-
   return (
     <StyledWrap>
       {/* 프로필 */}
@@ -51,9 +51,17 @@ const Mypage = () => {
         {/* <Bar /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2>내가 속한 크루</h2>
-          <IoIosArrowForward style={{ fontSize: '20px', color: '#DE4242' }} />
+          <IoIosArrowForward
+              style={{ fontSize: "20px", color: "#DE4242", cursor:"pointer" }}
+              onClick={() => {
+                navigate("/group");
+              }}
+            />
         </div>
-        {group.code === 'PARTICIPATION_NOT_FOUND' ? null : group?.map((item, idx) => <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />)}
+        {group.code==="PARTICIPATION_NOT_FOUND"?null:group?.map((item, idx) => (
+          <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />
+        ))}
+
       </StyledCrews>
 
       {/* 알림 */}

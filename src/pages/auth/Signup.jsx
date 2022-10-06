@@ -41,7 +41,7 @@ const Signup = () => {
     userApis.signup(data)
     .then((res)=>{
       alert('회원가입이 완료되었어요 😉')
-      navigate('/signin')
+      navigate('/auth/signin')
       console.log(res)
     }).catch((error)=>{
       if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
@@ -195,7 +195,7 @@ const Signup = () => {
           top="87vh"
           background="white"
           onClick={() => {
-            navigate('/startpage');
+            navigate('/auth');
           }}
         >
           뒤로가기

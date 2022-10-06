@@ -15,7 +15,8 @@ const Comment = ({
   dateTime,
   content,
   memberId,
-  subCommentList
+  subCommentList,
+  setCertifyDetail
 }) => {
   const ModalDelete = () => {
     Modal.confirm({
@@ -32,6 +33,12 @@ const Comment = ({
         .deleteComment(commentId)
         .then((res) => {
           console.log(res);
+          setCertifyDetail((prev)=>{
+            return{
+              ...prev,
+              commentList: prev.commentList.filter(comment=>comment.commentId!==commentId)
+            }
+          })
         })
         .catch((err) => {
           console.log(err);
@@ -67,7 +74,7 @@ const Comment = ({
               <StyledSubCommentBox>
                 {subCommentList &&
                   subCommentList?.map((el, idx) => (
-                    <CommentDetail key={idx} {...el} authId={authId} />
+                    <CommentDetail key={idx} {...el} authId={authId} commentId={commentId} setCertifyDetail={setCertifyDetail}/>
                   ))}
               </StyledSubCommentBox>
             </StyledCommentBox>
@@ -78,9 +85,9 @@ const Comment = ({
 export default Comment;
 
 const StyledDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  margin-bottom: 9px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
 `;
 const StyledProfileImg = styled.img`
   width: 35px;
@@ -90,6 +97,7 @@ const StyledProfileImg = styled.img`
   object-fit: cover;
 `;
 const StyledCommentBox = styled.div`
+  margin-left: 10px;
   display: grid;
   grid-template-rows: 1fr;
 `;

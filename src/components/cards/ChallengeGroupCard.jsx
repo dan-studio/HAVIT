@@ -3,7 +3,7 @@ import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "../../apis/config";
 import {IoIosNotificationsOutline} from "react-icons/io"
-const ChallengeCard = ({memberId, nickname, imageId, modifiedAt}) => {
+const ChallengeGroupCard = ({memberId, nickname, imageId, modifiedAt}) => {
 
   const lastChallenged = modifiedAt.slice(0, 16)
 
@@ -72,4 +72,4 @@ const BellDiv = styled.div`
   align-items: center;
   margin-right: 10px;
 `;
-export default ChallengeCard;
+export default ChallengeGroupCard;

@@ -13,6 +13,8 @@ const CommentDetail = ({
   memberId,
   dateTime,
   authId,
+  commentId,
+  setCertifyDetail,
 }) => {
   const ModalDelete = () => {
     Modal.confirm({
@@ -29,6 +31,22 @@ const CommentDetail = ({
           .deleteSubComment(subCommentId)
           .then((res) => {
             console.log(res);
+            setCertifyDetail((prev) => {
+              return {
+                ...prev,
+                commentList: prev.commentList.map((comment) =>
+                  comment.commentId === commentId
+                    ? {
+                        ...comment,
+                        subCommentList: comment.subCommentList.filter(
+                          (subComment) =>
+                            subComment.subCommentId !== subCommentId
+                        ),
+                      }
+                    : comment
+                ),
+              };
+            });
           })
           .catch((err) => {
             console.log(err);
@@ -58,9 +76,9 @@ const CommentDetail = ({
 export default CommentDetail;
 
 const StyledDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
 `;
 const StyledProfileImg = styled.img`
   width: 35px;
@@ -70,6 +88,7 @@ const StyledProfileImg = styled.img`
   object-fit: cover;
 `;
 const StyledCommentBox = styled.div`
+  margin-left: 10px;
   display: grid;
   grid-template-rows: 1fr;
 `;
