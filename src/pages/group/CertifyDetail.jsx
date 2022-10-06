@@ -68,12 +68,19 @@ const CertifyDetail = () => {
         .writeSubComment(subCommentMsg)
         .then((res) => {
           console.log(res);
-          setCertifyDetail((prev)=>{
+          setCertifyDetail((prev) => {
             return {
               ...prev,
-              commentList: prev.commentList.map(comment=>comment.commentId===commentId?{...comment, subCommentList:[...comment.subCommentList, res.data]}:comment)
-            }
-          })
+              commentList: prev.commentList.map((comment) =>
+                comment.commentId === commentId
+                  ? {
+                      ...comment,
+                      subCommentList: [...comment?.subCommentList, res.data],
+                    }
+                  : comment
+              ),
+            };
+          });
           setComment("");
         })
         .catch((err) => {
@@ -85,12 +92,12 @@ const CertifyDetail = () => {
       .writeComment(commentMsg)
       .then((res) => {
         console.log(res);
-        setCertifyDetail((prev)=>{
+        setCertifyDetail((prev) => {
           return {
             ...prev,
-            commentList: [...prev.commentList, res.data]
-          }
-        })
+            commentList: [...prev.commentList, res.data],
+          };
+        });
         setComment("");
       })
       .catch((err) => {
