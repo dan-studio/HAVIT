@@ -73,7 +73,7 @@ const CertifyDetail = () => {
               dong: temp.region_3depth_name,
             });
           }
-        });
+        }); 
     });
   }, []);
 
@@ -131,6 +131,7 @@ const CertifyDetail = () => {
     setComment(subCommentTo);
     setCommentId(commentId);
   };
+  console.log(certifyDetail)
 
   const leader = groupDetail?.writer;
   return (
