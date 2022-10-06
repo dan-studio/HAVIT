@@ -87,11 +87,13 @@ const CertifyDetail = () => {
       commentId: commentId,
       content: comment,
     };
+    if(comment==="")
+    return
     if (commentId && comment) {
       userApis
         .writeSubComment(subCommentMsg)
         .then((res) => {
-          console.log(res);
+          console.log(certifyDetail);
           setCertifyDetail((prev) => {
             return {
               ...prev,
@@ -99,7 +101,7 @@ const CertifyDetail = () => {
                 comment.commentId === commentId
                   ? {
                       ...comment,
-                      subCommentList: [...comment.subCommentList, res.data],
+                      subCommentList: [...comment?.subCommentList, res.data],
                     }
                   : comment
               ),
@@ -119,7 +121,7 @@ const CertifyDetail = () => {
         setCertifyDetail((prev) => {
           return {
             ...prev,
-            commentList: [...prev.commentList, res.data],
+            commentList: [...prev.commentList, {...res.data, subCommentList:[]}],
           };
         });
         setComment("");
@@ -134,10 +136,8 @@ const CertifyDetail = () => {
     setComment(subCommentTo);
     setCommentId(commentId);
   };
-
   const leader = groupDetail?.writer;
   const imageId = certifyDetail?.profileImageId;
-  console.log(certifyDetail)
   return (
     <BoardBox>
       <Profile>
@@ -245,8 +245,8 @@ const ProfileBox = styled.div`
   margin: 0 10px 0 10px;
 `;
 const ProfilePhoto = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
   object-fit: cover;
 `;
