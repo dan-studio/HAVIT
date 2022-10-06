@@ -12,6 +12,7 @@ import { fileUrlHost } from "../../apis/config";
 import Comment from "../../components/comment/Comment";
 import crown from "@assets/leader.png";
 import { useRef } from "react";
+import { kakaoApi } from "../../apis/config";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -32,6 +33,9 @@ const CertifyDetail = () => {
     }
   };
   const commentList = certifyDetail?.commentList;
+  const [locationObj, setLocationObj] = useState({});
+  const [coordinate, setCoordinate] = useState({});
+
   useEffect(() => {
     userApis
       .getGroupDetail(groupId)
@@ -51,6 +55,25 @@ const CertifyDetail = () => {
       });
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
+      setCoordinate({
+        latitude: res.latitude,
+        longitude: res.longitude,
+      });
+      kakaoApi
+        .get(
+          `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const temp = res.data.documents[0];
+            setLocationObj({
+              temp: temp,
+              si: temp.region_1depth_name,
+              gu: temp.region_2depth_name,
+              dong: temp.region_3depth_name,
+            });
+          }
+        });
     });
   }, []);
 
@@ -67,7 +90,6 @@ const CertifyDetail = () => {
       userApis
         .writeSubComment(subCommentMsg)
         .then((res) => {
-          console.log(res);
           setCertifyDetail((prev) => {
             return {
               ...prev,
@@ -104,7 +126,6 @@ const CertifyDetail = () => {
         console.log(err);
       });
   };
-
   const subComment = (nickname, commentId) => {
     inputFocus.current.focus();
     setSubCommentTo("@" + nickname + " ");
@@ -135,22 +156,29 @@ const CertifyDetail = () => {
               ? groupDetail.leaderName
               : groupDetail.crewName}
           </ProfileRole>
-
-          {/* 리더/크루원 구분 필요 */}
         </ProfileBox>
       </Profile>
       <Title>
         <ChallengeName>{groupDetail.title}</ChallengeName>
         <ChallengeBox>
           <ChallengeLocation>
-            <IoLocationOutline
-              style={{
-                fontSize: "12px",
-                color: "#DE4242",
-                marginRight: "5px",
-              }}
-            />
-            Seoul, Korea
+            {locationObj.si !== undefined
+            ? (
+              <IoLocationOutline
+                style={{
+                  fontSize: "12px",
+                  color: "#DE4242",
+                  marginRight: "5px",
+                }}
+              />
+            ) : (
+              <div></div>
+            )}
+
+            {locationObj.si === undefined
+              ? ""
+
+              : locationObj.si + " " + locationObj.gu + " " + locationObj.dong}
           </ChallengeLocation>
         </ChallengeBox>
       </Title>
