@@ -27,6 +27,14 @@ const Signin = () => {
 
   const submmitHandler = ()=>{
     signin(form).then((res)=>{
+      console.log(res)
+      if(res.data.code==="MEMBER_NOT_FOUND"){
+        alert("사용자를 찾을 수 없습니다.")
+        return
+      }else if(res.data.code==="PASSWORD_NOT_MATCHED"){
+        alert("비밀번호가 일치하지 않습니다.")
+        return
+      }
       if(res.status === 200){
         alert(`${res.data.nickname}님 환영합니다!`);
         navigate("/");

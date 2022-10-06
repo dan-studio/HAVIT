@@ -18,7 +18,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
     }
   };
   const routeHandler = () => {
-    navigate(`/group/${groupId}`);
+    navigate(`/group/${groupId}`, {state:'/group'});
   };
   return (
     <>

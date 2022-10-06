@@ -36,14 +36,6 @@ const GroupCreate = () => {
             if (res.status === 200) {
               alert("그룹 생성이 완료되었습니다.");
               navigate(`/group/${res.data.groupId}`, {state:'/group'});
-              userApis
-                .joinGroup(res.data.groupId)
-                .then((res) => {
-                  console.log(res);
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
             }
           })
           .catch((err) => {
