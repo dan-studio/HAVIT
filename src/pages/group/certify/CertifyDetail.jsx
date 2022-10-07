@@ -54,40 +54,34 @@ const CertifyDetail = () => {
       .catch((err) => {
         console.log(err);
       });
-    userApis
-      .getCertifyDetail(certifyId)
-      .then((res) => {
+      userApis.getCertifyDetail(certifyId).then((res) => {
         setCertifyDetail(res);
         setCoordinate({
           latitude: res.latitude,
           longitude: res.longitude,
         });
-        if (res.longitude !== null && res.latitude !== null) {
-          kakaoApi
-            .get(
-              `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                const temp = res.data.documents[0];
-                setLocationObj({
-                  temp: temp,
-                  si: temp.region_1depth_name,
-                  gu: temp.region_2depth_name,
-                  dong: temp.region_3depth_name,
-                });
-              } else {
-                console.log("error");
-              }
-            })
-            .catch(console.log("위치정보를 입력하지 않았습니다"))
-            .then(() => {
-              throw Error("error1");
-            });
+        if(res.longitude !== null && res.latitude !== null ){
+        kakaoApi
+          .get(
+            `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              const temp = res.data.documents[0];
+              setLocationObj({
+                temp: temp,
+                si: temp.region_1depth_name,
+                gu: temp.region_2depth_name,
+                dong: temp.region_3depth_name,
+              });
+            }
+            else{
+              console.log('error')
+            }
+        }).catch()
         }
       })
-      .catch(console.log("위치정보를 입력하지 않았습니다"));
-  }, []);
+    }, []);
 
   const addComment = (commentId) => {
     const commentMsg = {
