@@ -30,17 +30,15 @@ const Mypage = () => {
   useEffect(() => {
     userApis.getmyGroup().then(res => {
       setGroup(res.data);
-      console.log(res.data.message);
     });
   }, []);
-console.log(group)
   // 사람 가져오기
-  useEffect(() => {
-    userApis.usersInfo().then(res => {
-      setFriends(res.data);
-      console.log('🚀 * userApis.userInfo * setFriends', setFriends);
-    });
-  }, []);
+  // useEffect(() => {
+  //   userApis.usersInfo().then(res => {
+  //     setFriends(res.data);
+  //     console.log('🚀 * userApis.userInfo * setFriends', setFriends);
+  //   });
+  // }, []);
   return (
     <StyledWrap>
       {/* 프로필 */}

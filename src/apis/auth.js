@@ -66,13 +66,6 @@ export const userApis = {
     return response.data;
   },
 
-
-  // 마이페이지 : 내 정보
-  userProfile: async () => {
-    const reponse = await authApi.get('/users');
-    return reponse;
-  },
-
    //comment
   writeComment: async (data) => {
     const response = await authApi.post('/api/auth/comment/', data)
@@ -117,7 +110,6 @@ export const userApis = {
   // 마이페이지 : 내 그룹 가져오기
   getmyGroup: async () => {
     const response = await authApi.get('/api/auth/mypage/group');
-    console.log('🚀 ⁝ getmyGroup: ⁝ response', response);
     return response;
   },
 
