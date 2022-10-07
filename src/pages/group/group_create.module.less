@@ -1,0 +1,86 @@
+.text_area {
+    width: 100%;
+    border: none;
+    outline: none;
+    :focus {
+        outline: none;
+        border: none;
+    }
+}
+
+.input_border {
+    border-radius: 25px;
+    font-size: 13px;
+}
+
+.button_group {
+    gap: 0 0.75rem;
+    position: absolute;
+    position: relative;
+    width: 100%;
+
+    & > button {
+        border-radius: 25px;
+        width: 98px;
+        height: 34px;
+    }
+}
+.title_input {
+    border: none;
+    box-shadow: none;
+    input {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    input:focus {
+        & {
+            border-bottom: 1px solid @primary-color;
+        }
+    }
+}
+.tag_input {
+    border: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid @neongreen !important;
+    input {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+.upload {
+    border-radius: 100%;
+
+    & > div {
+        width: 92px !important;
+        height: 92px !important;
+        border-radius: 100% !important;
+        overflow: hidden !important;
+        margin: 0px !important;
+    }
+
+    img{
+        width:92px;
+        height:92px;
+        object-fit: cover;
+    }
+}
+
+.text_area {
+    width: 100%;
+    border: none;
+    outline: none;
+    :focus {
+        outline: none;
+        border: none;
+    }
+}
+
+.input_border {
+    border-radius: 25px;
+}

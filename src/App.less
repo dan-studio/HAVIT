@@ -148,6 +148,9 @@
         border-top: 1px #eee solid;
     }
 }
+.ant-upload.ant-upload-select-picture-card {
+    border-radius: 100%;
+}
 .ant-table-tbody > tr > td {
     text-align: center;
 }
@@ -303,4 +306,35 @@ table {
 }
 a {
     color: @primary-color;
+}
+
+#content {
+    width: 100%;
+    padding: 1rem;
+}
+.ant-tag {
+    border-radius: 10px !important;
+    background-color: @white !important;
+    color: @gray !important;
+}
+[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: @gray;
+}
+[contenteditable]:focus {
+    outline: none;
+}
+.profile_uploader{
+    display:flex !important;
+    justify-content: center !important;
+    .ant-upload{
+        overflow: hidden;
+        border-radius: 100% !important;
+    }
+    img{
+        border-radius: 100%;
+        width:100%;
+        height:100%;
+        object-fit: cover;
+    }
 }
