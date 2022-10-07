@@ -70,7 +70,7 @@ const Myprofile = () => {
       {/* WHAT 유저 프로필 */}
       <Uploader
         className={'profile_uploader'}
-        value={form?.imageId}
+        defaultVvalue={form?.imageId}
         name='imageId'
         children={<UserOutlined style={{ fontSize: '2rem', color: 'lightgray' }} />}
         onChange={e => {
