@@ -25,7 +25,6 @@ const GroupDetail = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
-
   React.useEffect(() => {
     dispatch(setLayout({ smallType: true }));
     return () => {
@@ -38,7 +37,6 @@ const GroupDetail = () => {
       .then((res) => {
         setDetail(res.data);
       })
-      .catch((err) => {});
     getMyGroupList()
       .then((res) => {
         const result = res.data.find((el) => el?.groupId === groupId);

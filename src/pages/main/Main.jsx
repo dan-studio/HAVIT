@@ -88,6 +88,7 @@ const Main = () => {
               {...item}
               imgUrl={item?.imageId}
               key={idx}
+              groupId={item.groupId}
               onClick={() => {
                 navigate(`/group/${item?.groupId}`);
               }}
