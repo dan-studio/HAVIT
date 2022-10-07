@@ -4,35 +4,54 @@ import styled from "styled-components";
 import { resetLayout, setLayout } from "@redux/layout";
 import UserProfile from "@components/UserProfile";
 import GroupCard from "@components/cards/GroupCard";
-import ChallengeCard from "@components/cards/ChallengeCard";
-
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "../../apis/auth";
+import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 
 const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
+  const [countMembers, setCountMembers] = useState([]);
+  const [groupList, setGroupList] = useState([]);
+  const [nullMsg, setNullMsg] = useState("");
+  const [toggleGroup, setToggleGroup] = useState([]);
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
       dispatch(resetLayout());
     };
   }, []);
-console.log(myGroupMembers)
   const [crew, setCrew] = useState();
-
   useEffect(() => {
     getAllGroupList().then((res) => {
       setCrew(res.data);
     });
     userApis.getMyMembers().then((res) => {
       setMyGroupMembers(res);
+      if (res.code === "PARTICIPATION_NOT_FOUND") {
+        setNullMsg(res.message);
+        return;
+      }
+      const getId = [...new Set(res.map((group) => group.groupId))];
+      const countMember = {};
+      const getGroupId = res.map((member) => member.groupId);
+      getGroupId.forEach(
+        (members) => (countMember[members] = (countMember[members] || 0) + 1)
+      );
+      const arr = Object.entries(countMember);
+      setCountMembers(arr);
+      getId.map((id) =>
+        userApis.getGroupDetail(id).then((res) => {
+          setGroupList((prev) => [...prev, res.data]);
+        })
+      );
     });
   }, []);
+  useEffect(() => {});
   return (
     <div
       style={{
@@ -47,7 +66,7 @@ console.log(myGroupMembers)
           <div style={{ display: "flex", alignItems: "center" }}>
             <h2>{principal?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
-              style={{ fontSize: "20px", color: "#DE4242", cursor:"pointer" }}
+              style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
               onClick={() => {
                 navigate("/group");
               }}
@@ -68,9 +87,21 @@ console.log(myGroupMembers)
         </StyledGroupPhotoBox>
         <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
         <StyledChallenge>
-          {myGroupMembers.code==="PARTICIPATION_NOT_FOUND"?null:myGroupMembers?.map((member, idx) => (
-            <ChallengeCard key={idx} {...member.member} />
-          ))}
+          {groupList?.length > 0 ? (
+            groupList?.map((group, idx) => (
+              <ChallengeGroupCard
+                key={idx}
+                groupList={groupList}
+                {...group}
+                countMembers={countMembers}
+                toggleGroup={toggleGroup}
+                setToggleGroup={setToggleGroup}
+                myGroupMembers={myGroupMembers}
+              />
+            ))
+          ) : (
+            <StyledNullMsg>{nullMsg}</StyledNullMsg>
+          )}
         </StyledChallenge>
         <StyledDragLine></StyledDragLine>
       </StyledBottomDiv>
@@ -121,12 +152,6 @@ const StyledGroup = styled.div`
     }
   }
 `;
-
-const StyledGroupTitle = styled.div`
-  margin: 0 10px 10px;
-  font-weight: bold;
-  font-size: 15px;
-`;
 const StyledGroupPhotoBox = styled.div`
   display: flex;
   width: 100vw;
@@ -143,11 +168,16 @@ const StyledChallenge = styled.div`
   /* top: 35vh; */
   width: 100vw;
   margin: 0 auto;
-  height: 19.5rem;
   overflow-y: scroll;
 `;
 const StyledChallengeTitle = styled.div`
   font-weight: bold;
   font-size: 20px;
   margin-left: 20px;
+`;
+
+const StyledNullMsg = styled.div`
+  display: flex;
+  margin: 50px;
+  justify-content: center;
 `;

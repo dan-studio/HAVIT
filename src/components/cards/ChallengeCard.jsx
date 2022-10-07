@@ -2,21 +2,20 @@ import styled from "styled-components";
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "../../apis/config";
-import {IoIosNotificationsOutline} from "react-icons/io"
-const ChallengeCard = ({memberId, nickname, imageId, modifiedAt}) => {
-
-  const lastChallenged = modifiedAt.slice(0, 16)
+import { IoIosNotificationsOutline } from "react-icons/io";
+const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt }) => {
+  const lastChallenged = modifiedAt?.slice(0, 16);
 
   return (
     <Card>
       <MemberDiv>
         {imageId ? (
-        <MemberImg src={fileUrlHost(imageId)} alt="" />
-      ) : (
-        <StyledProfileDiv>
-          <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
-        </StyledProfileDiv>
-      )}
+          <MemberImg src={fileUrlHost(imageId)} alt="" />
+        ) : (
+          <StyledProfileDiv>
+            <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+          </StyledProfileDiv>
+        )}
         <MemberHour>{lastChallenged}</MemberHour>
         <FriendName>{nickname}</FriendName>
       </MemberDiv>
@@ -31,7 +30,7 @@ const Card = styled.div`
   align-items: center;
   justify-content: space-between;
   box-shadow: 1px 2px 5px #b8b8b8;
-  width: 90vw;
+  width: 80vw;
   margin: 2vh auto;
   border-radius: 10px;
   height: 6vh;
