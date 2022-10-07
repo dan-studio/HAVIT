@@ -78,12 +78,9 @@ const CertifyDetail = () => {
           else{
             console.log('error')
           }
-        }).catch(console.log("위치정보를 입력하지 않았습니다"))
-        .then(() => {
-          throw Error('error1')
-        })
+      }).catch()
       }
-    }).catch(console.log("위치정보를 입력하지 않았습니다"));
+    })
   }, []);
 
   const addComment = (commentId) => {
