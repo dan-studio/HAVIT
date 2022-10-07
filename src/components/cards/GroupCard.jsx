@@ -1,25 +1,47 @@
-import styled from 'styled-components';
-import React from 'react';
-import { BsPeopleFill } from 'react-icons/bs';
-import { fileUrlHost } from '@apis/config';
+import styled from "styled-components";
+import React from "react";
+import { FcBusinessman, FcAbout } from "react-icons/fc";
+import { BsPeopleFill } from "react-icons/bs";
+import { fileUrlHost } from "@apis/config";
+import { useEffect } from "react";
+import { getGroupDetail } from "../../apis/group/group";
+import { useState } from "react";
 
-const GroupCard = ({title, imgUrl, memberCount, onClick}) => {
-  const [src, setSrc] = React.useState(fileUrlHost(imgUrl))
+const GroupCard = ({ title, imgUrl, memberCount, onClick, groupId }) => {
+  const [src, setSrc] = React.useState(fileUrlHost(imgUrl));
+  const [detail, setDetail] = useState();
+  useEffect(() => {
+    getGroupDetail(groupId).then((res) => {
+      setDetail(res.data);
+    });
+  }, []);
+  const certifyList = detail?.certifyList;
   return (
-    <div onClick={onClick}>
+    <StyledDiv onClick={onClick}>
       <GroupCardBox>
-        {!!imgUrl ? (<GroupPhoto src={src} />) : (<EmptyPhoto>이미지 없음</EmptyPhoto>)}
+        {!!imgUrl ? (
+          <GroupPhoto src={src} />
+        ) : (
+          <EmptyPhoto>이미지 없음</EmptyPhoto>
+        )}
         <GroupTitle>{title}</GroupTitle>
         <HeadBox>
-          <div style={{display:'flex', alignItems:'center', margin:'0 .3125rem'}}>
-            <BsPeopleFill color='#5e43ff' />
-            <HeadCount>{memberCount}</HeadCount>
-          </div>
+          <ItemDiv>
+            <FcBusinessman />
+            <HeadCount>{memberCount && memberCount}</HeadCount>
+          </ItemDiv>
+          <ItemDiv>
+            <FcAbout />
+            <HeadCount>{certifyList && certifyList?.length}</HeadCount>
+          </ItemDiv>
         </HeadBox>
       </GroupCardBox>
-    </div>
+    </StyledDiv>
   );
 };
+const StyledDiv = styled.div`
+  width: 162px;
+`
 const GroupCardBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,13 +49,15 @@ const GroupCardBox = styled.div`
 `;
 const GroupTitle = styled.div`
   font-size: 16px;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
-  max-width:150px;
+  max-width: 150px;
   font-weight: 600;
   line-height: 19px;
-  margin: 5px 5px;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  margin: 5px 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const HeadCount = styled.div`
   font-size: 14px;
@@ -51,12 +75,17 @@ const GroupPhoto = styled.img`
 `;
 
 const EmptyPhoto = styled.div`
-  border:1px solid lightgray;
+  border: 1px solid lightgray;
   width: 150px;
   height: 150px;
   border-radius: 10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const ItemDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
 `;
 export default GroupCard;

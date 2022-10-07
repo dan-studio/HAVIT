@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { MdPeopleAlt } from 'react-icons/md';
+import { FcBusinessman, FcAbout } from 'react-icons/fc';
 import { HiStar } from 'react-icons/hi';
 import { FORMAT_DATE } from '@utils/format/time';
 // 컴포넌트
@@ -8,15 +8,26 @@ import { useNavigate } from 'react-router-dom';
 import { fileUrlHost } from '@apis/config';
 import moment from 'moment';
 import { Image } from 'antd';
+import { useEffect } from 'react';
+import { getGroupDetail } from '../../apis/group/group';
+import { useState } from 'react';
 
 const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, memberList, imgUrl, groupTag, favorite, createdAt }) => {
   const navigate = useNavigate();
+  const [detail, setDetail] = useState();
   const createdDate = createdAt?.slice(2, 10).split('-');
   const yyyy_mm_dd = () => {
     if (createdDate && createdDate.length > 0) {
       return createdDate[0] + '년 ' + createdDate[1] + '월 ' + createdDate[2] + '일';
     }
   };
+  useEffect(()=>{
+    getGroupDetail(groupId)
+      .then((res) => {
+        setDetail(res.data);
+      })
+  },[])
+  const certifyList = detail?.certifyList
   const routeHandler = () => {
     navigate(`/group/${groupId}`, {state:'/group'});
   };
@@ -33,8 +44,10 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
             </StyledCycle>
           </StyledDayInfo>
           <StyledPeople>
-            <MdPeopleAlt style={{ fontSize: '16px' }} color='#5e43ff' />
-            <StyledSpan>{memberList ? memberList.length : memberCount}명</StyledSpan>
+            <FcBusinessman style={{ fontSize: '16px' }}/>
+            <StyledSpan style={{marginRight: "15px"}}>{memberList ? memberList.length : memberCount}명</StyledSpan>
+            <FcAbout/>
+            <StyledSpan>{certifyList && certifyList?.length +"개"}</StyledSpan>
           </StyledPeople>
           <StyledTagDiv>
             {groupTag?.map((item, idx) => (

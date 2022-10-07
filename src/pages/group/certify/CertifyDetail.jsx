@@ -54,33 +54,39 @@ const CertifyDetail = () => {
       .catch((err) => {
         console.log(err);
       });
-    userApis.getCertifyDetail(certifyId).then((res) => {
-      setCertifyDetail(res);
-      setCoordinate({
-        latitude: res.latitude,
-        longitude: res.longitude,
-      });
-      if(res.longitude !== null && res.latitude !== null ){
-      kakaoApi
-        .get(
-          `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            const temp = res.data.documents[0];
-            setLocationObj({
-              temp: temp,
-              si: temp.region_1depth_name,
-              gu: temp.region_2depth_name,
-              dong: temp.region_3depth_name,
+    userApis
+      .getCertifyDetail(certifyId)
+      .then((res) => {
+        setCertifyDetail(res);
+        setCoordinate({
+          latitude: res.latitude,
+          longitude: res.longitude,
+        });
+        if (res.longitude !== null && res.latitude !== null) {
+          kakaoApi
+            .get(
+              `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                const temp = res.data.documents[0];
+                setLocationObj({
+                  temp: temp,
+                  si: temp.region_1depth_name,
+                  gu: temp.region_2depth_name,
+                  dong: temp.region_3depth_name,
+                });
+              } else {
+                console.log("error");
+              }
+            })
+            .catch(console.log("위치정보를 입력하지 않았습니다"))
+            .then(() => {
+              throw Error("error1");
             });
-          }
-          else{
-            console.log('error')
-          }
-      }).catch()
-      }
-    })
+        }
+      })
+      .catch(console.log("위치정보를 입력하지 않았습니다"));
   }, []);
 
   const addComment = (commentId) => {
@@ -148,28 +154,29 @@ const CertifyDetail = () => {
   return (
     <BoardBox>
       <Title>
-      <ToGroup
-        onClick={() => {
-          navigate(state || -1, { state: "/group" });
-        }}
-      >
-        <MdOutlineArrowBackIosNew
-          style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px" }}
-        />
-        <ChallengeName>{groupDetail.title}</ChallengeName>
-      </ToGroup>
+        <ToGroup
+          onClick={() => {
+            navigate(state || -1, { state: "/group" });
+          }}
+        >
+          <MdOutlineArrowBackIosNew
+            style={{ fontSize: "20px", color: "#5E43FF", marginRight: "3px" }}
+          />
+          <ChallengeName>{groupDetail.title}</ChallengeName>
+        </ToGroup>
         {myInfo?.memberId === certifyDetail?.memberId && (
-          <div className="editButton"
+          <div
+            className="editButton"
             onClick={() => {
               navigate("edit");
             }}
           >
             수정하기
           </div>
-        )}</Title>
+        )}
+      </Title>
       <StyledBox>
         <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)} />
-        {/*  */}
         <Profile>
           {imageId ? (
             <ProfilePhoto
@@ -204,7 +211,6 @@ const CertifyDetail = () => {
               ) : (
                 <div></div>
               )}
-
               {locationObj.si === undefined
                 ? ""
                 : locationObj.si +
@@ -215,7 +221,6 @@ const CertifyDetail = () => {
             </ChallengeLocation>
           </ProfileBox>
         </Profile>
-        {/*  */}
         <StyledTitleDiv>
           <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
         </StyledTitleDiv>
@@ -264,6 +269,7 @@ const Profile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 4px;
 `;
 const ToGroup = styled.div`
   display: flex;
@@ -302,14 +308,14 @@ const Title = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
-  .editButton{
+  margin-bottom: 9px;
+  .editButton {
     font-size: 11px;
   }
 `;
 
 const ChallengeName = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   color: gray;
 `;
 
@@ -363,18 +369,18 @@ const StyledTitleDiv = styled.div`
   width: 345px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 3px;
+  /* justify-content: center; */
 `;
 const ChallengeTitle = styled.div`
   font-size: 0.8rem;
   z-index: 10;
   opacity: 1;
+  margin: 10px 0;
 `;
 const Crown = styled.img`
   position: absolute;
   height: 33px;
-  transform: translate(-4px, -25px);
+  transform: translate(-6px, -25px);
 `;
 
 const StyledCommentDiv = styled.div`

@@ -24,7 +24,6 @@ const ChallengeGroupCard = ({
       setToggleGroup("");
     }
   };
-  console.log(myGroupMembers);
   return (
     <>
       <Card onClick={onClick}>
