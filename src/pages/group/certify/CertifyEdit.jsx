@@ -42,7 +42,6 @@ const CertifyEdit = () => {
       });
   }, []);
 
-  console.log(certifyDetail);
   const [pos, setPos] = React.useState({ lat: 0, lng: 0 });
   const onComplete = () => {
     Modal.confirm({
@@ -150,7 +149,7 @@ const CertifyEdit = () => {
       {myInfo?.memberId === certifyDetail?.memberId && <DeleteButton onClick={ModaDelete}>게시글 삭제하기</DeleteButton>}
         <WriteBtn style={{ marginTop: "5.625rem" }}>
           <PrimaryButton buttonName={"등록"} onClick={onComplete} />
-          <SubButton buttonName={"초기화"} onClick={reset} />
+          <SubButton buttonName={"불러오기"} onClick={reset} />
           <SubButton
             buttonName={"뒤로가기"}
             onClick={() => {

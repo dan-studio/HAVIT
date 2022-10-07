@@ -101,8 +101,6 @@ const GroupDetail = () => {
       <CrewInfo
         type="detail"
         imgUrl={detail?.imageId}
-        leaderName={detail?.leaderName}
-        crewName={detail?.crewName}
         {...detail}
       ></CrewInfo>
       <StyledGroupDesc value={detail?.content} disabled></StyledGroupDesc>
