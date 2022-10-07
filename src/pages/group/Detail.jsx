@@ -24,7 +24,6 @@ const GroupDetail = () => {
   const [isParticipate, setIsParticipate] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(detail);
   const dispatch = useDispatch();
 
   React.useEffect(() => {

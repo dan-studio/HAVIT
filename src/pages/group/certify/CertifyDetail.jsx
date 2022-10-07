@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { BsArrowUpCircleFill } from "react-icons/bs";
 // import Comment from "@pages/comment/Comment";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
-import { userApis } from "../../apis/auth";
-import { fileUrlHost } from "../../apis/config";
-import Comment from "../../components/comment/Comment";
+import { userApis } from "../../../apis/auth";
+import { fileUrlHost } from "../../../apis/config";
+import Comment from "../../../components/comment/Comment";
 import crown from "@assets/leader.png";
 import { useRef } from "react";
-import { kakaoApi } from "../../apis/config";
+import { kakaoApi } from "../../../apis/config";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -92,8 +92,7 @@ const CertifyDetail = () => {
       commentId: commentId,
       content: comment,
     };
-    if(comment==="")
-    return
+    if (comment === "") return;
     if (commentId && comment) {
       userApis
         .writeSubComment(subCommentMsg)
@@ -126,7 +125,10 @@ const CertifyDetail = () => {
         setCertifyDetail((prev) => {
           return {
             ...prev,
-            commentList: [...prev.commentList, {...res.data, subCommentList:[]}],
+            commentList: [
+              ...prev.commentList,
+              { ...res.data, subCommentList: [] },
+            ],
           };
         });
         setComment("");
@@ -145,60 +147,79 @@ const CertifyDetail = () => {
   const imageId = certifyDetail?.profileImageId;
   return (
     <BoardBox>
-      <Profile>
+      <Title>
+      <ToGroup
+        onClick={() => {
+          navigate(state || -1, { state: "/group" });
+        }}
+      >
         <MdOutlineArrowBackIosNew
           style={{ fontSize: "20px", color: "#5E43FF", marginRight: "10px" }}
-          onClick={() => {
-            navigate(state || -1, { state: "/group" });
-          }}
         />
-        {imageId ? (
-          <ProfilePhoto
-            src={fileUrlHost(certifyDetail.profileImageId)}
-          ></ProfilePhoto>
-        ) : (
-          <StyledProfileDiv>
-            <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
-          </StyledProfileDiv>
-        )}
-        {certifyDetail?.memberId === leader?.memberId && (
-          <Crown src={crown} alt="" />
-        )}
-        <ProfileBox>
-          <ProfileName>{certifyDetail.nickname}</ProfileName>
-          <ProfileRole>
-            {certifyDetail?.memberId === leader?.memberId
-              ? groupDetail.leaderName
-              : groupDetail.crewName}
-          </ProfileRole>
-        </ProfileBox>
-      </Profile>
-      <Title>
         <ChallengeName>{groupDetail.title}</ChallengeName>
-        <ChallengeBox>
-          <ChallengeLocation>
-            {locationObj.si !== undefined ? (
-              <IoLocationOutline
-                style={{
-                  fontSize: "12px",
-                  color: "#DE4242",
-                  marginRight: "5px",
-                }}
-              />
-            ) : (
-              <div></div>
-            )}
+      </ToGroup>
+        {myInfo?.memberId === certifyDetail?.memberId && (
+          <div className="editButton"
+            onClick={() => {
+              navigate("edit");
+            }}
+          >
+            수정하기
+          </div>
+        )}</Title>
+      <StyledBox>
+        <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)} />
+        {/*  */}
+        <Profile>
+          {imageId ? (
+            <ProfilePhoto
+              src={fileUrlHost(certifyDetail.profileImageId)}
+            ></ProfilePhoto>
+          ) : (
+            <StyledProfileDiv>
+              <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+            </StyledProfileDiv>
+          )}
+          {certifyDetail?.memberId === leader?.memberId && (
+            <Crown src={crown} alt="" />
+          )}
+          <ProfileBox>
+            <InnerBox>
+              <ProfileName>{certifyDetail.nickname}</ProfileName>
+              <ProfileRole>
+                {certifyDetail?.memberId === leader?.memberId
+                  ? groupDetail.leaderName
+                  : groupDetail.crewName}
+              </ProfileRole>
+            </InnerBox>
+            <ChallengeLocation>
+              {locationObj.si !== undefined ? (
+                <IoLocationOutline
+                  style={{
+                    fontSize: "12px",
+                    color: "#DE4242",
+                    marginRight: "5px",
+                  }}
+                />
+              ) : (
+                <div></div>
+              )}
 
-            {locationObj.si === undefined
-              ? ""
-              : locationObj.si + " " + locationObj.gu + " " + locationObj.dong}
-          </ChallengeLocation>
-        </ChallengeBox>
-      </Title>
-      <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)} />
-      <StyledTitleDiv>
-        <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
-      </StyledTitleDiv>
+              {locationObj.si === undefined
+                ? ""
+                : locationObj.si +
+                  " " +
+                  locationObj.gu +
+                  " " +
+                  locationObj.dong}
+            </ChallengeLocation>
+          </ProfileBox>
+        </Profile>
+        {/*  */}
+        <StyledTitleDiv>
+          <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
+        </StyledTitleDiv>
+      </StyledBox>
       <StyledCommentDiv>
         {commentList?.length > 0 ? (
           commentList?.map((el, idx) => (
@@ -244,14 +265,20 @@ const Profile = styled.div`
   flex-direction: row;
   align-items: center;
 `;
+const ToGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 const ProfileBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 10px 0 10px;
+  align-items: center;
+  margin: 0 10px 0;
 `;
 const ProfilePhoto = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 41px;
+  height: 41px;
   border-radius: 100%;
   object-fit: cover;
 `;
@@ -267,36 +294,25 @@ const ProfileName = styled.div`
 const ProfileRole = styled.div`
   font-size: 12px;
   line-height: 10px;
+  margin-left: 5px;
   color: gray;
 `;
 const Title = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-top: 15px;
-`;
-const ChallengeBox = styled.div`
-  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
+  .editButton{
+    font-size: 11px;
+  }
 `;
 
 const ChallengeName = styled.div`
-  font-size: 15px;
+  font-size: 14px;
   color: gray;
-  font-weight: bold;
 `;
-const ChallengeTitle = styled.div`
-  font-size: 1.3rem;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: white;
-  z-index: 10;
-  opacity: 1;
-  margin-left: 10px;
-`;
+
 const ChallengeLocation = styled.div`
   color: gray;
   font-size: 10px;
@@ -306,13 +322,18 @@ const ChallengeLocation = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-
+const InnerBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: start;
+  width: 100%;
+`;
 const ChallengePhoto = styled.img`
   object-fit: cover;
   width: 345px;
   height: 345px;
-  margin: 10px auto;
-  border: 1px solid #e8e8e8;
+  margin-bottom: 5px;
 `;
 
 const CommentBar = styled.div`
@@ -333,19 +354,27 @@ const CommentInput = styled.input`
     outline: none;
   }
 `;
+const StyledBox = styled.div`
+  width: 346px;
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 30px;
+`;
 const StyledTitleDiv = styled.div`
-  height: 40px;
   width: 345px;
-  margin: auto;
-  background-color: rgba(0, 0, 0, 0.5);
-  transform: translateY(-50px);
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-bottom: 3px;
+`;
+const ChallengeTitle = styled.div`
+  font-size: 0.8rem;
+  z-index: 10;
+  opacity: 1;
 `;
 const Crown = styled.img`
   position: absolute;
   height: 33px;
-  transform: translate(23px, -23px);
+  transform: translate(-4px, -25px);
 `;
 
 const StyledCommentDiv = styled.div`
