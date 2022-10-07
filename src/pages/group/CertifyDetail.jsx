@@ -37,6 +37,34 @@ const CertifyDetail = () => {
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
 
+  //const 필수?
+  async function getLocation( ) { 
+    return kakaoApi.get(
+      `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+    )
+    
+  } 
+  // .then 함수
+  function getLocation( ) {
+    return kakaoApi.get(
+      `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        const temp = res.data.documents[0];
+        setLocationObj({
+          temp: temp,
+          si: temp.region_1depth_name,
+          gu: temp.region_2depth_name,
+          dong: temp.region_3depth_name,
+        });
+      }
+    });
+    
+  }
+
+
+
   useEffect(() => {
     userApis
       .getGroupDetail(groupId)
