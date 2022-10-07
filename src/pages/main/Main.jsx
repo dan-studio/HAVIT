@@ -46,15 +46,15 @@ const Main = () => {
         setNullMsg(res.message);
         return;
       }
-      const getId = [...new Set(res.map((group) => group.groupId))];
+      const getId = [...new Set(res?.map((group) => group.groupId))];
       const countMember = {};
-      const getGroupId = res.map((member) => member.groupId);
+      const getGroupId = res?.map((member) => member.groupId);
       getGroupId.forEach(
         (members) => (countMember[members] = (countMember[members] || 0) + 1)
       );
       const arr = Object.entries(countMember);
       setCountMembers(arr);
-      getId.map((id) =>
+      getId?.map((id) =>
         getGroupDetail(id).then((res) => {
           setGroupList((prev) => [...prev, res.data]);
         })
