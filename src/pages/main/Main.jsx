@@ -17,6 +17,7 @@ const Main = () => {
   const [myGroupMembers, setMyGroupMembers] = useState([]);
   const [countMembers, setCountMembers] = useState([]);
   const [groupList, setGroupList] = useState([]);
+  const [myInfo, setMyInfo] = useState("");
   const [nullMsg, setNullMsg] = useState("");
   const [toggleGroup, setToggleGroup] = useState([]);
   useEffect(() => {
@@ -27,6 +28,14 @@ const Main = () => {
   }, []);
   const [crew, setCrew] = useState();
   useEffect(() => {
+    userApis
+      .myProfile()
+      .then((res) => {
+        setMyInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     getAllGroupList().then((res) => {
       setCrew(res.data);
     });
@@ -97,6 +106,7 @@ const Main = () => {
                 toggleGroup={toggleGroup}
                 setToggleGroup={setToggleGroup}
                 myGroupMembers={myGroupMembers}
+                myInfo={myInfo}
               />
             ))
           ) : (
