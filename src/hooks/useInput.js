@@ -15,7 +15,6 @@ const useInputs = (initialForm) => {
     }, []);
     // reset
     const reset = useCallback(() => setForm(initValue), [initValue]);
-
     // changeInitialValue
     const changeInitial=(changeValue) => {initValue = changeValue; setForm(initValue)}
     return [form, onChange, reset, changeInitial];

@@ -65,6 +65,15 @@ export const userApis = {
     const response = await authApi.get('/api/auth/certify/'+certifyId);
     return response.data;
   },
+  editCertifyDetail: async (certifyId, data) => {
+    const response = await authApi.patch('/api/auth/certify/'+certifyId, data);
+    console.log(response)
+    return response
+  },
+  deleteCertifyDetail: async (certifyId) => {
+    const response = await authApi.delete('/api/auth/certify/'+certifyId);
+    return response
+  },
 
    //comment
   writeComment: async (data) => {

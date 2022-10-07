@@ -13,6 +13,7 @@ const ChallengeGroupCard = ({
   myGroupMembers,
   groupId,
   groupList,
+  myInfo,
 }) => {
   const onClick = () => {
     if (toggleGroup === "") {
@@ -23,6 +24,7 @@ const ChallengeGroupCard = ({
       setToggleGroup("");
     }
   };
+  console.log(myGroupMembers);
   return (
     <>
       <Card onClick={onClick}>
@@ -44,7 +46,8 @@ const ChallengeGroupCard = ({
       {toggleGroup === groupId
         ? myGroupMembers?.map(
             (item, idx) =>
-              item.groupId === groupId && (
+              item.groupId === groupId &&
+              item.member.memberId !== myInfo?.memberId && (
                 <ChallengeCard key={idx} {...item.member} />
               )
           )
