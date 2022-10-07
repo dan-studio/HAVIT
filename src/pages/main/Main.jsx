@@ -7,8 +7,9 @@ import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { getAllGroupList } from "@apis/group/group";
-import { userApis } from "../../apis/auth";
+import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
+import { getGroupDetail } from "@apis/group/group";
 
 const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
@@ -54,7 +55,7 @@ const Main = () => {
       const arr = Object.entries(countMember);
       setCountMembers(arr);
       getId.map((id) =>
-        userApis.getGroupDetail(id).then((res) => {
+        getGroupDetail(id).then((res) => {
           setGroupList((prev) => [...prev, res.data]);
         })
       );

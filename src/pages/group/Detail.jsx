@@ -36,6 +36,8 @@ const GroupDetail = () => {
     getGroupDetail(groupId)
       .then((res) => {
         setDetail(res.data);
+      }).catch(err=>{
+        console.log(err)
       })
     getMyGroupList()
       .then((res) => {
