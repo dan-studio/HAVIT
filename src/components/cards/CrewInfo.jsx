@@ -1,53 +1,64 @@
-import styled, { css } from 'styled-components';
-import { FcBusinessman, FcAbout } from 'react-icons/fc';
-import { HiStar } from 'react-icons/hi';
-import { FORMAT_DATE } from '@utils/format/time';
+import styled, { css } from "styled-components";
+import { FcBusinessman, FcAbout } from "react-icons/fc";
+import { HiStar } from "react-icons/hi";
+import { FORMAT_DATE } from "@utils/format/time";
 // 컴포넌트
-import Tags from '../Tag';
-import { useNavigate } from 'react-router-dom';
-import { fileUrlHost } from '@apis/config';
-import moment from 'moment';
-import { Image } from 'antd';
-import { useEffect } from 'react';
-import { getGroupDetail } from '../../apis/group/group';
-import { useState } from 'react';
+import Tags from "../Tag";
+import { useNavigate } from "react-router-dom";
+import { fileUrlHost } from "@apis/config";
+import moment from "moment";
+import { Image } from "antd";
+import { useEffect } from "react";
+import { getGroupDetail } from "../../apis/group/group";
+import { useState } from "react";
 
-const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCount, memberList, imgUrl, groupTag, favorite, createdAt }) => {
+const CrewInfo = ({
+  type = "shadow",
+  groupId,
+  title,
+  memberCount,
+  memberList,
+  imgUrl,
+  groupTag,
+  favorite,
+  createdAt,
+  certifyList
+}) => {
   const navigate = useNavigate();
   const [detail, setDetail] = useState();
-  const createdDate = createdAt?.slice(2, 10).split('-');
+  const createdDate = createdAt?.slice(2, 10).split("-");
   const yyyy_mm_dd = () => {
     if (createdDate && createdDate.length > 0) {
-      return createdDate[0] + '년 ' + createdDate[1] + '월 ' + createdDate[2] + '일';
+      return (
+        createdDate[0] + "년 " + createdDate[1] + "월 " + createdDate[2] + "일"
+      );
     }
   };
-  useEffect(()=>{
-    getGroupDetail(groupId)
-      .then((res) => {
-        setDetail(res.data);
-      })
-  },[])
-  const certifyList = detail?.certifyList
   const routeHandler = () => {
-    navigate(`/group/${groupId}`, {state:'/group'});
+    navigate(`/group/${groupId}`, { state: "/group" });
   };
   return (
     <>
       <StyledCard type={type}>
-        <Image className='circleImage' src={fileUrlHost(imgUrl)} onClick={routeHandler} />
+        <Image
+          className="circleImage"
+          src={fileUrlHost(imgUrl)}
+          onClick={routeHandler}
+        />
         <StyledGroupInfo>
           <h2 onClick={routeHandler}>{title}</h2>
           <StyledDayInfo>
             <span>{yyyy_mm_dd()} 생성</span>
-            <StyledCycle color={'#5e43ff'} style={{ margin: '0 .5rem' }}>
+            <StyledCycle color={"#5e43ff"} style={{ margin: "0 .5rem" }}>
               매일
             </StyledCycle>
           </StyledDayInfo>
           <StyledPeople>
-            <FcBusinessman style={{ fontSize: '16px' }}/>
-            <StyledSpan style={{marginRight: "15px"}}>{memberList ? memberList.length : memberCount}명</StyledSpan>
-            <FcAbout/>
-            <StyledSpan>{certifyList && certifyList?.length +"개"}</StyledSpan>
+            <FcBusinessman style={{ fontSize: "16px" }} />
+            <StyledSpan style={{ marginRight: "15px" }}>
+              {memberList ? memberList.length : memberCount}명
+            </StyledSpan>
+           {certifyList &&  <><FcAbout /><StyledSpan>{certifyList?.length} 개</StyledSpan></>}
           </StyledPeople>
           <StyledTagDiv>
             {groupTag?.map((item, idx) => (
@@ -58,12 +69,12 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
         {favorite && (
           <HiStar
             style={{
-              color: '#ECA51B',
-              fontSize: '20px',
-              position: 'absolute',
-              zIndex: '10',
-              top: '10px',
-              right: '10px',
+              color: "#ECA51B",
+              fontSize: "20px",
+              position: "absolute",
+              zIndex: "10",
+              top: "10px",
+              right: "10px",
             }}
           />
         )}
@@ -92,13 +103,13 @@ const StyledCard = styled.div`
   }
   ${({ type }) => {
     switch (type) {
-      case 'shadow':
+      case "shadow":
         return ShadowCard;
-      case 'list':
+      case "list":
         return css`
           border-bottom: 0.5px solid #d9d9d9;
         `;
-      case 'detail':
+      case "detail":
         return Detail;
       default:
         return ShadowCard;
