@@ -9,6 +9,7 @@ import {  useDispatch } from 'react-redux';
 import { resetLayout, setLayout } from '@redux/layout';
 import useInputs from '@hooks/useInput';
 import { signin } from '@apis/auth/principal';
+import { RootDiv } from '../BasicLayout';
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const Signin = () => {
   const submmitHandler = ()=>{
     signin(form).then((res)=>{
       if(res.status == 200){
+        console.log(res);
+        if(res.data.nickname === undefined) return;
         alert(`${res.data.nickname}님 환영합니다!`);
         navigate("/");
       }

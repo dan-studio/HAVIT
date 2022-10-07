@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { resetLayout, setLayout } from "@redux/layout";
+import { resetLayout } from "@redux/layout";
 import UserProfile from "@components/UserProfile";
 import GroupCard from "@components/cards/GroupCard";
 import ChallengeCard from "@components/cards/ChallengeCard";
@@ -9,6 +9,7 @@ import ChallengeCard from "@components/cards/ChallengeCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { getAllGroupList } from "@apis/group/group";
+import { setLayout } from "../../redux/layout";
 
 const Main = () => {
   const principal = useSelector((state)=>state.auth.principal, shallowEqual);

@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "@assets/havitLogoPurple.png";
+
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
+import { RootDiv } from "../BasicLayout";
 
 const Guide = () => {
   const navigate = useNavigate();

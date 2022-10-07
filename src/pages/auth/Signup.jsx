@@ -6,6 +6,7 @@ import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { userApis } from "../../apis/auth";
+import { signin } from '@apis/auth/principal';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -42,8 +43,17 @@ const Signup = () => {
     userApis.signup(data)
     .then((res)=>{
       alert('회원가입이 완료되었어요 😉')
-      navigate('/signin')
-      console.log(res)
+      signin(res).then((p_res)=>{
+        if(p_res.status == 200){
+          if(p_res.data.nickname === undefined) return;
+          alert(`${p_res.data.nickname}님 환영합니다!`);
+          navigate("/");
+        }
+      }).catch((err)=>{
+        if(err){
+            alert(err)
+        } 
+      })
     }).catch((error)=>{
       if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
         alert(error.response.data.errorMsg.message)
@@ -196,7 +206,7 @@ const Signup = () => {
           top="87vh"
           background="white"
           onClick={() => {
-            navigate('/startpage');
+            navigate(-1);
           }}
         >
           뒤로가기
