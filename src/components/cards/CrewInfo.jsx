@@ -18,7 +18,7 @@ const CrewInfo = ({ data, type = 'shadow', groupId, title, startDate, memberCoun
     }
   };
   const routeHandler = () => {
-    navigate(`/group/${groupId}`);
+    navigate(`/group/${groupId}`, {state:'/group'});
   };
   return (
     <>
@@ -111,28 +111,18 @@ const ShadowCard = css`
   padding: 15px;
 `;
 
-const StyledGroupImg = styled.img`
-  width: 110px;
-  height: 110px;
-  margin-right: 20px;
-  border-radius: 100%;
-  overflow: hidden;
-  object-fit: cover;
-`;
-
 const StyledGroupInfo = styled.div`
   display: flex;
   flex-direction: column;
   & > h2 {
     width: 190px;
     word-break: nowrap;
-    white-space: nowrap;
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 1.125rem;
-    font-weight: 700;
-    line-height: 22px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 20px;
   }
 `;
 const StyledPeople = styled.div`
@@ -141,10 +131,11 @@ const StyledPeople = styled.div`
 `;
 const StyledSpan = styled.span`
   display: flex;
-  align-item: center;
+  align-items: center;
   font-size: 12px;
   font-weight: bold;
   margin-left: 0.25rem;
+  margin: 5px;
 `;
 const StyledDayInfo = styled.div`
   display: flex;

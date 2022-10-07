@@ -5,6 +5,7 @@ import { userApis } from "../../apis/auth";
 import CommentDetail from "./CommentDetail";
 import { fileUrlHost } from "../../apis/config";
 import { Modal } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 const Comment = ({
   authId,
@@ -16,7 +17,7 @@ const Comment = ({
   content,
   memberId,
   subCommentList,
-  setCertifyDetail
+  setCertifyDetail,
 }) => {
   const ModalDelete = () => {
     Modal.confirm({
@@ -30,55 +31,63 @@ const Comment = ({
       cancelText: "취소",
       onOk: () => {
         userApis
-        .deleteComment(commentId)
-        .then((res) => {
-          console.log(res);
-          setCertifyDetail((prev)=>{
-            return{
-              ...prev,
-              commentList: prev.commentList.filter(comment=>comment.commentId!==commentId)
-            }
+          .deleteComment(commentId)
+          .then((res) => {
+            console.log(res);
+            setCertifyDetail((prev) => {
+              return {
+                ...prev,
+                commentList: prev.commentList.filter(
+                  (comment) => comment.commentId !== commentId
+                ),
+              };
+            });
           })
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .catch((err) => {
+            console.log(err);
+          });
       },
     });
   };
   return (
-          <StyledDiv>
-            <StyledProfileImg src={fileUrlHost(profileImageId)} />
-            <StyledCommentBox>
-              <StyledName>
-                <div className="name">{nickname}</div>
-                <div className="date">{dateTime}</div>
-              </StyledName>
-              <StyledContent>{content}</StyledContent>
-              <StyledOptions>
-                <div
-                  onClick={() => {
-                    subComment(nickname, commentId);
-                  }}
-                >
-                  답글쓰기
-                </div>
-                {authId === memberId && (
-                  <div
-                    onClick={ModalDelete}
-                  >
-                    삭제하기
-                  </div>
-                )}
-              </StyledOptions>
-              <StyledSubCommentBox>
-                {subCommentList &&
-                  subCommentList?.map((el, idx) => (
-                    <CommentDetail key={idx} {...el} authId={authId} commentId={commentId} setCertifyDetail={setCertifyDetail}/>
-                  ))}
-              </StyledSubCommentBox>
-            </StyledCommentBox>
-          </StyledDiv>
+    <StyledDiv>
+      {profileImageId ? (
+        <StyledProfileImg src={fileUrlHost(profileImageId)} />
+      ) : (
+        <StyledProfileDiv>
+          <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+        </StyledProfileDiv>
+      )}
+      <StyledCommentBox>
+        <StyledName>
+          <div className="name">{nickname}</div>
+          <div className="date">{dateTime}</div>
+        </StyledName>
+        <StyledContent>{content}</StyledContent>
+        <StyledOptions>
+          <div
+            onClick={() => {
+              subComment(nickname, commentId);
+            }}
+          >
+            답글쓰기
+          </div>
+          {authId === memberId && <div onClick={ModalDelete}>삭제하기</div>}
+        </StyledOptions>
+        <StyledSubCommentBox>
+          {subCommentList &&
+            subCommentList?.map((el, idx) => (
+              <CommentDetail
+                key={idx}
+                {...el}
+                authId={authId}
+                commentId={commentId}
+                setCertifyDetail={setCertifyDetail}
+              />
+            ))}
+        </StyledSubCommentBox>
+      </StyledCommentBox>
+    </StyledDiv>
   );
 };
 
@@ -90,8 +99,8 @@ const StyledDiv = styled.div`
   margin-bottom: 10px;
 `;
 const StyledProfileImg = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin: 5px 0;
   object-fit: cover;
@@ -129,4 +138,15 @@ const StyledOptions = styled.div`
   }
 `;
 const StyledSubCommentBox = styled.div`
-margin-top: 9px`;
+  margin-top: 9px;
+`;
+const StyledProfileDiv = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
+`;

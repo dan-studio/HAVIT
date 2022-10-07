@@ -39,7 +39,7 @@ const GroupEdit = () => {
           .then((res) => {
             if (res.status === 200) {
               alert("그룹 수정이 완료되었습니다.");
-              navigate(`/group/${res.data.groupId}`);
+              navigate(`/group/${res.data.groupId}`, {state:'/group'});
             }
           })
           .catch((err) => {

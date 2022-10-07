@@ -40,16 +40,14 @@ const Signup = () => {
     }
     userApis.signup(data)
     .then((res)=>{
+      console.log(res)
+      if(res.code==="DUPLICATE_EMAIL"){
+        return alert(res.message)
+      }
       alert('회원가입이 완료되었어요 😉')
       navigate('/auth/signin')
-      console.log(res)
     }).catch((error)=>{
-      if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
-        alert(error.response.data.errorMsg.message)
-      }
-      if(error.response.data.errorMsg.code==="INVALID_EMAIL"){
-        alert(error.response.data.errorMsg.message)
-      }
+      console.log(error)
     })
   };
 

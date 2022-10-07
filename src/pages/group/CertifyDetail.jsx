@@ -37,31 +37,63 @@ const CertifyDetail = () => {
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
 
-  //const 필수?
-  async function getLocation( ) { 
-    return kakaoApi.get(
-      `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
-    )
+
+  // async function getLocation( ) { 
+  //   // return kakaoApi.get(
+  //   //   `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+  //   // )
+  //   const res = await kakaoApi.get(
+  //     `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+  //   )
+  //   if (res.status === 200) {      
+  //     const temp = res.data.documents[0];
+  //     setLocationObj({
+  //       temp: temp,
+  //       si: temp.region_1depth_name,
+  //       gu: temp.region_2depth_name,
+  //       dong: temp.region_3depth_name,
+  //     });
+  //   }
+  // }
+  // async function getLocation( ) {
+  //   // kakaoApi.get(
+  //   //   `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+  //   // ) 
+  //   const res = await kakaoApi.get(
+  //     `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+  //   )
+  //   .then
+  //   if (res.status === 200) {      
+  //     const temp = res.data.documents[0];
+  //     setLocationObj({
+  //       temp: temp,
+  //       si: temp.region_1depth_name,
+  //       gu: temp.region_2depth_name,
+  //       dong: temp.region_3depth_name,
+  //     });
+  //     console.log(res)
+  //     return (console.log('sucess'))
+  //   }
+  // }  
+
+  // // .then 사용한 함수
+  // function getLocationThen( ) {
+  //   return kakaoApi.get(
+  //     `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+  //   )
+  //   .then((res) => {
+  //     if (res.status === 200) {
+  //       const temp = res.data.documents[0];
+  //       setLocationObj({
+  //         temp: temp,
+  //         si: temp.region_1depth_name,
+  //         gu: temp.region_2depth_name,
+  //         dong: temp.region_3depth_name,
+  //       });
+  //     }
+  //   });
     
-  } 
-  // .then 함수
-  function getLocation( ) {
-    return kakaoApi.get(
-      `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        const temp = res.data.documents[0];
-        setLocationObj({
-          temp: temp,
-          si: temp.region_1depth_name,
-          gu: temp.region_2depth_name,
-          dong: temp.region_3depth_name,
-        });
-      }
-    });
-    
-  }
+  // }
 
 
 
@@ -88,23 +120,50 @@ const CertifyDetail = () => {
         latitude: res.latitude,
         longitude: res.longitude,
       });
-      kakaoApi
-        .get(
+
+      async function getLocation( data) {
+        kakaoApi.get(
           `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
         )
-        .then((res) => {
-          if (res.status === 200) {
-            const temp = res.data.documents[0];
-            setLocationObj({
-              temp: temp,
-              si: temp.region_1depth_name,
-              gu: temp.region_2depth_name,
-              dong: temp.region_3depth_name,
-            });
-          }
-        }); 
+        if (res.status === 200) {      
+          const temp = await res.data.documents[0];
+          setLocationObj({
+            temp: temp,
+            si: temp.region_1depth_name,
+            gu: temp.region_2depth_name,
+            dong: temp.region_3depth_name,
+          });
+          console.log(res)
+          // return (console.log('sucess'))
+        }
+        // return data
+        return (console.log('sucess'))
+      }
+      getLocation()
+      .catch(alert);
+
+
+      // kakaoApi
+      //   .get(
+      //     `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res.longitude}&y=${res.latitude}`
+      //   )
+      //   .then((res) => {
+      //     if (res.status === 200) {
+      //       const temp = res.data.documents[0];
+      //       setLocationObj({
+      //         temp: temp,
+      //         si: temp.region_1depth_name,
+      //         gu: temp.region_2depth_name,
+      //         dong: temp.region_3depth_name,
+      //       });
+      //     }
+      //   }); 
+
     });
   }, []);
+  // getLocation()
+  // .catch(alert);
+
 
   const addComment = (commentId) => {
     const commentMsg = {
@@ -115,11 +174,13 @@ const CertifyDetail = () => {
       commentId: commentId,
       content: comment,
     };
+    if(comment==="")
+    return
     if (commentId && comment) {
       userApis
         .writeSubComment(subCommentMsg)
         .then((res) => {
-          console.log(res);
+          console.log(certifyDetail);
           setCertifyDetail((prev) => {
             return {
               ...prev,
@@ -127,7 +188,7 @@ const CertifyDetail = () => {
                 comment.commentId === commentId
                   ? {
                       ...comment,
-                      subCommentList: [...comment.subCommentList, res.data],
+                      subCommentList: [...comment?.subCommentList, res.data],
                     }
                   : comment
               ),
@@ -147,7 +208,7 @@ const CertifyDetail = () => {
         setCertifyDetail((prev) => {
           return {
             ...prev,
-            commentList: [...prev.commentList, res.data],
+            commentList: [...prev.commentList, {...res.data, subCommentList:[]}],
           };
         });
         setComment("");
@@ -162,11 +223,9 @@ const CertifyDetail = () => {
     setComment(subCommentTo);
     setCommentId(commentId);
   };
-  console.log(certifyDetail)
 
   const leader = groupDetail?.writer;
   const imageId = certifyDetail?.profileImageId;
-  console.log(certifyDetail)
   return (
     <BoardBox>
       <Profile>

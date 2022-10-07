@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { userApis } from "../../apis/auth";
 import { fileUrlHost } from "../../apis/config";
 import { Modal } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 const CommentDetail = ({
   subCommentId,
@@ -57,7 +58,13 @@ const CommentDetail = ({
   return (
     <>
       <StyledDiv>
-        <StyledProfileImg src={fileUrlHost(profileImageId)} />
+        {profileImageId ? (
+          <StyledProfileImg src={fileUrlHost(profileImageId)} />
+        ) : (
+          <StyledProfileDiv>
+            <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+          </StyledProfileDiv>
+        )}
         <StyledCommentBox>
           <StyledName>
             <div className="name">{nickname}</div>
@@ -81,8 +88,8 @@ const StyledDiv = styled.div`
   margin-bottom: 10px;
 `;
 const StyledProfileImg = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin: 5px 0;
   object-fit: cover;
@@ -118,4 +125,14 @@ const StyledOptions = styled.div`
   div {
     margin-right: 7px;
   }
+`;
+const StyledProfileDiv = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
 `;

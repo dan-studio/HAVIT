@@ -2,28 +2,54 @@ import styled from "styled-components";
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "../../apis/config";
-import {IoIosNotificationsOutline} from "react-icons/io"
-const ChallengeGroupCard = ({memberId, nickname, imageId, modifiedAt}) => {
-
-  const lastChallenged = modifiedAt.slice(0, 16)
-
+import { RiArrowDropDownLine } from "react-icons/ri";
+import ChallengeCard from "./ChallengeCard";
+const ChallengeGroupCard = ({
+  title,
+  imageId,
+  countMembers,
+  setToggleGroup,
+  toggleGroup,
+  myGroupMembers,
+  groupId,
+  groupList,
+}) => {
+  const onClick = () => {
+    if (toggleGroup === "") {
+      setToggleGroup(groupId);
+    } else if (toggleGroup !== groupId) {
+      setToggleGroup(groupId);
+    } else {
+      setToggleGroup("");
+    }
+  };
   return (
-    <Card>
-      <MemberDiv>
-        {imageId ? (
-        <MemberImg src={fileUrlHost(imageId)} alt="" />
-      ) : (
-        <StyledProfileDiv>
-          <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
-        </StyledProfileDiv>
-      )}
-        <MemberHour>{lastChallenged}</MemberHour>
-        <FriendName>{nickname}</FriendName>
-      </MemberDiv>
-      <BellDiv>
-        <IoIosNotificationsOutline color="#5e43ff" size="20" />
-      </BellDiv>
-    </Card>
+    <>
+      <Card onClick={onClick}>
+        <CrewDiv>
+          {imageId ? (
+            <CrewImg src={fileUrlHost(imageId)} alt="" />
+          ) : (
+            <StyledProfileDiv>
+              <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+            </StyledProfileDiv>
+          )}
+          <CrewTitle>{title}</CrewTitle>
+          <FriendName>{}</FriendName>
+        </CrewDiv>
+        <BellDiv>
+          <RiArrowDropDownLine color="#5e43ff" size="20" />
+        </BellDiv>
+      </Card>
+      {toggleGroup === groupId
+        ? myGroupMembers?.map(
+            (item, idx) =>
+              item.groupId === groupId && (
+                <ChallengeCard key={idx} {...item.member} />
+              )
+          )
+        : null}
+    </>
   );
 };
 const Card = styled.div`
@@ -36,10 +62,9 @@ const Card = styled.div`
   border-radius: 10px;
   height: 6vh;
 `;
-const MemberImg = styled.img`
+const CrewImg = styled.img`
   height: 40px;
   width: 40px;
-  border-radius: 50%;
   margin-left: 10px;
   object-fit: cover;
 `;
@@ -53,9 +78,8 @@ const StyledProfileDiv = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const MemberHour = styled.div`
-  font-size: 12px;
-  color: gray;
+const CrewTitle = styled.div`
+  font-size: 14px;
   margin: 0 10px;
 `;
 
@@ -63,7 +87,7 @@ const FriendName = styled.div`
   font-weight: 600;
 `;
 
-const MemberDiv = styled.div`
+const CrewDiv = styled.div`
   display: flex;
   align-items: center;
 `;
