@@ -57,7 +57,7 @@ const Mypage = () => {
             />
         </div>
         {group.code==="PARTICIPATION_NOT_FOUND"?null:group?.map((item, idx) => (
-          <CrewInfo imgUrl={item?.imageId} {...item} key={idx} />
+          <CrewInfo {...item} key={idx} />
         ))}
 
       </StyledCrews>

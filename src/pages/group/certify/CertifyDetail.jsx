@@ -97,7 +97,6 @@ const CertifyDetail = () => {
       userApis
         .writeSubComment(subCommentMsg)
         .then((res) => {
-          console.log(certifyDetail);
           setCertifyDetail((prev) => {
             return {
               ...prev,
@@ -121,7 +120,6 @@ const CertifyDetail = () => {
     userApis
       .writeComment(commentMsg)
       .then((res) => {
-        console.log(res);
         setCertifyDetail((prev) => {
           return {
             ...prev,

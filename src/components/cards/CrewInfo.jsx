@@ -18,7 +18,7 @@ const CrewInfo = ({
   title,
   memberCount,
   memberList,
-  imgUrl,
+  imageId,
   groupTag,
   favorite,
   createdAt,
@@ -42,7 +42,7 @@ const CrewInfo = ({
       <StyledCard type={type}>
         <Image
           className="circleImage"
-          src={fileUrlHost(imgUrl)}
+          src={fileUrlHost(imageId)}
           onClick={routeHandler}
         />
         <StyledGroupInfo>

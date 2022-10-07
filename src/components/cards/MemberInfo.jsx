@@ -6,7 +6,7 @@ import crown from "@assets/leader.png";
 const MemberInfo = ({ width, height, nickname, imageId, roleName, leader }) => {
   return (
     <Container width={width} height={height}>
-      {imageId ? (
+      {imageId&&imageId ? (
         <StyledProfileImg alt="" src={fileUrlHost(imageId)}></StyledProfileImg>
       ) : (
         <StyledProfileDiv>

@@ -66,7 +66,7 @@ const Group = () => {
         </StyledAddGroupContainer>
       </Row>
       {crew?.map((item, idx) => (
-        <CrewInfo type="list" imgUrl={item?.imageId} {...item} key={idx} />
+        <CrewInfo type="list" {...item} key={idx} />
       ))}
       <StyledBox>
         더이상 그룹이 없어요.
