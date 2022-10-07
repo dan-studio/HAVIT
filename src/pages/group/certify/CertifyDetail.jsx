@@ -14,6 +14,7 @@ import Comment from "../../../components/comment/Comment";
 import crown from "@assets/leader.png";
 import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
+import { getGroupDetail } from "@apis/group/group";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -38,8 +39,7 @@ const CertifyDetail = () => {
   const [coordinate, setCoordinate] = useState({});
 
   useEffect(() => {
-    userApis
-      .getGroupDetail(groupId)
+      getGroupDetail(groupId)
       .then((res) => {
         setGroupDetail(res.data);
       })
@@ -356,7 +356,7 @@ const CommentInput = styled.input`
 `;
 const StyledBox = styled.div`
   width: 346px;
-  border-bottom: 1px solid #d4d4d4;
+  border-bottom: 1px solid #e9e9e9;
   margin-bottom: 30px;
 `;
 const StyledTitleDiv = styled.div`
