@@ -1,27 +1,34 @@
 import styled from "styled-components";
 import React from "react";
 import { FaStarHalfAlt } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
+import { HiUserCircle } from "react-icons/hi";
 import { BsTrophy } from "react-icons/bs";
 import {
   UserOutlined
 } from '@ant-design/icons';
 import { fileUrlHost } from "../apis/config";
+import { useNavigate } from "react-router-dom";
 // import { getRandom } from "../utils/math";
 
 const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
   // const randomNum = getRandom(1, 12);
   // console.log(randomNum);
+  const navigate = useNavigate()
+
+  const toMyPage = () => {
+    navigate('/mypage')
+  }
+
   return (
     <div>
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            {!!myInfo?.imageId ? (<StyleUserPhoto alt='profile' src = {fileUrlHost(myInfo.imageId)}></StyleUserPhoto>) 
-            : (<StyleUserNonePhoto><UserOutlined /></StyleUserNonePhoto>)}
+            {!!myInfo?.imageId ? (<StyleUserPhoto alt='profile' src = {fileUrlHost(myInfo.imageId)} onClick={toMyPage}></StyleUserPhoto>) 
+            : (<StyleUserNonePhoto onClick={toMyPage}><UserOutlined /></StyleUserNonePhoto>)}
           </StyleUserRight>
           <StyleUserLeft>
-            <StyleUserName>
+            <StyleUserName onClick={toMyPage}>
               <span>{myInfo?.nickname}</span> 님
             </StyleUserName>
             <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
@@ -31,9 +38,9 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
               <BsTrophy /> 첫 완수
             </StyleAchievements>
           </StyleUserLeft>
-          <StyleAlert>
-            <FaUserEdit />
-          </StyleAlert>
+          <StyleUser>
+            <HiUserCircle onClick={()=>{navigate('/mypage/edit')}}/>
+          </StyleUser>
         </StyleUserBox>
       </StyleProfile>
     </div>
@@ -66,6 +73,7 @@ const StyleUserPhoto = styled.img`
   margin: 0 20px 0 0;
   border-radius:100%;
   border:1px solid lightgray;
+  object-fit: cover;
 `;
 
 const StyleUserNonePhoto = styled.div`
@@ -111,10 +119,11 @@ const StyleUserContent = styled.div`
 const StyleAchievements = styled.div`
   font-size: 10px;
 `;
-const StyleAlert = styled.div`
-font-size: 18px;
+const StyleUser = styled.div`
+font-size: 22px;
   position: relative;
-  color: #d2d2d2;
+  color: #5e43ff;
+  cursor: pointer;
 `;
 // const StyleAlertSign = styled.div`
 //   position: absolute;

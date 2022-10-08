@@ -14,7 +14,7 @@ const childRenderer = (page) => {
   };
   if (page.screen) {
     const Elem = page.screen;
-    args.element = <RootDiv key={page.path}>< Elem /></RootDiv>;
+    args.element = <RootDiv key={page?.path | 0}>< Elem /></RootDiv>;
   }
   return <Route key={page.path} {...args} />;
 };
@@ -32,7 +32,7 @@ const BasicLayout = ({ childrens, loading }) => {
       if(!principal){
         if(location.pathname.substring(0,5)!=="/auth"){
           naviate("/auth");
-        } 
+        }
       }
     })
   },[location.pathname, dispatch, naviate])

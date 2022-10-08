@@ -1,40 +1,63 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import PrimaryButton from "@components/button/PrimaryButton";
 import SubButton from "@components/button/SubButton";
 import Uploader from "@components/input/Uploader";
 import { IoLocationOutline } from "react-icons/io5";
-import styles from "./group_post.module.less";
+import styles from "../group_post.module.less";
 import KakaoMap from "@components/kakao/Map";
 import { AddressSerachPopup } from "@components/kakao/AddressSearch";
 import { Collapse, Modal } from "antd";
 import useInputs from "@hooks/useInput";
 import { createCertify } from "@apis/group/certify";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-const Write = () => {
+import { userApis } from "@apis/auth";
+import { useState } from "react";
+
+const CertifyEdit = () => {
   const navigate = useNavigate();
+  const [myInfo, setMyInfo] = useState("");
+  const [certifyDetail, setCertifyDetail] = useState([]);
   const { groupId } = useParams();
+  const { certifyId } = useParams();
   const [form, onChange, reset] = useInputs({
     groupId: groupId,
-    longitude: null,
-    latitude: null,
-    title: "",
-    imageId: null,
+    imageId: certifyDetail.imageId,
+    latitude: certifyDetail.latitude,
+    longitude: certifyDetail.longitude,
+    title: certifyDetail.title,
   });
+  useEffect(() => {
+    userApis.getCertifyDetail(certifyId).then((res) => {
+      setCertifyDetail(res);
+    });
+    userApis
+      .myProfile()
+      .then((res) => {
+        setMyInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const [pos, setPos] = React.useState({ lat: 0, lng: 0 });
   const onComplete = () => {
     Modal.confirm({
       title: "확인",
-      content: <div>게시물을 생성 하시겠습니까?</div>,
+      content: <div>게시물을 수정 하시겠습니까?</div>,
       okText: "확인",
       cancelText: "취소",
       onOk: () => {
-        createCertify(form)
+        userApis
+          .editCertifyDetail(certifyId, form)
           .then((res) => {
             if (res.status === 200) {
-              alert("게시물 생성이 완료되었습니다.");
-              navigate('/group/'+groupId+"/"+res.data.certifyId, {state: '/group/'+groupId})
+              alert("게시물 수정이 완료되었습니다.");
+              navigate("/group/" + groupId + "/" + res.data.certifyId, {
+                state: "/group/" + groupId,
+              });
             }
           })
           .catch((err) => {
@@ -44,6 +67,20 @@ const Write = () => {
       },
     });
   };
+  const ModaDelete = ()=>{
+    Modal.confirm({
+        title:"안내",
+        content:<div>정말 삭제하시겠습니까?</div>,
+        okText:"확인",
+        cancelText:"취소",
+        onOk:()=>{
+          userApis.deleteCertifyDetail(certifyId).then(res=>{
+            alert("게시물 삭제가 완료되었습니다.");
+            navigate('/group/'+groupId, {state: "/group"})
+          })
+        },
+    })
+}
   return (
     <div>
       <WriteBox>
@@ -109,13 +146,16 @@ const Write = () => {
             </Collapse.Panel>
           </Collapse>
         </div>
+      {myInfo?.memberId === certifyDetail?.memberId && <DeleteButton onClick={ModaDelete}>게시글 삭제하기</DeleteButton>}
         <WriteBtn style={{ marginTop: "5.625rem" }}>
           <PrimaryButton buttonName={"등록"} onClick={onComplete} />
-          <SubButton buttonName={"초기화"} onClick={reset} />
+          <SubButton buttonName={"불러오기"} onClick={reset} />
           <SubButton
             buttonName={"뒤로가기"}
             onClick={() => {
-              navigate("/group/" + groupId, { state: "/group" });
+              navigate("/group/" + groupId + "/" + certifyId, {
+                state: "/group",
+              });
             }}
           />
         </WriteBtn>
@@ -163,4 +203,7 @@ const WriteBtn = styled.div`
   padding-bottom: 3rem;
 `;
 
-export default Write;
+const DeleteButton = styled.div`
+  font-size: 11px;
+`
+export default React.memo(CertifyEdit);

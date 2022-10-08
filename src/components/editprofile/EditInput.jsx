@@ -10,7 +10,7 @@ const EditInput = ({ inputLabel,name, type, value, onChange, disabled , placehol
         {inputLabel}
       </label>
 
-      <input type={type} name={name} value={value} onChange={onChange} required disabled={disabled} placeholder={placeholder}></input>
+      <input type={type} name={name} defaultValue={value} onChange={onChange} required disabled={disabled} placeholder={placeholder}></input>
     </StyleWrap>
   );
 };

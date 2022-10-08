@@ -6,18 +6,17 @@ import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
-  const invert = useSelector(state => state.layout);
+  const layout = useSelector(state => state.layout);
   const navigate = useNavigate();
   const [showSearchForm, setShowSearchForm] = useState(false);
 
   const onClickLogo = ()=>{
     navigate('/');
-
   }
   return (
     <>
-      <Container id='header' invert={invert.isInvert}>
-        {invert.isInvert ? (
+      <Container id='header' invert={layout.isInvert} smallType={layout.smallType}>
+        {layout.isInvert ? (
           <StyledInvertedLogo
             alt='logo'
             src={require('@assets/HavitWhite.png')}
@@ -31,15 +30,14 @@ const Header = () => {
           />
         )}
 
-        <Icons invert={invert.isInvert}>
+        <Icons invert={layout.isInvert}>
             {/* NOTE SEARCH 부분 */}
             <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
             <FiSettings
               onClick={() => {
-                navigate('mypage/edit');
+                navigate('setting');
               }}
             />
-            <AlertSign></AlertSign>
         </Icons>
         {!!showSearchForm ? <Search onClose={(e)=>{setShowSearchForm(!e)}} /> : <></>}
       </Container>
@@ -54,7 +52,7 @@ const Container = styled.div`
   height: auto;
   display: flex;
   align-items: center;
-  padding: 55px 20px 40px 20px;
+  padding: ${props=>(props.smallType?'55px 20px 0px 20px':'55px 20px 40px 20px')};
   justify-content: space-between;
 `;
 const Icons = styled.div`
@@ -75,16 +73,5 @@ const StyledInvertedLogo = styled.img`
   width: 120px;
   cursor: pointer;
 `;
-const Setting = styled.div`
-  position: relative;
-`;
-const AlertSign = styled.div`
-  position: absolute;
-  top: 3px;
-  right: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: red;
-`;
+
 export default Header;

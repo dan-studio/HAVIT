@@ -43,17 +43,7 @@ const Signup = () => {
     userApis.signup(data)
     .then((res)=>{
       alert('회원가입이 완료되었어요 😉')
-      signin(res).then((p_res)=>{
-        if(p_res.status == 200){
-          if(p_res.data.nickname === undefined) return;
-          alert(`${p_res.data.nickname}님 환영합니다!`);
-          navigate("/");
-        }
-      }).catch((err)=>{
-        if(err){
-            alert(err)
-        } 
-      })
+  
     }).catch((error)=>{
       if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
         alert(error.response.data.errorMsg.message)
