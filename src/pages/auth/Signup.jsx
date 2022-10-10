@@ -45,10 +45,10 @@ const Signup = () => {
       alert('회원가입이 완료되었어요 😉')
   
     }).catch((error)=>{
-      if(error.response.data.errorMsg.code==="DUPLICATE_EMAIL"){
+      if(error.response.data?.errorMsg.code==="DUPLICATE_EMAIL"){
         alert(error.response.data.errorMsg.message)
       }
-      if(error.response.data.errorMsg.code==="INVALID_EMAIL"){
+      if(error.response.data?.errorMsg.code==="INVALID_EMAIL"){
         alert(error.response.data.errorMsg.message)
       }
     })

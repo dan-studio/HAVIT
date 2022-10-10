@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { resetLayout,setLayout } from "@redux/layout";
+import { resetLayout, setLayout } from "@redux/layout";
 import UserProfile from "@components/UserProfile";
 import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
@@ -27,7 +27,7 @@ const Main = () => {
       dispatch(resetLayout());
     };
   }, []);
-  const [crew, setCrew] = useState([]);
+  const [crew, setCrew] = useState();
   useEffect(() => {
     userApis
       .myProfile()
@@ -42,12 +42,11 @@ const Main = () => {
     });
     userApis.getMyMembers().then((res) => {
       setMyGroupMembers(res);
-      console.log(res);
       if (res.code === "PARTICIPATION_NOT_FOUND") {
         setNullMsg(res.message);
         return;
       }
-      const getId = res?.map((group) => group?.groupId);
+      const getId = [...new Set(res?.map((group) => group.groupId))];
       const countMember = {};
       const getGroupId = res?.map((member) => member.groupId);
       getGroupId.forEach(
@@ -62,7 +61,7 @@ const Main = () => {
       );
     });
   }, []);
-  useEffect(() => {});
+
   return (
     <div
       style={{

@@ -15,6 +15,7 @@ import crown from "@assets/leader.png";
 import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
 import { getGroupDetail } from "@apis/group/group";
+import { Image } from "antd";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -168,7 +169,10 @@ const CertifyDetail = () => {
         )}
       </Title>
       <StyledBox>
-        <ChallengePhoto src={fileUrlHost(certifyDetail.imageId)} />
+        <Image style={{"objectFit": "cover",
+  "width": "345px",
+  "height": "345px",
+  "marginbottom": "5px"}} src={fileUrlHost(certifyDetail.imageId)} />
         <Profile>
           {imageId ? (
             <ProfilePhoto

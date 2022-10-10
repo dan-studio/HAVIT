@@ -14,6 +14,8 @@ import MyPwEditor from "@pages/main/MyPwEditor";
 import CertifyDetail from "@pages/group/certify/CertifyDetail";
 import CoordinateConvert from "../components/kakao/CoordinateConvert";
 import CertifyEdit from "../pages/group/certify/CertifyEdit";
+import Notice from "../pages/notice/Notice";
+import NoticeDetail from "../pages/notice/NoticeDetail";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
@@ -91,6 +93,20 @@ const pages = [
     title: "환경설정",
     icon: "",
     screen: Setting,
+    child: [
+      {
+        path:"/notice",
+        title: "공지사항",
+        screen: Notice,
+        child: [
+          {
+            path:'/:noticeId',
+            title:'공지 상세',
+            screen: NoticeDetail
+          }
+        ]
+      }
+    ]
   },
   {
     path: "/mypage", // mypage
