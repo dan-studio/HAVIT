@@ -28,7 +28,6 @@ const Signin = () => {
 
   const submmitHandler = ()=>{
     signin(form).then((res)=>{
-      console.log(res)
       if(res.data.code==="MEMBER_NOT_FOUND"){
         alert("사용자를 찾을 수 없습니다.")
         return
