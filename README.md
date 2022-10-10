@@ -1,4 +1,5 @@
-![Group 243](https://user-images.githubusercontent.com/78805018/191909321-d5fa54c3-aa03-4313-8898-0c5d6dd83600.png)
+![ogimage](https://user-images.githubusercontent.com/78805018/194903263-a0138998-d0e9-4ce2-a885-47356356fd28.jpeg)
+
 # 📢 프로젝트 소개
 ## **‘HAVIT’이란?** 
 ### 습관을 의미하는 영단어 Habit과 가지다를 의미하는 Have it을 합쳐 “습관을 들이다”라는 의미를 함축한 프로젝트명이며, 
