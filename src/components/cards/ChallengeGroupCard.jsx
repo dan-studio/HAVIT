@@ -7,7 +7,6 @@ import ChallengeCard from "./ChallengeCard";
 const ChallengeGroupCard = ({
   title,
   imageId,
-  countMembers,
   setToggleGroup,
   toggleGroup,
   myGroupMembers,
