@@ -52,6 +52,27 @@ const Setting = () => {
           </div>
           <ToggleSwitch id={"setDarkmode"} />
         </StyleSettingForm>
+        <StyleSettingForm>
+          <div onClick={()=>{navigate('notice')}}>
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              공지사항
+            </h3>
+          </div>
+        </StyleSettingForm>
+        <StyleSettingForm>
+          <div>
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              버전
+            </h3>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>
+              1.0.0
+            </span>
+          </div>
+        </StyleSettingForm>
         <StyleSettingForm  style={{
             position: "absolute",
             display: "flex",

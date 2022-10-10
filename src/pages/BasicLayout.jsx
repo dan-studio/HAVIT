@@ -14,7 +14,7 @@ const childRenderer = (page) => {
   };
   if (page.screen) {
     const Elem = page.screen;
-    args.element = <RootDiv key={page?.path | 0}>< Elem /></RootDiv>;
+    args.element = <RootDiv myKey={page?.path | 0}>< Elem /></RootDiv>;
   }
   return <Route key={page.path} {...args} />;
 };
@@ -25,7 +25,6 @@ const BasicLayout = ({ childrens, loading }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const layout = useSelector((state) => state.layout, shallowEqual);
-  console.log(layout);
   React.useEffect(()=>{
     dispatch(me()).then((result)=>{
       const principal = result.payload?.principal;
@@ -66,10 +65,10 @@ const Cover = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const RootDiv =({key,children})=>{
+export const RootDiv =({myKey,children})=>{
   return (
     <motion.div
-        key={key}
+        key={myKey}
         initial={{x:-100, opacity:0}}
         animate={{x:0,opacity:1}}
         exit={{x:100,opacity:0}}
