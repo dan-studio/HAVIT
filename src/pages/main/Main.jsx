@@ -16,7 +16,6 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
-  const [countMembers, setCountMembers] = useState([]);
   const [groupList, setGroupList] = useState([]);
   const [myInfo, setMyInfo] = useState("");
   const [nullMsg, setNullMsg] = useState("");
@@ -46,15 +45,8 @@ const Main = () => {
         setNullMsg(res.message);
         return;
       }
-      const getId = [...new Set(res?.map((group) => group.groupId))];
-      const countMember = {};
-      const getGroupId = res?.map((member) => member.groupId);
-      getGroupId.forEach(
-        (members) => (countMember[members] = (countMember[members] || 0) + 1)
-      );
-      const arr = Object.entries(countMember);
-      setCountMembers(arr);
-      getId?.map((id) =>
+      const getId = [...new Set(res.map((group) => group.groupId))];
+      getId.map((id) =>
         getGroupDetail(id).then((res) => {
           setGroupList((prev) => [...prev, res.data]);
         })
@@ -104,7 +96,6 @@ const Main = () => {
                 key={idx}
                 groupList={groupList}
                 {...group}
-                countMembers={countMembers}
                 toggleGroup={toggleGroup}
                 setToggleGroup={setToggleGroup}
                 myGroupMembers={myGroupMembers}
