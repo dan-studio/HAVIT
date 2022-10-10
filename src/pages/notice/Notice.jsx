@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import GoBackButton from "../../components/button/GoBackButton";
 import { noticedata } from "./notice-data";
 
 
@@ -8,6 +9,7 @@ const Notice = () => {
   const navigate = useNavigate();
   return (
     <>
+    <GoBackButton title={"환경설정"} to={"/setting"}/>
       <h2
         style={{
           fontWeight: "700",

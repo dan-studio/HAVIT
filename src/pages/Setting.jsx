@@ -62,6 +62,15 @@ const Setting = () => {
           </div>
         </StyleSettingForm>
         <StyleSettingForm>
+          <div onClick={()=>{navigate('inquiry')}}>
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              개발팀에게 문의하기
+            </h3>
+          </div>
+        </StyleSettingForm>
+        <StyleSettingForm>
           <div>
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}

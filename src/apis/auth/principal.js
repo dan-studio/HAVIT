@@ -10,7 +10,6 @@ export const signup = async data => {
     return response;
 }
 export const signin = async (data) => {
-  console.log(getAPIHost());
   const response = await restApi.post('/api/login', data);
   if(response.status === 200){
     const token = { access_token: response.headers.authorization, refresh_token:response.headers["refresh-token"]}
