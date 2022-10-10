@@ -5,7 +5,6 @@ import { noticedata } from "./notice-data";
 
 
 const Notice = () => {
-  console.log(noticedata)
   const navigate = useNavigate();
   return (
     <>
