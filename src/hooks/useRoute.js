@@ -132,6 +132,11 @@ const pages = [
           },
         ],
       },
+      {
+        path: "/:memberId", // mypage
+        title: "멤버페이지",
+        screen: Mypage,
+      }
     ],
   },
 ];
