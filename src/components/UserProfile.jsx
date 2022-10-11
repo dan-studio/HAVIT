@@ -1,23 +1,28 @@
 import styled from "styled-components";
 import React from "react";
-import { FaStarHalfAlt } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
-import { BsTrophy } from "react-icons/bs";
 import {
   UserOutlined
 } from '@ant-design/icons';
 import { fileUrlHost } from "../apis/config";
 import { useNavigate } from "react-router-dom";
-// import { getRandom } from "../utils/math";
+import { useEffect } from "react";
+import { userApis } from "../apis/auth";
+import { useState } from "react";
+import { getGroupDetail } from "@apis/group/group";
 
 const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
-  // const randomNum = getRandom(1, 12);
-  // console.log(randomNum);
   const navigate = useNavigate()
-
+  const [myGroups, setMyGroups] = useState([])
   const toMyPage = () => {
     navigate('/mypage')
   }
+  useEffect(()=>{
+    userApis.getmyGroup().then(res=>{
+      setMyGroups(res.data)
+    })
+  },[])
+  const groups = myGroups?.length
 
   return (
     <div>
@@ -34,8 +39,7 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
             <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
             <StylePercentage value='3' max='20'></StylePercentage>
             <StyleAchievements>
-              <FaStarHalfAlt /> 시작이 반이다 <br />
-              <BsTrophy /> 첫 완수
+              {groups===0?0:groups}개의 그룹에서 활동중입니다
             </StyleAchievements>
           </StyleUserLeft>
           <StyleUser>

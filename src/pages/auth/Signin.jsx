@@ -97,7 +97,6 @@ const Signin = () => {
         <StyledNaverButton src={naverButton} alt="" />
         <StyledKakaoButton src={kakaoButton} alt="" />
       </StyledSocialLogin>
-      <img className="team" src={team} alt="" height="140vh" />
     </StyledDiv>
   );
 };

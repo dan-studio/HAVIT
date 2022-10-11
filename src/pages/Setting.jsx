@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeToken } from "../apis/config";
 import ToggleSwitch from "../components/button/ToggleSwitch";
-
+import { SiInstagram, SiNotion } from "react-icons/si";
+import logo from "../../src/assets/havit.png";
+import Footer from "../components/layout/Footer";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const Setting = () => {
     navigate("/auth");
   };
   return (
-    <>
+    <StyledDiv>
       <h2
         style={{
           fontWeight: "700",
@@ -53,7 +55,11 @@ const Setting = () => {
           <ToggleSwitch id={"setDarkmode"} />
         </StyleSettingForm> */}
         <StyleSettingForm>
-          <div onClick={()=>{navigate('notice')}}>
+          <div
+            onClick={() => {
+              navigate("notice");
+            }}
+          >
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
             >
@@ -62,7 +68,11 @@ const Setting = () => {
           </div>
         </StyleSettingForm>
         <StyleSettingForm>
-          <div onClick={()=>{navigate('inquiry')}}>
+          <div
+            onClick={() => {
+              navigate("inquiry");
+            }}
+          >
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
             >
@@ -77,28 +87,51 @@ const Setting = () => {
             >
               버전
             </h3>
-            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>
-              1.0.0
-            </span>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.0</span>
           </div>
         </StyleSettingForm>
-        <StyleSettingForm  style={{
+        <StyleSettingForm onClick={logoutHandler}>
+          <div>
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              로그아웃
+            </h3>
+          </div>
+        </StyleSettingForm>
+
+        <StyleSettingForm
+          style={{
             position: "absolute",
             display: "flex",
             top: "90vh",
             justifyContent: "center",
-          }}>
-          <StyledButton onClick={logoutHandler}>로그아웃</StyledButton>
-        </StyleSettingForm>
+          }}
+        ></StyleSettingForm>
       </StyleWrap>
-    </>
+      <Footer />
+
+    </StyledDiv>
   );
 };
-
+const StyledDiv = styled.div`
+  height: 84.65vh;
+`
+const StyledFooter = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  background-color: #f6f9fa;
+  width: 100%;
+`;
+const StyledIcons = styled.div`
+  margin-top: 20px;
+`;
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
 `;
 
 const StyleSettingForm = styled.div`
@@ -106,7 +139,6 @@ const StyleSettingForm = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 21.875rem;
-  /* height: 2.25rem; */
   margin: 0 1.25rem 2.1875rem;
 `;
 

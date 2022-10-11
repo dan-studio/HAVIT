@@ -6,7 +6,6 @@ import styles from "./group_create.module.less";
 import React from "react";
 import Uploader from "@components/input/Uploader";
 import TagInput from "@components/input/TagInput";
-import ModalCancel from "@components/modal/ModalCancel";
 import useInputs from "@hooks/useInput";
 import { getGroupDetail, modifyGroupDetail } from "@apis/group/group";
 import { useNavigate, useParams } from "react-router-dom";
