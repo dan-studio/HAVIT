@@ -5,7 +5,7 @@ import { removeToken } from "../apis/config";
 import ToggleSwitch from "../components/button/ToggleSwitch";
 import { SiInstagram, SiNotion } from "react-icons/si";
 import logo from "../../src/assets/havit.png";
-// import logo from "../../src/assets/havit_black.svg";
+// import logo from "../../src/assets/HavitWhite.png";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
   const navigate = useNavigate();
@@ -114,24 +114,18 @@ const Setting = () => {
         </StyleSettingForm>
       </StyleWrap>
       <StyledFooter>
+
+        <StyledIcons>
         <img
         style={{
           marginLeft: "10px",
           marginBottom:"10px",
-          marginTop:"20px",
-          width: "100px"
+          // marginTop:"20px",
+          width: "70px"
 
         }}
         src={logo} alt="logo"></img>
-        <div
-          style={{
-            fontSize: "20px", fontWeight:"800", marginBottom: "10px", marginLeft: "10px", color:"#565656"
-          }}
-        >
-          혼자가 아닌 함께 만드는 습관 <br/>
-          {/* Havit */}
-        </div>
-        <StyledIcons>
+
           <SiInstagram
             onClick={() =>
               window.open(
@@ -140,7 +134,7 @@ const Setting = () => {
               )
             }
             style={{
-              fontSize: "30px",
+              fontSize: "22px",
               marginRight:"10px",
               marginLeft:"10px",
               color:"#565656",
@@ -153,12 +147,25 @@ const Setting = () => {
                 "_blank")
             }
             style={{
-              fontSize: "30px",
+              fontSize: "22px",
               color:"#565656",
 
             }}
           />
         </StyledIcons>
+        <div
+          style={{
+            fontSize: "15px", fontWeight:"400",
+            marginLeft: "10px",
+            marginBottom:"10px",
+            marginTop:"10px",   
+            // marginBottom: "10px", marginLeft: "10px",
+            color:"#565656"
+          }}
+        >
+          혼자가 아닌 함께 만드는 습관 <span>HAVIT</span>         
+          {/* Havit */}
+        </div>
         <div
         style={{
           marginLeft:"10px"
@@ -177,9 +184,12 @@ const StyledFooter = styled.div`
   flex-direction: column;
   padding-bottom: 10px;
   background-color: #f6f9fa;
-  width:100%
+  width:100%;
+
 `;
-const StyledIcons = styled.div``;
+const StyledIcons = styled.div`
+  margin-top:20px;
+`;
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
