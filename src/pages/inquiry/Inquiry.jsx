@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { userApis } from "../../apis/auth";
 import GoBackButton from "../../components/button/GoBackButton";
 import PrimaryButton from "@components/button/PrimaryButton";
+import Footer from "../../components/layout/Footer";
 
 const Inquiry = () => {
   const navigate = useNavigate();
@@ -91,6 +92,7 @@ const Inquiry = () => {
           </div>
         )}
       </StyledForm>
+      <Footer />
     </>
   );
 };
