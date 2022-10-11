@@ -25,7 +25,7 @@ const Setting = () => {
       </h2>
 
       <StyleWrap>
-        <StyleSettingForm>
+        {/* <StyleSettingForm>
           <div>
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
@@ -51,13 +51,22 @@ const Setting = () => {
             </span>
           </div>
           <ToggleSwitch id={"setDarkmode"} />
-        </StyleSettingForm>
+        </StyleSettingForm> */}
         <StyleSettingForm>
           <div onClick={()=>{navigate('notice')}}>
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
             >
               공지사항
+            </h3>
+          </div>
+        </StyleSettingForm>
+        <StyleSettingForm>
+          <div onClick={()=>{navigate('inquiry')}}>
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              개발팀에게 문의하기
             </h3>
           </div>
         </StyleSettingForm>
