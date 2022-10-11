@@ -28,6 +28,14 @@ const CertifyEdit = () => {
     longitude: certifyDetail.longitude,
     title: certifyDetail.title,
   });
+
+  const getDetail = () => {
+    reset();
+  };
+  useEffect(() => {
+    getDetail();
+  },[certifyDetail]);
+  
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
@@ -67,20 +75,20 @@ const CertifyEdit = () => {
       },
     });
   };
-  const ModaDelete = ()=>{
+  const ModaDelete = () => {
     Modal.confirm({
-        title:"안내",
-        content:<div>정말 삭제하시겠습니까?</div>,
-        okText:"확인",
-        cancelText:"취소",
-        onOk:()=>{
-          userApis.deleteCertifyDetail(certifyId).then(res=>{
-            alert("게시물 삭제가 완료되었습니다.");
-            navigate('/group/'+groupId, {state: "/group"})
-          })
-        },
-    })
-}
+      title: "안내",
+      content: <div>정말 삭제하시겠습니까?</div>,
+      okText: "확인",
+      cancelText: "취소",
+      onOk: () => {
+        userApis.deleteCertifyDetail(certifyId).then((res) => {
+          alert("게시물 삭제가 완료되었습니다.");
+          navigate("/group/" + groupId, { state: "/group" });
+        });
+      },
+    });
+  };
   return (
     <div>
       <WriteBox>
@@ -146,10 +154,12 @@ const CertifyEdit = () => {
             </Collapse.Panel>
           </Collapse>
         </div>
-      {myInfo?.memberId === certifyDetail?.memberId && <DeleteButton onClick={ModaDelete}>게시글 삭제하기</DeleteButton>}
+        {myInfo?.memberId === certifyDetail?.memberId && (
+          <DeleteButton onClick={ModaDelete}>게시글 삭제하기</DeleteButton>
+        )}
         <WriteBtn style={{ marginTop: "5.625rem" }}>
           <PrimaryButton buttonName={"등록"} onClick={onComplete} />
-          <SubButton buttonName={"불러오기"} onClick={reset} />
+          {/* <SubButton buttonName={"불러오기"} onClick={reset} /> */}
           <SubButton
             buttonName={"뒤로가기"}
             onClick={() => {
@@ -205,5 +215,5 @@ const WriteBtn = styled.div`
 
 const DeleteButton = styled.div`
   font-size: 11px;
-`
+`;
 export default React.memo(CertifyEdit);

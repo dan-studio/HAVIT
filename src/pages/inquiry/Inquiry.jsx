@@ -12,7 +12,7 @@ const Inquiry = () => {
   const navigate = useNavigate();
   const form = useRef();
   const [myInfo, setMyInfo] = useState([]);
-
+  const [sent, setSent] = useState(false);
   useEffect(() => {
     userApis.myProfile().then((res) => {
       setMyInfo(res);
@@ -31,6 +31,7 @@ const Inquiry = () => {
       .then(
         (result) => {
           console.log(result.text);
+          setSent(true);
         },
         (error) => {
           console.log(error.text);
@@ -56,35 +57,39 @@ const Inquiry = () => {
         <StyledDivBox>
           <EditInput
             inputLabel={"닉네임"}
-            placeholder={"닉네임"}
-            name={"user_name"}
+            name={"from_name"}
             value={myInfo?.nickname}
             type={"text"}
-            disabled
+            // disabled
           />
         </StyledDivBox>
         <StyledDivBox>
           <EditInput
             inputLabel={"이메일"}
-            placeholder={"이메일"}
-            name={"user_email"}
+            name={"from_email"}
             value={myInfo?.username}
             type={"text"}
-            disabled
+            // disabled
           />
         </StyledDivBox>
         <StyledDivBox height="240px">
           <StyledTextArea
+          disabled={sent?"disabled":null}
             inputLabel={"내용"}
             placeholder={"내용"}
             name={"message"}
-            value={form?.email}
             type={"text"}
           />
         </StyledDivBox>
-        <div className="buttonDiv">
-          <PrimaryButton buttonName={"전송하기"} />
-        </div>
+        {sent ? (
+          <StyledSendMsg>
+            문의하신 내용이 HAVIT 이메일로 발송되었습니다!
+          </StyledSendMsg>
+        ) : (
+          <div className="buttonDiv">
+            <PrimaryButton buttonName={"전송하기"} />
+          </div>
+        )}
       </StyledForm>
     </>
   );
@@ -119,6 +124,9 @@ const StyledTextArea = styled.textarea`
   :focus {
     outline: 1px solid #5e43ff;
   }
+  
 `;
-
+const StyledSendMsg = styled.div`
+  margin: auto;
+`;
 export default Inquiry;
