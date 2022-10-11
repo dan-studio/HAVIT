@@ -35,6 +35,7 @@ const CertifyEdit = () => {
   useEffect(() => {
     getDetail();
   },[certifyDetail]);
+  
   useEffect(() => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
