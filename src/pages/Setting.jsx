@@ -13,7 +13,7 @@ const Setting = () => {
     navigate("/auth");
   };
   return (
-    <>
+    <StyledDiv>
       <h2
         style={{
           fontWeight: "700",
@@ -119,7 +119,6 @@ const Setting = () => {
             src={logo}
             alt="logo"
           ></img>
-
           <SiInstagram
             onClick={() =>
               window.open(
@@ -137,7 +136,7 @@ const Setting = () => {
           <SiNotion
             onClick={() =>
               window.open(
-                "https://www.notion.so/About-Havit-c126479bc8b542c3b4391deabf904d74",
+                "https://trusting-jobaria-326.notion.site/About-Havit-c126479bc8b542c3b4391deabf904d74",
                 "_blank"
               )
             }
@@ -156,9 +155,12 @@ const Setting = () => {
           Copyright 2022 Havit. All rights reserved.
         </div>
       </StyledFooter>
-    </>
+    </StyledDiv>
   );
 };
+const StyledDiv = styled.div`
+  height: 84.65vh;
+`
 const StyledFooter = styled.div`
   position: absolute;
   bottom: 0;
