@@ -31,8 +31,8 @@ const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
             <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
             <StylePercentage value='3' max='20'></StylePercentage>
             <StyleAchievements>
-              <FaStarHalfAlt /> 시작이 반이다 <br />
-              <BsTrophy /> 첫 완수
+              {/* <FaStarHalfAlt /> 시작이 반이다 <br />
+              <BsTrophy /> 첫 완수 */}
             </StyleAchievements>
           </StyleUserLeft>
           <StyleUser>
