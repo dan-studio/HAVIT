@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeToken } from "../apis/config";
 import ToggleSwitch from "../components/button/ToggleSwitch";
-
+import { SiInstagram, SiNotion } from "react-icons/si";
+import logo from "../../src/assets/havit.png";
+// import logo from "../../src/assets/havit_black.svg";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
   const navigate = useNavigate();
@@ -53,7 +55,11 @@ const Setting = () => {
           <ToggleSwitch id={"setDarkmode"} />
         </StyleSettingForm> */}
         <StyleSettingForm>
-          <div onClick={()=>{navigate('notice')}}>
+          <div
+            onClick={() => {
+              navigate("notice");
+            }}
+          >
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
             >
@@ -62,7 +68,11 @@ const Setting = () => {
           </div>
         </StyleSettingForm>
         <StyleSettingForm>
-          <div onClick={()=>{navigate('inquiry')}}>
+          <div
+            onClick={() => {
+              navigate("inquiry");
+            }}
+          >
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
             >
@@ -77,24 +87,99 @@ const Setting = () => {
             >
               버전
             </h3>
-            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>
-              1.0.0
-            </span>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.0</span>
           </div>
         </StyleSettingForm>
-        <StyleSettingForm  style={{
+        <StyleSettingForm onClick={logoutHandler}>
+          <div>
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              로그아웃
+            </h3>
+            {/* <span style={{ color: "#B0B0B0", fontSize: "12px" }}>
+              1.0.0
+            </span> */}
+          </div>
+        </StyleSettingForm>
+
+        <StyleSettingForm
+          style={{
             position: "absolute",
             display: "flex",
             top: "90vh",
             justifyContent: "center",
-          }}>
-          <StyledButton onClick={logoutHandler}>로그아웃</StyledButton>
+          }}
+        >
         </StyleSettingForm>
       </StyleWrap>
+      <StyledFooter>
+        <img
+        style={{
+          marginLeft: "10px",
+          marginBottom:"10px",
+          marginTop:"20px",
+          width: "100px"
+
+        }}
+        src={logo} alt="logo"></img>
+        <div
+          style={{
+            fontSize: "20px", fontWeight:"800", marginBottom: "10px", marginLeft: "10px", color:"#565656"
+          }}
+        >
+          혼자가 아닌 함께 만드는 습관 <br/>
+          {/* Havit */}
+        </div>
+        <StyledIcons>
+          <SiInstagram
+            onClick={() =>
+              window.open(
+                "https://instagram.com/havit_life?igshid=YmMyMTA2M2Y=",
+                "_blank"
+              )
+            }
+            style={{
+              fontSize: "30px",
+              marginRight:"10px",
+              marginLeft:"10px",
+              color:"#565656",
+            }}
+          />
+          <SiNotion
+            onClick={() =>
+              window.open(
+                "https://www.notion.so/About-Havit-c126479bc8b542c3b4391deabf904d74",
+                "_blank")
+            }
+            style={{
+              fontSize: "30px",
+              color:"#565656",
+
+            }}
+          />
+        </StyledIcons>
+        <div
+        style={{
+          marginLeft:"10px"
+        }}
+        >
+          Copyright 2022 Havit. All rights reserved.
+        </div>
+      </StyledFooter>
     </>
   );
 };
-
+const StyledFooter = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  background-color: #f6f9fa;
+  width:100%
+`;
+const StyledIcons = styled.div``;
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
