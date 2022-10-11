@@ -25,7 +25,7 @@ const Setting = () => {
       </h2>
 
       <StyleWrap>
-        <StyleSettingForm>
+        {/* <StyleSettingForm>
           <div>
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
@@ -51,7 +51,7 @@ const Setting = () => {
             </span>
           </div>
           <ToggleSwitch id={"setDarkmode"} />
-        </StyleSettingForm>
+        </StyleSettingForm> */}
         <StyleSettingForm>
           <div onClick={()=>{navigate('notice')}}>
             <h3
