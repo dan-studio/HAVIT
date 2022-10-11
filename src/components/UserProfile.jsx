@@ -8,11 +8,8 @@ import {
 } from '@ant-design/icons';
 import { fileUrlHost } from "../apis/config";
 import { useNavigate } from "react-router-dom";
-// import { getRandom } from "../utils/math";
 
 const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
-  // const randomNum = getRandom(1, 12);
-  // console.log(randomNum);
   const navigate = useNavigate()
 
   const toMyPage = () => {

@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { getAllGroupList, getMyGroupList } from "@apis/group/group";
 // /group
 const Group = () => {
-  const selectList = ["전체", "내 크루", "인기순"]
+  const selectList = ["전체", "내 그룹", "인기순"]
   const [selected, setSelected] = useState("전체");
   const [crew, setCrew] = useState([]);
   const navigate = useNavigate();
@@ -22,11 +22,10 @@ const Group = () => {
         .catch((err) => {
           console.log(err);
         });
-    } else if (selected === "내 크루") {
+    } else if (selected === "내 그룹") {
       getMyGroupList()
         .then((res) => {
           setCrew(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -62,7 +61,7 @@ const Group = () => {
               fontSize: "2.25rem",
             }}
           />
-          새 크루 생성
+          새 그룹 생성
         </StyledAddGroupContainer>
       </Row>
       {crew?.map((item, idx) => (

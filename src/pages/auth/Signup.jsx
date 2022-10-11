@@ -179,7 +179,6 @@ const Signup = () => {
           {confirmPasswordMessage}
         </span>
       )}
-      <img className="team" src={team} alt="" height="125vh" />
       <StyledButtonDiv>
         <StyledButton
           top="80vh"
