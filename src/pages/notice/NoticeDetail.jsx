@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { noticedata } from "./notice-data";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import styled from "styled-components";
+import GoBackButton from "../../components/button/GoBackButton";
 
 const NoticeDetail = () => {
   const { noticeId } = useParams();
@@ -11,24 +12,9 @@ const NoticeDetail = () => {
   const data = noticedata.find((item) => item.noticeId === id);
   const { title, date, author, content } = data;
   return (
+    <>
+      <GoBackButton title={"공지사항"} to={"/setting/notice"}/>
     <StyledDiv>
-      <ToNotice>
-        <MdOutlineArrowBackIosNew
-          style={{ fontSize: "15px", color: "#5E43FF" }}
-        />
-        <h2
-          style={{
-            fontWeight: "500",
-            fontSize: "14px",
-            margin: "0 10px",
-          }}
-          onClick={() => {
-            navigate("/setting/notice");
-          }}
-        >
-          공지사항
-        </h2>
-      </ToNotice>
       <div className="title">
         <span>{data.noticeId}.</span>
         <span>{" " + title}</span>
@@ -40,7 +26,7 @@ const NoticeDetail = () => {
       <div className="content">
         <span>{content}</span>
       </div>
-    </StyledDiv>
+    </StyledDiv></>
   );
 };
 
@@ -58,10 +44,5 @@ const StyledDiv = styled.div`
     font-weight: bold;
   }
 `;
-const ToNotice = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-`;
+
 export default NoticeDetail;

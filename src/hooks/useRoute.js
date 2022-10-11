@@ -16,6 +16,7 @@ import CoordinateConvert from "../components/kakao/CoordinateConvert";
 import CertifyEdit from "../pages/group/certify/CertifyEdit";
 import Notice from "../pages/notice/Notice";
 import NoticeDetail from "../pages/notice/NoticeDetail";
+import Inquiry from "../pages/inquiry/Inquiry";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
@@ -105,6 +106,11 @@ const pages = [
             screen: NoticeDetail
           }
         ]
+      },
+      {
+        path:"/inquiry",
+        title: "문의하기",
+        screen: Inquiry,
       }
     ]
   },

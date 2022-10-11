@@ -6,8 +6,6 @@
 *계획한 목표를 공유해서 같이 습관화할 크루원을 모집할 수 있고, 목표를 달성하지 못한 멤버를 독려해 동기부여를 도와주는 목표 공유앱입니다.* 👍
 
 # HAVIT-FRONT
-  - 배포 사이트 : https://product.d3iap887isxp5y.amplifyapp.com/
-  - 테스트 사이트 : https://develop.d3iap887isxp5y.amplifyapp.com/
   
 ## 🗓 프로젝트 기간
 - 2022.09.16 - 2022.10.28
