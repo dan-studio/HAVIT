@@ -5,6 +5,7 @@ import { removeToken } from "../apis/config";
 import ToggleSwitch from "../components/button/ToggleSwitch";
 import { SiInstagram, SiNotion } from "react-icons/si";
 import logo from "../../src/assets/havit.png";
+import Footer from "../components/layout/Footer";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
   const navigate = useNavigate();
@@ -108,53 +109,8 @@ const Setting = () => {
           }}
         ></StyleSettingForm>
       </StyleWrap>
-      <StyledFooter>
-        <StyledIcons>
-          <img
-            style={{
-              marginLeft: "10px",
-              marginBottom: "10px",
-              width: "70px",
-            }}
-            src={logo}
-            alt="logo"
-          ></img>
-          <SiInstagram
-            onClick={() =>
-              window.open(
-                "https://instagram.com/havit_life?igshid=YmMyMTA2M2Y=",
-                "_blank"
-              )
-            }
-            style={{
-              fontSize: "22px",
-              marginRight: "10px",
-              marginLeft: "10px",
-              color: "#565656",
-            }}
-          />
-          <SiNotion
-            onClick={() =>
-              window.open(
-                "https://trusting-jobaria-326.notion.site/About-Havit-c126479bc8b542c3b4391deabf904d74",
-                "_blank"
-              )
-            }
-            style={{
-              fontSize: "22px",
-              color: "#565656",
-            }}
-          />
-        </StyledIcons>
+      <Footer />
 
-        <div
-          style={{
-            marginLeft: "10px",
-          }}
-        >
-          Copyright 2022 Havit. All rights reserved.
-        </div>
-      </StyledFooter>
     </StyledDiv>
   );
 };
