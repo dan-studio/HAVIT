@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userApis } from "../apis/auth";
 import { useState } from "react";
-import { getGroupDetail } from "@apis/group/group";
-import { FaRegHandPointLeft } from "react-icons/fa";
 
 const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
   const navigate = useNavigate();
@@ -22,7 +20,6 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
     });
   }, []);
   const groups = myGroups?.length;
-
   return (
     <div>
       <StyleProfile>
@@ -63,51 +60,9 @@ const UserProfile = ({ data, type = "shadow", nickName, myInfo }) => {
           </StyleUser>
         </StyleUserBox>
       </StyleProfile>
-      {groups ? null : (
-        <NewMemberDiv>
-          <div className="message">
-            아래의 빨간 화살표를 클릭하여 그룹페이지로 이동해 주세요!
-          </div>
-          <NewMemberInnerDiv>
-            <FaRegHandPointLeft style={{ fontSize: "40px" }} />
-          </NewMemberInnerDiv>
-        </NewMemberDiv>
-      )}
     </div>
   );
 };
-const NewMemberDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 14.5px;
-  .message {
-    color: white;
-    font-weight: bold;
-  }
-`;
-const NewMemberInnerDiv = styled.div`
-  position: absolute;
-  z-index: 999;
-  top: 53vh;
-  right: 5vw;
-  rotate: -55deg;
-  color: #5e43ff;
-  animation: vibration 0.3s infinite;
-  @keyframes vibration {
-    0% {
-      transform: rotate(-6deg);
-      color: #2cdf3d;
-    }
-    50% {
-      transform: rotate(6deg);
-      color: #5e43ff;
-    }
-    100% {
-      transform: rotate(-6deg);
-      color: white;
-    }
-  }
-`;
 const StyleProfile = styled.div`
   height: 168px;
   width: 350px;

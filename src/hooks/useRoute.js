@@ -6,6 +6,7 @@ import Signin from "@pages/auth/Signin";
 import Signup from "@pages/auth/Signup";
 import Mypage from "@pages/main/Mypage";
 import Myprofile from "@pages/main/Myprofile";
+import MemberPage from "@pages/memberpage/MemberPage"
 import Main from "@pages/main/Main";
 import Setting from "@pages/Setting";
 import Guide from "@pages/start/Guide";
@@ -135,7 +136,7 @@ const pages = [
       {
         path: "/:memberId", // mypage
         title: "멤버페이지",
-        screen: Mypage,
+        screen: MemberPage,
       }
     ],
   },

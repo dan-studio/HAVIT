@@ -6,6 +6,7 @@ import CommentDetail from "./CommentDetail";
 import { fileUrlHost } from "../../apis/config";
 import { Modal } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const Comment = ({
   authId,
@@ -19,6 +20,14 @@ const Comment = ({
   subCommentList,
   setCertifyDetail,
 }) => {
+  const navigate = useNavigate()
+  const toMemberPage = () => {
+    if (memberId === authId) {
+      navigate("/mypage");
+    } else {
+      navigate("/mypage/" + memberId);
+    }
+  };
   const ModalDelete = () => {
     Modal.confirm({
       title: "안내",
@@ -52,9 +61,14 @@ const Comment = ({
   return (
     <StyledDiv>
       {profileImageId ? (
-        <StyledProfileImg src={fileUrlHost(profileImageId)} />
+        <StyledProfileImg
+          src={fileUrlHost(profileImageId)}
+          onClick={toMemberPage}
+        />
       ) : (
-        <StyledProfileDiv>
+        <StyledProfileDiv
+          onClick={toMemberPage}
+        >
           <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
         </StyledProfileDiv>
       )}
