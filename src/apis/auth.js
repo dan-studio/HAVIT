@@ -125,4 +125,10 @@ export const userApis = {
     const response = await authApi.put('/api/auth/mypage/', data);
     return response;
   },
+  //MemberPage
+  getMemberDetail: async memberId => {
+    const response = await authApi.get('/api/auth/info/'+memberId)
+    return response
+  }
 };
+
