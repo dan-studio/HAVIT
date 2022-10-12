@@ -41,7 +41,7 @@ export default PhotoList;
 const StyledContainer = styled.div`
   width: 100%;
   height: ${({ height }) => height}px;
-  gap: 5px;
+  gap: 2px;
   display: flex;
   flex-wrap: wrap;
   & > div {
