@@ -53,7 +53,10 @@ const Main = () => {
       );
     });
   }, []);
-console.log(myGroupMembers)
+  
+  //최근 생성된 그룹 4개
+  const groups = crew?.slice(0,4)
+  
   return (
     <div
       style={{
@@ -76,7 +79,7 @@ console.log(myGroupMembers)
           </div>
         </StyledGroup>
         <StyledGroupPhotoBox>
-          {crew?.map((item, idx) => (
+          {groups?.map((item, idx) => (
             <GroupCard
               {...item}
               imgUrl={item?.imageId}
@@ -149,7 +152,7 @@ const StyledGroup = styled.div`
     margin: 35px 20px 0 20px;
     & > h2 {
       font-weight: 700;
-      font-size: 20px;
+      font-size: 19px;
       margin: 0;
       line-height: 24px;
     }
