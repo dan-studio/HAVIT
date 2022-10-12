@@ -42,7 +42,7 @@ const GroupEdit = () => {
             }
           })
           .catch((err) => {
-            alert("Group Create Fail error:", err);
+            alert("모든 항목을 입력해주세요!");
           });
       },
     });
