@@ -70,8 +70,8 @@ const Signup = () => {
 
   const onChangeNickname = useCallback((e) => {
     setNickname(e.target.value);
-    if (e.target.value.length < 2) {
-      setNicknameMessage("2글자 이상으로 입력해주세요.");
+    if (e.target.value.length < 2||e.target.value.length>10) {
+      setNicknameMessage("2글자 이상 10글자 이하로 입력해주세요.");
       setIsNickname(false);
     } else {
       setNicknameMessage("올바른 닉네임 형식이에요!");
@@ -128,6 +128,7 @@ const Signup = () => {
         placeholder="✉  E-Mail"
         onChange={onChangeEmail}
       />
+      <StyledNotice>이벤트 상품 수령을 위하여 실제 사용하시는 이메일 주소 입력을 권장합니다.</StyledNotice>
       {email.length > 0 && (
         <span
           className={`message ${isEmail ? "success" : "error"}`}
@@ -218,7 +219,7 @@ const StyledDiv = styled.div`
     font-size: 1.4vh;
     font-weight: 500;
     &.success {
-      color: #5E43FF;
+      color: rgb(94, 67, 255);
     }
     &.error {
       color: #E94560;
@@ -269,3 +270,11 @@ const StyledInput = styled.input`
   padding: 10px 30px;
   border-radius: 30px;
 `;
+const StyledNotice = styled.div`
+  position: absolute;
+  top: 27.5vh;
+  font-size: 11px;
+  background-color: rgb(94 ,67 ,255, 0.25);
+  padding: 1px 6px;
+  border-radius: 30px;
+`

@@ -50,7 +50,6 @@ const StyledDiv = styled.div`
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
 `;
 
 const StyleSettingForm = styled.div`
@@ -58,8 +57,7 @@ const StyleSettingForm = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 21.875rem;
-  /* height: 2.25rem; */
-  margin: 0 1.25rem 1.2rem;
+  margin: 0 auto 1.2rem;
 `;
 
 export default Notice;
