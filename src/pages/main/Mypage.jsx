@@ -8,7 +8,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { resetLayout, setLayout } from '@redux/layout';
-import UserProfile from '@components/UserProfile';
+import MyProfile from '@components/profile/MyProfile';
 import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {
@@ -42,7 +42,7 @@ const Mypage = () => {
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <UserProfile myInfo={principal} />
+      <MyProfile myInfo={principal} />
 
       {/* 크루 정보 */}
       <StyledCrews>

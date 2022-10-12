@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { resetLayout, setLayout } from "@redux/layout";
-import UserProfile from "@components/UserProfile";
+import MyProfile from "@components/profile/MyProfile";
 import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -61,6 +61,7 @@ const Main = () => {
   const myGroupLists = myGroups?.length;
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0,4)
+  const certifies = myInfo?.certifyList?.length
   return (
     <div
       style={{
@@ -69,7 +70,7 @@ const Main = () => {
         background: "#5e43ff",
       }}
     >
-      <UserProfile myInfo={principal} />
+      <MyProfile myInfo={principal} certifies={certifies}/>
       {myGroupLists ? null : (
         <NewMemberDiv>
           <div className="message">
