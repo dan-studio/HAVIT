@@ -26,6 +26,7 @@ export default MemberInfo;
 
 const Container = styled.div`
   display: flex;
+  margin: 0px 15px 0px 5px;
   flex-direction: column;
   align-items: center;
   width: ${(props) => props.width || "100%"};

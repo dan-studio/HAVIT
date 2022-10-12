@@ -53,7 +53,7 @@ const Main = () => {
       );
     });
   }, []);
-
+console.log(myGroupMembers)
   return (
     <div
       style={{
