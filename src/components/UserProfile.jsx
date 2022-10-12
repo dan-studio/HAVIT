@@ -88,7 +88,7 @@ const NewMemberDiv = styled.div`
 const NewMemberInnerDiv = styled.div`
   position: absolute;
   z-index: 999;
-  top: 48vh;
+  top: 45vh;
   right: 5vw;
   rotate: -55deg;
   color: #5e43ff;
