@@ -16,6 +16,7 @@ import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
 import { getGroupDetail } from "@apis/group/group";
 import { Image } from "antd";
+import DevButton from "../../../components/button/DevButton";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -251,6 +252,14 @@ const CertifyDetail = () => {
           }}
         />
       </CommentBar>
+      {myInfo?.memberId<=5&&
+      <DevDiv><DevButton
+      buttonName={"관리하기"}
+      onClick={() => {
+        navigate("edit");
+      }}
+      /></DevDiv>
+    }
     </BoardBox>
   );
 };
@@ -394,3 +403,8 @@ const StyledProfileDiv = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const DevDiv = styled.div`
+  position: fixed;
+  bottom:1rem;
+  right: 5px;
+`

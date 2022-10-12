@@ -53,10 +53,9 @@ const Main = () => {
       );
     });
   }, []);
-  
+
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0,4)
-  
   return (
     <div
       style={{

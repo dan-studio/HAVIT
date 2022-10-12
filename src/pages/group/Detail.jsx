@@ -16,6 +16,7 @@ import {
 import { userApis } from "../../apis/auth";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { useDispatch } from "react-redux";
+import DevButton from "../../components/button/DevButton";
 
 // /grup
 const GroupDetail = () => {
@@ -135,6 +136,14 @@ const GroupDetail = () => {
           />
         </div>
       </StyledButtonDiv>
+      {myInfo?.memberId<=5&&
+      <DevDiv><DevButton
+      buttonName={"관리하기"}
+      onClick={() => {
+        navigate("/group/edit/" + groupId);
+      }}
+      /></DevDiv>
+    }
     </Container>
   );
 };
@@ -171,3 +180,8 @@ const StyledGroupDesc = styled.textarea`
   padding: 1px 6px;
   height: 100px;
 `;
+const DevDiv = styled.div`
+  position: fixed;
+  bottom:1rem;
+  right: 5px;
+`
