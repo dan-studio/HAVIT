@@ -125,6 +125,10 @@ const StyleUserContent = styled.div`
 `;
 const StyleAchievements = styled.div`
   font-size: 10px;
+  margin-top: 8px;
+  span{
+    font-size: 12px;
+  }
 `;
 const StyleUser = styled.div`
 font-size: 22px;

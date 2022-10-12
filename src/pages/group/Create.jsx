@@ -81,6 +81,7 @@ const GroupCreate = () => {
               className={styles.title_input}
               type="search"
               suffix={<EditFilled />}
+              style={{backgroundColor: "transparent"}}
               placeholder="크루명 입력"
             ></Input>
           </Form.Item>
