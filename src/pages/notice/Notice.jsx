@@ -9,6 +9,7 @@ const Notice = () => {
   const navigate = useNavigate();
   return (
     <>
+    <StyledDiv>
     <GoBackButton title={"환경설정"} to={"/setting"}/>
       <h2
         style={{
@@ -39,10 +40,13 @@ const Notice = () => {
         )}
       </StyleWrap>
       <Footer />
+      </StyledDiv>
     </>
   );
 };
-
+const StyledDiv = styled.div`
+  height: 84.9vh;
+`
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
