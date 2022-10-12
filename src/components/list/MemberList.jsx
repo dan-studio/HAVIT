@@ -7,13 +7,13 @@ const List = ({ data, type, memberList, leaderName, crewName, leader }) => {
     (item) => item.memberId === leader?.memberId
   );
   const [members, setMembers] = useState(false);
-
+  const memberCount = memberList&&memberList.length
   return (
     <Container>
       <div className="title" onClick={()=>{setMembers(!members)}}>
         {data?.title ? (
           <>
-            {data.title}
+            {data.title} ({memberCount})
             {members?<span>▲</span>:<span>▼</span>}
           </>
         ) : (

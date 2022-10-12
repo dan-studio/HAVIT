@@ -30,6 +30,15 @@ const CertifyDetail = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
   const inputFocus = useRef();
+  const authId = myInfo?.memberId
+  const memberId = certifyDetail?.memberId
+  const toMemberPage = () => {
+    if (memberId === authId) {
+      navigate("/mypage");
+    } else {
+      navigate("/mypage/" + memberId);
+    }
+  };
   const commentHandler = (e) => {
     setComment(e.target.value);
     if (comment === "") {
@@ -39,7 +48,6 @@ const CertifyDetail = () => {
   const commentList = certifyDetail?.commentList;
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
-
   useEffect(() => {
       getGroupDetail(groupId)
       .then((res) => {
@@ -178,6 +186,7 @@ const CertifyDetail = () => {
           {imageId ? (
             <ProfilePhoto
               src={fileUrlHost(certifyDetail.profileImageId)}
+              onClick={toMemberPage}
             ></ProfilePhoto>
           ) : (
             <StyledProfileDiv>
@@ -228,7 +237,7 @@ const CertifyDetail = () => {
             <Comment
               key={idx}
               {...el}
-              authId={myInfo.memberId}
+              authId={authId}
               subComment={subComment}
               setCertifyDetail={setCertifyDetail}
             />
