@@ -10,6 +10,7 @@ import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
+import { FaRegHandPointLeft } from "react-icons/fa";
 
 const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
@@ -20,6 +21,7 @@ const Main = () => {
   const [myInfo, setMyInfo] = useState("");
   const [nullMsg, setNullMsg] = useState("");
   const [toggleGroup, setToggleGroup] = useState([]);
+  const [myGroups, setMyGroups] = useState([]);
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -52,8 +54,11 @@ const Main = () => {
         })
       );
     });
+    userApis.getmyGroup().then((res) => {
+      setMyGroups(res.data);
+    });
   }, []);
-
+  const myGroupLists = myGroups?.length;
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0,4)
   return (
@@ -65,6 +70,16 @@ const Main = () => {
       }}
     >
       <UserProfile myInfo={principal} />
+      {myGroupLists ? null : (
+        <NewMemberDiv>
+          <div className="message">
+            아래의 빨간 화살표를 클릭하여 그룹페이지로 이동해 주세요!
+          </div>
+          <NewMemberInnerDiv>
+            <FaRegHandPointLeft style={{ fontSize: "40px" }} />
+          </NewMemberInnerDiv>
+        </NewMemberDiv>
+      )}
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -185,4 +200,37 @@ const StyledNullMsg = styled.div`
   display: flex;
   margin: 50px;
   justify-content: center;
+`;
+
+const NewMemberDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 14.5px;
+  .message {
+    color: white;
+    font-weight: bold;
+  }
+`;
+const NewMemberInnerDiv = styled.div`
+  position: absolute;
+  z-index: 999;
+  top: 53vh;
+  right: 5vw;
+  rotate: -55deg;
+  color: #5e43ff;
+  animation: vibration 0.3s infinite;
+  @keyframes vibration {
+    0% {
+      transform: rotate(-6deg);
+      color: #2cdf3d;
+    }
+    50% {
+      transform: rotate(6deg);
+      color: #5e43ff;
+    }
+    100% {
+      transform: rotate(-6deg);
+      color: white;
+    }
+  }
 `;
