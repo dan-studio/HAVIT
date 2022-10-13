@@ -6,7 +6,7 @@ import Signin from "@pages/auth/Signin";
 import Signup from "@pages/auth/Signup";
 import Mypage from "@pages/main/Mypage";
 import Myprofile from "@pages/main/Myprofile";
-import MemberPage from "@pages/memberpage/MemberPage"
+import MemberPage from "@pages/memberpage/MemberPage";
 import Main from "@pages/main/Main";
 import Setting from "@pages/Setting";
 import Guide from "@pages/start/Guide";
@@ -18,9 +18,15 @@ import CertifyEdit from "../pages/group/certify/CertifyEdit";
 import Notice from "../pages/notice/Notice";
 import NoticeDetail from "../pages/notice/NoticeDetail";
 import Inquiry from "../pages/inquiry/Inquiry";
+import PageNotFound from "../pages/PageNotFound";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
+  {
+    path: "*",
+    title: "없는 페이지",
+    screen: PageNotFound,
+  },
   {
     path: "/",
     title: "메인",
@@ -97,23 +103,23 @@ const pages = [
     screen: Setting,
     child: [
       {
-        path:"/notice",
+        path: "/notice",
         title: "공지사항",
         screen: Notice,
         child: [
           {
-            path:'/:noticeId',
-            title:'공지 상세',
-            screen: NoticeDetail
-          }
-        ]
+            path: "/:noticeId",
+            title: "공지 상세",
+            screen: NoticeDetail,
+          },
+        ],
       },
       {
-        path:"/inquiry",
+        path: "/inquiry",
         title: "문의하기",
         screen: Inquiry,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/mypage", // mypage
@@ -137,7 +143,7 @@ const pages = [
         path: "/:memberId", // mypage
         title: "멤버페이지",
         screen: MemberPage,
-      }
+      },
     ],
   },
 ];
