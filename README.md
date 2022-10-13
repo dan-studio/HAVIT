@@ -1,9 +1,10 @@
 ![ogimage](https://user-images.githubusercontent.com/78805018/194903263-a0138998-d0e9-4ce2-a885-47356356fd28.jpeg)
 
+
 # 📢 프로젝트 소개
 ## **‘HAVIT’이란?** 
 ### 습관을 의미하는 영단어 Habit과 가지다를 의미하는 Have it을 합쳐 “습관을 들이다”라는 의미를 함축한 프로젝트명이며, 
-*계획한 목표를 공유해서 같이 습관화할 크루원을 모집할 수 있고, 목표를 달성하지 못한 멤버를 독려해 동기부여를 도와주는 목표 공유앱입니다.* 👍
+*계획한 목표를 공유해서 같이 습관화할 크루원을 모집할 수 있고, 목표를 달성하지 못한 멤버를 독려해 동기부여를 도와주는 목표 공유 모바일 웹 서비스입니다.* 👍
 
 # HAVIT-FRONT
   
@@ -31,8 +32,6 @@
 다윤 ([wildgallop21](https://github.com/wildgallop21))</div>
 <div><img src="https://avatars.githubusercontent.com/u/83333217?v=4"  width="50" height="50"/>
 정민 ([MIINII](https://github.com/MIINII))</div>
-<div><img src="https://user-images.githubusercontent.com/78805018/191910274-95b7408b-db52-449a-a5b2-14fcd4319134.png"  width="50" height="50"/>
-현욱 ([Artlogy](https://github.com/artlogy))</div>
 
 ## Commit Convention
 ### 타입은 태그와 제목으로 구성되고, 태그는 영어로 쓰되 첫 문자는 대문자로 합니다.
