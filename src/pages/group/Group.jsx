@@ -44,7 +44,6 @@ const Group = () => {
       })
     }
   }, [selected, tag]);
-  console.log(tag)
   const handleSelect = (e) => {
     setSelected(e);
   };
@@ -52,7 +51,6 @@ const Group = () => {
     setTag(tagItem)
     setSelected("태그별")
   }
-console.log(crew)
   return (
     <StyledContainer id={"content"}>
       <Row>

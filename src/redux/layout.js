@@ -24,4 +24,4 @@ export const layoutSlice = createSlice({
 
 export const { setLayout, resetLayout } = layoutSlice.actions;
 
-export default layoutSlice;
+export default layoutSlice.reducer;
