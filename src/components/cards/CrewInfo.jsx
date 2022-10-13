@@ -22,7 +22,10 @@ const CrewInfo = ({
   groupTag,
   favorite,
   createdAt,
-  certifyList
+  certifyList,
+  setTag,
+  onTagClick,
+  tag
 }) => {
   const navigate = useNavigate();
   const [detail, setDetail] = useState();
@@ -62,7 +65,7 @@ const CrewInfo = ({
           </StyledPeople>
           <StyledTagDiv>
             {groupTag?.map((item, idx) => (
-              <Tags item={item} key={idx} />
+              <Tags item={item} key={idx} setTag={setTag} onTagClick={onTagClick} tag={tag}/>
             ))}
           </StyledTagDiv>
         </StyledGroupInfo>

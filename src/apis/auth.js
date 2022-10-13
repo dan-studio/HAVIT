@@ -34,6 +34,12 @@ export const userApis = {
     return response.data;
   },
 
+  //Tag
+  getByTag: async tag => {
+    const response = await authApi.get('/api/auth/group/tag?tag='+tag);
+    return response
+  },
+
   //Group
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
