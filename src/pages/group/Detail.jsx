@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {motion} from "framer-motion";
 import CrewInfo from "@components/cards/CrewInfo";
 import { Divider, Modal } from "antd";
 import List from "@components/list/MemberList";
