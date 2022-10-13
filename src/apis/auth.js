@@ -135,6 +135,11 @@ export const userApis = {
   getMemberDetail: async memberId => {
     const response = await authApi.get('/api/auth/info/'+memberId)
     return response
+  },
+  //Notification
+  connectSSE: async () => {
+    const response = await authApi.get('/api/auth/subscribe')
+    return response
   }
 };
 

@@ -16,6 +16,7 @@ const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [data, setData] = useState()
   const [myGroupMembers, setMyGroupMembers] = useState([]);
   const [groupList, setGroupList] = useState([]);
   const [myInfo, setMyInfo] = useState("");
@@ -58,6 +59,18 @@ const Main = () => {
       setMyGroups(res.data);
     });
   }, []);
+  useEffect(()=>{
+    const sse = new EventSource(process.env.REACT_APP_API_HOST+'/api/auth/subscribe')
+    const handleStream = (data) => {
+      setData(data)
+    }
+    sse.onmessage=(e)=>{
+      handleStream(e.data)
+    }
+    return ()=>{
+
+    }
+  },[])
   const myGroupLists = myGroups?.length;
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0,4)
