@@ -49,4 +49,4 @@ export const userSlice = createSlice({
 
 export const { setPrincipal, clearPrincipal } = authSlice.actions;
 
-export default authSlice;
+export default authSlice.reducer;

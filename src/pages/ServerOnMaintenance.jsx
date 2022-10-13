@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/havit_black.svg";
 import { resetLayout, setLayout } from "../redux/layout";
 
-const PageNotFound = () => {
+const ServerOnMaintenance = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
     return () => {
@@ -17,13 +15,13 @@ const PageNotFound = () => {
   return (
     <StyledDiv>
       <StyledImg src={logo} />
-      <StyledParagraph marginTop="35vh">요청하신 페이지를 찾을 수 없습니다.</StyledParagraph>
-      <StyledParagraph marginTop="45vh" fontSize="15px" onClick={()=>{navigate('/')}}>메인으로 돌아가기</StyledParagraph>
+      <StyledParagraph marginTop="35vh">더 나은 서비스를 위해 서버를 점검하고 있습니다.</StyledParagraph>
+      <StyledParagraph marginTop="45vh">불편을 끼쳐드려 죄송합니다.</StyledParagraph>
     </StyledDiv>
   );
 };
 
-export default PageNotFound;
+export default ServerOnMaintenance;
 const StyledDiv = styled.div`
   height: 70vh;
   display: flex;
@@ -36,7 +34,7 @@ const StyledImg = styled.img`
 const StyledParagraph = styled.p`
   margin-top: ${props=>props.marginTop};
   position: absolute;
-  font-size: ${props=>props.fontSize||"22px"};
+  font-size: ${props=>props.fontSize||"17px"};
   text-align: center;
   color: #575757;
 `;
