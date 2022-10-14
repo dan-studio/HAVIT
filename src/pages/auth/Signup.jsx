@@ -182,7 +182,7 @@ const Signup = () => {
       )}
       <StyledButtonDiv>
         <StyledButton
-          top="80vh"
+          top="64vh"
           color="white"
           background="#5C53FF"
           onClick={onSubmitHandler}
@@ -192,7 +192,7 @@ const Signup = () => {
           회원가입 완료
         </StyledButton>
         <StyledButton
-          top="87vh"
+          top="71vh"
           background="white"
           onClick={() => {
             navigate(-1);
