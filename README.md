@@ -37,9 +37,12 @@
 <img src="https://img.shields.io/badge/Redux-764ABC?style=flat&logo=Redux&logoColor=white"/>
 <img src="https://img.shields.io/badge/React Query-FF4154?style=flat&logo=React Query&logoColor=white"/>
 <img src="https://img.shields.io/badge/styled_components-DB7093?style=flat&logo=styled-components&logoColor=white"/>
+<img src="https://img.shields.io/badge/Ant Design-0170FE?style=flat&logo=Ant Design&logoColor=white"/>
+<img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
+<img src="https://img.shields.io/badge/Google Analytics-E37400?style=flat&logo=Google Analytics&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS Amplify-FF9900?style=flat&logo=AWS Amplify&logoColor=white"/>
 
 ### Back-end
-
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white"/>
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white"/>
 <img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat&logo=SpringSecurity&logoColor=white"/>

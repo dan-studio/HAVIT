@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import havit from '@/assets/havitLogoPurple.png';
-import team from '@assets/havitTeam2.png';
-import naverButton from '@assets/naverButton.png';
-import kakaoButton from '@assets/kakaoButton.png';
-import {  useDispatch } from 'react-redux';
-import { resetLayout, setLayout } from '@redux/layout';
-import useInputs from '@hooks/useInput';
-import { signin } from '@apis/auth/principal';
-import { RootDiv } from '../BasicLayout';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import havit from "@/assets/havitLogoPurple.png";
+import team from "@assets/havitTeam2.png";
+import naverButton from "@assets/naverButton.png";
+import kakaoButton from "@assets/kakaoButton.png";
+import { useDispatch } from "react-redux";
+import { resetLayout, setLayout } from "@redux/layout";
+import useInputs from "@hooks/useInput";
+import { signin } from "@apis/auth/principal";
+import { RootDiv } from "../BasicLayout";
+import { Modal } from "antd";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -21,9 +22,9 @@ const Signin = () => {
     };
   }, []);
 
-  const [form, onChange, reset] =  useInputs({
-    email:"",
-    password:"",
+  const [form, onChange, reset] = useInputs({
+    email: "",
+    password: "",
   });
 
   const submmitHandler = ()=>{
@@ -59,7 +60,6 @@ const Signin = () => {
       <StyledInput
         type="email"
         top="24vh"
-        
         placeholder="✉  E-Mail"
         value={form?.email}
         name={"email"}
@@ -88,21 +88,22 @@ const Signin = () => {
           top="47vh"
           background="white"
           onClick={() => {
-            navigate('/auth');
+            navigate("/auth");
           }}
         >
-          뒤로가기 
+          뒤로가기
         </StyledButton>
       </StyledButtonDiv>
-      <StyledOrDiv>
+      {/* 소셜 로그인 버튼 */}
+      {/* <StyledOrDiv>
         <StyledHrLeft />
         <StyledHrRight />
         <span>or</span>
       </StyledOrDiv>
       <StyledSocialLogin>
         <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt="" />
-      </StyledSocialLogin>
+        <StyledKakaoButton src={kakaoButton} alt=""/>
+      </StyledSocialLogin> */}
     </StyledDiv>
   );
 };
@@ -165,7 +166,7 @@ const StyledButton = styled.button`
 `;
 const StyledInput = styled.input`
   position: absolute;
-  top: ${props => props.top};
+  top: ${(props) => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
   padding: 10px 30px;
@@ -210,4 +211,3 @@ const StyledKakaoButton = styled.img`
   margin: 0 2vw;
   cursor: pointer;
 `;
-
