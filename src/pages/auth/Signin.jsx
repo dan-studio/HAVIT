@@ -10,6 +10,8 @@ import { resetLayout, setLayout } from '@redux/layout';
 import useInputs from '@hooks/useInput';
 import { signin } from '@apis/auth/principal';
 import { RootDiv } from '../BasicLayout';
+import { Modal } from "antd";
+
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -44,6 +46,22 @@ const Signin = () => {
           alert(err)
       } 
     })
+  }
+  const ModalSocial = () => {
+
+  Modal.confirm({
+    title: "안내",
+    content: (
+      <div>
+        <div>추후구현예정인 기능입니다</div>
+      </div>
+    ),
+    // okText: "확인",
+    cancelText: "확인",
+    // onOk: () => {
+
+    // },
+  });
   }
   return (
     <StyledDiv>
@@ -94,8 +112,8 @@ const Signin = () => {
         <span>or</span>
       </StyledOrDiv>
       <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt="" />
+        <StyledNaverButton src={naverButton} alt="" onClick={ModalSocial} />
+        <StyledKakaoButton src={kakaoButton} alt="" onClick={ModalSocial} />
       </StyledSocialLogin>
     </StyledDiv>
   );
