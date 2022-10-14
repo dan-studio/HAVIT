@@ -27,51 +27,30 @@ const Signin = () => {
     password: "",
   });
 
-  const submmitHandler = () => {
-    signin(form)
-      .then((res) => {
-        if (res.data.code === "MEMBER_NOT_FOUND") {
-          alert("사용자를 찾을 수 없습니다.");
-          return;
-        } else if (res.data.code === "PASSWORD_NOT_MATCHED") {
-          alert("비밀번호가 일치하지 않습니다.");
-          return;
-        }
-        if (res.status === 200) {
-          alert(`${res.data.nickname}님 환영합니다!`);
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          alert(err);
-        }
-      });
-  };
-  const ModalSocial = () => {
-    Modal.confirm({
-      title: "안내",
-      content: (
-        <div>
-          <div>추후구현예정인 기능입니다</div>
-          <div>
-            {" "}
-            기능 오픈 예정
-            <br />
-            보다 나은 서비스 제공을 위하여
-            <br />
-            해당 기능을 준비 중에 있습니다.
-            <br />
-          </div>
-        </div>
-      ),
-      // okText: "확인",
-      cancelText: "확인",
-      // onOk: () => {
-
-      // },
-    });
-  };
+  const submmitHandler = ()=>{
+    signin(form).then((res)=>{
+      if(res.data.code==="MEMBER_NOT_FOUND"){
+        alert("사용자를 찾을 수 없습니다.")
+        return
+      }else if(res.data.code==="PASSWORD_NOT_MATCHED"){
+        alert("비밀번호가 일치하지 않습니다.")
+        return
+      }
+      if(res.status === 200){
+        alert(`${res.data.nickname}님 환영합니다!`);
+        navigate("/");
+      }
+    }).catch((err)=>{
+      if(err){
+          console.log(err)
+      } 
+    })
+  }
+  const onKeyDown = (e) => {
+    if(e.key==='Enter'){
+      submmitHandler()
+    }
+  }
   return (
     <StyledDiv>
       <StyledSpan>
@@ -93,6 +72,7 @@ const Signin = () => {
         value={form?.password}
         name={"password"}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
       <StyledButtonDiv>
         <StyledButton
@@ -114,15 +94,16 @@ const Signin = () => {
           뒤로가기
         </StyledButton>
       </StyledButtonDiv>
-      <StyledOrDiv>
+      {/* 소셜 로그인 버튼 */}
+      {/* <StyledOrDiv>
         <StyledHrLeft />
         <StyledHrRight />
         <span>or</span>
       </StyledOrDiv>
       <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" onClick={ModalSocial} />
-        <StyledKakaoButton src={kakaoButton} alt="" onClick={ModalSocial} />
-      </StyledSocialLogin>
+        <StyledNaverButton src={naverButton} alt="" />
+        <StyledKakaoButton src={kakaoButton} alt=""/>
+      </StyledSocialLogin> */}
     </StyledDiv>
   );
 };
