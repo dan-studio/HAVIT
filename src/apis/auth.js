@@ -1,4 +1,4 @@
-import { authApi, restApi, setToken } from './config';
+import { authApi, restApi, setToken, getLocalAPI } from './config';
 
 export const userApis = {
   //Auth
@@ -25,8 +25,8 @@ export const userApis = {
   },
   //Main
   getMyMembers: async () => {
-    const response = await authApi.get('/api/auth/main/')
-    return response.data
+    const response = await authApi.get('/api/auth/main/');
+    return response.data;
   },
   //Search
   search: async data => {
@@ -36,8 +36,8 @@ export const userApis = {
 
   //Tag
   getByTag: async tag => {
-    const response = await authApi.get('/api/auth/group/tag?tag='+tag);
-    return response
+    const response = await authApi.get('/api/auth/group/tag?tag=' + tag);
+    return response;
   },
 
   //Group
@@ -58,8 +58,8 @@ export const userApis = {
     return response;
   },
   deleteGroup: async data => {
-    const response = await authApi.delete('/api/auth/group/'+data)
-    return response
+    const response = await authApi.delete('/api/auth/group/' + data);
+    return response;
   },
   //certify
   uploadImage: async data => {
@@ -67,46 +67,45 @@ export const userApis = {
     return response;
   },
 
-  getCertifyDetail: async (certifyId) => {
-    const response = await authApi.get('/api/auth/certify/'+certifyId);
+  getCertifyDetail: async certifyId => {
+    const response = await authApi.get('/api/auth/certify/' + certifyId);
     return response.data;
   },
   editCertifyDetail: async (certifyId, data) => {
-    const response = await authApi.patch('/api/auth/certify/'+certifyId, data);
-    return response
+    const response = await authApi.patch('/api/auth/certify/' + certifyId, data);
+    return response;
   },
-  deleteCertifyDetail: async (certifyId) => {
-    const response = await authApi.delete('/api/auth/certify/'+certifyId);
-    return response
+  deleteCertifyDetail: async certifyId => {
+    const response = await authApi.delete('/api/auth/certify/' + certifyId);
+    return response;
   },
 
-   //comment
-  writeComment: async (data) => {
-    const response = await authApi.post('/api/auth/comment/', data)
-    return response
+  //comment
+  writeComment: async data => {
+    const response = await authApi.post('/api/auth/comment/', data);
+    return response;
   },
-  editComment: async (commentId) => {
-    const response = await authApi.put('/api/auth/comment/'+commentId)
-    return response
+  editComment: async commentId => {
+    const response = await authApi.put('/api/auth/comment/' + commentId);
+    return response;
   },
-  deleteComment: async (commentId) => {
-    const response = await authApi.delete('/api/auth/comment/'+commentId)
-    return response
+  deleteComment: async commentId => {
+    const response = await authApi.delete('/api/auth/comment/' + commentId);
+    return response;
   },
-  getComment: async (certifyId) => {
-    const response = await authApi.get('/api/auth/comment/',certifyId)
-    return response
+  getComment: async certifyId => {
+    const response = await authApi.get('/api/auth/comment/', certifyId);
+    return response;
   },
   //subComment
-  writeSubComment: async(data)=>{
-    const response = await authApi.post('/api/auth/subcomment/', data)
-    return response
+  writeSubComment: async data => {
+    const response = await authApi.post('/api/auth/subcomment/', data);
+    return response;
   },
-  deleteSubComment: async(subCommentId)=>{
-    const response = await authApi.delete('/api/auth/subcomment/'+subCommentId)
-    return response
+  deleteSubComment: async subCommentId => {
+    const response = await authApi.delete('/api/auth/subcomment/' + subCommentId);
+    return response;
   },
-
 
   // 마이페이지 내에서의 유저 정보
 
@@ -133,13 +132,20 @@ export const userApis = {
   },
   //MemberPage
   getMemberDetail: async memberId => {
-    const response = await authApi.get('/api/auth/info/'+memberId)
-    return response
+    const response = await authApi.get('/api/auth/info/' + memberId);
+    return response;
   },
   //Notification
   connectSSE: async () => {
-    const response = await authApi.get('/api/auth/subscribe')
-    return response
-  }
+    const response = await getLocalAPI.get('/api/auth/subscribe');
+    return response;
+  },
+  sendAlert: async () => {
+    const response = await getLocalAPI.post('/api/auth/notification');
+    console.log(response);
+  },
+  receiveAlert: async () => {
+    const response = await getLocalAPI.get('/api/auth/notification');
+    console.log(response);
+  },
 };
-
