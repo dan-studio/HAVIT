@@ -41,7 +41,7 @@ const Signin = () => {
       }
     }).catch((err)=>{
       if(err){
-          alert(err)
+          console.log(err)
       } 
     })
   }

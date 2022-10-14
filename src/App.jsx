@@ -41,9 +41,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        {/* <Container /> */}
+        <Container />
         {/* 서버 점검중일시 */}
-        <ServerOnMaintenance/>
+        {/* <ServerOnMaintenance/> */}
       </BrowserRouter>
     </ThemeProvider>
   );
