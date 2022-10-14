@@ -45,6 +45,11 @@ const Signin = () => {
       } 
     })
   }
+  const onKeyDown = (e) => {
+    if(e.key==='Enter'){
+      submmitHandler()
+    }
+  }
   return (
     <StyledDiv>
       <StyledSpan>
@@ -67,6 +72,7 @@ const Signin = () => {
         value={form?.password}
         name={"password"}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
       <StyledButtonDiv>
         <StyledButton
