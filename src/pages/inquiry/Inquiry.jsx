@@ -92,7 +92,6 @@ const Inquiry = () => {
           </div>
         )}
       </StyledForm>
-      <Footer />
     </>
   );
 };

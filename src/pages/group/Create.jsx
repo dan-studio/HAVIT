@@ -39,7 +39,7 @@ const GroupCreate = () => {
             }
           })
           .catch((err) => {
-            alert("Group Create Fail error:", err);
+            alert("모든 항목을 입력해주세요!");
           });
       },
     });
@@ -81,6 +81,7 @@ const GroupCreate = () => {
               className={styles.title_input}
               type="search"
               suffix={<EditFilled />}
+              style={{backgroundColor: "transparent"}}
               placeholder="크루명 입력"
             ></Input>
           </Form.Item>

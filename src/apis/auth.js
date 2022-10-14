@@ -34,6 +34,12 @@ export const userApis = {
     return response.data;
   },
 
+  //Tag
+  getByTag: async tag => {
+    const response = await authApi.get('/api/auth/group/tag?tag='+tag);
+    return response
+  },
+
   //Group
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
@@ -125,4 +131,15 @@ export const userApis = {
     const response = await authApi.put('/api/auth/mypage/', data);
     return response;
   },
+  //MemberPage
+  getMemberDetail: async memberId => {
+    const response = await authApi.get('/api/auth/info/'+memberId)
+    return response
+  },
+  //Notification
+  connectSSE: async () => {
+    const response = await authApi.get('/api/auth/subscribe')
+    return response
+  }
 };
+

@@ -26,7 +26,7 @@ const Footer = () => {
             fontSize: "22px",
             marginRight: "10px",
             marginLeft: "10px",
-            color: "#565656",
+            color: "#b0b0b0",
           }}
         />
         <SiNotion
@@ -38,7 +38,7 @@ const Footer = () => {
           }
           style={{
             fontSize: "22px",
-            color: "#565656",
+            color: "#b0b0b0",
           }}
         />
       </StyledIcons>
@@ -46,6 +46,7 @@ const Footer = () => {
       <div
         style={{
           marginLeft: "10px",
+          color:"#b0b0b0",
         }}
       >
         Copyright 2022 Havit. All rights reserved.
@@ -55,7 +56,7 @@ const Footer = () => {
 };
 
 const StyledFooter = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   flex-direction: column;

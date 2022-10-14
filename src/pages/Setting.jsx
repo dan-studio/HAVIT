@@ -115,7 +115,7 @@ const Setting = () => {
   );
 };
 const StyledDiv = styled.div`
-  height: 84.65vh;
+  height: 84.7vh;
 `
 const StyledFooter = styled.div`
   position: absolute;

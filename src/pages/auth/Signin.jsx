@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import havit from '@/assets/havitLogoPurple.png';
-import team from '@assets/havitTeam2.png';
-import naverButton from '@assets/naverButton.png';
-import kakaoButton from '@assets/kakaoButton.png';
-import {  useDispatch } from 'react-redux';
-import { resetLayout, setLayout } from '@redux/layout';
-import useInputs from '@hooks/useInput';
-import { signin } from '@apis/auth/principal';
-import { RootDiv } from '../BasicLayout';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import havit from "@/assets/havitLogoPurple.png";
+import team from "@assets/havitTeam2.png";
+import naverButton from "@assets/naverButton.png";
+import kakaoButton from "@assets/kakaoButton.png";
+import { useDispatch } from "react-redux";
+import { resetLayout, setLayout } from "@redux/layout";
+import useInputs from "@hooks/useInput";
+import { signin } from "@apis/auth/principal";
+import { RootDiv } from "../BasicLayout";
+import { Modal } from "antd";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -21,30 +22,56 @@ const Signin = () => {
     };
   }, []);
 
-  const [form, onChange, reset] =  useInputs({
-    email:"",
-    password:"",
+  const [form, onChange, reset] = useInputs({
+    email: "",
+    password: "",
   });
 
-  const submmitHandler = ()=>{
-    signin(form).then((res)=>{
-      if(res.data.code==="MEMBER_NOT_FOUND"){
-        alert("사용자를 찾을 수 없습니다.")
-        return
-      }else if(res.data.code==="PASSWORD_NOT_MATCHED"){
-        alert("비밀번호가 일치하지 않습니다.")
-        return
-      }
-      if(res.status === 200){
-        alert(`${res.data.nickname}님 환영합니다!`);
-        navigate("/");
-      }
-    }).catch((err)=>{
-      if(err){
-          alert(err)
-      } 
-    })
-  }
+  const submmitHandler = () => {
+    signin(form)
+      .then((res) => {
+        if (res.data.code === "MEMBER_NOT_FOUND") {
+          alert("사용자를 찾을 수 없습니다.");
+          return;
+        } else if (res.data.code === "PASSWORD_NOT_MATCHED") {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
+        if (res.status === 200) {
+          alert(`${res.data.nickname}님 환영합니다!`);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          alert(err);
+        }
+      });
+  };
+  const ModalSocial = () => {
+    Modal.confirm({
+      title: "안내",
+      content: (
+        <div>
+          <div>추후구현예정인 기능입니다</div>
+          <div>
+            {" "}
+            기능 오픈 예정
+            <br />
+            보다 나은 서비스 제공을 위하여
+            <br />
+            해당 기능을 준비 중에 있습니다.
+            <br />
+          </div>
+        </div>
+      ),
+      // okText: "확인",
+      cancelText: "확인",
+      // onOk: () => {
+
+      // },
+    });
+  };
   return (
     <StyledDiv>
       <StyledSpan>
@@ -54,7 +81,6 @@ const Signin = () => {
       <StyledInput
         type="email"
         top="24vh"
-        
         placeholder="✉  E-Mail"
         value={form?.email}
         name={"email"}
@@ -82,10 +108,10 @@ const Signin = () => {
           top="47vh"
           background="white"
           onClick={() => {
-            navigate('/auth');
+            navigate("/auth");
           }}
         >
-          뒤로가기 
+          뒤로가기
         </StyledButton>
       </StyledButtonDiv>
       <StyledOrDiv>
@@ -94,8 +120,8 @@ const Signin = () => {
         <span>or</span>
       </StyledOrDiv>
       <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt="" />
+        <StyledNaverButton src={naverButton} alt="" onClick={ModalSocial} />
+        <StyledKakaoButton src={kakaoButton} alt="" onClick={ModalSocial} />
       </StyledSocialLogin>
     </StyledDiv>
   );
@@ -159,7 +185,7 @@ const StyledButton = styled.button`
 `;
 const StyledInput = styled.input`
   position: absolute;
-  top: ${props => props.top};
+  top: ${(props) => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
   padding: 10px 30px;
@@ -204,4 +230,3 @@ const StyledKakaoButton = styled.img`
   margin: 0 2vw;
   cursor: pointer;
 `;
-

@@ -8,7 +8,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { resetLayout, setLayout } from '@redux/layout';
-import UserProfile from '@components/UserProfile';
+import MyProfile from '@components/profile/MyProfile';
 import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {
@@ -17,6 +17,7 @@ const Mypage = () => {
   const navigate = useNavigate()
   const [group, setGroup] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [myInfo, setMyInfo] = useState("");
 
   // 레이아웃 관련 설정
   useEffect(() => {
@@ -31,18 +32,20 @@ const Mypage = () => {
     userApis.getmyGroup().then(res => {
       setGroup(res.data);
     });
+    userApis
+    .myProfile()
+    .then((res) => {
+      setMyInfo(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }, []);
-  // 사람 가져오기
-  // useEffect(() => {
-  //   userApis.usersInfo().then(res => {
-  //     setFriends(res.data);
-  //     console.log('🚀 * userApis.userInfo * setFriends', setFriends);
-  //   });
-  // }, []);
+  const certifies = myInfo?.certifyList?.length
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <UserProfile myInfo={principal} />
+      <MyProfile myInfo={principal} certifies={certifies}/>
 
       {/* 크루 정보 */}
       <StyledCrews>

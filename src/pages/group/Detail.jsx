@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {motion} from "framer-motion";
 import CrewInfo from "@components/cards/CrewInfo";
 import { Divider, Modal } from "antd";
 import List from "@components/list/MemberList";
@@ -12,14 +11,17 @@ import {
   getGroupDetail,
   getMyGroupList,
   groupParticipating,
-} from "../../apis/group/group";
-import { userApis } from "../../apis/auth";
+} from "@apis/group/group";
+import { userApis } from "@apis/auth";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { useDispatch } from "react-redux";
+import DevButton from "@components/button/DevButton";
 
 // /grup
 const GroupDetail = () => {
   const { groupId } = useParams();
+  const [selected, setSelected] = useState("전체");
+  const [tag, setTag] = useState([])
   const [detail, setDetail] = useState();
   const [myInfo, setMyInfo] = useState();
   const [isParticipate, setIsParticipate] = useState(false);
@@ -93,6 +95,9 @@ const GroupDetail = () => {
       },
     });
   };
+  const onTagClick = () => {
+    navigate('/group')
+  }
   const isMember = detail?.memberList?.find(
     (member) => member?.memberId === myInfo?.memberId
   );
@@ -103,6 +108,7 @@ const GroupDetail = () => {
         type="detail"
         imgUrl={detail?.imageId}
         {...detail}
+        onTagClick={onTagClick}
       ></CrewInfo>
       <StyledGroupDesc value={detail?.content} disabled></StyledGroupDesc>
       <Divider style={{ margin: "0" }}></Divider>
@@ -135,6 +141,14 @@ const GroupDetail = () => {
           />
         </div>
       </StyledButtonDiv>
+      {myInfo?.memberId<=5&&
+      <DevDiv><DevButton
+      buttonName={"관리하기"}
+      onClick={() => {
+        navigate("/group/edit/" + groupId);
+      }}
+      /></DevDiv>
+    }
     </Container>
   );
 };
@@ -171,3 +185,8 @@ const StyledGroupDesc = styled.textarea`
   padding: 1px 6px;
   height: 100px;
 `;
+const DevDiv = styled.div`
+  position: fixed;
+  bottom:1rem;
+  right: 5px;
+`

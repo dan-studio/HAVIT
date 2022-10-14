@@ -2,15 +2,17 @@ import styled from "styled-components";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "@apis/config";
 import crown from "@assets/leader.png";
+import { useNavigate } from "react-router-dom";
 
-const MemberInfo = ({ width, height, nickname, imageId, roleName, leader }) => {
+const MemberInfo = ({ width, height, nickname, imageId, roleName, leader, memberId }) => {
+  const navigate = useNavigate()
   return (
     <Container width={width} height={height}>
       {imageId&&imageId ? (
-        <StyledProfileImg alt="" src={fileUrlHost(imageId)}></StyledProfileImg>
+        <StyledProfileImg alt="" src={fileUrlHost(imageId)} onClick={()=>{navigate("/mypage/"+memberId)}}></StyledProfileImg>
       ) : (
         <StyledProfileDiv>
-          <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
+          <UserOutlined style={{ fontSize: "20px" }} onClick={()=>{navigate("/mypage/"+memberId)}}></UserOutlined>
         </StyledProfileDiv>
       )}
       {leader && <Crown src={crown} alt="" />}
@@ -26,6 +28,7 @@ export default MemberInfo;
 
 const Container = styled.div`
   display: flex;
+  margin: 0px auto;
   flex-direction: column;
   align-items: center;
   width: ${(props) => props.width || "100%"};

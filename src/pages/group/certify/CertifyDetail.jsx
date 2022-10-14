@@ -7,15 +7,16 @@ import { UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 // import Comment from "@pages/comment/Comment";
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import { userApis } from '../../../apis/auth';
-import { fileUrlHost } from '../../../apis/config';
-import Comment from '../../../components/comment/Comment';
-import crown from '@assets/leader.png';
-import { useRef } from 'react';
-import { kakaoApi } from '../../../apis/config';
-import { getGroupDetail } from '@apis/group/group';
-import { Image } from 'antd';
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { userApis } from "../../../apis/auth";
+import { fileUrlHost } from "../../../apis/config";
+import Comment from "../../../components/comment/Comment";
+import crown from "@assets/leader.png";
+import { useRef } from "react";
+import { kakaoApi } from "../../../apis/config";
+import { getGroupDetail } from "@apis/group/group";
+import { Image } from "antd";
+import DevButton from "../../../components/button/DevButton";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -29,7 +30,16 @@ const CertifyDetail = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
   const inputFocus = useRef();
-  const commentHandler = e => {
+  const authId = myInfo?.memberId
+  const memberId = certifyDetail?.memberId
+  const toMemberPage = () => {
+    if (memberId === authId) {
+      navigate("/mypage");
+    } else {
+      navigate("/mypage/" + memberId);
+    }
+  };
+  const commentHandler = (e) => {
     setComment(e.target.value);
     if (comment === '') {
       setCommentId('');
@@ -38,7 +48,6 @@ const CertifyDetail = () => {
   const commentList = certifyDetail?.commentList;
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
-
   useEffect(() => {
     getGroupDetail(groupId)
       .then(res => {
@@ -163,7 +172,9 @@ const CertifyDetail = () => {
         <Image style={{ objectFit: 'cover', width: '345px', height: '345px', marginbottom: '5px' }} src={fileUrlHost(certifyDetail.imageId)} />
         <Profile>
           {imageId ? (
-            <ProfilePhoto src={fileUrlHost(certifyDetail.profileImageId)}></ProfilePhoto>
+            <ProfilePhoto
+              src={fileUrlHost(certifyDetail.profileImageId)}
+            ></ProfilePhoto>
           ) : (
             <StyledProfileDiv>
               <UserOutlined style={{ fontSize: '20px' }}></UserOutlined>
@@ -196,7 +207,19 @@ const CertifyDetail = () => {
         </StyledTitleDiv>
       </StyledBox>
       <StyledCommentDiv>
-        {commentList?.length > 0 ? commentList?.map((el, idx) => <Comment key={idx} {...el} authId={myInfo.memberId} subComment={subComment} setCertifyDetail={setCertifyDetail} />) : <p>아직 댓글이 없어요. 첫 댓글을 작성해 보세요!</p>}
+        {commentList?.length > 0 ? (
+          commentList?.map((el, idx) => (
+            <Comment
+              key={idx}
+              {...el}
+              authId={authId}
+              subComment={subComment}
+              setCertifyDetail={setCertifyDetail}
+            />
+          ))
+        ) : (
+          <p>아직 댓글이 없어요. 첫 댓글을 작성해 보세요!</p>
+        )}
       </StyledCommentDiv>
       <CommentBar>
         <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
@@ -209,6 +232,14 @@ const CertifyDetail = () => {
           }}
         />
       </CommentBar>
+      {myInfo?.memberId<=5&&
+      <DevDiv><DevButton
+      buttonName={"관리하기"}
+      onClick={() => {
+        navigate("edit");
+      }}
+      /></DevDiv>
+    }
     </BoardBox>
   );
 };
@@ -354,3 +385,8 @@ const StyledProfileDiv = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const DevDiv = styled.div`
+  position: fixed;
+  bottom:1rem;
+  right: 5px;
+`

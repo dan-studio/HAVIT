@@ -7,11 +7,13 @@ import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
 import React, { useEffect, useState } from "react";
 import { getAllGroupList, getMyGroupList } from "@apis/group/group";
+import { userApis } from "../../apis/auth";
 // /group
 const Group = () => {
-  const selectList = ["전체", "내 그룹", "인기순"]
+  const selectList = ["전체", "내 그룹", "인기순", "태그별"]
   const [selected, setSelected] = useState("전체");
   const [crew, setCrew] = useState([]);
+  const [tag, setTag] = useState([])
   const navigate = useNavigate();
   useEffect(() => {
     if (selected === "전체") {
@@ -25,6 +27,7 @@ const Group = () => {
     } else if (selected === "내 그룹") {
       getMyGroupList()
         .then((res) => {
+          console.log(res)
           setCrew(res.data);
         })
         .catch((err) => {
@@ -35,11 +38,19 @@ const Group = () => {
         const popular = res.data.sort((a,b)=>b.memberCount-a.memberCount)
         setCrew(popular)
       })
+    }else if (selected === "태그별"){
+      userApis.getByTag(tag).then(res=>{
+        setCrew(res.data)
+      })
     }
-  }, [selected]);
+  }, [selected, tag]);
   const handleSelect = (e) => {
     setSelected(e);
   };
+  const onTagClick = tagItem => {
+    setTag(tagItem)
+    setSelected("태그별")
+  }
   return (
     <StyledContainer id={"content"}>
       <Row>
@@ -49,8 +60,11 @@ const Group = () => {
           onChange={handleSelect}
         >
           {selectList.map(item=>
+          item==="태그별"?
+          <Select.Option value={item} key={item} disabled>{item}</Select.Option>:
           <Select.Option value={item} key={item}>{item}</Select.Option>
-            )}
+        
+          )}
         </Select>
       </Row>
       <Row>
@@ -65,7 +79,7 @@ const Group = () => {
         </StyledAddGroupContainer>
       </Row>
       {crew?.map((item, idx) => (
-        <CrewInfo type="list" {...item} key={idx} />
+        <CrewInfo type="list" {...item} key={idx} setTag={setTag} onTagClick={onTagClick}tag={tag}/>
       ))}
       <StyledBox>
         더이상 그룹이 없어요.

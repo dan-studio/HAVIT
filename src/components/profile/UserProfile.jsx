@@ -1,56 +1,52 @@
 import styled from "styled-components";
 import React from "react";
 import { HiUserCircle } from "react-icons/hi";
-import {
-  UserOutlined
-} from '@ant-design/icons';
-import { fileUrlHost } from "../apis/config";
+import { UserOutlined } from "@ant-design/icons";
+import { fileUrlHost } from "../../apis/config";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { userApis } from "../apis/auth";
+import { userApis } from "../../apis/auth";
 import { useState } from "react";
-import { getGroupDetail } from "@apis/group/group";
 
-const UserProfile = ({ data, type = 'shadow', nickName, myInfo }) => {
-  const navigate = useNavigate()
-  const [myGroups, setMyGroups] = useState([])
-  const toMyPage = () => {
-    navigate('/mypage')
-  }
-  useEffect(()=>{
-    userApis.getmyGroup().then(res=>{
-      setMyGroups(res.data)
-    })
-  },[])
-  const groups = myGroups?.length
-
+const UserProfile = ({ data, type = "shadow", memberInfo}) => {
+  const groups = memberInfo?.groupList?.length;
+  const certifies = memberInfo?.certifyList?.length
   return (
     <div>
       <StyleProfile>
         <StyleUserBox>
           <StyleUserRight>
-            {!!myInfo?.imageId ? (<StyleUserPhoto alt='profile' src = {fileUrlHost(myInfo.imageId)} onClick={toMyPage}></StyleUserPhoto>) 
-            : (<StyleUserNonePhoto onClick={toMyPage}><UserOutlined /></StyleUserNonePhoto>)}
+            {!!memberInfo?.imageId? (
+              <StyleUserPhoto
+                alt="profile"
+                src={fileUrlHost(memberInfo.imageId)}
+              ></StyleUserPhoto>
+            ) : (
+              <StyleUserNonePhoto>
+                <UserOutlined />
+              </StyleUserNonePhoto>
+            )}
           </StyleUserRight>
           <StyleUserLeft>
-            <StyleUserName onClick={toMyPage}>
-              <span>{myInfo?.nickname}</span> 님
+            <StyleUserName>
+              <span>{memberInfo?.nickname}</span> 님
             </StyleUserName>
-            <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
-            <StylePercentage value='3' max='20'></StylePercentage>
+            <StyleUserContent>{memberInfo?.introduce}</StyleUserContent>
+            <StylePercentage value="3" max="20"></StylePercentage>
             <StyleAchievements>
-              {groups===0?0:groups}개의 그룹에서 활동중입니다
+              {groups ? (
+                <><p><b>{groups}</b> 개의 그룹에서 활동중이며</p>
+                <p><b>{certifies}</b> 번의 인증을 하셨어요!</p></>
+              ) : (
+                <span>아직 가입하신 그룹이 없네요!</span>
+              )}
             </StyleAchievements>
           </StyleUserLeft>
-          <StyleUser>
-            <HiUserCircle onClick={()=>{navigate('/mypage/edit')}}/>
-          </StyleUser>
         </StyleUserBox>
       </StyleProfile>
     </div>
   );
 };
-
 const StyleProfile = styled.div`
   height: 168px;
   width: 350px;
@@ -75,23 +71,23 @@ const StyleUserPhoto = styled.img`
   width: 110px;
   height: 110px;
   margin: 0 20px 0 0;
-  border-radius:100%;
-  border:1px solid lightgray;
+  border-radius: 100%;
+  border: 1px solid lightgray;
   object-fit: cover;
 `;
 
 const StyleUserNonePhoto = styled.div`
-  width:110px;
-  height:110px;
-  margin:0 20px 0 0;
-  border-radius:100%;
-  border:1px solid lightgray;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:2.5rem;
-  color:gray;
-`
+  width: 110px;
+  height: 110px;
+  margin: 0 20px 0 0;
+  border-radius: 100%;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  color: gray;
+`;
 
 const StyleUserLeft = styled.div`
   margin: 5px 0 0 10px;
@@ -122,9 +118,17 @@ const StyleUserContent = styled.div`
 `;
 const StyleAchievements = styled.div`
   font-size: 10px;
+  margin-top: 10px;
+  p {
+    font-size: 12px;
+    margin: 0;
+  }
+  b{
+    font-size: 14px;
+  }
 `;
 const StyleUser = styled.div`
-font-size: 22px;
+  font-size: 22px;
   position: relative;
   color: #5e43ff;
   cursor: pointer;

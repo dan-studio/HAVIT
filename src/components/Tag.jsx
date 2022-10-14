@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { userApis } from "../apis/auth";
 
 const Tags = (props) => {
-  return <StyledHashTag>#{props.item}</StyledHashTag>;
+
+  return <StyledHashTag onClick={()=>{props.onTagClick(props.item)}}>#{props.item}</StyledHashTag>;
 };
 
 const StyledHashTag = styled.div`

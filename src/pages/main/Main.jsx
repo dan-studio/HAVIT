@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { resetLayout, setLayout } from "@redux/layout";
-import UserProfile from "@components/UserProfile";
+import MyProfile from "@components/profile/MyProfile";
 import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -10,16 +10,19 @@ import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
+import { FaRegHandPointLeft } from "react-icons/fa";
 
 const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [data, setData] = useState()
   const [myGroupMembers, setMyGroupMembers] = useState([]);
   const [groupList, setGroupList] = useState([]);
   const [myInfo, setMyInfo] = useState("");
   const [nullMsg, setNullMsg] = useState("");
   const [toggleGroup, setToggleGroup] = useState([]);
+  const [myGroups, setMyGroups] = useState([]);
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -52,8 +55,26 @@ const Main = () => {
         })
       );
     });
+    userApis.getmyGroup().then((res) => {
+      setMyGroups(res.data);
+    });
   }, []);
+  useEffect(()=>{
+    const sse = new EventSource(process.env.REACT_APP_API_HOST+'/api/auth/subscribe')
+    const handleStream = (data) => {
+      setData(data)
+    }
+    sse.onmessage=(e)=>{
+      handleStream(e.data)
+    }
+    return ()=>{
 
+    }
+  },[])
+  const myGroupLists = myGroups?.length;
+  //최근 생성된 그룹 4개
+  const groups = crew?.slice(0,4)
+  const certifies = myInfo?.certifyList?.length
   return (
     <div
       style={{
@@ -62,7 +83,17 @@ const Main = () => {
         background: "#5e43ff",
       }}
     >
-      <UserProfile myInfo={principal} />
+      <MyProfile myInfo={principal} certifies={certifies}/>
+      {myGroupLists ? null : (
+        <NewMemberDiv>
+          <div className="message">
+            아래의 빨간 화살표를 클릭하여 그룹페이지로 이동해 주세요!
+          </div>
+          <NewMemberInnerDiv>
+            <FaRegHandPointLeft style={{ fontSize: "40px" }} />
+          </NewMemberInnerDiv>
+        </NewMemberDiv>
+      )}
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -76,7 +107,7 @@ const Main = () => {
           </div>
         </StyledGroup>
         <StyledGroupPhotoBox>
-          {crew?.map((item, idx) => (
+          {groups?.map((item, idx) => (
             <GroupCard
               {...item}
               imgUrl={item?.imageId}
@@ -149,7 +180,7 @@ const StyledGroup = styled.div`
     margin: 35px 20px 0 20px;
     & > h2 {
       font-weight: 700;
-      font-size: 20px;
+      font-size: 19px;
       margin: 0;
       line-height: 24px;
     }
@@ -183,4 +214,37 @@ const StyledNullMsg = styled.div`
   display: flex;
   margin: 50px;
   justify-content: center;
+`;
+
+const NewMemberDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 14.5px;
+  .message {
+    color: white;
+    font-weight: bold;
+  }
+`;
+const NewMemberInnerDiv = styled.div`
+  position: absolute;
+  z-index: 999;
+  top: 53vh;
+  right: 5vw;
+  rotate: -55deg;
+  color: #5e43ff;
+  animation: vibration 0.3s infinite;
+  @keyframes vibration {
+    0% {
+      transform: rotate(-6deg);
+      color: #2cdf3d;
+    }
+    50% {
+      transform: rotate(6deg);
+      color: #5e43ff;
+    }
+    100% {
+      transform: rotate(-6deg);
+      color: white;
+    }
+  }
 `;
