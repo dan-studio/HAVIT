@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { resetLayout, setLayout } from "@redux/layout";
-import MyProfile from "@components/profile/MyProfile";
+import MyProfile from "@components/profile/MyProfileCard";
 import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -11,18 +11,20 @@ import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import { FaRegHandPointLeft } from "react-icons/fa";
+import Notification from "../../Notification";
 
 const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [data, setData] = useState()
   const [myGroupMembers, setMyGroupMembers] = useState([]);
   const [groupList, setGroupList] = useState([]);
   const [myInfo, setMyInfo] = useState("");
   const [nullMsg, setNullMsg] = useState("");
   const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
+  const [sentNotification, setSentNotification] = useState(false);
+  console.log(myGroupMembers)
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -31,7 +33,7 @@ const Main = () => {
   }, []);
   const [crew, setCrew] = useState();
   useEffect(() => {
-      userApis
+    userApis
       .myProfile()
       .then((res) => {
         setMyInfo(res);
@@ -59,22 +61,11 @@ const Main = () => {
       setMyGroups(res.data);
     });
   }, []);
-  useEffect(()=>{
-    const sse = new EventSource(process.env.REACT_APP_API_HOST+'/api/auth/subscribe')
-    const handleStream = (data) => {
-      setData(data)
-    }
-    sse.onmessage=(e)=>{
-      handleStream(e.data)
-    }
-    return ()=>{
 
-    }
-  },[])
   const myGroupLists = myGroups?.length;
   //최근 생성된 그룹 4개
-  const groups = crew?.slice(0,4)
-  const certifies = myInfo?.certifyList?.length
+  const groups = crew?.slice(0, 4);
+  const certifies = myInfo?.certifyList?.length;
   return (
     <div
       style={{
@@ -83,7 +74,15 @@ const Main = () => {
         background: "#5e43ff",
       }}
     >
-      <MyProfile myInfo={principal} certifies={certifies}/>
+      {sentNotification && (
+        <StyledTimer>
+            <span>알림이 전송되었습니다.</span>
+            <div className="progressBar">
+              <div className="gauge"></div>
+            </div>
+        </StyledTimer>
+      )}
+      <MyProfile myInfo={principal} certifies={certifies} />
       {myGroupLists ? null : (
         <NewMemberDiv>
           <div className="message">
@@ -131,13 +130,15 @@ const Main = () => {
                 setToggleGroup={setToggleGroup}
                 myGroupMembers={myGroupMembers}
                 myInfo={myInfo}
+                sentNotification={sentNotification}
+                setSentNotification={setSentNotification}
               />
             ))
           ) : (
             <StyledNullMsg>{nullMsg}</StyledNullMsg>
           )}
         </StyledChallenge>
-        <StyledDragLine></StyledDragLine>
+        <StyledDragLine />
       </StyledBottomDiv>
     </div>
   );
@@ -245,6 +246,43 @@ const NewMemberInnerDiv = styled.div`
     100% {
       transform: rotate(-6deg);
       color: white;
+    }
+  }
+`;
+const StyledTimer = styled.div`
+  position: fixed;
+  top: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.4);
+  height: 50px;
+  font-weight: bold;
+  color: #5e43ff;
+  z-index: 99;
+  span {
+    position: fixed;
+  }
+  .progressBar {
+    display: flex;
+    flex-direction: column;
+    height: 3px;
+    width: 35%;
+    transform: translateY(15px);
+  }
+  .gauge {
+    background-color: #2cdf3d;
+    height: 3px;
+    width: 100%;
+    animation: progress 3s ease;
+  }
+  @keyframes progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
     }
   }
 `;
