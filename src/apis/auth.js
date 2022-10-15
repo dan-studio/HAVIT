@@ -139,6 +139,7 @@ export const userApis = {
   //Notification
   connectSSE: async () => {
     const response = await authApi.get('/api/auth/subscribe')
+    console.log(response)
     return response
   },
   sendNotification: async data => {

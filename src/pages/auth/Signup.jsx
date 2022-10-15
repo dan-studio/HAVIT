@@ -46,7 +46,6 @@ const Signup = () => {
     userApis
       .signup(data)
       .then((res) => {
-        console.log(res);
         if (res.code === "DUPLICATE_EMAIL") {
           return alert(res.message);
         }
@@ -177,28 +176,26 @@ const Signup = () => {
             </span>
           )}
         </StyledInputDiv>
-        <StyledButtonDiv>
-          <StyledButton
-            color="white"
-            background="#5C53FF"
-            onClick={onSubmitHandler}
-            type="submit"
-            disabled={
-              !(isEmail && isNickname && isPassword && isPasswordConfirm)
-            }
-          >
-            회원가입 완료
-          </StyledButton>
-          <StyledButton
-            background="white"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            뒤로가기
-          </StyledButton>
-        </StyledButtonDiv>
       </form>
+      <StyledButtonDiv>
+        <StyledButton
+          color="white"
+          background="#5C53FF"
+          onClick={onSubmitHandler}
+          type="submit"
+          disabled={!(isEmail && isNickname && isPassword && isPasswordConfirm)}
+        >
+          회원가입 완료
+        </StyledButton>
+        <StyledButton
+          background="white"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          뒤로가기
+        </StyledButton>
+      </StyledButtonDiv>
     </StyledDiv>
   );
 };
