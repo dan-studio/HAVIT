@@ -6,7 +6,7 @@ import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { userApis } from "../../apis/auth";
-import { signin } from '@apis/auth/principal';
+import { signin } from "@apis/auth/principal";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -15,9 +15,9 @@ const Signup = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    return ()=>{
+    return () => {
       dispatch(resetLayout());
-    }
+    };
   }, []);
 
   const [email, setEmail] = useState("");
@@ -35,22 +35,27 @@ const Signup = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  const onSubmitHandler = e => {
-    e.preventDefault()
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
     const data = {
-      email, nickname, password, passwordConfirm
-    }
-    userApis.signup(data)
-    .then((res)=>{
-      console.log(res)
-      if(res.code==="DUPLICATE_EMAIL"){
-        return alert(res.message)
-      }
-      alert('회원가입이 완료되었어요 😉')
-      navigate('/auth/signin')
-    }).catch((error)=>{
-      console.log(error)
-    })
+      email,
+      nickname,
+      password,
+      passwordConfirm,
+    };
+    userApis
+      .signup(data)
+      .then((res) => {
+        console.log(res);
+        if (res.code === "DUPLICATE_EMAIL") {
+          return alert(res.message);
+        }
+        alert("회원가입이 완료되었어요 😉");
+        navigate("/auth/signin");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onChangeEmail = useCallback((e) => {
@@ -70,7 +75,7 @@ const Signup = () => {
 
   const onChangeNickname = useCallback((e) => {
     setNickname(e.target.value);
-    if (e.target.value.length < 2||e.target.value.length>10) {
+    if (e.target.value.length < 2 || e.target.value.length > 10) {
       setNicknameMessage("2글자 이상 10글자 이하로 입력해주세요.");
       setIsNickname(false);
     } else {
@@ -121,77 +126,79 @@ const Signup = () => {
         <img src={havit} alt="" />
         <p>Together!</p>
       </StyledSpan>
-        <StyledNotice>이벤트 상품 수령을 위하여 실제 사용하시는 이메일 주소 입력을 권장합니다.</StyledNotice>
-      <StyledInputDiv>
-      <StyledInput
-        type="email"
-        placeholder="✉  E-Mail"
-        onChange={onChangeEmail}
-      />
-      {email.length > 0 && (
-        <span
-          className={`message ${isEmail ? "success" : "error"}`}
-        >
-          {emailMessage}
-        </span>
-      )}
-      <StyledInput
-        type="text"
-        placeholder="🙋‍♂️  닉네임"
-        onChange={onChangeNickname}
-      />
-      {nickname.length > 0 && (
-        <span
-          className={`message ${isNickname ? "success" : "error"}`}
-        >
-          {nicknameMessage}
-        </span>
-      )}
-      <StyledInput
-        type="password"
-        placeholder="🔒  비밀번호"
-        onChange={onChangePassword}
-      />
-      {password.length > 0 && (
-        <span
-          className={`message ${isPassword ? "success" : "error"}`}
-        >
-          {passwordMessage}
-        </span>
-      )}
-      <StyledInput
-        type="password"
-        placeholder="🔒  비밀번호 확인"
-        onChange={onChangePasswordConfirm}
-      />
+      <StyledNotice>
+        이벤트 상품 수령을 위하여 실제 사용하시는 이메일 주소 입력을 권장합니다.
+      </StyledNotice>
+      <form method="POST">
+        <StyledInputDiv>
+          <StyledInput
+            type="email"
+            placeholder="✉  E-Mail"
+            onChange={onChangeEmail}
+          />
+          {email.length > 0 && (
+            <span className={`message ${isEmail ? "success" : "error"}`}>
+              {emailMessage}
+            </span>
+          )}
+          <StyledInput
+            type="text"
+            placeholder="🙋‍♂️  닉네임"
+            onChange={onChangeNickname}
+          />
+          {nickname.length > 0 && (
+            <span className={`message ${isNickname ? "success" : "error"}`}>
+              {nicknameMessage}
+            </span>
+          )}
+          <StyledInput
+            type="password"
+            autoComplete="off"
+            placeholder="🔒  비밀번호"
+            onChange={onChangePassword}
+          />
+          {password.length > 0 && (
+            <span className={`message ${isPassword ? "success" : "error"}`}>
+              {passwordMessage}
+            </span>
+          )}
+          <StyledInput
+            type="password"
+            autoComplete="off"
+            placeholder="🔒  비밀번호 확인"
+            onChange={onChangePasswordConfirm}
+          />
 
-      {passwordConfirm.length > 0 && (
-        <span
-          className={`message ${isPasswordConfirm ? "success" : "error"}`}
-        >
-          {confirmPasswordMessage}
-        </span>
-      )}
-      </StyledInputDiv>
-      <StyledButtonDiv>
-        <StyledButton
-          color="white"
-          background="#5C53FF"
-          onClick={onSubmitHandler}
-          type="submit"
-          disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
-        >
-          회원가입 완료
-        </StyledButton>
-        <StyledButton
-          background="white"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          뒤로가기
-        </StyledButton>
-      </StyledButtonDiv>
+          {passwordConfirm.length > 0 && (
+            <span
+              className={`message ${isPasswordConfirm ? "success" : "error"}`}
+            >
+              {confirmPasswordMessage}
+            </span>
+          )}
+        </StyledInputDiv>
+        <StyledButtonDiv>
+          <StyledButton
+            color="white"
+            background="#5C53FF"
+            onClick={onSubmitHandler}
+            type="submit"
+            disabled={
+              !(isEmail && isNickname && isPassword && isPasswordConfirm)
+            }
+          >
+            회원가입 완료
+          </StyledButton>
+          <StyledButton
+            background="white"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            뒤로가기
+          </StyledButton>
+        </StyledButtonDiv>
+      </form>
     </StyledDiv>
   );
 };
@@ -210,7 +217,7 @@ const StyledDiv = styled.div`
       color: rgb(94, 67, 255);
     }
     &.error {
-      color: #E94560;
+      color: #e94560;
     }
   }
 `;
@@ -226,14 +233,14 @@ const StyledSpan = styled.span`
   img {
     width: 140px;
   }
-  p{
+  p {
     margin: 10px 0;
   }
 `;
 
 const StyledButtonDiv = styled.div`
-width: 80vw;
-margin: 0 auto;
+  width: 80vw;
+  margin: 0 auto;
 `;
 const StyledButton = styled.button`
   width: 80vw;
@@ -244,11 +251,11 @@ const StyledButton = styled.button`
   border-radius: 30px;
   margin: 0 0 5px;
   cursor: pointer;
-  :disabled{
+  :disabled {
     cursor: unset;
     background-color: #ccc;
     border: 1px solid #ccc;
-}
+  }
 `;
 const StyledInput = styled.input`
   width: 80vw;
@@ -259,13 +266,13 @@ const StyledInput = styled.input`
 `;
 const StyledNotice = styled.div`
   font-size: 11px;
-  background-color: rgb(94 ,67 ,255, 0.25);
+  background-color: rgb(94, 67, 255, 0.25);
   padding: 1px 6px;
   border-radius: 30px;
   margin: 0 auto 15px;
   width: 340px;
-`
+`;
 const StyledInputDiv = styled.div`
   width: 80vw;
   margin: 0 auto 5px;
-`
+`;

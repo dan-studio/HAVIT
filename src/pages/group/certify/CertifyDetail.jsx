@@ -30,8 +30,18 @@ const CertifyDetail = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
   const inputFocus = useRef();
-  const authId = myInfo?.memberId
-  const memberId = certifyDetail?.memberId
+  const authId = myInfo?.memberId;
+  const memberId = certifyDetail?.memberId;
+  const ca = (certifyDetail.createdAt)
+  const createdDate = ca?.slice(2, 10).split("-");
+  const createdTime = ca?.slice(11, 16)
+  const yyyy_mm_dd = () => {
+    if (createdDate && createdDate.length > 0) {
+      return (
+        createdDate[0] + "년 " + createdDate[1] + "월 " + createdDate[2] + "일 "+ createdTime
+      );
+    }
+  };
   const toMemberPage = () => {
     if (memberId === authId) {
       navigate("/mypage");
@@ -49,7 +59,7 @@ const CertifyDetail = () => {
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
   useEffect(() => {
-      getGroupDetail(groupId)
+    getGroupDetail(groupId)
       .then((res) => {
         setGroupDetail(res.data);
       })
@@ -64,13 +74,13 @@ const CertifyDetail = () => {
       .catch((err) => {
         console.log(err);
       });
-      userApis.getCertifyDetail(certifyId).then((res) => {
-        setCertifyDetail(res);
-        setCoordinate({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        });
-        if(res.longitude !== null && res.latitude !== null ){
+    userApis.getCertifyDetail(certifyId).then((res) => {
+      setCertifyDetail(res);
+      setCoordinate({
+        latitude: res.latitude,
+        longitude: res.longitude,
+      });
+      if (res.longitude !== null && res.latitude !== null) {
         kakaoApi
           .get(
             `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`
@@ -84,14 +94,14 @@ const CertifyDetail = () => {
                 gu: temp.region_2depth_name,
                 dong: temp.region_3depth_name,
               });
+            } else {
+              console.log("error");
             }
-            else{
-              console.log('error')
-            }
-        }).catch()
-        }
-      })
-    }, []);
+          })
+          .catch();
+      }
+    });
+  }, []);
 
   const addComment = (commentId) => {
     const commentMsg = {
@@ -178,10 +188,15 @@ const CertifyDetail = () => {
         )}
       </Title>
       <StyledBox>
-        <Image style={{"objectFit": "cover",
-  "width": "345px",
-  "height": "345px",
-  "marginbottom": "5px"}} src={fileUrlHost(certifyDetail.imageId)} />
+        <Image
+          style={{
+            objectFit: "cover",
+            width: "345px",
+            height: "345px",
+            marginbottom: "5px",
+          }}
+          src={fileUrlHost(certifyDetail.imageId)}
+        />
         <Profile>
           {imageId ? (
             <ProfilePhoto
@@ -189,7 +204,7 @@ const CertifyDetail = () => {
               onClick={toMemberPage}
             ></ProfilePhoto>
           ) : (
-            <StyledProfileDiv>
+            <StyledProfileDiv onClick={toMemberPage}>
               <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
             </StyledProfileDiv>
           )}
@@ -205,7 +220,7 @@ const CertifyDetail = () => {
                   : groupDetail.crewName}
               </ProfileRole>
             </InnerBox>
-            <ChallengeLocation>
+            <ChallengeLocation>ㅁㄴㅇ
               {locationObj.si !== undefined ? (
                 <IoLocationOutline
                   style={{
@@ -230,6 +245,7 @@ const CertifyDetail = () => {
         <StyledTitleDiv>
           <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
         </StyledTitleDiv>
+            <CreatedAt>{yyyy_mm_dd()}</CreatedAt>
       </StyledBox>
       <StyledCommentDiv>
         {commentList?.length > 0 ? (
@@ -261,14 +277,6 @@ const CertifyDetail = () => {
           }}
         />
       </CommentBar>
-      {myInfo?.memberId<=5&&
-      <DevDiv><DevButton
-      buttonName={"관리하기"}
-      onClick={() => {
-        navigate("edit");
-      }}
-      /></DevDiv>
-    }
     </BoardBox>
   );
 };
@@ -349,12 +357,6 @@ const InnerBox = styled.div`
   justify-content: start;
   width: 100%;
 `;
-const ChallengePhoto = styled.img`
-  object-fit: cover;
-  width: 345px;
-  height: 345px;
-  margin-bottom: 5px;
-`;
 
 const CommentBar = styled.div`
   display: flex;
@@ -404,16 +406,15 @@ const StyledCommentDiv = styled.div`
   }
 `;
 const StyledProfileDiv = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 41px;
+  height: 41px;
   border-radius: 100%;
   border: 1px solid lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const DevDiv = styled.div`
-  position: fixed;
-  bottom:1rem;
-  right: 5px;
+const CreatedAt = styled.div`
+  font-size: 11px;
+  margin-bottom: 5px;
 `

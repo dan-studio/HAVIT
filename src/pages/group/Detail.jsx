@@ -141,14 +141,6 @@ const GroupDetail = () => {
           />
         </div>
       </StyledButtonDiv>
-      {myInfo?.memberId<=5&&
-      <DevDiv><DevButton
-      buttonName={"관리하기"}
-      onClick={() => {
-        navigate("/group/edit/" + groupId);
-      }}
-      /></DevDiv>
-    }
     </Container>
   );
 };

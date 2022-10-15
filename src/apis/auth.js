@@ -20,8 +20,8 @@ export const userApis = {
     return response;
   },
   myProfile: async () => {
-    const reponse = await authApi.get('/api/auth/info');
-    return reponse.data;
+    const response = await authApi.get('/api/auth/info');
+    return response.data;
   },
   //Main
   getMyMembers: async () => {
