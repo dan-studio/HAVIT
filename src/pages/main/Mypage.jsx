@@ -8,7 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
 import { resetLayout, setLayout } from "@redux/layout";
-import MyProfile from "@components/profile/MyProfileCard";
+import MyProfileCard from "@components/profile/MyProfileCard";
 import { useNavigate } from "react-router-dom";
 import NotificationReceived from "../../components/cards/NotificationReceived";
 
@@ -24,7 +24,7 @@ const Mypage = () => {
   const [showNotification, setShowNotification] = useState(false);
   // 레이아웃 관련 설정
   useEffect(() => {
-    dispatch(setLayout({ isInvert: true }));
+    dispatch(setLayout({ isInvert: false }));
     return () => {
       dispatch(resetLayout());
     };
@@ -55,7 +55,7 @@ const Mypage = () => {
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <MyProfile myInfo={principal} certifies={certifies} />
+      <MyProfileCard myInfo={principal} certifies={certifies} />
 
       {/* 알림 */}
       <StyledAlert>
@@ -91,7 +91,7 @@ const StyledWrap = styled.div`
   flex-direction: column;
   /* height: 100vh; */
   position: relative;
-  background-color: #5e43ff;
+  
 `;
 
 const StyledCrews = styled.div`
