@@ -33,7 +33,7 @@ const StyleWrap = styled.div`
     }
 
     :focus {
-      outline: 2px solid #5e43ff;
+      outline: 2px solid #5e43ff; 
     }
   }
 `;

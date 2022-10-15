@@ -28,7 +28,6 @@ const CrewInfo = ({
   tag
 }) => {
   const navigate = useNavigate();
-  const [detail, setDetail] = useState();
   const createdDate = createdAt?.slice(2, 10).split("-");
   const yyyy_mm_dd = () => {
     if (createdDate && createdDate.length > 0) {
