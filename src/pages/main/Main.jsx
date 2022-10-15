@@ -11,7 +11,9 @@ import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import { FaRegHandPointLeft } from "react-icons/fa";
-import Notification from "../../Notification";
+import { getToken } from "../../apis/config";
+import { event, eventSource, ssehandler } from "../../sse/serversentevent";
+import ReactGA from 'react-ga'
 
 const Main = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
@@ -24,6 +26,11 @@ const Main = () => {
   const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
+
+  useEffect(()=>{
+    ReactGA.pageview(window.location.pathname)
+  },[])
+
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -65,6 +72,8 @@ const Main = () => {
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
+
+
   return (
     <div
       style={{
