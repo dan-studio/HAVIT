@@ -24,7 +24,6 @@ const Main = () => {
   const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
-  console.log(myGroupMembers)
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -33,8 +32,8 @@ const Main = () => {
   }, []);
   const [crew, setCrew] = useState();
   useEffect(() => {
-      userApis
-      .MyProfileCard()
+    userApis
+      .myProfile()
       .then((res) => {
         setMyInfo(res);
       })
@@ -76,13 +75,13 @@ const Main = () => {
     >
       {sentNotification && (
         <StyledTimer>
-            <span>알림이 전송되었습니다.</span>
-            <div className="progressBar">
-              <div className="gauge"></div>
-            </div>
+          <span>알림이 전송되었습니다.</span>
+          <div className="progressBar">
+            <div className="gauge"></div>
+          </div>
         </StyledTimer>
       )}
-      <MyProfile myInfo={principal} certifies={certifies} />
+      <MyProfileCard myInfo={principal} certifies={certifies} />
       {myGroupLists ? null : (
         <NewMemberDiv>
           <div className="message">
