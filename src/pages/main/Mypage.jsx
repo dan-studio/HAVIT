@@ -3,7 +3,6 @@ import Profile from "@components/cards/Profile";
 import CrewInfo from "@components/cards/CrewInfo";
 import AlertUser from "@components/cards/AlertUser";
 import { userApis } from "../../apis/auth";
-
 import { IoIosArrowForward } from "react-icons/io";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import { resetLayout, setLayout } from "@redux/layout";
 import MyProfile from "@components/profile/MyProfileCard";
 import { useNavigate } from "react-router-dom";
 import NotificationReceived from "../../components/cards/NotificationReceived";
+
 
 const Mypage = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
@@ -22,9 +22,10 @@ const Mypage = () => {
   const [friends, setFriends] = useState([]);
   const [myInfo, setMyInfo] = useState("");
   const [showNotification, setShowNotification] = useState(false);
+
   // 레이아웃 관련 설정
   useEffect(() => {
-    dispatch(setLayout({ isInvert: true }));
+    dispatch(setLayout({ isInvert: false }));
     return () => {
       dispatch(resetLayout());
     };
@@ -56,7 +57,6 @@ const Mypage = () => {
     <StyledWrap>
       {/* 프로필 */}
       <MyProfile myInfo={principal} certifies={certifies} />
-
       {/* 알림 */}
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -91,7 +91,7 @@ const StyledWrap = styled.div`
   flex-direction: column;
   /* height: 100vh; */
   position: relative;
-  background-color: #5e43ff;
+  
 `;
 
 const StyledCrews = styled.div`
