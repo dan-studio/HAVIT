@@ -57,6 +57,7 @@ const Signin = () => {
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
+      <form>
       <StyledInput
         type="email"
         top="24vh"
@@ -104,6 +105,7 @@ const Signin = () => {
         <StyledNaverButton src={naverButton} alt="" />
         <StyledKakaoButton src={kakaoButton} alt=""/>
       </StyledSocialLogin> */}
+      </form>
     </StyledDiv>
   );
 };
