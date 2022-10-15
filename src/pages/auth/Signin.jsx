@@ -27,56 +27,58 @@ const Signin = () => {
     password: "",
   });
 
-  const submmitHandler = ()=>{
-    signin(form).then((res)=>{
-      if(res.data.code==="MEMBER_NOT_FOUND"){
-        alert("사용자를 찾을 수 없습니다.")
-        return
-      }else if(res.data.code==="PASSWORD_NOT_MATCHED"){
-        alert("비밀번호가 일치하지 않습니다.")
-        return
-      }
-      if(res.status === 200){
-        alert(`${res.data.nickname}님 환영합니다!`);
-        navigate("/");
-      }
-    }).catch((err)=>{
-      if(err){
-          console.log(err)
-      } 
-    })
-  }
+  const submmitHandler = () => {
+    signin(form)
+      .then((res) => {
+        if (res.data.code === "MEMBER_NOT_FOUND") {
+          alert("사용자를 찾을 수 없습니다.");
+          return;
+        } else if (res.data.code === "PASSWORD_NOT_MATCHED") {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
+        if (res.status === 200) {
+          alert(`${res.data.nickname}님 환영합니다!`);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  };
   const onKeyDown = (e) => {
-    if(e.key==='Enter'){
-      submmitHandler()
+    if (e.key === "Enter") {
+      submmitHandler();
     }
-  }
+  };
   return (
     <StyledDiv>
       <StyledSpan>
+        Sign in to
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
-      <StyledInput
-        type="email"
-        top="24vh"
-        placeholder="✉  E-Mail"
-        value={form?.email}
-        name={"email"}
-        onChange={onChange}
-      />
-      <StyledInput
-        type="password"
-        top="32vh"
-        placeholder="🔒  비밀번호"
-        value={form?.password}
-        name={"password"}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+      <StyledInputDiv>
+        <StyledInput
+          type="email"
+          placeholder="✉  E-Mail"
+          value={form?.email}
+          name={"email"}
+          onChange={onChange}
+        />
+        <StyledInput
+          type="password"
+          placeholder="🔒  비밀번호"
+          value={form?.password}
+          name={"password"}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+      </StyledInputDiv>
       <StyledButtonDiv>
         <StyledButton
-          top="40vh"
           color="white"
           background="#5C53FF"
           type="submit"
@@ -85,7 +87,6 @@ const Signin = () => {
           로그인
         </StyledButton>
         <StyledButton
-          top="47vh"
           background="white"
           onClick={() => {
             navigate("/auth");
@@ -94,16 +95,6 @@ const Signin = () => {
           뒤로가기
         </StyledButton>
       </StyledButtonDiv>
-      {/* 소셜 로그인 버튼 */}
-      {/* <StyledOrDiv>
-        <StyledHrLeft />
-        <StyledHrRight />
-        <span>or</span>
-      </StyledOrDiv>
-      <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt=""/>
-      </StyledSocialLogin> */}
     </StyledDiv>
   );
 };
@@ -113,12 +104,8 @@ export default Signin;
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
-  .team {
-    position: absolute;
-    top: 70vh;
-  }
+  flex-direction: column;
   .message {
-    position: absolute;
     font-size: 1.4vh;
     font-weight: 500;
     &.success {
@@ -131,32 +118,28 @@ const StyledDiv = styled.div`
 `;
 const StyledSpan = styled.span`
   color: #252224;
-  position: absolute;
   left: 15vw;
-  top: 7vh;
   font-weight: 400;
   font-size: 35px;
   line-height: 50px;
+  margin: 40px 15vw 20px;
   img {
-    position: absolute;
-    margin-top: 0.5vh;
+    width: 140px;
   }
 `;
 
 const StyledButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 80vw;
+  margin: 0 auto;
 `;
 const StyledButton = styled.button`
-  position: absolute;
-  top: ${(props) => props.top};
   width: 80vw;
   color: ${(props) => props.color};
   border: 1px solid #5c53ff;
   background-color: ${(props) => props.background};
   padding: 10px;
   border-radius: 30px;
+  margin: 0 0 10px;
   cursor: pointer;
   :disabled {
     cursor: unset;
@@ -164,50 +147,16 @@ const StyledButton = styled.button`
     border: 1px solid #ccc;
   }
 `;
+
+const StyledInputDiv = styled.div`
+  width: 80vw;
+  margin: 0 auto 10px;
+`;
+
 const StyledInput = styled.input`
-  position: absolute;
-  top: ${(props) => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
   padding: 10px 30px;
   border-radius: 30px;
-`;
-const StyledHrLeft = styled.hr`
-  position: absolute;
-  width: 30vw;
-  background-color: #cecece;
-  left: 10vw;
-`;
-const StyledHrRight = styled.hr`
-  position: absolute;
-  width: 30vw;
-  background-color: #cecece;
-  right: 10vw;
-`;
-const StyledOrDiv = styled.div`
-  position: absolute;
-  top: 53vh;
-  color: #cecece;
-  font-size: 2.5vh;
-  hr {
-    transform: translateY(1vh);
-  }
-`;
-const StyledSocialLogin = styled.div`
-  position: absolute;
-  top: 58vh;
-`;
-const StyledNaverButton = styled.img`
-  width: 150px;
-  height: 40px;
-  border-radius: 7px;
-  margin: 0 2vw;
-  cursor: pointer;
-`;
-const StyledKakaoButton = styled.img`
-  width: 150px;
-  height: 40px;
-  border-radius: 7px;
-  margin: 0 2vw;
-  cursor: pointer;
+  margin: 10px auto 0;
 `;
