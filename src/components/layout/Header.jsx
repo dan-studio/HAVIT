@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { FiSettings, FiSearch } from 'react-icons/fi';
+import { FiSettings, FiSearch} from 'react-icons/fi';
+import {AiFillBell } from 'react-icons/ai';
 import Search from '@components/layout/Search';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import { Modal } from "antd";
+
 
 const Header = () => {
   const layout = useSelector(state => state.layout);
@@ -30,9 +33,10 @@ const Header = () => {
           />
         )}
 
-        <Icons invert={layout.isInvert}>
+        <Icons invert={layout.isInvert} >
             {/* NOTE SEARCH 부분 */}
-            <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
+            <AiFillBell style={{ marginRight: '15px'}} />
+            <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '15px' }}></FiSearch>
             <FiSettings
               onClick={() => {
                 navigate('setting');
