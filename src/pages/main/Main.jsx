@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { resetLayout, setLayout } from "@redux/layout";
-import MyProfile from "@components/profile/MyProfile";
+import MyProfileCard from "@components/profile/MyProfileCard";
 import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ const Main = () => {
   const [crew, setCrew] = useState();
   useEffect(() => {
       userApis
-      .myProfile()
+      .MyProfileCard()
       .then((res) => {
         setMyInfo(res);
       })
@@ -83,7 +83,7 @@ const Main = () => {
         background: "#5e43ff",
       }}
     >
-      <MyProfile myInfo={principal} certifies={certifies}/>
+      <MyProfileCard myInfo={principal} certifies={certifies}/>
       {myGroupLists ? null : (
         <NewMemberDiv>
           <div className="message">
