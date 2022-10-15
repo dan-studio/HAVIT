@@ -5,8 +5,6 @@ import {AiFillBell } from 'react-icons/ai';
 import Search from '@components/layout/Search';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { Modal } from "antd";
-
 
 const Header = () => {
   const layout = useSelector(state => state.layout);
@@ -35,7 +33,6 @@ const Header = () => {
 
         <Icons invert={layout.isInvert} >
             {/* NOTE SEARCH 부분 */}
-            <AiFillBell style={{ marginRight: '15px'}} />
             <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '15px' }}></FiSearch>
             <FiSettings
               onClick={() => {
