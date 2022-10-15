@@ -34,7 +34,7 @@ const Main = () => {
   const [crew, setCrew] = useState();
   useEffect(() => {
       userApis
-      .MyProfileCard()
+      .MyProfile()
       .then((res) => {
         setMyInfo(res);
       })
