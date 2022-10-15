@@ -7,10 +7,9 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
 import { resetLayout, setLayout } from "@redux/layout";
-import MyProfile from "@components/profile/MyProfileCard";
+import MyProfileCard from "@components/profile/MyProfileCard";
 import { useNavigate } from "react-router-dom";
 import NotificationReceived from "../../components/cards/NotificationReceived";
-
 
 const Mypage = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
@@ -22,7 +21,6 @@ const Mypage = () => {
   const [friends, setFriends] = useState([]);
   const [myInfo, setMyInfo] = useState("");
   const [showNotification, setShowNotification] = useState(false);
-
   // 레이아웃 관련 설정
   useEffect(() => {
     dispatch(setLayout({ isInvert: false }));
@@ -56,12 +54,15 @@ const Mypage = () => {
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <MyProfile myInfo={principal} certifies={certifies} />
+      <MyProfileCard myInfo={principal} certifies={certifies} />
+
       {/* 알림 */}
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h2 onClick={notificationToggle}>알림 ({myNotification.length}) &nbsp;</h2>
-          {myNotification.length>0&&<div className="notiSign"></div>}
+          <h2 onClick={notificationToggle}>
+            알림 ({myNotification.length}) &nbsp;
+          </h2>
+          {myNotification.length > 0 && <div className="notiSign"></div>}
           {showNotification ? <span>▲</span> : <span>▼</span>}
         </div>
         {showNotification &&
@@ -76,7 +77,9 @@ const Mypage = () => {
         {readAlert && (
           <StyledTimer>
             <span>알림이 삭제되었습니다.</span>
-            <div className="progressBar"><div className="gauge"></div></div>
+            <div className="progressBar">
+              <div className="gauge"></div>
+            </div>
           </StyledTimer>
         )}
         {friends &&
@@ -91,7 +94,6 @@ const StyledWrap = styled.div`
   flex-direction: column;
   /* height: 100vh; */
   position: relative;
-  
 `;
 
 const StyledCrews = styled.div`
@@ -102,7 +104,6 @@ const StyledCrews = styled.div`
   position: relative;
   background-color: #fff;
   border-radius: 30px 30px 0 0;
-
   & > div {
     margin: 20px 20px 0;
     & > h2 {
@@ -131,10 +132,10 @@ const StyledAlert = styled.div`
       line-height: 24px;
     }
   }
-  .notiSign{
+  .notiSign {
     height: 8px;
     width: 8px;
-    background-color :#2cdf3d ;
+    background-color: #2cdf3d;
     border-radius: 50%;
     position: absolute;
     transform: translate(-10px, -10px);
@@ -146,7 +147,7 @@ const StyledTimer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: rgb(255,255,255, 0.4);
+  background-color: rgb(255, 255, 255, 0.4);
   height: 30px;
   font-weight: bold;
   color: #5e43ff;
@@ -160,18 +161,18 @@ const StyledTimer = styled.div`
     width: 35%;
     transform: translateY(15px);
   }
-  .gauge{
+  .gauge {
     background-color: #2cdf3d;
-    height:3px;
+    height: 3px;
     width: 100%;
     animation: progress 3s ease;
   }
-  @keyframes progress{
-    from{
-      width:0%
+  @keyframes progress {
+    from {
+      width: 0%;
     }
-    to{
-      width:100%
+    to {
+      width: 100%;
     }
   }
 `;
