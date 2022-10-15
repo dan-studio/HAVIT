@@ -60,25 +60,23 @@ const Signin = () => {
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
-      <form>
-      <StyledInput
-        type="email"
-        top="24vh"
-        placeholder="✉  E-Mail"
-        value={form?.email}
-        name={"email"}
-        onChange={onChange}
-      />
-      <StyledInput
-        type="password"
-        top="32vh"
-        placeholder="🔒  비밀번호"
-        value={form?.password}
-        name={"password"}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
-
+      <StyledInputDiv>
+        <StyledInput
+          type="email"
+          placeholder="✉  E-Mail"
+          value={form?.email}
+          name={"email"}
+          onChange={onChange}
+        />
+        <StyledInput
+          type="password"
+          placeholder="🔒  비밀번호"
+          value={form?.password}
+          name={"password"}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+      </StyledInputDiv>
       <StyledButtonDiv>
         <StyledButton
           color="white"
@@ -97,17 +95,6 @@ const Signin = () => {
           뒤로가기
         </StyledButton>
       </StyledButtonDiv>
-      {/* 소셜 로그인 버튼 */}
-      {/* <StyledOrDiv>
-        <StyledHrLeft />
-        <StyledHrRight />
-        <span>or</span>
-      </StyledOrDiv>
-      <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt=""/>
-      </StyledSocialLogin> */}
-      </form>
     </StyledDiv>
   );
 };
