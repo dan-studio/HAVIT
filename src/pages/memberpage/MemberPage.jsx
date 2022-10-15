@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { userApis } from "@apis/auth";
-import UserProfile from "@components/profile/UserProfile";
+import UserProfile from "@components/profile/UserProfileCard";
 import CrewInfo from "../../components/cards/CrewInfo";
 import { IoIosArrowForward } from "react-icons/io";
 import logo from "@assets/havit_black.svg";

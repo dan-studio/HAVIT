@@ -78,7 +78,6 @@ const StyleProfile = styled.div`
 const StyleUserBox = styled.div`
   display: flex;
   flex-direction: row;
-
 `;
 const StyleUserRight = styled.div`
   display: flex;
