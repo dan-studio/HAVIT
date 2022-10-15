@@ -16,7 +16,6 @@ import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
 import { getGroupDetail } from "@apis/group/group";
 import { Image } from "antd";
-import DevButton from "../../../components/button/DevButton";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -204,7 +203,7 @@ const CertifyDetail = () => {
               <ProfileName>{certifyDetail.nickname}</ProfileName>
               <ProfileRole>{certifyDetail?.memberId === leader?.memberId ? groupDetail.leaderName : groupDetail.crewName}</ProfileRole>
             </InnerBox>
-            <ChallengeLocation>ㅁㄴㅇ
+            <ChallengeLocation>
               {locationObj.si !== undefined ? (
                 <IoLocationOutline
                   style={{
