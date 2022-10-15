@@ -95,7 +95,7 @@ const StyledCrews = styled.div`
   border-radius: 30px 30px 0 0;
 
   & > div {
-    margin: 35px 20px 0 20px;
+    margin:20px 20px 0;
     & > h2 {
       font-weight: 700;
       font-size: 20px;

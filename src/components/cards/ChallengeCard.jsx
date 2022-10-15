@@ -3,16 +3,26 @@ import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "../../apis/config";
 import { IoIosNotificationsOutline } from "react-icons/io";
-const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt }) => {
+import { useNavigate } from "react-router-dom";
+const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId }) => {
+  const navigate = useNavigate()
   const lastChallenged = modifiedAt?.slice(0, 16);
+
+  const toMemberPage = () => {
+    if (memberId === authId) {
+      navigate("/mypage");
+    } else {
+      navigate("/mypage/" + memberId);
+    }
+  };
 
   return (
     <Card>
       <MemberDiv>
         {imageId ? (
-          <MemberImg src={fileUrlHost(imageId)} alt="" />
+          <MemberImg src={fileUrlHost(imageId)} alt="" onClick={toMemberPage}/>
         ) : (
-          <StyledProfileDiv>
+          <StyledProfileDiv onClick={toMemberPage}>
             <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
           </StyledProfileDiv>
         )}
