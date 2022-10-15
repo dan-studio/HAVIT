@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import ReactGA from 'react-ga'
 
-const MEASUREMENT_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID
+const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID
 
-ReactGA.initialize(MEASUREMENT_ID)
+ReactGA.initialize(TRACKING_ID)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
