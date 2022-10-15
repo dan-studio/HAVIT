@@ -155,6 +155,12 @@ const CertifyDetail = () => {
     setComment(subCommentTo);
     setCommentId(commentId);
   };
+
+  const onKeyDown = (e) => {
+    if(e.key==="Enter"){
+      addComment(commentId)
+    }
+  }
   const leader = groupDetail?.writer;
   const imageId = certifyDetail?.profileImageId;
   return (
@@ -191,6 +197,7 @@ const CertifyDetail = () => {
           {imageId ? (
             <ProfilePhoto
               src={fileUrlHost(certifyDetail.profileImageId)}
+              onClick={toMemberPage}
             ></ProfilePhoto>
           ) : (
             <StyledProfileDiv onClick={toMemberPage}>
@@ -240,7 +247,7 @@ const CertifyDetail = () => {
         )}
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
+        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler} onKeyDown={onKeyDown}></CommentInput>
         <BsArrowUpCircleFill
           color='#5e43ff'
           size='22'

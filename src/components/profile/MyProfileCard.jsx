@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { userApis } from "../../apis/auth";
 import { useState } from "react";
 
-const UserProfile = ({ data, type = "shadow", nickName, myInfo ,certifies}) => {
+const MyProfileCard = ({ data, type = "shadow", nickName, myInfo ,certifies}) => {
   const navigate = useNavigate();
   const [myGroups, setMyGroups] = useState([]);
   const toMyPage = () => {
@@ -73,6 +73,7 @@ const StyleProfile = styled.div`
   border-style: solid;
   border-radius: 20px;
   padding: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 const StyleUserBox = styled.div`
   display: flex;
@@ -159,4 +160,4 @@ const StyleUser = styled.div`
 //   border-radius: 50%;
 //   background-color: red;
 // `;
-export default UserProfile;
+export default MyProfileCard;

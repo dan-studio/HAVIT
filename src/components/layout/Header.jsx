@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { FiSettings, FiSearch } from 'react-icons/fi';
+import {GiRank3 } from 'react-icons/gi';
 import Search from '@components/layout/Search';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import { transform } from 'framer-motion';
 
 
 const Header = () => {
@@ -21,7 +23,8 @@ const Header = () => {
 
         <Icons invert={layout.isInvert}>
           {/* NOTE SEARCH 부분 */}
-          <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '20px' }}></FiSearch>
+          <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '10px' }}></FiSearch>
+          {/* <GiRank3 onClick={() => navigate('/rank')} size="25px" style={{ marginRight: '10px', strokeWidth: "23" ,transform:"translateY(2px)"}}></GiRank3> */}
           <FiSettings
             onClick={() => {
               navigate('setting');
@@ -53,7 +56,7 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 const Icons = styled.div`
-  font-size: 22px;
+  font-size: ${props=>props.size||'22px'};
   color: ${props => (props.invert ? 'white' : '#b0b0b0')};
   & > * {
     margin: 0 0.25rem;
