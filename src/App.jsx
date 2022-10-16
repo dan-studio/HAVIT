@@ -43,7 +43,7 @@ function App() {
       <BrowserRouter>
         <Container />
         {/* 서버 점검중일시 */}
-        <ServerOnMaintenance/>
+        {/* <ServerOnMaintenance/> */}
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -6,7 +6,7 @@ import team from "@assets/havitTeam.png";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { userApis } from "../../apis/auth";
-import { signin } from '@apis/auth/principal';
+import { signin } from "@apis/auth/principal";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -15,9 +15,9 @@ const Signup = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
-    return ()=>{
+    return () => {
       dispatch(resetLayout());
-    }
+    };
   }, []);
 
   const [email, setEmail] = useState("");
@@ -35,22 +35,27 @@ const Signup = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  const onSubmitHandler = e => {
-    e.preventDefault()
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
     const data = {
-      email, nickname, password, passwordConfirm
-    }
-    userApis.signup(data)
-    .then((res)=>{
-      console.log(res)
-      if(res.code==="DUPLICATE_EMAIL"){
-        return alert(res.message)
-      }
-      alert('회원가입이 완료되었어요 😉')
-      navigate('/auth/signin')
-    }).catch((error)=>{
-      console.log(error)
-    })
+      email,
+      nickname,
+      password,
+      passwordConfirm,
+    };
+    userApis
+      .signup(data)
+      .then((res) => {
+        console.log(res);
+        if (res.code === "DUPLICATE_EMAIL") {
+          return alert(res.message);
+        }
+        alert("회원가입이 완료되었어요 😉");
+        navigate("/auth/signin");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onChangeEmail = useCallback((e) => {
@@ -70,7 +75,7 @@ const Signup = () => {
 
   const onChangeNickname = useCallback((e) => {
     setNickname(e.target.value);
-    if (e.target.value.length < 2||e.target.value.length>10) {
+    if (e.target.value.length < 2 || e.target.value.length > 10) {
       setNicknameMessage("2글자 이상 10글자 이하로 입력해주세요.");
       setIsNickname(false);
     } else {
@@ -117,90 +122,83 @@ const Signup = () => {
     <StyledDiv>
       <StyledSpan>
         Come aboard, <br />
-        Let's make <br />
+        <p>Let's make</p>
         <img src={havit} alt="" />
-        <br />
-        Together!
+        <p>Together!</p>
       </StyledSpan>
-      <StyledInput
-        type="email"
-        top="32vh"
-        placeholder="✉  E-Mail"
-        onChange={onChangeEmail}
-      />
-      <StyledNotice>이벤트 상품 수령을 위하여 실제 사용하시는 이메일 주소 입력을 권장합니다.</StyledNotice>
-      {email.length > 0 && (
-        <span
-          className={`message ${isEmail ? "success" : "error"}`}
-          style={{ top: "37vh" }}
-        >
-          {emailMessage}
-        </span>
-      )}
-      <StyledInput
-        type="text"
-        top="40vh"
-        placeholder="🙋‍♂️  닉네임"
-        onChange={onChangeNickname}
-      />
-      {nickname.length > 0 && (
-        <span
-          className={`message ${isNickname ? "success" : "error"}`}
-          style={{ top: "45vh" }}
-        >
-          {nicknameMessage}
-        </span>
-      )}
-      <StyledInput
-        type="password"
-        top="48vh"
-        placeholder="🔒  비밀번호"
-        onChange={onChangePassword}
-      />
-      {password.length > 0 && (
-        <span
-          className={`message ${isPassword ? "success" : "error"}`}
-          style={{ top: "53vh" }}
-        >
-          {passwordMessage}
-        </span>
-      )}
-      <StyledInput
-        type="password"
-        top="56vh"
-        placeholder="🔒  비밀번호 확인"
-        onChange={onChangePasswordConfirm}
-      />
+      <StyledNotice>
+        이벤트 상품 수령을 위하여 실제 사용하시는 이메일 주소 입력을 권장합니다.
+      </StyledNotice>
+      <form method="POST">
+        <StyledInputDiv>
+          <StyledInput
+            type="email"
+            placeholder="✉  E-Mail"
+            onChange={onChangeEmail}
+          />
+          {email.length > 0 && (
+            <span className={`message ${isEmail ? "success" : "error"}`}>
+              {emailMessage}
+            </span>
+          )}
+          <StyledInput
+            type="text"
+            placeholder="🙋‍♂️  닉네임"
+            onChange={onChangeNickname}
+          />
+          {nickname.length > 0 && (
+            <span className={`message ${isNickname ? "success" : "error"}`}>
+              {nicknameMessage}
+            </span>
+          )}
+          <StyledInput
+            type="password"
+            autoComplete="off"
+            placeholder="🔒  비밀번호"
+            onChange={onChangePassword}
+          />
+          {password.length > 0 && (
+            <span className={`message ${isPassword ? "success" : "error"}`}>
+              {passwordMessage}
+            </span>
+          )}
+          <StyledInput
+            type="password"
+            autoComplete="off"
+            placeholder="🔒  비밀번호 확인"
+            onChange={onChangePasswordConfirm}
+          />
 
-      {passwordConfirm.length > 0 && (
-        <span
-          className={`message ${isPasswordConfirm ? "success" : "error"}`}
-          style={{ top: "61vh" }}
-        >
-          {confirmPasswordMessage}
-        </span>
-      )}
-      <StyledButtonDiv>
-        <StyledButton
-          top="80vh"
-          color="white"
-          background="#5C53FF"
-          onClick={onSubmitHandler}
-          type="submit"
-          disabled={!(isEmail&&isNickname&&isPassword&&isPasswordConfirm)}
-        >
-          회원가입 완료
-        </StyledButton>
-        <StyledButton
-          top="87vh"
-          background="white"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          뒤로가기
-        </StyledButton>
-      </StyledButtonDiv>
+          {passwordConfirm.length > 0 && (
+            <span
+              className={`message ${isPasswordConfirm ? "success" : "error"}`}
+            >
+              {confirmPasswordMessage}
+            </span>
+          )}
+        </StyledInputDiv>
+        <StyledButtonDiv>
+          <StyledButton
+            color="white"
+            background="#5C53FF"
+            onClick={onSubmitHandler}
+            type="submit"
+            disabled={
+              !(isEmail && isNickname && isPassword && isPasswordConfirm)
+            }
+          >
+            회원가입 완료
+          </StyledButton>
+          <StyledButton
+            background="white"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            뒤로가기
+          </StyledButton>
+        </StyledButtonDiv>
+      </form>
     </StyledDiv>
   );
 };
@@ -210,71 +208,71 @@ export default Signup;
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
-  .team {
-    position: absolute;
-    top: 64vh;
-  }
+  flex-direction: column;
   .message {
-    position: absolute;
     font-size: 1.4vh;
     font-weight: 500;
+    margin-left: 15px;
     &.success {
       color: rgb(94, 67, 255);
     }
     &.error {
-      color: #E94560;
+      color: #e94560;
     }
   }
 `;
 const StyledSpan = styled.span`
   color: #252224;
-  position: absolute;
-  left: 15vw;
-  top: 7vh;
   font-weight: 400;
   font-size: 30px;
-  line-height: 38px;
+  line-height: 30px;
+  margin: 40px 15vw 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   img {
-    position: absolute;
-    margin-top: .75vh;
     width: 140px;
+  }
+  p {
+    margin: 10px 0;
   }
 `;
 
 const StyledButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 80vw;
+  margin: 0 auto;
 `;
 const StyledButton = styled.button`
-  position: absolute;
-  top: ${(props) => props.top};
   width: 80vw;
   color: ${(props) => props.color};
   border: 1px solid #5c53ff;
   background-color: ${(props) => props.background};
   padding: 10px;
   border-radius: 30px;
+  margin: 0 0 5px;
   cursor: pointer;
-  :disabled{
+  :disabled {
     cursor: unset;
     background-color: #ccc;
     border: 1px solid #ccc;
-}
+  }
 `;
 const StyledInput = styled.input`
-  position: absolute;
-  top: ${(props) => props.top};
   width: 80vw;
   border: 1px solid #d9d9d9;
   padding: 10px 30px;
   border-radius: 30px;
+  margin: 5px auto 0;
 `;
 const StyledNotice = styled.div`
-  position: absolute;
-  top: 27.5vh;
   font-size: 11px;
-  background-color: rgb(94 ,67 ,255, 0.25);
+  background-color: rgb(94, 67, 255, 0.25);
   padding: 1px 6px;
   border-radius: 30px;
-`
+  margin: 0 auto 15px;
+  width: 340px;
+`;
+const StyledInputDiv = styled.div`
+  width: 80vw;
+  margin: 0 auto 5px;
+`;

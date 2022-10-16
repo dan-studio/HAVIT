@@ -1,11 +1,11 @@
-import React from "react";
-import { useLocation, useParams } from "react-router-dom";
-import styled from "styled-components";
-import { IoLocationOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
-import { UserOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { BsArrowUpCircleFill } from "react-icons/bs";
+import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { IoLocationOutline } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
+import { UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { BsArrowUpCircleFill } from 'react-icons/bs';
 // import Comment from "@pages/comment/Comment";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { userApis } from "../../../apis/auth";
@@ -23,15 +23,25 @@ const CertifyDetail = () => {
   const { certifyId } = useParams();
   const [certifyDetail, setCertifyDetail] = useState({});
   const [groupDetail, setGroupDetail] = useState({});
-  const [comment, setComment] = useState("");
-  const [commentId, setCommentId] = useState("");
-  const [myInfo, setMyInfo] = useState("");
-  const [subCommentTo, setSubCommentTo] = useState("");
+  const [comment, setComment] = useState('');
+  const [commentId, setCommentId] = useState('');
+  const [myInfo, setMyInfo] = useState('');
+  const [subCommentTo, setSubCommentTo] = useState('');
   const navigate = useNavigate();
   const { groupId } = useParams();
   const inputFocus = useRef();
-  const authId = myInfo?.memberId
-  const memberId = certifyDetail?.memberId
+  const authId = myInfo?.memberId;
+  const memberId = certifyDetail?.memberId;
+  const ca = (certifyDetail.createdAt)
+  const createdDate = ca?.slice(2, 10).split("-");
+  const createdTime = ca?.slice(11, 16)
+  const yyyy_mm_dd = () => {
+    if (createdDate && createdDate.length > 0) {
+      return (
+        createdDate[0] + "년 " + createdDate[1] + "월 " + createdDate[2] + "일 "+ createdTime
+      );
+    }
+  };
   const toMemberPage = () => {
     if (memberId === authId) {
       navigate("/mypage");
@@ -41,41 +51,39 @@ const CertifyDetail = () => {
   };
   const commentHandler = (e) => {
     setComment(e.target.value);
-    if (comment === "") {
-      setCommentId("");
+    if (comment === '') {
+      setCommentId('');
     }
   };
   const commentList = certifyDetail?.commentList;
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
   useEffect(() => {
-      getGroupDetail(groupId)
+    getGroupDetail(groupId)
       .then((res) => {
         setGroupDetail(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     userApis
       .myProfile()
-      .then((res) => {
+      .then(res => {
         setMyInfo(res);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
-      userApis.getCertifyDetail(certifyId).then((res) => {
-        setCertifyDetail(res);
-        setCoordinate({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        });
-        if(res.longitude !== null && res.latitude !== null ){
+    userApis.getCertifyDetail(certifyId).then((res) => {
+      setCertifyDetail(res);
+      setCoordinate({
+        latitude: res.latitude,
+        longitude: res.longitude,
+      });
+      if (res.longitude !== null && res.latitude !== null) {
         kakaoApi
-          .get(
-            `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`
-          )
-          .then((res) => {
+          .get(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${res?.longitude}&y=${res?.latitude}`)
+          .then(res => {
             if (res.status === 200) {
               const temp = res.data.documents[0];
               setLocationObj({
@@ -84,16 +92,16 @@ const CertifyDetail = () => {
                 gu: temp.region_2depth_name,
                 dong: temp.region_3depth_name,
               });
+            } else {
+              console.log("error");
             }
-            else{
-              console.log('error')
-            }
-        }).catch()
-        }
-      })
-    }, []);
+          })
+          .catch();
+      }
+    });
+  }, []);
 
-  const addComment = (commentId) => {
+  const addComment = commentId => {
     const commentMsg = {
       certifyId: certifyId,
       content: comment,
@@ -102,15 +110,15 @@ const CertifyDetail = () => {
       commentId: commentId,
       content: comment,
     };
-    if (comment === "") return;
+    if (comment === '') return;
     if (commentId && comment) {
       userApis
         .writeSubComment(subCommentMsg)
-        .then((res) => {
-          setCertifyDetail((prev) => {
+        .then(res => {
+          setCertifyDetail(prev => {
             return {
               ...prev,
-              commentList: prev.commentList.map((comment) =>
+              commentList: prev.commentList.map(comment =>
                 comment.commentId === commentId
                   ? {
                       ...comment,
@@ -120,34 +128,31 @@ const CertifyDetail = () => {
               ),
             };
           });
-          setComment("");
+          setComment('');
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
       return;
     }
     userApis
       .writeComment(commentMsg)
-      .then((res) => {
-        setCertifyDetail((prev) => {
+      .then(res => {
+        setCertifyDetail(prev => {
           return {
             ...prev,
-            commentList: [
-              ...prev.commentList,
-              { ...res.data, subCommentList: [] },
-            ],
+            commentList: [...prev.commentList, { ...res.data, subCommentList: [] }],
           };
         });
-        setComment("");
+        setComment('');
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
   const subComment = (nickname, commentId) => {
     inputFocus.current.focus();
-    setSubCommentTo("@" + nickname + " ");
+    setSubCommentTo('@' + nickname + ' ');
     setComment(subCommentTo);
     setCommentId(commentId);
   };
@@ -158,78 +163,67 @@ const CertifyDetail = () => {
       <Title>
         <ToGroup
           onClick={() => {
-            navigate(state || -1, { state: "/group" });
-          }}
-        >
-          <MdOutlineArrowBackIosNew
-            style={{ fontSize: "20px", color: "#5E43FF", marginRight: "3px" }}
-          />
+            navigate(state || -1, { state: '/group' });
+          }}>
+          <MdOutlineArrowBackIosNew style={{ fontSize: '20px', color: '#5E43FF', marginRight: '3px' }} />
           <ChallengeName>{groupDetail.title}</ChallengeName>
         </ToGroup>
         {myInfo?.memberId === certifyDetail?.memberId && (
           <div
-            className="editButton"
+            className='editButton'
             onClick={() => {
-              navigate("edit");
-            }}
-          >
+              navigate('edit');
+            }}>
             수정하기
           </div>
         )}
       </Title>
       <StyledBox>
-        <Image style={{"objectFit": "cover",
-  "width": "345px",
-  "height": "345px",
-  "marginbottom": "5px"}} src={fileUrlHost(certifyDetail.imageId)} />
+        <Image
+          style={{
+            objectFit: "cover",
+            width: "345px",
+            height: "345px",
+            marginbottom: "5px",
+          }}
+          src={fileUrlHost(certifyDetail.imageId)}
+        />
         <Profile>
           {imageId ? (
             <ProfilePhoto
               src={fileUrlHost(certifyDetail.profileImageId)}
-              onClick={toMemberPage}
             ></ProfilePhoto>
           ) : (
-            <StyledProfileDiv>
+            <StyledProfileDiv onClick={toMemberPage}>
               <UserOutlined style={{ fontSize: "20px" }}></UserOutlined>
             </StyledProfileDiv>
           )}
-          {certifyDetail?.memberId === leader?.memberId && (
-            <Crown src={crown} alt="" />
-          )}
+          {certifyDetail?.memberId === leader?.memberId && <Crown src={crown} alt='' />}
           <ProfileBox>
             <InnerBox>
               <ProfileName>{certifyDetail.nickname}</ProfileName>
-              <ProfileRole>
-                {certifyDetail?.memberId === leader?.memberId
-                  ? groupDetail.leaderName
-                  : groupDetail.crewName}
-              </ProfileRole>
+              <ProfileRole>{certifyDetail?.memberId === leader?.memberId ? groupDetail.leaderName : groupDetail.crewName}</ProfileRole>
             </InnerBox>
-            <ChallengeLocation>
+            <ChallengeLocation>ㅁㄴㅇ
               {locationObj.si !== undefined ? (
                 <IoLocationOutline
                   style={{
-                    fontSize: "12px",
-                    color: "#DE4242",
-                    marginRight: "5px",
+                    fontSize: '12px',
+                    color: '#DE4242',
+                    marginRight: '5px',
                   }}
                 />
               ) : (
                 <div></div>
               )}
-              {locationObj.si === undefined
-                ? ""
-                : locationObj.si +
-                  " " +
-                  locationObj.gu +
-                  " " +
-                  locationObj.dong}
+              {locationObj.si === undefined ? '' : locationObj.si + ' ' + locationObj.gu + ' ' + locationObj.dong}
             </ChallengeLocation>
           </ProfileBox>
         </Profile>
         <StyledTitleDiv>
           <ChallengeTitle>{certifyDetail.title}</ChallengeTitle>
         </StyledTitleDiv>
+            <CreatedAt>{yyyy_mm_dd()}</CreatedAt>
       </StyledBox>
       <StyledCommentDiv>
         {commentList?.length > 0 ? (
@@ -247,28 +241,16 @@ const CertifyDetail = () => {
         )}
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput
-          ref={inputFocus}
-          value={comment}
-          onChange={commentHandler}
-        ></CommentInput>
+        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
         <BsArrowUpCircleFill
-          color="#5e43ff"
-          size="18"
-          zindex="100"
+          color='#5e43ff'
+          size='22'
+          zindex='100'
           onClick={() => {
             addComment(commentId);
           }}
         />
       </CommentBar>
-      {myInfo?.memberId<=5&&
-      <DevDiv><DevButton
-      buttonName={"관리하기"}
-      onClick={() => {
-        navigate("edit");
-      }}
-      /></DevDiv>
-    }
     </BoardBox>
   );
 };
@@ -277,13 +259,15 @@ export default React.memo(CertifyDetail);
 const BoardBox = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   padding: 0 1.5rem;
+  /* height: 80vh; */
 `;
 const Profile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 20px;
 `;
 const ToGroup = styled.div`
   display: flex;
@@ -294,7 +278,7 @@ const ProfileBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 10px 0;
+  margin: 10px 10px 0;
 `;
 const ProfilePhoto = styled.img`
   width: 41px;
@@ -349,13 +333,6 @@ const InnerBox = styled.div`
   justify-content: start;
   width: 100%;
 `;
-const ChallengePhoto = styled.img`
-  object-fit: cover;
-  width: 345px;
-  height: 345px;
-  margin-bottom: 5px;
-`;
-
 const CommentBar = styled.div`
   display: flex;
   justify-content: center;
@@ -363,7 +340,7 @@ const CommentBar = styled.div`
   z-index: 1;
   border: 1px solid lightgray;
   border-radius: 25px;
-  margin: 10px 0;
+  margin-bottom: 72px;
   padding: 4px 8px;
   background-color: white;
 `;
@@ -404,16 +381,15 @@ const StyledCommentDiv = styled.div`
   }
 `;
 const StyledProfileDiv = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 41px;
+  height: 41px;
   border-radius: 100%;
   border: 1px solid lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const DevDiv = styled.div`
-  position: fixed;
-  bottom:1rem;
-  right: 5px;
+const CreatedAt = styled.div`
+  font-size: 11px;
+  margin-bottom: 5px;
 `

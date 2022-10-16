@@ -70,7 +70,7 @@ const Container = styled.div`
     gap: 1rem 0.5rem;
   }
   span {
-    font-size: 8px;
+    font-size: 10px;
     margin-left: 0.25rem;
   }
 `;
