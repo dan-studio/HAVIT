@@ -13,6 +13,8 @@ const ChallengeGroupCard = ({
   groupId,
   groupList,
   myInfo,
+  sentNotification,
+  setSentNotification
 }) => {
   const onClick = () => {
     if (toggleGroup === "") {
@@ -23,6 +25,7 @@ const ChallengeGroupCard = ({
       setToggleGroup("");
     }
   };
+  const authId = myInfo?.memberId
   return (
     <>
       <Card onClick={onClick}>
@@ -46,7 +49,9 @@ const ChallengeGroupCard = ({
             (item, idx) =>
               item.groupId === groupId &&
               item.member.memberId !== myInfo?.memberId && (
-                <ChallengeCard key={idx} {...item.member} />
+                <ChallengeCard key={idx} {...item.member} authId={authId} groupId={groupId}
+                sentNotification={sentNotification}
+                setSentNotification={setSentNotification}/>
               )
           )
         : null}

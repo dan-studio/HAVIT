@@ -27,10 +27,17 @@ const Signin = () => {
     password: "",
   });
 
-  const submmitHandler = () => {
+  const submmitHandler = (e) => {
+    e.preventDefault();
     signin(form)
       .then((res) => {
-        if (res.data.code === "MEMBER_NOT_FOUND") {
+        if (!form.email) {
+          alert("이메일을 입력해주세요");
+          return;
+        } else if (!form.password) {
+          alert("비밀번호를 입력해주세요");
+          return;
+        } else if (res.data.code === "MEMBER_NOT_FOUND") {
           alert("사용자를 찾을 수 없습니다.");
           return;
         } else if (res.data.code === "PASSWORD_NOT_MATCHED") {
@@ -50,7 +57,7 @@ const Signin = () => {
   };
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
-      submmitHandler();
+      submmitHandler(e);
     }
   };
   return (
@@ -60,54 +67,45 @@ const Signin = () => {
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
-      {/* <form> */}
-      <StyledInput
-        type="email"
-        top="24vh"
-        placeholder="✉  E-Mail"
-        value={form?.email}
-        name={"email"}
-        onChange={onChange}
-      />
-      <StyledInput
-        type="password"
-        top="32vh"
-        placeholder="🔒  비밀번호"
-        value={form?.password}
-        name={"password"}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
 
-      <StyledButtonDiv>
-        <StyledButton
-          color="white"
-          background="#5C53FF"
-          type="submit"
-          onClick={submmitHandler}
-        >
-          로그인
-        </StyledButton>
-        <StyledButton
-          background="white"
-          onClick={() => {
-            navigate("/auth");
-          }}
-        >
-          뒤로가기
-        </StyledButton>
-      </StyledButtonDiv>
-      {/* 소셜 로그인 버튼 */}
-      {/* <StyledOrDiv>
-        <StyledHrLeft />
-        <StyledHrRight />
-        <span>or</span>
-      </StyledOrDiv>
-      <StyledSocialLogin>
-        <StyledNaverButton src={naverButton} alt="" />
-        <StyledKakaoButton src={kakaoButton} alt=""/>
-      </StyledSocialLogin> */}
-      {/* </form> */}
+      <form method="POST">
+        <StyledInputDiv>
+          <StyledInput
+            type="email"
+            placeholder="✉  E-Mail"
+            value={form?.email}
+            name={"email"}
+            onChange={onChange}
+          />
+          <StyledInput
+            type="password"
+            autoComplete="off"
+            placeholder="🔒  비밀번호"
+            value={form?.password}
+            name={"password"}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
+        </StyledInputDiv>
+        <StyledButtonDiv>
+          <StyledButton
+            color="white"
+            background="#5C53FF"
+            type="submit"
+            onClick={submmitHandler}
+          >
+            로그인
+          </StyledButton>
+          <StyledButton
+            background="white"
+            onClick={() => {
+              navigate("/auth");
+            }}
+          >
+            뒤로가기
+          </StyledButton>
+        </StyledButtonDiv>
+      </form>
     </StyledDiv>
   );
 };

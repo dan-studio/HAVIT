@@ -20,8 +20,8 @@ export const userApis = {
     return response;
   },
   myProfile: async () => {
-    const reponse = await authApi.get('/api/auth/info');
-    return reponse.data;
+    const response = await authApi.get('/api/auth/info');
+    return response.data;
   },
   //Main
   getMyMembers: async () => {
@@ -43,7 +43,7 @@ export const userApis = {
   //Group
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
-    return response.data.data;
+    return response;
   },
   getGroupDetail: async id => {
     const response = await authApi.get('/api/auth/group/' + id);
@@ -140,6 +140,22 @@ export const userApis = {
   connectSSE: async () => {
     const response = await authApi.get('/api/auth/subscribe')
     return response
-  }
+  },
+  sendNotification: async data => {
+    const response = await authApi.post('/api/auth/notification', data)
+    return response
+  },
+  getNotification: async () => {
+    const response = await authApi.get('/api/auth/notification')
+    return response
+  },
+  readNotification: async (notificationId) => {
+    const response = await authApi.patch('/api/auth/notification/'+notificationId)
+    return response
+  },
+  DeleteNotification: async (notificationId) => {
+    const response = await authApi.delete('/api/auth/notification/'+notificationId)
+    return response
+  },
 };
 
