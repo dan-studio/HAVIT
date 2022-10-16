@@ -43,7 +43,7 @@ export const userApis = {
   //Group
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
-    return response.data.data;
+    return response;
   },
   getGroupDetail: async id => {
     const response = await authApi.get('/api/auth/group/' + id);
@@ -137,15 +137,24 @@ export const userApis = {
   },
   //Notification
   connectSSE: async () => {
-    const response = await getLocalAPI.get('/api/auth/subscribe');
-    return response;
+    const response = await authApi.get('/api/auth/subscribe')
+    console.log(response)
+    return response
   },
-  sendAlert: async () => {
-    const response = await getLocalAPI.post('/api/auth/notification');
-    console.log(response);
+  sendNotification: async data => {
+    const response = await authApi.post('/api/auth/notification', data)
+    return response
   },
-  receiveAlert: async () => {
-    const response = await getLocalAPI.get('/api/auth/notification');
-    console.log(response);
+  getNotification: async () => {
+    const response = await authApi.get('/api/auth/notification')
+    return response
+  },
+  readNotification: async (notificationId) => {
+    const response = await authApi.patch('/api/auth/notification/'+notificationId)
+    return response
+  },
+  DeleteNotification: async (notificationId) => {
+    const response = await authApi.delete('/api/auth/notification/'+notificationId)
+    return response
   },
 };

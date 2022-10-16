@@ -16,7 +16,6 @@ import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
 import { getGroupDetail } from "@apis/group/group";
 import { Image } from "antd";
-import DevButton from "../../../components/button/DevButton";
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -156,6 +155,12 @@ const CertifyDetail = () => {
     setComment(subCommentTo);
     setCommentId(commentId);
   };
+
+  const onKeyDown = (e) => {
+    if(e.key==="Enter"){
+      addComment(commentId)
+    }
+  }
   const leader = groupDetail?.writer;
   const imageId = certifyDetail?.profileImageId;
   return (
@@ -192,6 +197,7 @@ const CertifyDetail = () => {
           {imageId ? (
             <ProfilePhoto
               src={fileUrlHost(certifyDetail.profileImageId)}
+              onClick={toMemberPage}
             ></ProfilePhoto>
           ) : (
             <StyledProfileDiv onClick={toMemberPage}>
@@ -204,7 +210,7 @@ const CertifyDetail = () => {
               <ProfileName>{certifyDetail.nickname}</ProfileName>
               <ProfileRole>{certifyDetail?.memberId === leader?.memberId ? groupDetail.leaderName : groupDetail.crewName}</ProfileRole>
             </InnerBox>
-            <ChallengeLocation>ㅁㄴㅇ
+            <ChallengeLocation>
               {locationObj.si !== undefined ? (
                 <IoLocationOutline
                   style={{
@@ -241,7 +247,7 @@ const CertifyDetail = () => {
         )}
       </StyledCommentDiv>
       <CommentBar>
-        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler}></CommentInput>
+        <CommentInput ref={inputFocus} value={comment} onChange={commentHandler} onKeyDown={onKeyDown}></CommentInput>
         <BsArrowUpCircleFill
           color='#5e43ff'
           size='22'

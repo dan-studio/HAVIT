@@ -19,6 +19,7 @@ import Notice from "../pages/notice/Notice";
 import NoticeDetail from "../pages/notice/NoticeDetail";
 import Inquiry from "../pages/inquiry/Inquiry";
 import PageNotFound from "../pages/PageNotFound";
+import Rank from "../pages/main/Rank";
 
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
@@ -31,6 +32,13 @@ const pages = [
     path: "/",
     title: "메인",
     screen: Main,
+    child:[
+      {
+        path:"/rank",
+        title:"랭킹",
+        screen: Rank
+      }
+    ]
   },
   {
     path: "/auth",

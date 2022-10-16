@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "../../apis/config";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId }) => {
+import { userApis } from "../../apis/auth";
+const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupId, sentNotification, setSentNotification}) => {
   const navigate = useNavigate()
   const lastChallenged = modifiedAt?.slice(0, 16);
-
+  const [receiver , setReceiver] = useState(true)
   const toMemberPage = () => {
     if (memberId === authId) {
       navigate("/mypage");
@@ -16,8 +17,23 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId }) => {
     }
   };
 
+  const sendNotification = () => {
+    const data = {
+      memberId,
+      groupId
+    }
+    setSentNotification(true)
+    setReceiver(false)
+    setTimeout(()=>{
+      setSentNotification(false)
+      userApis.sendNotification(data).then(res=>{
+        console.log(res)
+      })
+    },3000)
+  }
   return (
     <Card>
+      
       <MemberDiv>
         {imageId ? (
           <MemberImg src={fileUrlHost(imageId)} alt="" onClick={toMemberPage}/>
@@ -30,7 +46,9 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId }) => {
         <FriendName>{nickname}</FriendName>
       </MemberDiv>
       <BellDiv>
-        <IoIosNotificationsOutline color="#5e43ff" size="20" />
+        {receiver&&
+        <IoIosNotificationsOutline color="#5e43ff" size="20" onClick={sendNotification}/>
+        }
       </BellDiv>
     </Card>
   );
@@ -80,5 +98,42 @@ const BellDiv = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+`;
+
+const StyledTimer = styled.div`
+z-index: 99;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(255,255,255, 0.4);
+  height: 30px;
+  font-weight: bold;
+  color: #5e43ff;
+  span {
+    position: fixed;
+  }
+  .progressBar {
+    display: flex;
+    flex-direction: column;
+    height: 3px;
+    width: 35%;
+    transform: translateY(15px);
+  }
+  .gauge{
+    background-color: #2cdf3d;
+    height:3px;
+    width: 100%;
+    animation: progress 3s ease;
+  }
+  @keyframes progress{
+    from{
+      width:0%
+    }
+    to{
+      width:100%
+    }
+  }
 `;
 export default ChallengeCard;
