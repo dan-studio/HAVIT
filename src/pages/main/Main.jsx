@@ -29,6 +29,10 @@ const Main = () => {
   const [toggleGroup, setToggleGroup] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
 
+  useEffect(()=>{
+    ReactGA.pageview(window.location.pathname)
+  },[])
+
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -85,6 +89,8 @@ const Main = () => {
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
+
+
   return (
     <div
       style={{

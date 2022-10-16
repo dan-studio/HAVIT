@@ -1,4 +1,4 @@
-import { authApi, restApi, setToken } from './config';
+import { authApi, restApi, setToken, getLocalAPI } from './config';
 
 export const userApis = {
   //Auth
