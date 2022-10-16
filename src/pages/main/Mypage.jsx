@@ -1,25 +1,25 @@
-import styled from "styled-components";
-import Profile from "@components/cards/Profile";
-import CrewInfo from "@components/cards/CrewInfo";
-import AlertUser from "@components/cards/AlertUser";
-import { userApis } from "../../apis/auth";
-import { IoIosArrowForward } from "react-icons/io";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { useEffect, useState } from "react";
-import { resetLayout, setLayout } from "@redux/layout";
-import MyProfileCard from "@components/profile/MyProfileCard";
-import { useNavigate } from "react-router-dom";
-import NotificationReceived from "../../components/cards/NotificationReceived";
+import styled from 'styled-components';
+import Profile from '@components/cards/Profile';
+import CrewInfo from '@components/cards/CrewInfo';
+import AlertUser from '@components/cards/AlertUser';
+import { userApis } from '../../apis/auth';
+import { IoIosArrowForward } from 'react-icons/io';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { resetLayout, setLayout } from '@redux/layout';
+import MyProfileCard from '@components/profile/MyProfileCard';
+import { useNavigate } from 'react-router-dom';
+import NotificationReceived from '../../components/cards/NotificationReceived';
 
 const Mypage = () => {
-  const principal = useSelector((state) => state.auth.principal, shallowEqual);
+  const principal = useSelector(state => state.auth.principal, shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [readAlert, setReadAlert] = useState(false);
   const [myNotification, setMyNotification] = useState([]);
   const [group, setGroup] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [myInfo, setMyInfo] = useState("");
+  const [myInfo, setMyInfo] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   // 레이아웃 관련 설정
   useEffect(() => {
@@ -30,20 +30,20 @@ const Mypage = () => {
   }, []);
   // 그룹 가져오기
   useEffect(() => {
-    userApis.getmyGroup().then((res) => {
+    userApis.getmyGroup().then(res => {
       setGroup(res.data);
     });
     userApis
       .myProfile()
-      .then((res) => {
+      .then(res => {
         setMyInfo(res);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
   useEffect(() => {
-    userApis.getNotification().then((res) => {
+    userApis.getNotification().then(res => {
       setMyNotification(res.data.notificationList);
     });
   }, []);
@@ -58,32 +58,21 @@ const Mypage = () => {
 
       {/* 알림 */}
       <StyledAlert>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <h2 onClick={notificationToggle}>
-            알림 ({myNotification.length}) &nbsp;
-          </h2>
-          {myNotification.length > 0 && <div className="notiSign"></div>}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h2 onClick={notificationToggle}>알림 ({myNotification.length}) &nbsp;</h2>
+          {myNotification.length > 0 && <div className='notiSign'></div>}
           {showNotification ? <span>▲</span> : <span>▼</span>}
         </div>
-        {showNotification &&
-          myNotification?.map((notification, idx) => (
-            <NotificationReceived
-              key={idx}
-              {...notification}
-              setReadAlert={setReadAlert}
-              setMyNotification={setMyNotification}
-            />
-          ))}
+        {showNotification && myNotification?.map((notification, idx) => <NotificationReceived key={idx} {...notification} setReadAlert={setReadAlert} setMyNotification={setMyNotification} />)}
         {readAlert && (
           <StyledTimer>
             <span>알림이 삭제되었습니다.</span>
-            <div className="progressBar">
-              <div className="gauge"></div>
+            <div className='progressBar'>
+              <div className='gauge'></div>
             </div>
           </StyledTimer>
         )}
-        {friends &&
-          friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
+        {friends && friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
       </StyledAlert>
     </StyledWrap>
   );

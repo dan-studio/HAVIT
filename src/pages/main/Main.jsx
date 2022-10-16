@@ -1,63 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { resetLayout, setLayout } from "@redux/layout";
-import MyProfileCard from "@components/profile/MyProfileCard";
-import GroupCard from "@components/cards/GroupCard";
-import { IoIosArrowForward } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-import { getAllGroupList } from "@apis/group/group";
-import { userApis } from "@apis/auth";
-import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
-import { getGroupDetail } from "@apis/group/group";
-import { FaRegHandPointLeft } from "react-icons/fa";
-import Notification from "../../Notification";
+import React, { useEffect, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { resetLayout, setLayout } from '@redux/layout';
+import { IoIosArrowForward } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
+import { getAllGroupList } from '@apis/group/group';
+import { userApis } from '@apis/auth';
+import { getGroupDetail } from '@apis/group/group';
+import { FaRegHandPointLeft } from 'react-icons/fa';
+
+// components
+import MyProfileCard from '@components/profile/MyProfileCard';
+import GroupCard from '@components/cards/GroupCard';
+import ChallengeGroupCard from '@components/cards/ChallengeGroupCard';
+import Noti from '../../Noti';
 
 const Main = () => {
-  const principal = useSelector((state) => state.auth.principal, shallowEqual);
+  const principal = useSelector(state => state.auth.principal, shallowEqual);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [myInfo, setMyInfo] = useState('');
+  const [myId, setMyId] = useState('');
   const [myGroupMembers, setMyGroupMembers] = useState([]);
-  const [groupList, setGroupList] = useState([]);
-  const [myInfo, setMyInfo] = useState("");
-  const [nullMsg, setNullMsg] = useState("");
-  const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
+  const [groupList, setGroupList] = useState([]);
+  const [nullMsg, setNullMsg] = useState('');
+  const [toggleGroup, setToggleGroup] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
+
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
       dispatch(resetLayout());
     };
   }, []);
+
   const [crew, setCrew] = useState();
+
   useEffect(() => {
+    // 내정보 가져오기
     userApis
       .myProfile()
-      .then((res) => {
+      .then(res => {
         setMyInfo(res);
+        setMyId(res.memberId);
+        console.log('🚀 ⁝ useEffect ⁝ setMyId(res.memberId)', res.memberId);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
-    getAllGroupList().then((res) => {
+    getAllGroupList().then(res => {
       setCrew(res.data);
     });
-    userApis.getMyMembers().then((res) => {
+
+    // 멤버 정보 가져오기
+    userApis.getMyMembers().then(res => {
       setMyGroupMembers(res);
-      if (res.code === "PARTICIPATION_NOT_FOUND") {
+      if (res.code === 'PARTICIPATION_NOT_FOUND') {
         setNullMsg(res.message);
         return;
       }
-      const getId = [...new Set(res.map((group) => group.groupId))];
-      getId.map((id) =>
-        getGroupDetail(id).then((res) => {
-          setGroupList((prev) => [...prev, res.data]);
+      const getId = [...new Set(res.map(group => group.groupId))];
+      getId.map(id =>
+        getGroupDetail(id).then(res => {
+          setGroupList(prev => [...prev, res.data]);
         })
       );
     });
-    userApis.getmyGroup().then((res) => {
+
+    // 그룹가져오기
+    userApis.getmyGroup().then(res => {
       setMyGroups(res.data);
+    });
+
+    // 알림
+    userApis.connectSSE().then(res => {
+      console.log(res.data);
+      const eventSource = new EventSource(process.env.REACT_APP_API_HOST + '/subscribe/' + setMyId);
     });
   }, []);
 
@@ -68,38 +88,35 @@ const Main = () => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        background: "#5e43ff",
-      }}
-    >
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#5e43ff',
+      }}>
       {sentNotification && (
         <StyledTimer>
           <span>알림이 전송되었습니다.</span>
-          <div className="progressBar">
-            <div className="gauge"></div>
+          <div className='progressBar'>
+            <div className='gauge'></div>
           </div>
         </StyledTimer>
       )}
       <MyProfileCard myInfo={principal} certifies={certifies} />
       {myGroupLists ? null : (
         <NewMemberDiv>
-          <div className="message">
-            아래의 빨간 화살표를 클릭하여 그룹페이지로 이동해 주세요!
-          </div>
+          <div className='message'>아래의 빨간 화살표를 클릭하여 그룹페이지로 이동해 주세요!</div>
           <NewMemberInnerDiv>
-            <FaRegHandPointLeft style={{ fontSize: "40px" }} />
+            <FaRegHandPointLeft style={{ fontSize: '40px' }} />
           </NewMemberInnerDiv>
         </NewMemberDiv>
       )}
       <StyledBottomDiv>
         <StyledGroup>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2>{principal?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
-              style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
+              style={{ fontSize: '20px', color: '#DE4242', cursor: 'pointer' }}
               onClick={() => {
-                navigate("/group");
+                navigate('/group');
               }}
             />
           </div>
@@ -274,7 +291,7 @@ const StyledTimer = styled.div`
     background-color: #2cdf3d;
     height: 3px;
     width: 100%;
-    animation: progress 3s ease;
+    animation: progress 2s ease;
   }
   @keyframes progress {
     from {

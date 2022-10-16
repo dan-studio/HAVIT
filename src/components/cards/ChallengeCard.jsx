@@ -29,7 +29,7 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupI
       userApis.sendNotification(data).then(res=>{
         console.log(res)
       })
-    },3000)
+    },2000)
   }
   return (
     <Card>
