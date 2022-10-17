@@ -61,9 +61,10 @@ const Setting = () => {
             }}
           >
             <h3
-              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" ,display:"flex"}}
             >
               공지사항
+            <div className="newPost"></div>
             </h3>
           </div>
         </StyleSettingForm>
@@ -81,13 +82,25 @@ const Setting = () => {
           </div>
         </StyleSettingForm>
         <StyleSettingForm>
+          <div
+            onClick={() => window.open('https://forms.gle/5xcZ5dfDZsarEomi9', '_blank')}
+          >
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              피드백 참여하기
+            </h3>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>추첨을 통해 스타벅스 기프티콘 받자!</span>
+          </div>
+        </StyleSettingForm>
+        <StyleSettingForm>
           <div>
             <h3
               style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
             >
               버전
             </h3>
-            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.1</span>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.2</span>
           </div>
         </StyleSettingForm>
         <StyleSettingForm onClick={logoutHandler}>
@@ -140,6 +153,13 @@ const StyleSettingForm = styled.div`
   align-items: center;
   width: 21.875rem;
   margin: 0 1.25rem 2.1875rem;
+  .newPost{
+    display: flex;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: #2CDF3D;
+  }
 `;
 
 const StyledButton = styled.div`

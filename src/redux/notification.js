@@ -4,24 +4,24 @@ import { userApis } from '../apis/auth';
 // initialState
 export const notification = createAsyncThunk('notification/get', async () => {
   const data = await userApis.getNotification();
-  const noti = data;
-  return { noti };
+  const notification = data;
+  return { notification };
 });
 
-export const notiSlice = createSlice({
-  name: 'noti',
+export const notificationSlice = createSlice({
+  name: 'notification',
   initialState: {
-    noti: [],
+    notification: [],
   },
   reducers: {
-    setNoti: (state, action) => {
+    setnotification: (state, action) => {
      return {
       ...state,
-      noti: state.filter((noti, idx)=>idx!==action.payload)
+      notification: state.filter((notification, idx)=>idx!==action.payload)
      }
     },
-    clearNoti: state => {
-      state.noti = undefined;
+    clearnotification: state => {
+      state.notification = undefined;
     },
 
     setTimeout: (state, action) => {
@@ -30,26 +30,19 @@ export const notiSlice = createSlice({
   },
   extraReducers: {
     [notification.pending]:state=>{
-      state.noti = true;
+      state.notification = true;
     },
     [notification.fulfilled]: (state, action) => {
-      state.noti = action.payload.noti;
+      state.notification = action.payload.notification;
     },
     [notification.rejected]: state => {
-      state.noti = null;
+      state.notification = null;
       state.error = '알림을 불러오는데 실패했습니다.';
     },
   },
 });
 
-export const notificationSlice = createSlice({
-  name: 'notification',
-  initialState: {
-    noti: [],
-  },
-  reducer: {},
-});
 
-export const { setNoti, clearNoti } = notiSlice.actions;
+export const { setnotification, clearnotification } = notificationSlice.actions;
 
-export default notiSlice.reducer;
+export default notificationSlice.reducer;

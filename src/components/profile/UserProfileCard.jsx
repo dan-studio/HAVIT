@@ -32,7 +32,7 @@ const UserProfile = ({ data, type = "shadow", memberInfo}) => {
               <span>{memberInfo?.nickname}</span> 님
             </StyleUserName>
             <StyleUserContent>{memberInfo?.introduce}</StyleUserContent>
-            <StylePercentage value="3" max="20"></StylePercentage>
+            {/* <StylePercentage value="3" max="20"></StylePercentage> */}
             <StyleAchievements>
               {groups ? (
                 <><p><b>{groups}</b> 개의 그룹에서 활동중이며</p>

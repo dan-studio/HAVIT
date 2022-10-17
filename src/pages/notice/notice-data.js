@@ -1,5 +1,12 @@
 export const noticedata=[
   {
+    noticeId: 4,
+    title: "1.0.2 버전 업데이트 내용",
+    date: "2022-10-18",
+    author: "Havit Team",
+    content: `1. 프로필에 에너지바 제거(구현완료 후 재도입 예정) 2. 피드백 링크 추가(환경설정 페이지) 3.그룹상세에서 태그 누를시 그룹페이지로 이동하면서 해당 태그목록을 불러오는 기능 추가. HAVIT TEAM.`
+  },
+  {
     noticeId: 3,
     title: "1.0.1 버전 업데이트 내용",
     date: "2022-10-17",
