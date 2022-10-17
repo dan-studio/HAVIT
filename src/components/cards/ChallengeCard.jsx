@@ -1,22 +1,14 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { fileUrlHost } from "../../apis/config";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { userApis } from "../../apis/auth";
-import { getToken } from "../../apis/config";
-
-
-
-
-
 const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupId, sentNotification, setSentNotification}) => {
   const navigate = useNavigate()
   const lastChallenged = modifiedAt?.slice(0, 16);
   const [receiver , setReceiver] = useState(true)
-  const [profile , setProfile] = useState()
-
   const toMemberPage = () => {
     if (memberId === authId) {
       navigate("/mypage");
@@ -35,45 +27,10 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupI
     setTimeout(()=>{
       setSentNotification(false)
       userApis.sendNotification(data).then(res=>{
-        // console.log(res)
+        console.log(res)
       })
     },3000)
   }
-  const [notification, setNotification] = useState([]);
-  const [alertOpen, setAlertOpen] = useState(false);
-
-  useEffect(() => {
-        userApis
-        .myProfile()
-        .then(res=>{
-          setProfile(res.memberId)
-        })
-
-  }, []);
-  // console.log(profile)
-  // console.log(process.env.REACT_APP_API_HOST + "/subscribe/" + profile)
-
-  const source = new EventSource(
-    process.env.REACT_APP_API_HOST + "/subscribe/"+profile ,  
-  );
-
-  // source.onmessage = (e) => {
-  //     setNotification(e.data);
-  //     // setNotification((prev) => [JSON.parse(e.data)]);
-  //     setAlertOpen(true);
-  //     console.log(notification)
-  //     console.log(e.data)
-  // };
-
-  // console.log(source.onmessage)
-
-  // source.addEventListener("error", function (e) {
-  //   if (e) {
-  //     source.close();
-  //   }
-  // });
-
-
   return (
     <Card>
       
