@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { getAllGroupList, getMyGroupList } from "@apis/group/group";
 import { userApis } from "../../apis/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { clearTag } from "../../redux/tags";
+import tags, { clearTag } from "../../redux/tags";
 // /group
 const Group = () => {
   const selectList = ["전체", "내 그룹", "인기순", "태그별"];
@@ -62,9 +62,12 @@ const Group = () => {
   }, [tagSelect, selected, tag]);
 
   useEffect(() => {
-    if (tagSelect) {
+  console.log(tagSelect)
+  if (tagSelect!==undefined) {
       setSelected("태그별");
       setTag(tagSelect);
+    }else if(tagSelect===undefined){
+      setSelected("전체");
     }
   }, []);
 
@@ -110,7 +113,7 @@ const Group = () => {
       {crew.length === 0 ? (
         <div>{crew}</div>
       ) : (
-        crew&&crew?.map((item, idx) => (
+        crew?.map((item, idx) => (
           <CrewInfo
             type="list"
             {...item}
