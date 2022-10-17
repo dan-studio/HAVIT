@@ -21,6 +21,7 @@ const Header = () => {
       <Container id='header' invert={layout.isInvert} smallType={layout.smallType}>
         {layout.isInvert ? <StyledInvertedLogo alt='logo' src={require('@assets/HavitWhite.png')} onClick={onClickLogo} /> : <StyledLogo alt='logo' src={require('@assets/havit.png')} onClick={onClickLogo} />}
 
+
         <Icons invert={layout.isInvert}>
           {/* NOTE SEARCH 부분 */}
           <FiSearch onClick={() => setShowSearchForm(true)} style={{ marginRight: '10px' }}></FiSearch>

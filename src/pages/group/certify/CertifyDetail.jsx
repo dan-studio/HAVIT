@@ -16,6 +16,7 @@ import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
 import { getGroupDetail } from "@apis/group/group";
 import { Image } from "antd";
+import { useSelector } from 'react-redux';
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -24,11 +25,11 @@ const CertifyDetail = () => {
   const [groupDetail, setGroupDetail] = useState({});
   const [comment, setComment] = useState('');
   const [commentId, setCommentId] = useState('');
-  const [myInfo, setMyInfo] = useState('');
   const [subCommentTo, setSubCommentTo] = useState('');
   const navigate = useNavigate();
   const { groupId } = useParams();
   const inputFocus = useRef();
+  const myInfo = useSelector(state=>state.auth.principal)
   const authId = myInfo?.memberId;
   const memberId = certifyDetail?.memberId;
   const ca = (certifyDetail.createdAt)
@@ -61,14 +62,6 @@ const CertifyDetail = () => {
     getGroupDetail(groupId)
       .then((res) => {
         setGroupDetail(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    userApis
-      .myProfile()
-      .then(res => {
-        setMyInfo(res);
       })
       .catch(err => {
         console.log(err);

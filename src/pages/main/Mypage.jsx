@@ -3,7 +3,6 @@ import Profile from "@components/cards/Profile";
 import CrewInfo from "@components/cards/CrewInfo";
 import AlertUser from "@components/cards/AlertUser";
 import { userApis } from "../../apis/auth";
-import { IoIosArrowForward } from "react-icons/io";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
 import { resetLayout, setLayout } from "@redux/layout";
@@ -16,11 +15,13 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [readAlert, setReadAlert] = useState(false);
-  const [myNotification, setMyNotification] = useState([]);
-  const [group, setGroup] = useState([]);
+  const [notifiList, setNotifiList] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [myInfo, setMyInfo] = useState("");
+  const myInfo = useSelector(state=>state.auth.principal)
   const [showNotification, setShowNotification] = useState(false);
+
+  const noti = useSelector((state) => state.noti.noti);
+
   // 레이아웃 관련 설정
   useEffect(() => {
     dispatch(setLayout({ isInvert: false }));
@@ -28,25 +29,12 @@ const Mypage = () => {
       dispatch(resetLayout());
     };
   }, []);
-  // 그룹 가져오기
+
   useEffect(() => {
-    userApis.getmyGroup().then((res) => {
-      setGroup(res.data);
-    });
-    userApis
-      .myProfile()
-      .then((res) => {
-        setMyInfo(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+   setNotifiList(noti.notificationList)
   }, []);
-  useEffect(() => {
-    userApis.getNotification().then((res) => {
-      setMyNotification(res.data.notificationList);
-    });
-  }, []);
+ 
+
   const notificationToggle = () => {
     setShowNotification(!showNotification);
   };
@@ -54,26 +42,7 @@ const Mypage = () => {
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <MyProfileCard myInfo={principal} certifies={certifies} />
-
-      {/* 알림 */}
-      <StyledAlert>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <h2 onClick={notificationToggle}>
-            알림 ({myNotification.length}) &nbsp;
-          </h2>
-          {myNotification.length > 0 && <div className="notiSign"></div>}
-          {showNotification ? <span>▲</span> : <span>▼</span>}
-        </div>
-        {showNotification &&
-          myNotification?.map((notification, idx) => (
-            <NotificationReceived
-              key={idx}
-              {...notification}
-              setReadAlert={setReadAlert}
-              setMyNotification={setMyNotification}
-            />
-          ))}
+      <MyProfileCard myInfo={principal} certifies={certifies}/>
         {readAlert && (
           <StyledTimer>
             <span>알림이 삭제되었습니다.</span>
@@ -82,6 +51,25 @@ const Mypage = () => {
             </div>
           </StyledTimer>
         )}
+
+      {/* 알림 */}
+      <StyledAlert>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <h2 onClick={notificationToggle}>
+            알림 ({notifiList.length}) &nbsp;
+          </h2>
+          {notifiList.length > 0 && <div className="notiSign"></div>}
+          {showNotification ? <span>▲</span> : <span>▼</span>}
+        </div>
+        {showNotification &&
+          notifiList?.map((notification, idx) => (
+            <NotificationReceived
+              key={idx}
+              {...notification}
+              setReadAlert={setReadAlert}
+              setNotifiList={setNotifiList}
+            />
+          ))}
         {friends &&
           friends.map((item, idx) => <AlertUser {...item} key={idx} />)}
       </StyledAlert>
@@ -94,25 +82,6 @@ const StyledWrap = styled.div`
   flex-direction: column;
   /* height: 100vh; */
   position: relative;
-`;
-
-const StyledCrews = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 15px 0 30px 0;
-  position: relative;
-  background-color: #fff;
-  border-radius: 30px 30px 0 0;
-  & > div {
-    margin: 20px 20px 0;
-    & > h2 {
-      font-weight: 700;
-      font-size: 20px;
-      margin: 0;
-      line-height: 24px;
-    }
-  }
 `;
 
 const StyledAlert = styled.div`
@@ -146,11 +115,14 @@ const StyledTimer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color: rgb(255, 255, 255, 0.4);
-  height: 30px;
+  top: 5px;
+  right: 5px;
+  width: 40%;
+  background-color: #5e43ff;
+  height: 50px;
   font-weight: bold;
-  color: #5e43ff;
+  color: #ffffff;
+  z-index: 99;
   span {
     position: fixed;
   }
@@ -158,7 +130,7 @@ const StyledTimer = styled.div`
     display: flex;
     flex-direction: column;
     height: 3px;
-    width: 35%;
+    width: 90%;
     transform: translateY(15px);
   }
   .gauge {

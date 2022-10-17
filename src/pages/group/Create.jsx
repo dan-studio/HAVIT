@@ -6,13 +6,11 @@ import styles from "./group_create.module.less";
 import React from "react";
 import Uploader from "@components/input/Uploader";
 import TagInput from "@components/input/TagInput";
-import ModalCancel from "@components/modal/ModalCancel";
 import useInputs from "@hooks/useInput";
 import { createGroup } from "@apis/group/group";
 import moment from "moment";
 import { FORMAT_DATE } from "@utils/format/time";
-import { useLocation, useNavigate } from "react-router-dom";
-import { userApis } from "../../apis/auth";
+import { useNavigate } from "react-router-dom";
 const GroupCreate = () => {
   const navigate = useNavigate();
   const [form, onChange, reset] = useInputs({
@@ -86,6 +84,7 @@ const GroupCreate = () => {
             ></Input>
           </Form.Item>
           <Form.Item style={{ padding: "0 .5rem", overflowY: "auto" }}>
+            <StyledTag>태그 입력하기</StyledTag>
             <TagInput
               name="groupTag"
               title={"groupTag"}
@@ -164,3 +163,8 @@ const StyledTitle = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.color.black};
 `;
+const StyledTag = styled.div`
+  color: #a3a3a3;
+  margin-left: 5px;
+  font-size: 12px;
+`

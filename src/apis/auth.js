@@ -137,9 +137,8 @@ export const userApis = {
     return response
   },
   //Notification
-  connectSSE: async () => {
-    const response = await authApi.get('/api/auth/subscribe')
-    console.log(response)
+  connectSSE: async (id) => {
+    const response = await authApi.get('/subscribe', id)
     return response
   },
   sendNotification: async data => {
@@ -148,7 +147,7 @@ export const userApis = {
   },
   getNotification: async () => {
     const response = await authApi.get('/api/auth/notification')
-    return response
+    return response.data
   },
   readNotification: async (notificationId) => {
     const response = await authApi.patch('/api/auth/notification/'+notificationId)
