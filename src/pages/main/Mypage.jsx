@@ -51,7 +51,7 @@ const Mypage = () => {
             </div>
           </StyledTimer>
         )}
-
+  
       {/* 알림 */}
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>
