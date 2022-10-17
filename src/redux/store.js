@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth';
 import layoutReducer from './layout';
-import notiReducer from './notification';
+import notificationReducer from './notification';
+import tagReducer from './tags'
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     layout: layoutReducer,
-    noti: notiReducer,
+    notification: notificationReducer,
+    tag: tagReducer
   },
 });
 

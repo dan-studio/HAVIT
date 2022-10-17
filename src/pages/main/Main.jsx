@@ -15,8 +15,7 @@ import ReactGA from 'react-ga'
 
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
-  const noti = useSelector(state=>state.noti.noti.unreadCount)
-  console.log(myInfo)
+  // const noti = useSelector(state=>state.notification)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
