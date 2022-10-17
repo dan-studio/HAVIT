@@ -87,6 +87,7 @@ const Signin = () => {
             onKeyDown={onKeyDown}
           />
         </StyledInputDiv>
+      </form>
         <StyledButtonDiv>
           <StyledButton
             color="white"
@@ -105,7 +106,6 @@ const Signin = () => {
             뒤로가기
           </StyledButton>
         </StyledButtonDiv>
-      </form>
     </StyledDiv>
   );
 };
