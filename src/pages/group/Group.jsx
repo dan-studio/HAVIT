@@ -1,23 +1,26 @@
-import { PlusCircleFilled } from '@ant-design/icons';
-import { Row, Select } from 'antd';
-import styled from 'styled-components';
-import CrewInfo from '@components/cards/CrewInfo';
-import styles from './group_list.module.less';
-import { useNavigate } from 'react-router';
-import ArrowButton from '@components/button/ArrowButton';
-import React, { useEffect, useState } from 'react';
-import { getAllGroupList, getMyGroupList } from '@apis/group/group';
-import { userApis } from '../../apis/auth';
+import { PlusCircleFilled } from "@ant-design/icons";
+import { Row, Select } from "antd";
+import styled from "styled-components";
+import CrewInfo from "@components/cards/CrewInfo";
+import styles from "./group_list.module.less";
+import { useNavigate } from "react-router";
+import ArrowButton from "@components/button/ArrowButton";
+import React, { useEffect, useState } from "react";
+import { getAllGroupList, getMyGroupList } from "@apis/group/group";
+import { userApis } from "../../apis/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { clearTag } from "../../redux/tags";
 // /group
 const Group = () => {
-  const selectList = ['전체', '내 그룹', '인기순', '태그별'];
-  const [selected, setSelected] = useState('전체');
+  const selectList = ["전체", "내 그룹", "인기순", "태그별"];
+  const [selected, setSelected] = useState("전체");
   const [crew, setCrew] = useState([]);
   const [tag, setTag] = useState([]);
+  const tagSelect = useSelector((state) => state.tag.tag);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     if (selected === "전체") {
       getAllGroupList()
         .then(res => {
@@ -27,39 +30,51 @@ const Group = () => {
           console.log(err);
         });
     } else if (selected === "내 그룹") {
-      userApis.getmyGroup().then(res=>{
-        console.log(res)
-        if(res.data.code==="PARTICIPATION_NOT_FOUND"){
-          return alert("참여중인 그룹이 없어요! 그룹에 가입해주세요 :)")
-        }else{
+      userApis.getmyGroup().then((res) => {
+        if (res.data.code === "PARTICIPATION_NOT_FOUND") {
+          return alert("참여중인 그룹이 없어요! 그룹에 가입해주세요 :)");
+        } else {
           getMyGroupList()
-          .then((res) => {
-            setCrew(res.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            .then((res) => {
+              setCrew(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
-      })
-    }else if (selected === "인기순"){
-      getAllGroupList().then(res=>{
-        const popular = res.data.sort((a,b)=>b.memberCount-a.memberCount)
-        setCrew(popular)
-      })
-    }else if (selected === "태그별"){
-      userApis.getByTag(tag).then(res=>{
-        setCrew(res.data)
-      })
+      });
+    } else if (selected === "인기순") {
+      getAllGroupList().then((res) => {
+        const popular = res.data.sort((a, b) => b.memberCount - a.memberCount);
+        setCrew(popular);
+      });
+    } else if (selected === "태그별") {
+      if (!tagSelect) {
+        userApis.getByTag(tag).then((res) => {
+          setCrew(res.data);
+        });
+      } else {
+        userApis.getByTag(tagSelect).then((res) => {
+          setCrew(res.data);
+          dispatch(clearTag());
+        });
+      }
     }
-  }, [selected, tag]);
+  }, [tagSelect, selected, tag]);
 
-  const handleSelect = e => {
+  useEffect(() => {
+    if (tagSelect) {
+      setSelected("태그별");
+      setTag(tagSelect);
+    }
+  }, []);
+
+  const handleSelect = (e) => {
     setSelected(e);
   };
-
-  const onTagClick = tagItem => {
+  const onTagClick = (tagItem) => {
     setTag(tagItem);
-    setSelected('태그별');
+    setSelected("태그별");
   };
 
   return (
@@ -70,11 +85,16 @@ const Group = () => {
           value={selected}
           onChange={handleSelect}
         >
-          {selectList?.map(item=>
-          item==="태그별"?
-          <Select.Option value={item} key={item} disabled>{item}</Select.Option>:
-          <Select.Option value={item} key={item}>{item}</Select.Option>
-        
+          {selectList?.map((item) =>
+            item === "태그별" ? (
+              <Select.Option value={item} key={item} disabled>
+                {item}
+              </Select.Option>
+            ) : (
+              <Select.Option value={item} key={item}>
+                {item}
+              </Select.Option>
+            )
           )}
         </Select>
       </Row>
@@ -89,10 +109,20 @@ const Group = () => {
           새 그룹 생성
         </StyledAddGroupContainer>
       </Row>
-      {crew.length===0?<div>{crew}</div>:crew?.map((item, idx) => (
-        <CrewInfo type="list" {...item} key={idx} setTag={setTag} onTagClick={onTagClick}tag={tag}/>
-      ))}
-
+      {crew.length === 0 ? (
+        <div>{crew}</div>
+      ) : (
+        crew&&crew?.map((item, idx) => (
+          <CrewInfo
+            type="list"
+            {...item}
+            key={idx}
+            setTag={setTag}
+            onTagClick={onTagClick}
+            tag={tag}
+          />
+        ))
+      )}
       <StyledBox>
         더이상 그룹이 없어요.
         <ArrowButton />

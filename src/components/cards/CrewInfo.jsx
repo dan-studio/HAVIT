@@ -42,11 +42,13 @@ const CrewInfo = ({
   return (
     <>
       <StyledCard type={type}>
+        <StyledImgDiv>
         <Image
           className="circleImage"
           src={fileUrlHost(imageId)}
           onClick={routeHandler}
         />
+        </StyledImgDiv>
         <StyledGroupInfo>
           <h2 onClick={routeHandler}>{title}</h2>
           <StyledDayInfo>
@@ -176,3 +178,6 @@ const StyledTagDiv = styled.div`
   width: 190px;
   max-height: 75px;
 `;
+const StyledImgDiv = styled.div`
+  color: transparent;
+`
