@@ -17,7 +17,7 @@ const GroupCard = ({ title, imgUrl, memberCount, onClick, groupId }) => {
   }, []);
   const certifyList = detail?.certifyList;
   return (
-    <StyledDiv onClick={props.onClick}>
+    <StyledDiv onClick={onClick}>
       <GroupCardBox>
         {!!imgUrl ? (
           <GroupPhoto src={src} />

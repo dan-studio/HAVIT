@@ -14,7 +14,7 @@ import {
 } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import { resetLayout, setLayout } from "../../redux/layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DevButton from "@components/button/DevButton";
 
 // /grup
@@ -23,11 +23,12 @@ const GroupDetail = () => {
   const [selected, setSelected] = useState("전체");
   const [tag, setTag] = useState([])
   const [detail, setDetail] = useState();
-  const [myInfo, setMyInfo] = useState();
   const [isParticipate, setIsParticipate] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
+  const myInfo = useSelector(state=>state.auth.principal)
+
   React.useEffect(() => {
     dispatch(setLayout({ smallType: true }));
     return () => {
@@ -50,14 +51,6 @@ const GroupDetail = () => {
       })
       .catch((err) => {
         setIsParticipate(false);
-      });
-    userApis
-      .myProfile()
-      .then((res) => {
-        setMyInfo(res);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }, []);
 

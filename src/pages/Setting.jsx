@@ -87,7 +87,7 @@ const Setting = () => {
             >
               버전
             </h3>
-            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.0</span>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.1</span>
           </div>
         </StyleSettingForm>
         <StyleSettingForm onClick={logoutHandler}>

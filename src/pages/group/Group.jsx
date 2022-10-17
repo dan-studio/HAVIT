@@ -17,7 +17,8 @@ const Group = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (selected === '전체') {
+    
+    if (selected === "전체") {
       getAllGroupList()
         .then(res => {
           setCrew(res.data);
@@ -25,24 +26,30 @@ const Group = () => {
         .catch(err => {
           console.log(err);
         });
-    } else if (selected === '내 그룹') {
-      getMyGroupList()
-        .then(res => {
-          console.log(res);
-          setCrew(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else if (selected === '인기순') {
-      getAllGroupList().then(res => {
-        const popular = res.data.sort((a, b) => b.memberCount - a.memberCount);
-        setCrew(popular);
-      });
-    } else if (selected === '태그별') {
-      userApis.getByTag(tag).then(res => {
-        setCrew(res.data);
-      });
+    } else if (selected === "내 그룹") {
+      userApis.getmyGroup().then(res=>{
+        console.log(res)
+        if(res.data.code==="PARTICIPATION_NOT_FOUND"){
+          return alert("참여중인 그룹이 없어요! 그룹에 가입해주세요 :)")
+        }else{
+          getMyGroupList()
+          .then((res) => {
+            setCrew(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+      })
+    }else if (selected === "인기순"){
+      getAllGroupList().then(res=>{
+        const popular = res.data.sort((a,b)=>b.memberCount-a.memberCount)
+        setCrew(popular)
+      })
+    }else if (selected === "태그별"){
+      userApis.getByTag(tag).then(res=>{
+        setCrew(res.data)
+      })
     }
   }, [selected, tag]);
 
@@ -58,17 +65,16 @@ const Group = () => {
   return (
     <StyledContainer id={'content'}>
       <Row>
-        <Select className={styles.pop_radius} value={selected} onChange={handleSelect}>
-          {selectList.map(item =>
-            item === '태그별' ? (
-              <Select.Option value={item} key={item} disabled>
-                {item}
-              </Select.Option>
-            ) : (
-              <Select.Option value={item} key={item}>
-                {item}
-              </Select.Option>
-            )
+        <Select
+          className={styles.pop_radius}
+          value={selected}
+          onChange={handleSelect}
+        >
+          {selectList?.map(item=>
+          item==="태그별"?
+          <Select.Option value={item} key={item} disabled>{item}</Select.Option>:
+          <Select.Option value={item} key={item}>{item}</Select.Option>
+        
           )}
         </Select>
       </Row>
@@ -83,9 +89,8 @@ const Group = () => {
           새 그룹 생성
         </StyledAddGroupContainer>
       </Row>
-
-      {crew?.map((item, idx) => (
-        <CrewInfo type='list' {...item} key={idx} setTag={setTag} onTagClick={onTagClick} tag={tag} />
+      {crew.length===0?<div>{crew}</div>:crew?.map((item, idx) => (
+        <CrewInfo type="list" {...item} key={idx} setTag={setTag} onTagClick={onTagClick}tag={tag}/>
       ))}
 
       <StyledBox>
