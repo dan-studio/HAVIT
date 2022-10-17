@@ -178,3 +178,7 @@ const DevDiv = styled.div`
   bottom:1rem;
   right: 5px;
 `
+const StyledList = styled.div`
+  width: 100vw;
+  margin: auto;
+`
