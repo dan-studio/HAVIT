@@ -259,7 +259,7 @@ const BoardBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   /* height: 80vh; */
 `;
 const Profile = styled.div`
@@ -338,13 +338,14 @@ const CommentBar = styled.div`
   align-items: center;
   z-index: 1;
   border: 1px solid lightgray;
+  width: 346px;
+  margin: auto;
   border-radius: 25px;
-  margin-bottom: 72px;
   padding: 4px 8px;
   background-color: white;
 `;
 const CommentInput = styled.input`
-  width: 90%;
+  width: 346px;
   border: none;
   :focus {
     outline: none;
@@ -352,6 +353,7 @@ const CommentInput = styled.input`
 `;
 const StyledBox = styled.div`
   width: 346px;
+  margin: auto;
   border-bottom: 1px solid #e9e9e9;
   margin-bottom: 30px;
 `;

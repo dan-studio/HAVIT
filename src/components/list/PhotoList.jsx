@@ -44,9 +44,10 @@ const StyledContainer = styled.div`
   gap: 2px;
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
   & > div {
-    width: 113px;
-    height: 113px;
+    width: 112px;
+    height: 112px;
     border: 0.5px solid #eeeeee;
     overflow: hidden;
     & > img {
@@ -64,8 +65,8 @@ const StyledContainer = styled.div`
   }
 `;
 const CertifyImg = styled.img`
-  width: 113px;
-  height: 113px;
+  width: 112px;
+  height: 112px;
   border: 0.5px solid #eeeeee;
   object-fit: cover;
 `;
