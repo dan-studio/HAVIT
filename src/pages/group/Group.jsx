@@ -16,6 +16,7 @@ const Group = () => {
   const [tag, setTag] = useState([])
   const navigate = useNavigate();
   useEffect(() => {
+    
     if (selected === "전체") {
       getAllGroupList()
         .then((res) => {
@@ -25,14 +26,20 @@ const Group = () => {
           console.log(err);
         });
     } else if (selected === "내 그룹") {
-      getMyGroupList()
-        .then((res) => {
-          console.log(res)
-          setCrew(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      userApis.getmyGroup().then(res=>{
+        console.log(res)
+        if(res.data.code==="PARTICIPATION_NOT_FOUND"){
+          return alert("참여중인 그룹이 없어요! 그룹에 가입해주세요 :)")
+        }else{
+          getMyGroupList()
+          .then((res) => {
+            setCrew(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+      })
     }else if (selected === "인기순"){
       getAllGroupList().then(res=>{
         const popular = res.data.sort((a,b)=>b.memberCount-a.memberCount)
@@ -59,7 +66,7 @@ const Group = () => {
           value={selected}
           onChange={handleSelect}
         >
-          {selectList.map(item=>
+          {selectList?.map(item=>
           item==="태그별"?
           <Select.Option value={item} key={item} disabled>{item}</Select.Option>:
           <Select.Option value={item} key={item}>{item}</Select.Option>
@@ -78,7 +85,7 @@ const Group = () => {
           새 그룹 생성
         </StyledAddGroupContainer>
       </Row>
-      {crew?.map((item, idx) => (
+      {crew.length===0?<div>{crew}</div>:crew?.map((item, idx) => (
         <CrewInfo type="list" {...item} key={idx} setTag={setTag} onTagClick={onTagClick}tag={tag}/>
       ))}
       <StyledBox>

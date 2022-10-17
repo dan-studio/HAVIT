@@ -16,6 +16,7 @@ import ReactGA from 'react-ga'
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
   const noti = useSelector(state=>state.noti.noti.unreadCount)
+  console.log(myInfo)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
@@ -89,13 +90,13 @@ const Main = () => {
       )}
       <StyledBottomDiv>
         <StyledGroup>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center" }} onClick={() => {
+                navigate("/group");
+              }}>
             <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
-              onClick={() => {
-                navigate("/group");
-              }}
+              
             />
           </div>
         </StyledGroup>
