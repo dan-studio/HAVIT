@@ -29,16 +29,6 @@ const MemberPage = () => {
           <>
             <div style={{ display: "flex", alignItems: "center" }}>
               <h2>{memberInfo?.nickname}님이 속한 크루</h2>
-              <IoIosArrowForward
-                style={{
-                  fontSize: "20px",
-                  color: "#DE4242",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  navigate("/group");
-                }}
-              />
             </div>
             {group &&
               group?.map((item, idx) => <CrewInfo {...item} key={idx} />)}

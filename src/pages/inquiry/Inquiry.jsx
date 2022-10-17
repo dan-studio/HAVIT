@@ -8,17 +8,13 @@ import { userApis } from "../../apis/auth";
 import GoBackButton from "../../components/button/GoBackButton";
 import PrimaryButton from "@components/button/PrimaryButton";
 import Footer from "../../components/layout/Footer";
+import { useSelector } from "react-redux";
 
 const Inquiry = () => {
+  const myInfo = useSelector(state=>state.auth.principal)
   const navigate = useNavigate();
   const form = useRef();
-  const [myInfo, setMyInfo] = useState([]);
   const [sent, setSent] = useState(false);
-  useEffect(() => {
-    userApis.myProfile().then((res) => {
-      setMyInfo(res);
-    });
-  }, []);
 
   const sendEmail = (e) => {
     e.preventDefault();

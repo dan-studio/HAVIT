@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import BasicLayout from "@pages/BasicLayout";
 import { me } from "@redux/auth";
+import { notification } from "@redux/notification";
 import RouteChangeTracker from "./RouteChangeTracker";
 import ServerOnMaintenance from "./pages/ServerOnMaintenance";
 const theme = {
@@ -28,6 +29,7 @@ const Container = React.memo(() => {
   React.useEffect(() => {
     const loadData = async () => {
       await dispatch(me());
+      await dispatch(notification());
     };
     loadData()
       .catch(console.warn)

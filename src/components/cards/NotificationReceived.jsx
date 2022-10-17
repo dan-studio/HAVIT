@@ -9,7 +9,7 @@ const NotificationReceived = ({
   notificationId,
   read,
   setReadAlert,
-  setMyNotification,
+  setNotifiList,
 }) => {
   const createdDate = createdAt.slice(2, 10).split("-");
   const createdTime = createdAt.slice(11, 16);
@@ -33,6 +33,7 @@ const NotificationReceived = ({
       setRead((prev) => {
         return {
           ...prev,
+          isRead:true
         };
       });
     });
@@ -41,7 +42,7 @@ const NotificationReceived = ({
       setReadAlert(false);
       userApis.DeleteNotification(notificationId).then((res) => {
         console.log(res);
-        setMyNotification((prev) =>
+        setNotifiList((prev) =>
           prev.filter((noti) => noti.notificationId !== notificationId)
         );
       });

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect} from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import PrimaryButton from "@components/button/PrimaryButton";
 import SubButton from "@components/button/SubButton";
@@ -10,17 +10,17 @@ import KakaoMap from "@components/kakao/Map";
 import { AddressSerachPopup } from "@components/kakao/AddressSearch";
 import { Collapse, Modal } from "antd";
 import useInputs from "@hooks/useInput";
-import { createCertify } from "@apis/group/certify";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userApis } from "@apis/auth";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const CertifyEdit = () => {
   const navigate = useNavigate();
-  const [myInfo, setMyInfo] = useState("");
   const [certifyDetail, setCertifyDetail] = useState([]);
   const { groupId } = useParams();
   const { certifyId } = useParams();
+  const myInfo = useSelector(state=>state.auth.principal)
   const [form, onChange, reset] = useInputs({
     groupId: groupId,
     imageId: certifyDetail.imageId,
@@ -40,14 +40,6 @@ const CertifyEdit = () => {
     userApis.getCertifyDetail(certifyId).then((res) => {
       setCertifyDetail(res);
     });
-    userApis
-      .myProfile()
-      .then((res) => {
-        setMyInfo(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
 
   const [pos, setPos] = React.useState({ lat: 0, lng: 0 });
