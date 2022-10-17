@@ -20,6 +20,14 @@ const Group = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
+    if (tagSelect !== undefined) {
+      setSelected("태그별");
+    } else if (tagSelect === undefined) {
+      setSelected("전체");
+    }
+  }, []);
+
+  useEffect(() => {
     if (selected === "전체") {
       getAllGroupList()
         .then((res) => {
@@ -49,7 +57,8 @@ const Group = () => {
       });
     } else if (selected === "태그별") {
       if (tagSelect) {
-        userApis.getByTag(tagSelect).then((res) => {
+      setTag(tagSelect);
+      userApis.getByTag(tagSelect).then((res) => {
           setCrew(res.data);
           dispatch(clearTag());
         });
@@ -61,15 +70,7 @@ const Group = () => {
     }
   }, [tagSelect, selected, tag]);
 
-  useEffect(() => {
-  console.log(tagSelect)
-  if (tagSelect!==undefined) {
-      setSelected("태그별");
-      setTag(tagSelect);
-    }else if(tagSelect===undefined){
-      setSelected("전체");
-    }
-  }, []);
+
 
   const handleSelect = (e) => {
     setSelected(e);
