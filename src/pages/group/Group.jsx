@@ -9,10 +9,10 @@ import React, { useEffect, useState } from "react";
 import { getAllGroupList, getMyGroupList } from "@apis/group/group";
 import { userApis } from "../../apis/auth";
 import { useDispatch, useSelector } from "react-redux";
-import tags, { clearTag } from "../../redux/tags";
+import { clearTag } from "../../redux/tags";
 // /group
 const Group = () => {
-  const selectList = ["전체", "내 그룹", "인기순", "태그별"];
+  const selectList = ["전체", "내 그룹", "인기순"];
   const [selected, setSelected] = useState("전체");
   const [crew, setCrew] = useState([]);
   const [tag, setTag] = useState([]);
@@ -21,7 +21,7 @@ const Group = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (tagSelect !== undefined) {
-      setSelected("태그별");
+      setSelected(tagSelect);
     } else if (tagSelect === undefined) {
       setSelected("전체");
     }
@@ -55,10 +55,10 @@ const Group = () => {
         const popular = res.data.sort((a, b) => b.memberCount - a.memberCount);
         setCrew(popular);
       });
-    } else if (selected === "태그별") {
+    } else {
       if (tagSelect) {
-      setTag(tagSelect);
-      userApis.getByTag(tagSelect).then((res) => {
+        setTag(tagSelect);
+        userApis.getByTag(tagSelect).then((res) => {
           setCrew(res.data);
           dispatch(clearTag());
         });
@@ -70,14 +70,12 @@ const Group = () => {
     }
   }, [tagSelect, selected, tag]);
 
-
-
   const handleSelect = (e) => {
     setSelected(e);
   };
   const onTagClick = (tagItem) => {
     setTag(tagItem);
-    setSelected("태그별");
+    setSelected(tagItem);
   };
   return (
     <StyledContainer id={"content"}>
@@ -87,17 +85,11 @@ const Group = () => {
           value={selected}
           onChange={handleSelect}
         >
-          {selectList?.map((item) =>
-            item === "태그별" ? (
-              <Select.Option value={item} key={item} disabled>
-                {item}
-              </Select.Option>
-            ) : (
-              <Select.Option value={item} key={item}>
-                {item}
-              </Select.Option>
-            )
-          )}
+          {selectList?.map((item) => (
+            <Select.Option value={item} key={item}>
+              {item}
+            </Select.Option>
+          ))}
         </Select>
       </Row>
       <Row>
