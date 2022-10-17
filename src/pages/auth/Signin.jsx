@@ -71,6 +71,7 @@ const Signin = () => {
         <br />
         <img src={havit} alt="" />
       </StyledSpan>
+
       <form method="POST">
         <StyledInputDiv>
           <StyledInput

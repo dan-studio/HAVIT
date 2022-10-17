@@ -58,6 +58,7 @@ const Main = () => {
     });
   }, []);
 
+
   const myGroupLists = myGroups?.length;
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
