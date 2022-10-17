@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userApis } from "../../apis/auth";
 import { useState } from "react";
+import ServerSentEvent from "../../sse/ServerSentEvent";
 
 const MyProfileCard = ({ data, type = "shadow", nickName, myInfo ,certifies}) => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const MyProfileCard = ({ data, type = "shadow", nickName, myInfo ,certifies}) =>
       setMyGroups(res.data);
     });
   }, []);
+  const authId = myInfo?.memberId
   const groups = myGroups?.length;
   return (
     <div>
@@ -39,7 +41,8 @@ const MyProfileCard = ({ data, type = "shadow", nickName, myInfo ,certifies}) =>
           </StyleUserRight>
           <StyleUserLeft>
             <StyleUserName onClick={toMyPage}>
-              <span>{myInfo?.nickname}</span> 님
+              <span>{myInfo?.nickname}</span> 님 &nbsp;
+              {/* <ServerSentEvent authId={authId}/> */}
             </StyleUserName>
             <StyleUserContent>{myInfo?.introduce}</StyleUserContent>
             <StylePercentage value="3" max="20"></StylePercentage>
@@ -124,6 +127,8 @@ const StylePercentage = styled.progress`
   }
 `;
 const StyleUserName = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 16px;
   span {
     font-size: 18px;

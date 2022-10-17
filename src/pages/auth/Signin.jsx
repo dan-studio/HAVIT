@@ -43,14 +43,18 @@ const Signin = () => {
         } else if (res.data.code === "PASSWORD_NOT_MATCHED") {
           alert("비밀번호가 일치하지 않습니다.");
           return;
-        }
+        } 
         if (res.status === 200) {
           alert(`${res.data.nickname}님 환영합니다!`);
           navigate("/");
         }
       })
       .catch((err) => {
-        if (err) {
+        if (err.code === "ERR_NETWORK") {
+          alert("네트워크 에러가 발생했습니다.");
+          return;
+        } else if(err) {
+          
           console.log(err);
         }
       });

@@ -11,22 +11,19 @@ import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import { FaRegHandPointLeft } from "react-icons/fa";
-import { getToken } from "../../apis/config";
-import { event, eventSource, ssehandler } from "../../sse/serversentevent";
 import ReactGA from 'react-ga'
 
 const Main = () => {
-  const principal = useSelector((state) => state.auth.principal, shallowEqual);
+  const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
+  const noti = useSelector(state=>state.noti.noti.unreadCount)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
   const [groupList, setGroupList] = useState([]);
-  const [myInfo, setMyInfo] = useState("");
   const [nullMsg, setNullMsg] = useState("");
   const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
-
   useEffect(()=>{
     ReactGA.pageview(window.location.pathname)
   },[])
@@ -39,14 +36,6 @@ const Main = () => {
   }, []);
   const [crew, setCrew] = useState();
   useEffect(() => {
-    userApis
-      .myProfile()
-      .then((res) => {
-        setMyInfo(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     getAllGroupList().then((res) => {
       setCrew(res.data);
     });
@@ -90,21 +79,18 @@ const Main = () => {
           </div>
         </StyledTimer>
       )}
-      <MyProfileCard myInfo={principal} certifies={certifies} />
+      <MyProfileCard myInfo={myInfo} certifies={certifies}/>
       {myGroupLists ? null : (
         <NewMemberDiv>
           <div className="message">
             아래의 빨간 화살표를 클릭하여 그룹페이지로 이동해 주세요!
           </div>
-          <NewMemberInnerDiv>
-            <FaRegHandPointLeft style={{ fontSize: "40px" }} />
-          </NewMemberInnerDiv>
         </NewMemberDiv>
       )}
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h2>{principal?.nickname}님 이런 그룹은 어떠세요?</h2>
+            <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
               onClick={() => {
@@ -229,45 +215,33 @@ const NewMemberDiv = styled.div`
   display: flex;
   justify-content: center;
   font-size: 14.5px;
+  animation: color 0.5s infinite;
   .message {
-    color: white;
     font-weight: bold;
   }
-`;
-const NewMemberInnerDiv = styled.div`
-  position: absolute;
-  z-index: 999;
-  top: 53vh;
-  right: 5vw;
-  rotate: -55deg;
-  color: #5e43ff;
-  animation: vibration 0.3s infinite;
-  @keyframes vibration {
+  @keyframes color {
     0% {
-      transform: rotate(-6deg);
       color: #2cdf3d;
     }
     50% {
-      transform: rotate(6deg);
-      color: #5e43ff;
+      color: #DE4242;
     }
     100% {
-      transform: rotate(-6deg);
       color: white;
     }
   }
 `;
 const StyledTimer = styled.div`
   position: fixed;
-  top: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color: rgb(255, 255, 255, 0.4);
+  top: 5px;
+  right: 5px;
+  width: 40%;
+  background-color: white;
   height: 50px;
   font-weight: bold;
-  color: #5e43ff;
   z-index: 99;
   span {
     position: fixed;
@@ -276,7 +250,7 @@ const StyledTimer = styled.div`
     display: flex;
     flex-direction: column;
     height: 3px;
-    width: 35%;
+    width: 90%;
     transform: translateY(15px);
   }
   .gauge {

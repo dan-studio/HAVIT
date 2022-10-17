@@ -27,7 +27,6 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupI
     setTimeout(()=>{
       setSentNotification(false)
       userApis.sendNotification(data).then(res=>{
-        console.log(res)
       })
     },3000)
   }
