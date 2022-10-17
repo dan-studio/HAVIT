@@ -19,13 +19,14 @@ const Group = () => {
   const tagSelect = useSelector((state) => state.tag.tag);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (selected === "전체") {
       getAllGroupList()
-        .then((res) => {
+        .then(res => {
           setCrew(res.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     } else if (selected === "내 그룹") {
@@ -75,8 +76,9 @@ const Group = () => {
     setTag(tagItem);
     setSelected("태그별");
   };
+
   return (
-    <StyledContainer id={"content"}>
+    <StyledContainer id={'content'}>
       <Row>
         <Select
           className={styles.pop_radius}
@@ -97,11 +99,11 @@ const Group = () => {
         </Select>
       </Row>
       <Row>
-        <StyledAddGroupContainer onClick={() => navigate("create")}>
+        <StyledAddGroupContainer onClick={() => navigate('create')}>
           <PlusCircleFilled
             style={{
-              color: "rgba(58,58,58,0.3)",
-              fontSize: "2.25rem",
+              color: 'rgba(58,58,58,0.3)',
+              fontSize: '2.25rem',
             }}
           />
           새 그룹 생성

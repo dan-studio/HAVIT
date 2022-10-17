@@ -39,19 +39,23 @@ const Main = () => {
     getAllGroupList().then((res) => {
       setCrew(res.data);
     });
+
     userApis.getMyMembers().then((res) => {
       setMyGroupMembers(res);
       if (res.code === "PARTICIPATION_NOT_FOUND") {
         setNullMsg(res.message);
         return;
       }
+
       const getId = [...new Set(res.map((group) => group.groupId))];
       getId.map((id) =>
         getGroupDetail(id).then((res) => {
           setGroupList((prev) => [...prev, res.data]);
         })
       );
+
     });
+    
     userApis.getmyGroup().then((res) => {
       setMyGroups(res.data);
     });

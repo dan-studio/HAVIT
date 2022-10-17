@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const Tags = (props) => {
-
   return <StyledHashTag onClick={()=>{props.onTagClick(props.item)}}>#{props.item}</StyledHashTag>;
 };
 
