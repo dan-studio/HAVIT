@@ -29,15 +29,7 @@ const Test = () => {
   };
 
   const Tutorial = () => {
-    Modal.confirm({
-      title: "튜토리얼",
-      content: (
-        <div>
-          <TutorialList />
-        </div>
-      ),
-      cancelText: "닫기",
-    });
+    setIsTutorial(true)
   };
 
   return (
@@ -46,11 +38,24 @@ const Test = () => {
       <button onClick={showModal}>모달 띄우기</button>
       {isTutorial && <ModalTutorial setIsTutorial={setIsTutorial} />}
       <button onClick={Tutorial}> antd 라이브러리</button>
-
       <SwipeBox2 styled={{ height: "fit-contents" }}>
         <CardTitle>튜토리얼</CardTitle>
         {/* <TutorialList styled={{ height: "fit-contents" }} /> */}
       </SwipeBox2>
+      <Modal
+        title="튜토리얼"
+        centered
+        open={isTutorial}
+        onOk={() => setIsTutorial(false)}
+        onCancel={() => setIsTutorial(false)}
+        // height= {2000}
+        bodyStyle={{height: 500}}
+      >
+        <p>some contents...</p>
+        <TutorialList />
+
+      </Modal>
+    <Modal/>
     </StyledDiv>
   );
 };
