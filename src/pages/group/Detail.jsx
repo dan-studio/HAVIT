@@ -68,6 +68,7 @@ const GroupDetail = () => {
       content: <>{detail?.title}에서 정말 탈퇴하시겠습니까?</>,
       onOk: () => {
         userApis.leaveGroup(groupId);
+        <>탈퇴 되었습니다!</>
         setDetail((prev) => {
           return {
             ...prev,

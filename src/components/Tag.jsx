@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { userApis } from "../apis/auth";
 
 const Tags = (props) => {
-
   return <StyledHashTag onClick={()=>{props.onTagClick(props.item)}}>#{props.item}</StyledHashTag>;
 };
 
