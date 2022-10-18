@@ -33,7 +33,6 @@ const TutorialList = () => {
         threshold={20} // 터치 감도를 조정합니다. 숫자가 클수록 터치에 반응하지 않습니다.
         speed={1000} // 슬라이드가 넘어가는 속도를 조정합니다. 단위는 ms입니다.
         onActiveIndexChange={(swiper) => {
-          console.log(swiper.activeIndex);
         }}
       >
         <SwiperSlide>

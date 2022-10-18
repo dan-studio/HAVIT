@@ -47,7 +47,7 @@ const Header = () => {
             onClick={() => setShowSearchForm(true)}
             style={{ marginRight: "10px" }}
           ></FiSearch>
-          {/* <GiRank3 onClick={() => navigate('/rank')} size="25px" style={{ marginRight: '10px', strokeWidth: "23" ,transform:"translateY(2px)"}}></GiRank3> */}
+          <GiRank3 onClick={() => navigate('/rank')} size="25px" style={{ marginRight: '10px', strokeWidth: "23" ,transform:"translateY(2px)"}}></GiRank3>
           <FiSettings
             onClick={() => {
               navigate("setting");
