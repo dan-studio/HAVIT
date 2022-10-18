@@ -64,21 +64,8 @@ const Main = () => {
       setMyGroups(res.data);
     });
   }, []);
-  useEffect(() => {
-    userApis.getmyGroup().then((res) => {
-      setGroupList(res);
-      res.data.length === 0 ? setIsTutorial(false) : setIsTutorial(true);
-    });
-  }, []);
 
-  const [isTutorial, setIsTutorial] = useState(false);
   const myGroupLists = myGroups?.length;
-  const showModal = () => {
-    setIsTutorial(true);
-  };
-  const Tutorial = () => {
-    setIsTutorial(true)
-  };
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
@@ -98,6 +85,7 @@ const Main = () => {
           </div>
         </StyledTimer>
       )}
+
       <MyProfileCard myInfo={myInfo} certifies={certifies}/>
       {myGroupLists ? null : (
         <NewMemberDiv>
@@ -106,8 +94,7 @@ const Main = () => {
           </div>
         </NewMemberDiv>
       )}
-      {myGroupLists === undefined && <TutorialList /> }
-      {/* <TutorialList /> */}
+      
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }} onClick={() => {
@@ -116,10 +103,11 @@ const Main = () => {
             <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
-              
             />
           </div>
         </StyledGroup>
+        {myGroupLists === undefined && <TutorialList /> }
+
         <StyledGroupPhotoBox>
           {groups?.map((item, idx) => (
             <GroupCard
@@ -153,8 +141,10 @@ const Main = () => {
             <StyledNullMsg>{nullMsg}</StyledNullMsg>
           )}
         </StyledChallenge>
+        
         <StyledDragLine />
       </StyledBottomDiv>
+      
     </div>
   );
 };
