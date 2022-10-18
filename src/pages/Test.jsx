@@ -49,9 +49,9 @@ const Test = () => {
         onOk={() => setIsTutorial(false)}
         onCancel={() => setIsTutorial(false)}
         // height= {2000}
-        bodyStyle={{height: 500}}
+        bodyStyle={{height: 420}}
       >
-        <p>some contents...</p>
+        {/* <p>some contents...</p> */}
         <TutorialList />
 
       </Modal>

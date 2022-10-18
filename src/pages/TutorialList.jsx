@@ -10,7 +10,6 @@ const TutorialList = () => {
   const infoList = ["test1", "test2", "test3"];
   return (
     <div>
-      aaa
       <Swiper
         pagination={{ clickable: true }} // 우측의 점을 클릭했을 때, 클릭한 슬라이드로 이동하게 됩니다.
         mousewheel // 마우스 휠 동작을 허용합니다.
@@ -24,19 +23,94 @@ const TutorialList = () => {
           console.log(swiper.activeIndex);
         }}
       >
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <StyledSwiper>
-            <img
-              alt="img"
-              src="https://cdnweb01.wikitree.co.kr/webdata/editor/202008/20/img_20200820140252_0ddb8cb7.webp"
-              style={{ height: "300px" }}
-            ></img>
           </StyledSwiper>
+        </SwiperSlide> */}
+        <SwiperSlide>
+        <StyledSwiper>
+
+          <img
+            alt="img"
+            src="https://velog.velcdn.com/images/wildgallop/post/39421a79-7d12-4331-b521-369fa303815f/image.png"
+            style={{ height: "300px" }}
+          ></img>
+                    </StyledSwiper>
+
         </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>
+        <StyledSwiper>
+
+          <img
+            alt="img"
+            src="https://velog.velcdn.com/images/wildgallop/post/e908cedf-e17c-4c83-8fb7-b5e09010fb89/image.png"
+            style={{ height: "300px" }}
+          ></img>
+                    </StyledSwiper>
+
+        </SwiperSlide>
+        <SwiperSlide>
+        <StyledSwiper>
+
+          <img
+            alt="img"
+            src="https://velog.velcdn.com/images/wildgallop/post/6742f526-bb9d-4a7f-a4f4-0ef4efa12686/image.png"
+            style={{ height: "300px" }}
+          ></img>
+                    </StyledSwiper>
+
+        </SwiperSlide>
+        <SwiperSlide>
+        <StyledSwiper>
+
+          <img
+            alt="img"
+            src="https://velog.velcdn.com/images/wildgallop/post/2b2b283c-7c06-4807-aa09-af91913a5ba1/image.png"
+            style={{ height: "300px" }}
+          ></img>
+                    </StyledSwiper>
+
+        </SwiperSlide>
+        <SwiperSlide>
+        <StyledSwiper>
+
+          <img
+            alt="img"
+            src="https://velog.velcdn.com/images/wildgallop/post/b8206f75-19b0-466d-afcc-a5201705392d/image.png"
+            style={{ height: "300px" }}
+          ></img>
+                    </StyledSwiper>
+
+        </SwiperSlide>
+        <SwiperSlide>
+        <StyledSwiper>
+
+          <img
+            alt="img"
+            src="https://velog.velcdn.com/images/wildgallop/post/09ff2ab3-1c4b-46a5-a04b-5924876e4415/image.png"
+            style={{ height: "300px" }}
+          ></img>
+                    </StyledSwiper>
+
+        </SwiperSlide>
+        {/* <SwiperSlide>
+          <img
+            alt="img"
+            src=""
+            style={{ height: "300px" }}
+          ></img>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt="img"
+            src=""
+            style={{ height: "300px" }}
+          ></img>
+        </SwiperSlide>
+
         <SwiperSlide>Slide 3</SwiperSlide>
         <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
+        <SwiperSlide>Slide 5</SwiperSlide> */}
       </Swiper>
       {/* <div>사진</div>
     <img alt = "img" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202008/20/img_20200820140252_0ddb8cb7.webp"
@@ -46,11 +120,7 @@ const TutorialList = () => {
     <div>기타</div> */}
     </div>
   );
-  
 };
-
-
-
 
 const DivSt = styled.div``;
 const StyledSwiper = styled.div`
