@@ -31,10 +31,8 @@ const Mypage = () => {
   }, []);
 
 useEffect(()=>{
-  setNotifiList(noti.notificationList)
-},[])
-
-
+  setNotifiList(noti?.notificationList)
+},[noti])
 const notifications = noti?.notificationList
 // const notificationLength = noti?.unread
 
