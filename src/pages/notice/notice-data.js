@@ -1,5 +1,12 @@
 export const noticedata=[
   {
+    noticeId: 5,
+    title: "1.0.3 버전 업데이트 내용",
+    date: "2022-10-18",
+    author: "Havit Team",
+    content: `1. 신규유저 대상으로 튜토리얼기능 추가`
+  },
+  {
     noticeId: 4,
     title: "1.0.2 버전 업데이트 내용",
     date: "2022-10-18",
