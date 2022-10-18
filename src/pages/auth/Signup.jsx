@@ -114,10 +114,10 @@ const Signup = () => {
   return (
     <StyledDiv>
       <StyledSpan>
-        <span style={{ fontWeight: '700' }}>Come aboard,</span>
-        <span style={{ fontWeight: '700', color:'#5e43ff' }}>Let's make</span>
+        <span style={{ fontWeight: '400' }}>Come aboard,</span>
+        <span style={{ fontWeight: '700', color: '#5e43ff' }}>Let's make</span>
         <img src={havit} alt='' />
-        <span>Together!</span>
+        <span style={{ fontWeight: '700' }}>Together!</span>
       </StyledSpan>
       <StyledNotice>이벤트 상품 수령을 위하여 실제 사용하시는 이메일 주소 입력을 권장합니다.</StyledNotice>
       <form method='POST'>
@@ -182,13 +182,13 @@ const StyledSpan = styled.span`
     margin: 10px 0;
   }
   span {
-    margin: 5px 0 8;
+    margin: 5px 0 0px;
   }
 `;
 
 const StyledButtonDiv = styled.div`
   width: 80vw;
-  margin: 0 auto;
+  margin: 145px auto;
 `;
 const StyledButton = styled.button`
   width: 80vw;
