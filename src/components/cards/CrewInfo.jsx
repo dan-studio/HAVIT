@@ -47,7 +47,7 @@ const CrewInfo = ({
           className="circleImage"
           src={fileUrlHost(imageId)}
           onClick={routeHandler}
-        />
+          />
         </StyledImgDiv>
         <StyledGroupInfo>
           <h2 onClick={routeHandler}>{title}</h2>
@@ -179,5 +179,5 @@ const StyledTagDiv = styled.div`
   max-height: 75px;
 `;
 const StyledImgDiv = styled.div`
-  color: transparent;
+  background-color: transparent;
 `
