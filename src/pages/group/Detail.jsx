@@ -172,6 +172,7 @@ const StyledGroupDesc = styled.textarea`
   background: transparent;
   padding: 1px 6px;
   height: 100px;
+  color: #3a3a3a;
 `;
 const DevDiv = styled.div`
   position: fixed;
