@@ -40,7 +40,8 @@ const TutorialList = () => {
         <StyledSwiper>
           <img
             alt="img"
-            src="https://velog.velcdn.com/images/wildgallop/post/39421a79-7d12-4331-b521-369fa303815f/image.png"
+            allign="center"
+            src="https://velog.velcdn.com/images/wildgallop/post/177eead9-1e59-43ff-9d5e-5732dee4cdc3/image.png"
             style={{ height: "300px" }}
           ></img>
                     </StyledSwiper>
@@ -110,6 +111,7 @@ const TutorialList = () => {
 const DivSt = styled.div``;
 const StyledSwiper = styled.div`
   height: 320px;
+  text-align : center;
 `;
 
 export default TutorialList;
