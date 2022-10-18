@@ -9,18 +9,12 @@ import Modal from "antd/lib/modal/Modal";
 import { userApis } from "../apis/auth";
 
 const TutorialList = () => {
-  useEffect(() => {
-    userApis.getmyGroup().then((res) => {
-      setGroupList(res);
-      res.data.length === 0 ? setIsTutorial(false) : setIsTutorial(true);
-      console.log(isTutorial);
-    });
-  }, []);
-  const [isTutorial, setIsTutorial] = useState(false);
+  const [isTutorial, setIsTutorial] = useState(true);
   const [groupList, setGroupList] = useState([]);
 
   return (
-    <div>
+    <div style={{zIndex: "99" }}>
+
       <Modal
               title="튜토리얼"
               centered

@@ -68,7 +68,6 @@ const Main = () => {
     userApis.getmyGroup().then((res) => {
       setGroupList(res);
       res.data.length === 0 ? setIsTutorial(false) : setIsTutorial(true);
-      console.log(isTutorial);
     });
   }, []);
 
@@ -80,14 +79,9 @@ const Main = () => {
   const Tutorial = () => {
     setIsTutorial(true)
   };
-  console.log(myInfo)
-
-
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
-
-
   return (
     <div
       style={{
@@ -112,6 +106,8 @@ const Main = () => {
           </div>
         </NewMemberDiv>
       )}
+      {myGroupLists === undefined && <TutorialList /> }
+      {/* <TutorialList /> */}
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }} onClick={() => {
