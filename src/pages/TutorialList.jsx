@@ -14,7 +14,6 @@ import SubButton from "@components/button/SubButton";
 const TutorialList = () => {
   useEffect(() => {
     if (appCookies["MODAL_EXPIRES"]) return;
-    console.log(appCookies["MODAL_EXPIRES"]);
     setHasCookie(false);
   }, []);
   const [isTutorial, setIsTutorial] = useState(true);
@@ -45,7 +44,7 @@ const TutorialList = () => {
             open={isTutorial}
             onOk={() => setIsTutorial(false)}
             onCancel={() => setIsTutorial(false)}
-            bodyStyle={{ height: 410 }}
+            bodyStyle={{ height: 480 }}
             footer={null}
           >
             <Swiper
@@ -68,10 +67,6 @@ const TutorialList = () => {
                     src="https://velog.velcdn.com/images/wildgallop/post/177eead9-1e59-43ff-9d5e-5732dee4cdc3/image.png"
                     style={{ height: "300px" }}
                   ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
                 </StyledSwiper>
               </SwiperSlide>
               <SwiperSlide>
@@ -81,10 +76,6 @@ const TutorialList = () => {
                     src="https://velog.velcdn.com/images/wildgallop/post/e908cedf-e17c-4c83-8fb7-b5e09010fb89/image.png"
                     style={{ height: "300px" }}
                   ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
                 </StyledSwiper>
               </SwiperSlide>
               <SwiperSlide>
@@ -94,10 +85,6 @@ const TutorialList = () => {
                     src="https://velog.velcdn.com/images/wildgallop/post/6742f526-bb9d-4a7f-a4f4-0ef4efa12686/image.png"
                     style={{ height: "300px" }}
                   ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
                 </StyledSwiper>
               </SwiperSlide>
               <SwiperSlide>
@@ -107,10 +94,6 @@ const TutorialList = () => {
                     src="https://velog.velcdn.com/images/wildgallop/post/2b2b283c-7c06-4807-aa09-af91913a5ba1/image.png"
                     style={{ height: "300px" }}
                   ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
                 </StyledSwiper>
               </SwiperSlide>
               <SwiperSlide>
@@ -120,10 +103,6 @@ const TutorialList = () => {
                     src="https://velog.velcdn.com/images/wildgallop/post/b8206f75-19b0-466d-afcc-a5201705392d/image.png"
                     style={{ height: "300px" }}
                   ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
                 </StyledSwiper>
               </SwiperSlide>
               <SwiperSlide>
@@ -133,17 +112,13 @@ const TutorialList = () => {
                     src="https://velog.velcdn.com/images/wildgallop/post/09ff2ab3-1c4b-46a5-a04b-5924876e4415/image.png"
                     style={{ height: "300px" }}
                   ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
                 </StyledSwiper>
               </SwiperSlide>
             </Swiper>
+            <StyledButton onClick={closeModalUntilExpires}>오늘 하루동안 보지 않기</StyledButton>
           </Modal>
         )}
       </CookiesProvider>
-
     </div>
   );
 };
@@ -151,7 +126,12 @@ const TutorialList = () => {
 const StyledSwiper = styled.div`
   text-align: center;
   height: 400px;
-
 `;
-
+const StyledButton = styled.button`
+position: absolute;
+  border: none;
+  background-color: transparent;
+  right: 10px;
+  bottom: 10px;
+`
 export default TutorialList;
