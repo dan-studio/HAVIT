@@ -12,6 +12,10 @@ import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import { FaRegHandPointLeft } from "react-icons/fa";
 import ReactGA from 'react-ga'
+import Tutorial from "../Tutorial";
+import TutorialList from "../TutorialList";
+import Modal from "antd/lib/modal/Modal";
+
 
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
@@ -57,9 +61,25 @@ const Main = () => {
       setMyGroups(res.data);
     });
   }, []);
+  useEffect(() => {
+    userApis.getmyGroup().then((res) => {
+      setGroupList(res);
+      res.data.length === 0 ? setIsTutorial(false) : setIsTutorial(true);
+      console.log(isTutorial);
+    });
+  }, []);
 
-
+  const [isTutorial, setIsTutorial] = useState(false);
   const myGroupLists = myGroups?.length;
+  const showModal = () => {
+    setIsTutorial(true);
+  };
+  const Tutorial = () => {
+    setIsTutorial(true)
+  };
+  console.log(myInfo)
+
+
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;

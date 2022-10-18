@@ -2,14 +2,33 @@ import styled from "styled-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Mousewheel, Keyboard } from "swiper";
+import Modal from "antd/lib/modal/Modal";
+import { userApis } from "../apis/auth";
 
 const TutorialList = () => {
-  const infoList = ["test1", "test2", "test3"];
+  useEffect(() => {
+    userApis.getmyGroup().then((res) => {
+      setGroupList(res);
+      res.data.length === 0 ? setIsTutorial(false) : setIsTutorial(true);
+      console.log(isTutorial);
+    });
+  }, []);
+  const [isTutorial, setIsTutorial] = useState(false);
+  const [groupList, setGroupList] = useState([]);
+
   return (
     <div>
+      <Modal
+              title="튜토리얼"
+              centered
+              open={isTutorial}
+              onOk={() => setIsTutorial(false)}
+              onCancel={() => setIsTutorial(false)}
+              bodyStyle={{height: 420}}
+      >
       <Swiper
         pagination={{ clickable: true }} // 우측의 점을 클릭했을 때, 클릭한 슬라이드로 이동하게 됩니다.
         mousewheel // 마우스 휠 동작을 허용합니다.
@@ -89,6 +108,7 @@ const TutorialList = () => {
 
         </SwiperSlide>
       </Swiper>
+      </Modal>
     </div>
   );
 };

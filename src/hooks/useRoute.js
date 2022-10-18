@@ -20,13 +20,13 @@ import NoticeDetail from "../pages/notice/NoticeDetail";
 import Inquiry from "../pages/inquiry/Inquiry";
 import PageNotFound from "../pages/PageNotFound";
 import Rank from "../pages/main/Rank";
-import Test from "../pages/Test";
+import Tutorial from "../pages/Tutorial";
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
   {
     path: "test",
     title: "모달테스트",
-    screen: Test,
+    screen: Tutorial,
   },
   {
     path: "*",

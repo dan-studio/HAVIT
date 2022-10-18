@@ -10,12 +10,12 @@ import TutorialList from "./TutorialList";
 import { userApis } from "../apis/auth";
 import ModalTutorial from "./ModalTutorial";
 
-const Test = () => {
+const Tutorial = () => {
   useEffect(() => {
     userApis.getmyGroup().then((res) => {
       setGroupList(res);
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
       res.data.length === 0 ? setIsTutorial(false) : setIsTutorial(true);
       console.log(isTutorial);
     });
@@ -34,24 +34,23 @@ const Test = () => {
 
   return (
     <StyledDiv>
-      aaa
       <button onClick={showModal}>모달 띄우기</button>
       {isTutorial && <ModalTutorial setIsTutorial={setIsTutorial} />}
       <button onClick={Tutorial}> antd 라이브러리</button>
       <SwipeBox2 styled={{ height: "fit-contents" }}>
         <CardTitle>튜토리얼</CardTitle>
       </SwipeBox2>
-      <Modal
+      {/* <Modal
         title="튜토리얼"
         centered
         open={isTutorial}
         onOk={() => setIsTutorial(false)}
         onCancel={() => setIsTutorial(false)}
         bodyStyle={{height: 420}}
-      >
+      > */}
         <TutorialList />
 
-      </Modal>
+      {/* </Modal> */}
     <Modal/>
     </StyledDiv>
   );
@@ -78,4 +77,4 @@ const SwipeBox2 = styled.div`
   /* object-fit: cover; */
 `;
 
-export default Test;
+export default Tutorial;
