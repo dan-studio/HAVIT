@@ -20,11 +20,12 @@ const TutorialList = () => {
               centered
               open={isTutorial}
               onOk={() => setIsTutorial(false)}
-              onCancel={() => setIsTutorial(false)}
-              bodyStyle={{height: 420}}
-              footer= {null}
+              // onCancel={() => setIsTutorial(false)}
+              // bodyStyle={{height: 420}}
+              bodyStyle={{height: 2000}}
+              // footer= {null}
       > 
-      <Swiper
+      {/* <Swiper
         pagination={{ clickable: true }} // 우측의 점을 클릭했을 때, 클릭한 슬라이드로 이동하게 됩니다.
         mousewheel // 마우스 휠 동작을 허용합니다.
         keyboard // 키보드 방향키에 의한 동작을 허용합니다.
@@ -36,7 +37,7 @@ const TutorialList = () => {
         onActiveIndexChange={(swiper) => {
           console.log(swiper.activeIndex);
         }}
-      >
+      > */}
         <SwiperSlide>
         <StyledSwiper>
           <img
@@ -102,7 +103,7 @@ const TutorialList = () => {
                     </StyledSwiper>
 
         </SwiperSlide>
-      </Swiper>
+      {/* </Swiper> */}
       </Modal>
     </div>
   );
@@ -110,7 +111,7 @@ const TutorialList = () => {
 
 const DivSt = styled.div``;
 const StyledSwiper = styled.div`
-  height: 400px;
+  height: 320px;
 `;
 
 export default TutorialList;
