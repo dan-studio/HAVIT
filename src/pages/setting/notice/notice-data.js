@@ -1,5 +1,12 @@
 export const noticedata=[
   {
+    noticeId: 6,
+    title: "1.0.4 버전 업데이트 내용",
+    date: "2022-10-19",
+    author: "Havit Team",
+    content: `1. 그룹페이지 무한스크롤 기능 구현 `
+  },
+  {
     noticeId: 5,
     title: "1.0.3 버전 업데이트 내용",
     date: "2022-10-18",
