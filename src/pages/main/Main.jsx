@@ -106,6 +106,7 @@ const Main = () => {
             />
           </div>
         </StyledGroup>
+
         {myGroupLists === undefined && <TutorialList /> }
 
         <StyledGroupPhotoBox>
