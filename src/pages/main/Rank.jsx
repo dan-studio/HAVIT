@@ -7,40 +7,14 @@ import { Modal } from "antd";
 const Rank = () => {
   const [open, setOpen] = useState(false);
   const [groups, setGroups] = useState();
-  // const [byNumber, setByNumber] = useState([]);
-  // const byNumber = []
   useEffect(() => {
     userApis.getGroup().then((res) => {
       setGroups(res.data);
-      // groups?.sort((a, b) =>  b.memberCount- a.memberCount);
-      console.log(groups)
-
-
-      // console.log(res.data)
-
     });
   }, []);
   console.log(groups)
   const byNumber = groups?.sort((a, b) =>  b.memberCount- a.memberCount);
   console.log(byNumber)
-  // const byNumberTop5 = byNumber.slice(0,5) 
-  // console.log(byNumberTop5)
-
-  // const byNumberMap = groups?.map((el) => {
-  //   return (
-  //     byNumber?.push ({ 
-  //     "groupId":el.groupId , 
-  //     "memberCount": el.memberCount,
-  //     "title": el.title
-  //     })
-  //     // byNumber.sort((a, b) => a - b);
-  //   )
-  // } )
-  // byNumber?.sort((a, b) =>  b.memberCount- a.memberCount);
-  // console.log(byNumber)
-  // const byNumberFilter
-
-
 
   return (
     <StyledDiv>
@@ -66,7 +40,7 @@ const Rank = () => {
           {/* {byNumberTop5?.map((el)=>el.title)}  */}
           
           {groups?.map((el)=>
-          <div key="id" >
+          <div key={el.groupId} >
           {el.title}
           </div>
 
