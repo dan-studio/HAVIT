@@ -137,9 +137,7 @@ const StyledFooter = styled.div`
   background-color: #f6f9fa;
   width: 100%;
 `;
-const StyledIcons = styled.div`
-  margin-top: 20px;
-`;
+
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -160,9 +158,4 @@ const StyleSettingForm = styled.div`
   }
 `;
 
-const StyledButton = styled.div`
-  width: 30vw;
-  display: flex;
-  justify-content: center;
-`;
 export default Setting;
