@@ -22,6 +22,7 @@ const TutorialList = () => {
               onOk={() => setIsTutorial(false)}
               onCancel={() => setIsTutorial(false)}
               bodyStyle={{height: 420}}
+              footer= {null}
       >
       <Swiper
         pagination={{ clickable: true }} // 우측의 점을 클릭했을 때, 클릭한 슬라이드로 이동하게 됩니다.
