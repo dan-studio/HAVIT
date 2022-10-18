@@ -49,7 +49,7 @@ const TutorialList = () => {
             open={isTutorial}
             onOk={() => setIsTutorial(false)}
             onCancel={() => setIsTutorial(false)}
-            bodyStyle={{ height: 390 }}
+            bodyStyle={{ height: 410 }}
             footer={null}
           >
             <Swiper
@@ -147,14 +147,16 @@ const TutorialList = () => {
           </Modal>
         )}
       </CookiesProvider>
+
     </div>
   );
 };
 
-const DivSt = styled.div``;
 const StyledSwiper = styled.div`
-  height: 370px;
+  /* height: 370px; */
   text-align: center;
+  height: 400px;
+
 `;
 
 export default TutorialList;

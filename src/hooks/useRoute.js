@@ -8,19 +8,19 @@ import Mypage from "@pages/main/Mypage";
 import Myprofile from "@pages/main/Myprofile";
 import MemberPage from "@pages/memberpage/MemberPage";
 import Main from "@pages/main/Main";
-import Setting from "@pages/Setting";
+import Setting from "@pages/setting/Setting";
 import Guide from "@pages/start/Guide";
 import Write from "@pages/group/Write";
 import MyPwEditor from "@pages/main/MyPwEditor";
 import CertifyDetail from "@pages/group/certify/CertifyDetail";
 import CoordinateConvert from "../components/kakao/CoordinateConvert";
-import CertifyEdit from "../pages/group/certify/CertifyEdit";
-import Notice from "../pages/notice/Notice";
-import NoticeDetail from "../pages/notice/NoticeDetail";
-import Inquiry from "../pages/inquiry/Inquiry";
-import PageNotFound from "../pages/PageNotFound";
-import Rank from "../pages/main/Rank";
-import Event from "../pages/Event";
+import CertifyEdit from "@pages/group/certify/CertifyEdit";
+import Notice from "@pages/setting/notice/Notice";
+import NoticeDetail from "@pages/setting/notice/NoticeDetail";
+import Inquiry from "@pages/inquiry/Inquiry";
+import PageNotFound from "@pages/PageNotFound";
+import Rank from "@pages/main/Rank";
+import Event from "@pages/setting/Event";
 //route 등록은 이곳에서 해주시면 됩니다.
 const pages = [
   {
