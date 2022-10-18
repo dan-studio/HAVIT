@@ -105,13 +105,13 @@ const AdDiv = styled.div`
   left: 0;
   width: 100%;
   height: 30px;
-  background-color: rgb(100, 100, 100, 0.4);
+  background-color: rgb(100, 100, 100, 0.5);
   span {
     color: white;
     font-weight: bold;
     animation: belt 20s infinite linear;
     width: 300vw;
-    font-size: 12px;
+    font-size: 13px;
     white-space: nowrap;
   }
   @keyframes belt {

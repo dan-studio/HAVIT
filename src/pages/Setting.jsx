@@ -81,6 +81,17 @@ const Setting = () => {
         </StyleSettingForm>
         <StyleSettingForm>
           <div
+            onClick={() => {navigate('event')}}
+          >
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              HAVIT 런칭 이벤트 안내
+            </h3>
+          </div>
+        </StyleSettingForm>
+        <StyleSettingForm>
+          <div
             onClick={() => window.open('https://forms.gle/5xcZ5dfDZsarEomi9', '_blank')}
           >
             <h3
@@ -98,7 +109,7 @@ const Setting = () => {
             >
               버전
             </h3>
-            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.2</span>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.3</span>
           </div>
         </StyleSettingForm>
         <StyleSettingForm onClick={logoutHandler}>
