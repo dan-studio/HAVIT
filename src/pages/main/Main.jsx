@@ -10,7 +10,6 @@ import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
-import { FaRegHandPointLeft } from "react-icons/fa";
 import ReactGA from 'react-ga'
 
 const Main = () => {
@@ -27,7 +26,6 @@ const Main = () => {
   useEffect(()=>{
     ReactGA.pageview(window.location.pathname)
   },[])
-
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -66,7 +64,6 @@ const Main = () => {
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
-
 
   return (
     <div

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeToken } from "../apis/config";
 import ToggleSwitch from "../components/button/ToggleSwitch";
-import { SiInstagram, SiNotion } from "react-icons/si";
-import logo from "../../src/assets/havit.png";
 import Footer from "../components/layout/Footer";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
