@@ -219,6 +219,7 @@ const StyledNotice = styled.div`
   border-radius: 30px;
   margin: 0 auto 15px;
   width: 340px;
+  transform: translateX(-20px);
 `;
 const StyledInputDiv = styled.div`
   width: 80vw;
