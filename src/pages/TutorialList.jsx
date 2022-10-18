@@ -1,18 +1,50 @@
 import styled from "styled-components";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Mousewheel, Keyboard } from "swiper";
 import Modal from "antd/lib/modal/Modal";
 import "swiper/css";
 import "swiper/css/pagination";
+import { useCookies } from "react-cookie";
+import { CookiesProvider } from 'react-cookie';
+
+
 
 
 const TutorialList = () => {
+  useEffect(() => {
+    if (appCookies["MODAL_EXPIRES"]) return;
+    console.log(appCookies["MODAL_EXPIRES"]);
+    setHasCookie(false);
+  }, []);
   const [isTutorial, setIsTutorial] = useState(true);
+  const [hasCookie, setHasCookie] = useState(true);
+  const [appCookies, setAppCookies] = useCookies();
+  const getExpiredDate = (days) => {
+    const date = new Date();
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+
+  const closeModalUntilExpires = () => {
+    if (!appCookies) return;
+
+    const expires = getExpiredDate(2);
+    setAppCookies("MODAL_EXPIRES", true, { path: "/", expires });
+
+    setIsTutorial(false);
+  };
+  console.log(isTutorial)
+  console.log(hasCookie)
+  console.log(appCookies)
+
 
   return (
     <div style={{ zIndex: "99" }}>
+          <CookiesProvider>
+          {isTutorial && !hasCookie && (
+          // {isTutorial && (
       <Modal
               title="튜토리얼"
               centered
@@ -36,6 +68,8 @@ const TutorialList = () => {
         }}
       >
         <SwiperSlide>
+        <button onClick={closeModalUntilExpires} > 오늘 하루동안 보지 않기 </button>
+
         <StyledSwiper>
           <img
             alt="img"
@@ -103,6 +137,9 @@ const TutorialList = () => {
         </SwiperSlide>
       </Swiper>
       </Modal>
+      )}
+      </CookiesProvider >
+
     </div>
   );
 };
