@@ -11,6 +11,10 @@ import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import ReactGA from 'react-ga'
+import Tutorial from "../Tutorial";
+import TutorialList from "../TutorialList";
+import Modal from "antd/lib/modal/Modal";
+
 
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
@@ -59,12 +63,10 @@ const Main = () => {
     });
   }, []);
 
-
   const myGroupLists = myGroups?.length;
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
-
   return (
     <div
       style={{
@@ -81,6 +83,7 @@ const Main = () => {
           </div>
         </StyledTimer>
       )}
+
       <MyProfileCard myInfo={myInfo} certifies={certifies}/>
       {myGroupLists ? null : (
         <NewMemberDiv>
@@ -89,6 +92,7 @@ const Main = () => {
           </div>
         </NewMemberDiv>
       )}
+      
       <StyledBottomDiv>
         <StyledGroup>
           <div style={{ display: "flex", alignItems: "center" }} onClick={() => {
@@ -97,10 +101,12 @@ const Main = () => {
             <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
-              
             />
           </div>
         </StyledGroup>
+
+        {myGroupLists === undefined && <TutorialList /> }
+
         <StyledGroupPhotoBox>
           {groups?.map((item, idx) => (
             <GroupCard
@@ -134,8 +140,10 @@ const Main = () => {
             <StyledNullMsg>{nullMsg}</StyledNullMsg>
           )}
         </StyledChallenge>
+        
         <StyledDragLine />
       </StyledBottomDiv>
+      
     </div>
   );
 };
