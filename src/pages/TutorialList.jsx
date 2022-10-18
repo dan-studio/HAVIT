@@ -12,8 +12,7 @@ const TutorialList = () => {
   const [isTutorial, setIsTutorial] = useState(true);
 
   return (
-    <div style={{zIndex: "99" }}>
-
+    <div style={{ zIndex: "99" }}>
       <Modal
               title="튜토리얼"
               centered
@@ -23,6 +22,7 @@ const TutorialList = () => {
               bodyStyle={{height: 370}}
               footer= {null}
       > 
+
       <Swiper
         pagination={{ clickable: true }} // 우측의 점을 클릭했을 때, 클릭한 슬라이드로 이동하게 됩니다.
         mousewheel // 마우스 휠 동작을 허용합니다.

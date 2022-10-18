@@ -10,10 +10,8 @@ import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
-import { FaRegHandPointLeft } from "react-icons/fa";
 import ReactGA from 'react-ga'
 import TutorialList from "../TutorialList";
-import Modal from "antd/lib/modal/Modal";
 
 
 const Main = () => {
@@ -30,7 +28,6 @@ const Main = () => {
   useEffect(()=>{
     ReactGA.pageview(window.location.pathname)
   },[])
-
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
