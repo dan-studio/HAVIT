@@ -12,7 +12,6 @@ import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import { FaRegHandPointLeft } from "react-icons/fa";
 import ReactGA from 'react-ga'
-import Tutorial from "../Tutorial";
 import TutorialList from "../TutorialList";
 import Modal from "antd/lib/modal/Modal";
 

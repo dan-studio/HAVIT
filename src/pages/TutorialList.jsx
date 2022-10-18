@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Mousewheel, Keyboard } from "swiper";
 import Modal from "antd/lib/modal/Modal";
-import { userApis } from "../apis/auth";
+import "swiper/css";
+import "swiper/css/pagination";
+
 
 const TutorialList = () => {
   const [isTutorial, setIsTutorial] = useState(true);
-  const [groupList, setGroupList] = useState([]);
 
   return (
     <div style={{zIndex: "99" }}>
@@ -21,7 +20,7 @@ const TutorialList = () => {
               open={isTutorial}
               onOk={() => setIsTutorial(false)}
               onCancel={() => setIsTutorial(false)}
-              bodyStyle={{height: 420}}
+              bodyStyle={{height: 370}}
               footer= {null}
       > 
       <Swiper
@@ -110,7 +109,7 @@ const TutorialList = () => {
 
 const DivSt = styled.div``;
 const StyledSwiper = styled.div`
-  height: 400px;
+  height: 320px;
 `;
 
 export default TutorialList;
