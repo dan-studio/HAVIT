@@ -52,7 +52,7 @@ const notifications = noti?.notificationList
             </div>
           </StyledTimer>
         )}
-
+  
       {/* 알림 */}
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>
