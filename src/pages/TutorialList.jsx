@@ -7,6 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Mousewheel, Keyboard } from "swiper";
 import Modal from "antd/lib/modal/Modal";
 import { userApis } from "../apis/auth";
+import "swiper/css";
+import "swiper/css/pagination";
+
 
 const TutorialList = () => {
   const [isTutorial, setIsTutorial] = useState(true);
