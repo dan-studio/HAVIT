@@ -5,13 +5,16 @@ import CrewInfo from "@components/cards/CrewInfo";
 import styles from "./group_list.module.less";
 import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getAllGroupList, getMyGroupList } from "@apis/group/group";
 import { userApis } from "../../apis/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { clearTag } from "../../redux/tags";
+import useElementOnScreen from "@hooks/useElementOnScreen";
+import SkeletonUI from "../../components/SkeletonUI";
 // /group
 const Group = () => {
+  const [listPage, setListPage] = useState(0);
   const selectList = ["전체", "내 그룹", "인기순"];
   const [selected, setSelected] = useState("전체");
   const [crew, setCrew] = useState([]);
@@ -26,16 +29,11 @@ const Group = () => {
       setSelected("전체");
     }
   }, []);
-
   useEffect(() => {
     if (selected === "전체") {
-      getAllGroupList()
-        .then((res) => {
-          setCrew(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      userApis
+        .getGroupByPage(listPage)
+        .then((res) => setCrew((prev) => [...prev, ...res]));
     } else if (selected === "내 그룹") {
       userApis.getmyGroup().then((res) => {
         if (res.data.code === "PARTICIPATION_NOT_FOUND") {
@@ -68,7 +66,7 @@ const Group = () => {
         });
       }
     }
-  }, [tagSelect, selected, tag]);
+  }, [listPage, tagSelect, selected, tag]);
 
   const handleSelect = (e) => {
     setSelected(e);
@@ -77,6 +75,23 @@ const Group = () => {
     setTag(tagItem);
     setSelected(tagItem);
   };
+
+  // inf Scroll
+  const [itemLists, setItemLists] = useState([]);
+  const [target, isLoaded] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  });
+  const getMoreData = () => {
+    setListPage((prev) => prev + 1);
+  };
+  useEffect(() => {
+    if (isLoaded) {
+      getMoreData();
+    }
+  }, [isLoaded]);
+  //
   return (
     <StyledContainer id={"content"}>
       <Row>
@@ -117,10 +132,11 @@ const Group = () => {
           />
         ))
       )}
-      <StyledBox>
-        더이상 그룹이 없어요.
+      {isLoaded ? <StyledBox>더이상 그룹이 없어요.</StyledBox> : <SkeletonUI />}
+      <FixedButton>
         <ArrowButton />
-      </StyledBox>
+      </FixedButton>
+      <div ref={target}></div>
     </StyledContainer>
   );
 };
@@ -151,7 +167,6 @@ const StyledAddGroupContainer = styled.div`
     transform: scale(0.95);
   }
 `;
-
 const StyledBox = styled.div`
   position: relative;
   width: 100%;
@@ -161,4 +176,9 @@ const StyledBox = styled.div`
   align-items: center;
   color: #787878;
   font-size: 0.8rem;
+`;
+const FixedButton = styled.div`
+  position: fixed;
+  bottom: 7vh;
+  right: 1vw;
 `;

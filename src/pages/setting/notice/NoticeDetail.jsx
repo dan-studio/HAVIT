@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { noticedata } from "./notice-data";
 import styled from "styled-components";
-import GoBackButton from "../../components/button/GoBackButton";
-import Footer from "../../components/layout/Footer";
+import GoBackButton from "@components/button/GoBackButton";
+import Footer from "@components/layout/Footer";
 
 const NoticeDetail = () => {
   const { noticeId } = useParams();

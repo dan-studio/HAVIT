@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import GoBackButton from "../../components/button/GoBackButton";
+import GoBackButton from "@components/button/GoBackButton";
 import { noticedata } from "./notice-data";
-import Footer from "../../components/layout/Footer";
+import Footer from "@components/layout/Footer";
 
 const Notice = () => {
   const navigate = useNavigate();

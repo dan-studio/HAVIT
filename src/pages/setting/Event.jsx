@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import GoBackButton from "../components/button/GoBackButton";
+import GoBackButton from "../../components/button/GoBackButton";
 
 const Event = () => {
   return (
