@@ -23,13 +23,8 @@ const TutorialList = () => {
           console.log(swiper.activeIndex);
         }}
       >
-        {/* <SwiperSlide>
-          <StyledSwiper>
-          </StyledSwiper>
-        </SwiperSlide> */}
         <SwiperSlide>
         <StyledSwiper>
-
           <img
             alt="img"
             src="https://velog.velcdn.com/images/wildgallop/post/39421a79-7d12-4331-b521-369fa303815f/image.png"
@@ -93,31 +88,7 @@ const TutorialList = () => {
                     </StyledSwiper>
 
         </SwiperSlide>
-        {/* <SwiperSlide>
-          <img
-            alt="img"
-            src=""
-            style={{ height: "300px" }}
-          ></img>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            alt="img"
-            src=""
-            style={{ height: "300px" }}
-          ></img>
-        </SwiperSlide>
-
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide> */}
       </Swiper>
-      {/* <div>사진</div>
-    <img alt = "img" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202008/20/img_20200820140252_0ddb8cb7.webp"
-    style={{width:"200px"}}
-    ></img>
-    <div>설명</div>
-    <div>기타</div> */}
     </div>
   );
 };

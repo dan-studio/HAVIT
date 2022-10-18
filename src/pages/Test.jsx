@@ -40,7 +40,6 @@ const Test = () => {
       <button onClick={Tutorial}> antd 라이브러리</button>
       <SwipeBox2 styled={{ height: "fit-contents" }}>
         <CardTitle>튜토리얼</CardTitle>
-        {/* <TutorialList styled={{ height: "fit-contents" }} /> */}
       </SwipeBox2>
       <Modal
         title="튜토리얼"
@@ -48,10 +47,8 @@ const Test = () => {
         open={isTutorial}
         onOk={() => setIsTutorial(false)}
         onCancel={() => setIsTutorial(false)}
-        // height= {2000}
         bodyStyle={{height: 420}}
       >
-        {/* <p>some contents...</p> */}
         <TutorialList />
 
       </Modal>
@@ -63,43 +60,7 @@ const Test = () => {
 const StyledDiv = styled.div`
   height: 84.7vh;
 `;
-const StyledFooter = styled.div`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 10px;
-  background-color: #f6f9fa;
-  width: 100%;
-`;
-const StyledIcons = styled.div`
-  margin-top: 20px;
-`;
-const StyleWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
-const StyleSettingForm = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 21.875rem;
-  margin: 0 1.25rem 2.1875rem;
-`;
-
-const StyledButton = styled.div`
-  width: 30vw;
-  display: flex;
-  justify-content: center;
-`;
-const SwipeBox = styled.div`
-  /* width: 100%; */
-  /* min-width: 1050px; */
-  height: 370px;
-  object-fit: cover;
-  margin: 50px 0 50px 0;
-`;
 const CardTitle = styled.div`
   color: rgb(51, 51, 51);
   font-size: 38px;
@@ -116,9 +77,5 @@ const SwipeBox2 = styled.div`
   height: "fit-contents";
   /* object-fit: cover; */
 `;
-const Event = styled.div`
-  width: 650px;
-  margin: 0 10px 0 10px;
-  /* padding: 40px 0px; */
-`;
+
 export default Test;
