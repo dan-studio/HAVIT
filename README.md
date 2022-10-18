@@ -60,4 +60,5 @@
 <br>
 
 ##  👀 미리보기
-![s89-pm-0083-03-card-mockup](https://user-images.githubusercontent.com/110372162/195542343-da97aa80-bd5d-4cce-8f2e-b691417c3b8d.png)
+![s89-pm-0083-03-card-mockup (1)](https://user-images.githubusercontent.com/78805018/196343952-e0a848b9-254e-4e88-8300-9609169b91d0.png)
+

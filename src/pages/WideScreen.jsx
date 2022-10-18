@@ -1,9 +1,6 @@
-import { Header } from 'antd/lib/layout/layout';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import logo from "../assets/havit_black.svg";
-import { useDispatch } from 'react-redux';
-import { resetLayout, setLayout } from '../redux/layout';
 
 const WideScreen = () => {
   return (

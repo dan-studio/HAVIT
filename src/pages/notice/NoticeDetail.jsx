@@ -1,14 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { noticedata } from "./notice-data";
-import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import styled from "styled-components";
 import GoBackButton from "../../components/button/GoBackButton";
 import Footer from "../../components/layout/Footer";
 
 const NoticeDetail = () => {
   const { noticeId } = useParams();
-  const navigate = useNavigate();
   const id = parseInt(noticeId);
   const data = noticedata.find((item) => item.noticeId === id);
   const { title, date, author, content } = data;

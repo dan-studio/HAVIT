@@ -7,8 +7,10 @@ import notification from "../redux/notification";
 const ServerSentEvent = ({ authId }) => {
   const dispatch = useDispatch();
   const [notifications, setNotifications] = useState("");
-  const noti = useSelector((state) => state.notification.notification.unreadCount);
-
+  const noti = useSelector((state) => state.notification.notification);
+useEffect(()=>{
+  setNotifications(noti?.unreadCount)
+},[noti])
   // const url = process.env.REACT_APP_API_HOST + "/subscribe/" + authId; //authId=로그인한 사용자 ID
   // const sse = new EventSource(url);
   // const count = noti?.unreadCount;
@@ -52,7 +54,7 @@ const ServerSentEvent = ({ authId }) => {
   // sse.onerror = function (e) {
   //   console.log(e);
   // };
-  return <StyledDiv>{noti}</StyledDiv>;
+  return <StyledDiv>{notifications}</StyledDiv>;
 };
 
 export default ServerSentEvent;

@@ -32,9 +32,12 @@
     "react-responsive": "^9.0.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
+    "rebuild": "^0.1.2",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
+    "slide": "^1.1.6",
     "styled-components": "^5.3.6",
+    "swiper": "^8.4.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -62,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^4.11.1"
   }
 }

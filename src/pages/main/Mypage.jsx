@@ -31,10 +31,8 @@ const Mypage = () => {
   }, []);
 
 useEffect(()=>{
-  setNotifiList(noti.notificationList)
-},[])
-
-
+  setNotifiList(noti?.notificationList)
+},[noti])
 const notifications = noti?.notificationList
 // const notificationLength = noti?.unread
 
@@ -54,7 +52,7 @@ const notifications = noti?.notificationList
             </div>
           </StyledTimer>
         )}
-
+  
       {/* 알림 */}
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>

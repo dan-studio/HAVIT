@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeToken } from "../apis/config";
 import ToggleSwitch from "../components/button/ToggleSwitch";
-import { SiInstagram, SiNotion } from "react-icons/si";
-import logo from "../../src/assets/havit.png";
 import Footer from "../components/layout/Footer";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
@@ -83,6 +81,17 @@ const Setting = () => {
         </StyleSettingForm>
         <StyleSettingForm>
           <div
+            onClick={() => {navigate('event')}}
+          >
+            <h3
+              style={{ color: "#252224", fontSize: "15px", fontWeight: "400" }}
+            >
+              HAVIT 런칭 이벤트 안내
+            </h3>
+          </div>
+        </StyleSettingForm>
+        <StyleSettingForm>
+          <div
             onClick={() => window.open('https://forms.gle/5xcZ5dfDZsarEomi9', '_blank')}
           >
             <h3
@@ -100,7 +109,7 @@ const Setting = () => {
             >
               버전
             </h3>
-            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.2</span>
+            <span style={{ color: "#B0B0B0", fontSize: "12px" }}>1.0.3</span>
           </div>
         </StyleSettingForm>
         <StyleSettingForm onClick={logoutHandler}>
@@ -139,9 +148,7 @@ const StyledFooter = styled.div`
   background-color: #f6f9fa;
   width: 100%;
 `;
-const StyledIcons = styled.div`
-  margin-top: 20px;
-`;
+
 const StyleWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -162,9 +169,4 @@ const StyleSettingForm = styled.div`
   }
 `;
 
-const StyledButton = styled.div`
-  width: 30vw;
-  display: flex;
-  justify-content: center;
-`;
 export default Setting;
