@@ -50,6 +50,14 @@ const StyledContainer = styled.div`
     height: 112px;
     border: 0.5px solid #eeeeee;
     overflow: hidden;
+    @media screen and (max-width: 372px){
+      width: 108px;
+    height: 108px;
+    }
+    @media screen and (max-width: 360px){
+      width: 104px;
+    height: 104px;
+    }
     & > img {
       width: 100%;
       height: 100%;
@@ -65,8 +73,6 @@ const StyledContainer = styled.div`
   }
 `;
 const CertifyImg = styled.img`
-  width: 112px;
-  height: 112px;
   border: 0.5px solid #eeeeee;
   object-fit: cover;
 `;
