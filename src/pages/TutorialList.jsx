@@ -34,15 +34,11 @@ const TutorialList = () => {
 
     setIsTutorial(false);
   };
-  console.log(isTutorial);
-  console.log(hasCookie);
-  console.log(appCookies);
 
   return (
     <div style={{ zIndex: "99" }}>
       <CookiesProvider>
         {isTutorial && !hasCookie && (
-          // {isTutorial && (
           <Modal
             title="튜토리얼"
             centered
@@ -153,7 +149,6 @@ const TutorialList = () => {
 };
 
 const StyledSwiper = styled.div`
-  /* height: 370px; */
   text-align: center;
   height: 400px;
 
