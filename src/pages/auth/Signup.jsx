@@ -188,7 +188,7 @@ const StyledSpan = styled.span`
 
 const StyledButtonDiv = styled.div`
   width: 80vw;
-  margin: 0 auto;
+  margin: 145px auto;
 `;
 const StyledButton = styled.button`
   width: 80vw;
