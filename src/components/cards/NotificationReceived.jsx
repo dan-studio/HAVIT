@@ -41,7 +41,6 @@ const NotificationReceived = ({
     setTimeout(() => {
       setReadAlert(false);
       userApis.DeleteNotification(notificationId).then((res) => {
-        console.log(res);
         setNotifiList((prev) =>
           prev.filter((noti) => noti.notificationId !== notificationId)
         );

@@ -13,9 +13,11 @@ import {
   groupParticipating,
 } from "@apis/group/group";
 import { userApis } from "@apis/auth";
-import { resetLayout, setLayout } from "../../redux/layout";
+import { resetLayout, setLayout } from "@redux/layout";
+import { selectTag } from "@redux/tags";
 import { useDispatch, useSelector } from "react-redux";
 import DevButton from "@components/button/DevButton";
+import { tagSlice } from "../../redux/tags";
 
 // /grup
 const GroupDetail = () => {
@@ -28,7 +30,6 @@ const GroupDetail = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const myInfo = useSelector(state=>state.auth.principal)
-
   React.useEffect(() => {
     dispatch(setLayout({ smallType: true }));
     return () => {
@@ -61,6 +62,7 @@ const GroupDetail = () => {
       content: <>{detail?.title}에서 정말 탈퇴하시겠습니까?</>,
       onOk: () => {
         userApis.leaveGroup(groupId);
+        <>탈퇴 되었습니다!</>
         setDetail((prev) => {
           return {
             ...prev,
@@ -88,8 +90,9 @@ const GroupDetail = () => {
       },
     });
   };
-  const onTagClick = () => {
+  const onTagClick = tag => {
     navigate('/group')
+    dispatch(selectTag(tag))    
   }
   const isMember = detail?.memberList?.find(
     (member) => member?.memberId === myInfo?.memberId
@@ -174,4 +177,8 @@ const DevDiv = styled.div`
   position: fixed;
   bottom:1rem;
   right: 5px;
+`
+const StyledList = styled.div`
+  width: 100vw;
+  margin: auto;
 `

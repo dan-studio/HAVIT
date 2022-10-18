@@ -19,8 +19,7 @@ import Modal from "antd/lib/modal/Modal";
 
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
-  const noti = useSelector(state=>state.noti.noti.unreadCount)
-  console.log(myInfo)
+  // const noti = useSelector(state=>state.notification)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
@@ -44,19 +43,23 @@ const Main = () => {
     getAllGroupList().then((res) => {
       setCrew(res.data);
     });
+
     userApis.getMyMembers().then((res) => {
       setMyGroupMembers(res);
       if (res.code === "PARTICIPATION_NOT_FOUND") {
         setNullMsg(res.message);
         return;
       }
+
       const getId = [...new Set(res.map((group) => group.groupId))];
       getId.map((id) =>
         getGroupDetail(id).then((res) => {
           setGroupList((prev) => [...prev, res.data]);
         })
       );
+
     });
+    
     userApis.getmyGroup().then((res) => {
       setMyGroups(res.data);
     });

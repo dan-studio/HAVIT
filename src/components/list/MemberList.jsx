@@ -67,7 +67,7 @@ const Container = styled.div`
     margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem 0.5rem;
+    gap: 1rem 2rem;
   }
   span {
     font-size: 10px;

@@ -18,10 +18,10 @@ const Mypage = () => {
   const [notifiList, setNotifiList] = useState([]);
   const [friends, setFriends] = useState([]);
   const myInfo = useSelector(state=>state.auth.principal)
-  const [showNotification, setShowNotification] = useState(false);
+  const [showNotification, setShowNotification] = useState(true);
 
-  const noti = useSelector((state) => state.noti.noti);
-
+  const noti = useSelector((state) => state.notification.notification);
+// console.log(noti)
   // 레이아웃 관련 설정
   useEffect(() => {
     dispatch(setLayout({ isInvert: false }));
@@ -30,10 +30,11 @@ const Mypage = () => {
     };
   }, []);
 
-  useEffect(() => {
-   setNotifiList(noti.notificationList)
-  }, []);
- 
+useEffect(()=>{
+  setNotifiList(noti?.notificationList)
+},[noti])
+const notifications = noti?.notificationList
+// const notificationLength = noti?.unread
 
   const notificationToggle = () => {
     setShowNotification(!showNotification);
@@ -56,9 +57,9 @@ const Mypage = () => {
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>
           <h2 onClick={notificationToggle}>
-            알림 ({notifiList.length}) &nbsp;
+            알림 ({notifications?.length}) &nbsp;
           </h2>
-          {notifiList.length > 0 && <div className="notiSign"></div>}
+          {notifications?.length > 0 && <div className="notiSign"></div>}
           {showNotification ? <span>▲</span> : <span>▼</span>}
         </div>
         {showNotification &&
