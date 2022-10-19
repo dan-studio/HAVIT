@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "@assets/havitLogoPurple.png";
-
+import TutorialSignin from "../TutorialSignin";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { RootDiv } from "../BasicLayout";
+// import openModal from ".././TutorialSingin.jsx"
+
 
 const Guide = () => {
   const navigate = useNavigate();
@@ -17,6 +19,18 @@ const Guide = () => {
       dispatch(resetLayout());
     };
   }, []);
+  // const [isTutorial, setIsTutorial] = useState(false);
+
+  const openModal = () => {
+    // setIsTutorial(true);
+    return null
+  };
+
+  // const closeModal = () => {
+  //   setIsTutorial(false);
+  // };
+
+
 
   return (
     <StDiv>
@@ -46,7 +60,10 @@ const Guide = () => {
         >
           아니요, 이미 회원이에요
         </StButton>
+        <button onClick={openModal}> test</button>
       </StButtonDiv>
+      {/* <TutorialSignin isTutorial={isTutorial} setIsTutorial={setIsTutorial} openModal={openModal}/> */}
+      <TutorialSignin openModal={openModal}/>
     </StDiv>
   );
 };
