@@ -45,7 +45,7 @@ const TutorialList = () => {
             open={isTutorial}
             onOk={() => setIsTutorial(false)}
             onCancel={() => setIsTutorial(false)}
-            bodyStyle={{ height: 410 }}
+            bodyStyle={{ height: 600, width:350 }}
             footer={null}
           >
             <Swiper
@@ -60,13 +60,13 @@ const TutorialList = () => {
               onActiveIndexChange={(swiper) => {}}
             >
               <SwiperSlide>
-                {/* <button onClick={closeModalUntilExpires} > 오늘 하루동안 보지 않기 </button> */}
                 <StyledSwiper>
                   <img
                     alt="img"
                     allign="center"
-                    src="https://velog.velcdn.com/images/wildgallop/post/177eead9-1e59-43ff-9d5e-5732dee4cdc3/image.png"
-                    style={{ height: "300px" }}
+                    src="https://velog.velcdn.com/images/wildgallop/post/2a436fc5-74f9-4c4f-b38d-0a42505d58c1/image.png"
+                    // style={{ height: "300px" }}
+                    style={{width: "300px" }}
                   ></img>
                   <PrimaryButton
                     buttonName={"오늘 하루동안 보지 않기"}
@@ -78,8 +78,8 @@ const TutorialList = () => {
                 <StyledSwiper>
                   <img
                     alt="img"
-                    src="https://velog.velcdn.com/images/wildgallop/post/e908cedf-e17c-4c83-8fb7-b5e09010fb89/image.png"
-                    style={{ height: "300px" }}
+                    src="https://velog.velcdn.com/images/wildgallop/post/dac6b312-1db8-4f58-a9c8-954ea769fc33/image.png"
+                    style={{width: "300px" }}
                   ></img>
                   <PrimaryButton
                     buttonName={"오늘 하루동안 보지 않기"}
@@ -91,8 +91,8 @@ const TutorialList = () => {
                 <StyledSwiper>
                   <img
                     alt="img"
-                    src="https://velog.velcdn.com/images/wildgallop/post/6742f526-bb9d-4a7f-a4f4-0ef4efa12686/image.png"
-                    style={{ height: "300px" }}
+                    src="https://velog.velcdn.com/images/wildgallop/post/fc88657f-21f5-4c46-8a32-01164108bd4e/image.png"
+                    style={{width: "300px" }}
                   ></img>
                   <PrimaryButton
                     buttonName={"오늘 하루동안 보지 않기"}
@@ -104,21 +104,8 @@ const TutorialList = () => {
                 <StyledSwiper>
                   <img
                     alt="img"
-                    src="https://velog.velcdn.com/images/wildgallop/post/2b2b283c-7c06-4807-aa09-af91913a5ba1/image.png"
-                    style={{ height: "300px" }}
-                  ></img>
-                  <PrimaryButton
-                    buttonName={"오늘 하루동안 보지 않기"}
-                    onClick={closeModalUntilExpires}
-                  />
-                </StyledSwiper>
-              </SwiperSlide>
-              <SwiperSlide>
-                <StyledSwiper>
-                  <img
-                    alt="img"
-                    src="https://velog.velcdn.com/images/wildgallop/post/b8206f75-19b0-466d-afcc-a5201705392d/image.png"
-                    style={{ height: "300px" }}
+                    src="https://velog.velcdn.com/images/wildgallop/post/ae4d4760-10fd-43e8-b80f-4ba79bda3a82/image.png"
+                    style={{width: "300px" }}
                   ></img>
                   <PrimaryButton
                     buttonName={"오늘 하루동안 보지 않기"}
@@ -131,7 +118,7 @@ const TutorialList = () => {
                   <img
                     alt="img"
                     src="https://velog.velcdn.com/images/wildgallop/post/09ff2ab3-1c4b-46a5-a04b-5924876e4415/image.png"
-                    style={{ height: "300px" }}
+                    style={{width: "300px" }}
                   ></img>
                   <PrimaryButton
                     buttonName={"오늘 하루동안 보지 않기"}
@@ -150,7 +137,8 @@ const TutorialList = () => {
 
 const StyledSwiper = styled.div`
   text-align: center;
-  height: 400px;
+  height: 450px;
+  /* width: 450px; */
 
 `;
 
