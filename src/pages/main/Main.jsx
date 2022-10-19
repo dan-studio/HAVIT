@@ -16,27 +16,6 @@ import TutorialList from "../TutorialList";
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
 
-    //
-    // const authId = myInfo?.memberId;
-    // const url = process.env.REACT_APP_API_HOST + "/subscribe/" + authId; //authId=로그인한 사용자 ID
-    // const sse = new EventSource(url);
-    // const [data, setData] = useState();
-    // const noti = useSelector((state) => state.notification.notification);
-    // useEffect(() => {
-    //   sse.onopen = (e) => {
-    //     console.log("connection opened");
-    //   };
-    //   sse.addEventListener("sse", (e) => {
-    //     setData(noti);
-    //   });
-    //   sse.onerror = (e) => {
-    //     console.log(e);
-    //     sse.close();
-    //   };
-    //   return () => sse.close();
-    // }, []);
-    //
-
   // const noti = useSelector(state=>state.notification)
   const navigate = useNavigate();
   const dispatch = useDispatch();
