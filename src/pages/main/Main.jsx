@@ -17,29 +17,29 @@ const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
 
     //
-    const authId = myInfo?.memberId;
-    const url = process.env.REACT_APP_API_HOST + "/subscribe/" + authId; //authId=로그인한 사용자 ID
-    const sse = new EventSource(url);
-    const [data, setData] = useState();
-    const noti = useSelector((state) => state.notification.notification);
-    useEffect(() => {
-      console.log(data)
+    // const authId = myInfo?.memberId;
+    // const url = process.env.REACT_APP_API_HOST + "/subscribe/" + authId; //authId=로그인한 사용자 ID
+    // const sse = new EventSource(url);
+    // const [data, setData] = useState();
+    // const noti = useSelector((state) => state.notification.notification);
+    // useEffect(() => {
+    //   console.log(data)
       
-      sse.addEventListener("sse", (e) => {
-        setData(noti);
-      });
-      sse.onopen = (e) =>{
-        console.log(e)
-      // }
-      sse.onmessage = (e) =>{
-        console.log(e)
-      }
+    //   sse.addEventListener("sse", (e) => {
+    //     setData(noti);
+    //   });
+    //   sse.onopen = (e) =>{
+    //     console.log(e)
+    //   // }
+    //   sse.onmessage = (e) =>{
+    //     console.log(e)
+    //   }
       // sse.onerror = (e) => {
       //   console.log(e);
       //   sse.close();
-      };
-      return () => sse.close();
-    }, []);
+    //   };
+    //   return () => sse.close();
+    // }, []);
     //
 
   // const noti = useSelector(state=>state.notification)
