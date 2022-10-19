@@ -66,11 +66,14 @@ const Group = () => {
     }
   }, [listPage, tagSelect, selected, tag]);
 
+  const resetList = () => {
+    setAllGroup([]);
+      setPopularGroup([]);
+    setListPage(0);
+  }
   const handleSelect = (e) => {
     setSelected(e);
-    if(listPage!==0){
-      setListPage(0);
-    }
+    resetList()
   };
   const onTagClick = (tagItem) => {
     setTag(tagItem);
@@ -81,18 +84,17 @@ const Group = () => {
   const [target, isLoaded] = useElementOnScreen({
     root: null,
     rootMargin: "0px",
-    threshold: 1,
+    threshold: .7,
   });
   const getMoreData = () => {
     setListPage((prev) => prev + 1);
   };
   useEffect(() => {
+    if (listPage === 0) {
+      
+    }
     if (isLoaded) {
       getMoreData();
-    }
-    if (listPage === 0) {
-      setAllGroup([]);
-      setPopularGroup([]);
     }
   }, [isLoaded]);
   //
