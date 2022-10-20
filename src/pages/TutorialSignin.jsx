@@ -17,7 +17,7 @@ const TutorialSignin = ({isTutorial,setIsTutorial}) => {
     <div style={{ zIndex: '99' }}>
           <StyledDiv>
           <Modal 
-          title='서비스 둘러보기' 
+          title='서비스 미리보기' 
           centered 
           open={isTutorial} 
           close={()=> setIsTutorial(false)}
