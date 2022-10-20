@@ -17,13 +17,13 @@ const TutorialSignin = ({isTutorial,setIsTutorial}) => {
     <div style={{ zIndex: '99' }}>
           <StyledDiv>
           <Modal 
-          title='서비스 미리보기' 
+          title='사용가이드' 
           centered 
           open={isTutorial} 
           close={()=> setIsTutorial(false)}
           onOk={() => setIsTutorial(false)} 
           onCancel={() => setIsTutorial(false)} 
-          bodyStyle={{ height: '440px' }} 
+          bodyStyle={{ height: '600px' }} 
           // footer={null}
           >
                         <Swiper
@@ -36,20 +36,52 @@ const TutorialSignin = ({isTutorial,setIsTutorial}) => {
               threshold={20} // 터치 감도를 조정합니다. 숫자가 클수록 터치에 반응하지 않습니다.
               speed={1000} // 슬라이드가 넘어가는 속도를 조정합니다. 단위는 ms입니다.
               onActiveIndexChange={swiper => {}}
-              height={'400px'}>
+              height={'900px'}>
               <SwiperSlide>
                 <StyledSwiper >                
             <img alt='img' 
-            src='https://velog.velcdn.com/images/wildgallop/post/9307fe1f-3c0f-477d-b6a5-bfd49ef2b75c/image.png' 
-            style={{height: '200px'}}
+            src='https://velog.velcdn.com/images/wildgallop/post/883d08a6-b537-49be-af12-6dbfc7c6dfde/image.png'
+            style={{height: '600px'}}
             />
             </StyledSwiper>
             </SwiperSlide>
             <SwiperSlide>
                 <StyledSwiper >                
             <img alt='img' 
-            src='https://velog.velcdn.com/images/wildgallop/post/9307fe1f-3c0f-477d-b6a5-bfd49ef2b75c/image.png' 
-            style={{height: '200px'}}
+            src='https://velog.velcdn.com/images/wildgallop/post/773de84f-2f74-40a9-b5df-1387aedd93c6/image.png'
+            style={{height: '450px', width: "250px"}}
+            />
+            </StyledSwiper>
+            </SwiperSlide>
+            <SwiperSlide>
+                <StyledSwiper >                
+            <img alt='img' 
+            src='https://velog.velcdn.com/images/wildgallop/post/fde1ea84-072a-464c-ab06-260b187532f1/image.png'
+            style={{height: '600px'}}
+            />
+            </StyledSwiper>
+            </SwiperSlide>
+            <SwiperSlide>
+                <StyledSwiper >                
+            <img alt='img' 
+            src='https://velog.velcdn.com/images/wildgallop/post/19f45201-200a-493d-8db3-41a740898c8e/image.png'
+            style={{height: '600px'}}
+            />
+            </StyledSwiper>
+            </SwiperSlide>
+            <SwiperSlide>
+                <StyledSwiper >                
+            <img alt='img' 
+src='https://velog.velcdn.com/images/wildgallop/post/ae916ea4-51ea-4b0b-b706-d62d2f7f7482/image.png'
+            style={{height: '600px'}}
+            />
+            </StyledSwiper>
+            </SwiperSlide>
+            <SwiperSlide>
+                <StyledSwiper >                
+            <img alt='img' 
+            src='https://velog.velcdn.com/images/wildgallop/post/c647bdb6-2663-4fd1-91a7-d7e82c6a9e11/image.png'
+            style={{height: '600px'}}
             />
             </StyledSwiper>
             </SwiperSlide>
@@ -72,9 +104,10 @@ const StyledDiv = styled.div`
 const StyledSwiper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin:auto;
   /* justify-self: auto; */
-  background-color: red;
-  height:200px;
+  /* background-color: red; */
+  height:500px;
   & > img {
     width: 400px;
     height: auto;
