@@ -109,4 +109,8 @@ const StyledButton = styled.button`
   bottom: 20px;
   z-index: 100;
 `;
+<<<<<<< HEAD
 export default TutorialList;
+=======
+export default TutorialList;
+>>>>>>> 9bd7974eb73611d90e86e8bc6cd629b98f702f58

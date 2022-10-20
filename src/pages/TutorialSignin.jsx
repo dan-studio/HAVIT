@@ -22,6 +22,11 @@ import SubButton from '@components/button/SubButton';
     // return null
       setIsTutorial(true);
   };
+  // export function openModal=()=>{
+  //   // setIsTutorial(true);
+  //   // return null
+  //     setIsTutorial(true);
+  // }
 
   return (
     <div style={{ zIndex: '99' }}>
@@ -76,6 +81,7 @@ const StyledButton = styled.button`
   z-index: 100;
 `;
 
+// export {openModal}
 
 // export {TutorialSignin, openModal}
 export default TutorialSignin;

@@ -10,12 +10,12 @@ import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
-import ReactGA from 'react-ga'
+import ReactGA from "react-ga";
 import TutorialList from "../TutorialList";
-
 
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
+
   // const noti = useSelector(state=>state.notification)
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,9 +25,9 @@ const Main = () => {
   const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
-  useEffect(()=>{
-    ReactGA.pageview(window.location.pathname)
-  },[])
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  }, []);
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
@@ -53,9 +53,8 @@ const Main = () => {
           setGroupList((prev) => [...prev, res.data]);
         })
       );
-
     });
-    
+
     userApis.getmyGroup().then((res) => {
       setMyGroups(res.data);
     });
@@ -65,6 +64,8 @@ const Main = () => {
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 4);
   const certifies = myInfo?.certifyList?.length;
+
+
   return (
     <div
       style={{
@@ -82,7 +83,7 @@ const Main = () => {
         </StyledTimer>
       )}
 
-      <MyProfileCard myInfo={myInfo} certifies={certifies}/>
+      <MyProfileCard myInfo={myInfo} certifies={certifies} />
       {myGroupLists ? null : (
         <NewMemberDiv>
           <div className="message">
@@ -90,12 +91,15 @@ const Main = () => {
           </div>
         </NewMemberDiv>
       )}
-      
+
       <StyledBottomDiv>
         <StyledGroup>
-          <div style={{ display: "flex", alignItems: "center" }} onClick={() => {
-                navigate("/group");
-              }}>
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={() => {
+              navigate("/group");
+            }}
+          >
             <h2>{myInfo?.nickname}님 이런 그룹은 어떠세요?</h2>
             <IoIosArrowForward
               style={{ fontSize: "20px", color: "#DE4242", cursor: "pointer" }}
@@ -103,7 +107,7 @@ const Main = () => {
           </div>
         </StyledGroup>
 
-        {myGroupLists === undefined && <TutorialList /> }
+        {myGroupLists === undefined && <TutorialList />}
 
         <StyledGroupPhotoBox>
           {groups?.map((item, idx) => (
@@ -138,10 +142,9 @@ const Main = () => {
             <StyledNullMsg>{nullMsg}</StyledNullMsg>
           )}
         </StyledChallenge>
-        
+
         <StyledDragLine />
       </StyledBottomDiv>
-      
     </div>
   );
 };
@@ -232,7 +235,7 @@ const NewMemberDiv = styled.div`
       color: #2cdf3d;
     }
     50% {
-      color: #DE4242;
+      color: #de4242;
     }
     100% {
       color: white;
