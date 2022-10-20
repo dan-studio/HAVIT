@@ -25,16 +25,21 @@ const Main = () => {
   const [toggleGroup, setToggleGroup] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
+
+
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
   }, []);
+
   useEffect(() => {
     dispatch(setLayout({ isInvert: true }));
     return () => {
       dispatch(resetLayout());
     };
   }, []);
+
   const [crew, setCrew] = useState();
+  
   useEffect(() => {
     getAllGroupList().then((res) => {
       setCrew(res.data);
