@@ -19,18 +19,11 @@ const Guide = () => {
       dispatch(resetLayout());
     };
   }, []);
-  // const [isTutorial, setIsTutorial] = useState(false);
+  const [isTutorial, setIsTutorial] = useState(false);
 
   const openModal = () => {
-    // setIsTutorial(true);
-    return null
+    setIsTutorial(true);
   };
-
-  // const closeModal = () => {
-  //   setIsTutorial(false);
-  // };
-
-
 
   return (
     <StDiv>
@@ -60,10 +53,11 @@ const Guide = () => {
         >
           아니요, 이미 회원이에요
         </StButton>
-        <button onClick={openModal}> test</button>
+        <StyledPreview>
+          <div onClick={openModal}>서비스 미리보기</div>
+        </StyledPreview>
       </StButtonDiv>
-      {/* <TutorialSignin isTutorial={isTutorial} setIsTutorial={setIsTutorial} openModal={openModal}/> */}
-      <TutorialSignin openModal={openModal}/>
+      <TutorialSignin isTutorial={isTutorial} setIsTutorial={setIsTutorial} />
     </StDiv>
   );
 };
@@ -71,6 +65,16 @@ const Guide = () => {
 export default Guide;
 
 const StDiv = styled.div``;
+const StyledPreview = styled.div`
+  position: absolute;
+  top: 77vh;
+  border-bottom: 1px solid darkgray;
+  /* border-radius:25px; */
+  width: 100px;
+
+
+`;
+
 const StSpan = styled.span`
   color: #252224;
   position: absolute;
