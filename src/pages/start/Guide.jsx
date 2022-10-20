@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "@assets/havitLogoPurple.png";
-
+import TutorialSignin from "../TutorialSignin";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { RootDiv } from "../BasicLayout";
+// import openModal from ".././TutorialSingin.jsx"
+
 
 const Guide = () => {
   const navigate = useNavigate();
@@ -17,6 +19,11 @@ const Guide = () => {
       dispatch(resetLayout());
     };
   }, []);
+  const [isTutorial, setIsTutorial] = useState(false);
+
+  const openModal = () => {
+    setIsTutorial(true);
+  };
 
   return (
     <StDiv>
@@ -46,7 +53,11 @@ const Guide = () => {
         >
           아니요, 이미 회원이에요
         </StButton>
+        <StyledPreview>
+          <div onClick={openModal}>서비스 미리보기</div>
+        </StyledPreview>
       </StButtonDiv>
+      <TutorialSignin isTutorial={isTutorial} setIsTutorial={setIsTutorial} />
     </StDiv>
   );
 };
@@ -54,6 +65,16 @@ const Guide = () => {
 export default Guide;
 
 const StDiv = styled.div``;
+const StyledPreview = styled.div`
+  position: absolute;
+  top: 77vh;
+  border-bottom: 1px solid darkgray;
+  /* border-radius:25px; */
+  width: 100px;
+
+
+`;
+
 const StSpan = styled.span`
   color: #252224;
   position: absolute;
