@@ -158,7 +158,7 @@ const CertifyDetail = () => {
           onClick={() => {
             navigate(state || -1, { state: '/group' });
           }}>
-          <MdOutlineArrowBackIosNew style={{ fontSize: '20px', color: '#5E43FF', marginRight: '3px' }} />
+          <MdOutlineArrowBackIosNew style={{ fontSize: '15px', color: '#5E43FF', marginRight: '3px' }} />
           <ChallengeName>{groupDetail.title}</ChallengeName>
         </ToGroup>
         {myInfo?.memberId === certifyDetail?.memberId && (
@@ -307,7 +307,7 @@ const Title = styled.div`
 `;
 
 const ChallengeName = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   color: gray;
 `;
 
