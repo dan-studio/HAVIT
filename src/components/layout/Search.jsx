@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { userApis } from '../../apis/auth';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import { useCallback } from 'react';
 const Search = ({onClose}) => {
 
   const [search, setSearch] = useState('')
@@ -15,12 +15,27 @@ const Search = ({onClose}) => {
   const onChange = e => {
     setSearch(e.target.value)
     userApis.search(search).then(res=>{
+      console.log(res)
       setSearchResult(res)
+      console.log(searchResult)
     }).catch(err=>{
       console.log(err)
     })
   }
+  console.log(search)
+  console.log(searchResult)
+  // const onChange = e => {
+  //   setSearch(e.target.value, () => // 두번째 인자로 콜백 함수를 넘겨줌.
+  //   console.log("test"))
+  //   userApis.search(search).then(res=>{
+  //     setSearchResult(res)
+  //   }).catch(err=>{
+  //     console.log(err)
+  //   })
+  // }
   useEffect(()=>{
+    
+
   },[search, searchResult])
 
   return (
@@ -42,8 +57,10 @@ const Search = ({onClose}) => {
                   fontWeight: 'bold',
                 }}></SearchOutlined>
             }
+            // onBlur={onChange}
             onChange={onChange}
             ></Input>
+
         </StyleSearchBox>
         <StyleHistoryBox>
           <h2>최근검색기록</h2>
