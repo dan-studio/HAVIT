@@ -18,10 +18,10 @@ const PhotoList = ({ groupId, list, isMember, height }) => {
   const certifyBefore = list?.filter(
     (el) => el.createdAt.slice(0, 10) !== createdAt
   );
-  return (
-    <>
-      오늘의 인증
-      <StyledContainer height={"10px"}>
+  return (<>
+        {certifyToday?.length>0?<div className="title">👏오늘의 인증👏</div>:<div className="title">🔥🔥오늘의 첫 인증을 해보세요!🔥🔥</div>}
+        {list?.length===0&&<div className="title">그룹이 일정 기간 동안 활성화되지 않는다면 <br/>운영진의 판단하에 해산될 수 있다는 점 <br/>이용에 참고 부탁드립니다. 😥</div>}
+    <StyledContainer height={"10px"}>
         {isMember ? (
           <div
             className="adder"
@@ -48,7 +48,6 @@ const PhotoList = ({ groupId, list, isMember, height }) => {
             </div>
           ))}
       </StyledContainer>
-      이전 인증
       <StyledContainer height={height}>
         {certifyBefore &&
           certifyBefore?.map((el) => (
@@ -61,11 +60,11 @@ const PhotoList = ({ groupId, list, isMember, height }) => {
               <CertifyImg alt="" src={fileUrlHost(el?.imageId)}></CertifyImg>
             </div>
           ))}
-      </StyledContainer>
-    </>
+      </StyledContainer></>
   );
 };
 export default PhotoList;
+
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -73,7 +72,7 @@ const StyledContainer = styled.div`
   gap: 2px;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 0 auto 10px;
   & > div {
     width: 112px;
     height: 112px;

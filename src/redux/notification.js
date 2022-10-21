@@ -20,13 +20,6 @@ export const notificationSlice = createSlice({
       notification: state.filter((notification, idx)=>idx!==action.payload)
      }
     },
-    clearnotification: state => {
-      state.notification = undefined;
-    },
-
-    setTimeout: (state, action) => {
-      state.timeout = action.payload;
-    },
   },
   extraReducers: {
     [notification.pending]:state=>{
@@ -43,6 +36,6 @@ export const notificationSlice = createSlice({
 });
 
 
-export const { setnotification, clearnotification } = notificationSlice.actions;
+export const { setnotification } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

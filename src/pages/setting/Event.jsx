@@ -28,10 +28,16 @@ const Event = () => {
         <span>- 잘참여했상 : 인증을 매일 꾸준히 잘하신 분</span>
         <br />
         <h1>🎁 경품 안내</h1>
-        <img
-          src="https://velog.velcdn.com/images/danchoi/post/e6b00288-1bb1-4b9c-8c2c-4d75c86711fa/image.jpg"
-          alt=""
-        />
+        <ImgDiv>
+          <img
+            src="https://velog.velcdn.com/images/danchoi/post/c5eba530-b0f9-4b89-8331-4da246a9b7ed/image.jpeg"
+            alt=""
+          />
+          <img
+            src="https://velog.velcdn.com/images/danchoi/post/1a7ac7c9-852e-4b84-a9f6-26025be8375f/image.jpeg"
+            alt=""
+          />
+        </ImgDiv>
         <span>
           - 잘참여했상 : Havit 개발자의 정성이 들어간 자체 제작 티셔츠(15명)
         </span>
@@ -63,3 +69,11 @@ const StyledDiv = styled.div`
     margin: auto;
   }
 `;
+const ImgDiv = styled.div`
+  display: flex;
+  img{
+    width: 170px;
+    height: 200px;
+    object-fit: cover;
+  }
+`

@@ -40,7 +40,6 @@ const CommentDetail = ({
         userApis
           .deleteSubComment(subCommentId)
           .then((res) => {
-            console.log(res);
             setCertifyDetail((prev) => {
               return {
                 ...prev,
