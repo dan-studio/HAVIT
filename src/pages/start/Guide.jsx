@@ -1,17 +1,16 @@
-import React, { useEffect,useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import havit from "@assets/havitLogoPurple.png";
-import TutorialSignin from "../TutorialSignin";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { resetLayout, setLayout } from "../../redux/layout";
-import { RootDiv } from "../BasicLayout";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import havit from '@assets/havitLogoPurple.png';
+import TutorialSignin from '../TutorialSignin';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { resetLayout, setLayout } from '../../redux/layout';
+import { RootDiv } from '../BasicLayout';
 // import openModal from ".././TutorialSingin.jsx"
-
 
 const Guide = () => {
   const navigate = useNavigate();
-  const layout = useSelector((state) => state.layout, shallowEqual);
+  const layout = useSelector(state => state.layout, shallowEqual);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setLayout({ showHeader: false }));
@@ -27,35 +26,37 @@ const Guide = () => {
 
   return (
     <StDiv>
+
       <StSpan>
         환영해요 <br />
-        <img src={havit} alt="" /> &emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; 은{" "}
-        <br />
+        <img src={havit} alt='' /> &emsp;&emsp;&emsp;&emsp;&ensp;&nbsp; 은 <br />
         처음이신가요?
       </StSpan>
+
       <StButtonDiv>
         <StButton
-          top="65vh"
-          color="white"
-          background="#5C53FF"
+          top='65vh'
+          color='white'
+          background='#5C53FF'
           onClick={() => {
-            navigate("signup");
-          }}
-        >
+            navigate('signup');
+          }}>
           네, 처음이에요
         </StButton>
+
         <StButton
-          top="71vh"
-          background="white"
+          top='71vh'
+          background='white'
           onClick={() => {
-            navigate("signin");
-          }}
-        >
+            navigate('signin');
+          }}>
           아니요, 이미 회원이에요
         </StButton>
+
         <StyledPreview>
           <div onClick={openModal}>서비스 미리보기</div>
         </StyledPreview>
+
       </StButtonDiv>
       <TutorialSignin isTutorial={isTutorial} setIsTutorial={setIsTutorial} />
     </StDiv>
@@ -65,14 +66,13 @@ const Guide = () => {
 export default Guide;
 
 const StDiv = styled.div``;
+
 const StyledPreview = styled.div`
   position: absolute;
-  top: 77vh;
+  text-align: center;
+  top: 80vh;
   border-bottom: 1px solid darkgray;
-  /* border-radius:25px; */
   width: 100px;
-
-
 `;
 
 const StSpan = styled.span`
@@ -94,13 +94,14 @@ const StButtonDiv = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const StButton = styled.button`
   position: absolute;
-  top: ${(props) => props.top};
+  top: ${props => props.top};
   width: 70vw;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   border: 1px solid #5c53ff;
-  background-color: ${(props) => props.background};
+  background-color: ${props => props.background};
   padding: 5px;
   border-radius: 30px;
   cursor: pointer;
