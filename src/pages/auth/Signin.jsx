@@ -11,6 +11,8 @@ import useInputs from '@hooks/useInput';
 import { signin } from '@apis/auth/principal';
 import { RootDiv } from '../BasicLayout';
 import { Modal } from 'antd';
+import TutorialList from '../TutorialList';
+import TutorialSignin from '../TutorialSignin';
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -70,7 +72,6 @@ const Signin = () => {
         <br />
         <img src={havit} alt='' />
       </StyledSpan>
-
       <form method='POST'>
         <StyledInputDiv>
           <StyledInput type='email' placeholder='✉  E-Mail' value={form?.email} name={'email'} onChange={onChange} />

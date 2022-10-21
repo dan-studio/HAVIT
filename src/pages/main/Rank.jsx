@@ -12,6 +12,10 @@ const Rank = () => {
       setGroups(res.data);
     });
   }, []);
+  console.log(groups)
+  const byNumber = groups?.sort((a, b) =>  b.memberCount- a.memberCount);
+  console.log(byNumber)
+
   return (
     <StyledDiv>
       <h2>HAVIT 랭킹</h2>
@@ -20,7 +24,7 @@ const Rank = () => {
           setOpen(true);
         }}
       >
-        asd
+        가장 많은 멤버 수
       </div>
       <Modal
         title="Modal 1000px width"
@@ -30,7 +34,20 @@ const Rank = () => {
         onCancel={() => setOpen(false)}
         width={1000}
       >
-        <StyledContent>여기 컨텐츠</StyledContent>
+        <div>
+        <StyledContent>
+          여기 컨텐츠
+          {/* {byNumberTop5?.map((el)=>el.title)}  */}
+          
+          {groups?.map((el)=>
+          <div key={el.groupId} >
+          {el.title}
+          </div>
+
+          )} 
+
+          </StyledContent>
+          </div>
       </Modal>
     </StyledDiv>
   );

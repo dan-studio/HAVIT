@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { removeToken } from "../apis/config";
-import ToggleSwitch from "../components/button/ToggleSwitch";
-import Footer from "../components/layout/Footer";
+import { removeToken } from "../../apis/config";
+import ToggleSwitch from "../../components/button/ToggleSwitch";
+import Footer from "../../components/layout/Footer";
 const Setting = () => {
   const [darkmode, setDarkmode] = React.useState(false);
   const navigate = useNavigate();

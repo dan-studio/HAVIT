@@ -41,6 +41,15 @@ export const userApis = {
   },
 
   //Group
+  getGroupByPage: async page => {
+    const response = await authApi.get('/api/auth/group/page?page='+page)
+    return response.data
+  },
+  getGroupByPopularity: async page => {
+    const response = await authApi.get('/api/auth/group/popularity?page='+page)
+    return response.data
+  },
+
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
     return response;

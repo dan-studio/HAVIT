@@ -15,8 +15,9 @@ import crown from "@assets/leader.png";
 import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
 import { getGroupDetail } from "@apis/group/group";
-import { Image } from "antd";
+import { Alert, Image } from "antd";
 import { useSelector } from 'react-redux';
+import useSse from '../../../hooks/useSse';
 
 const CertifyDetail = () => {
   const { state } = useLocation();
@@ -149,16 +150,34 @@ const CertifyDetail = () => {
     setCommentId(commentId);
   };
 
+    // 알림 수신 팝업
+    const [alertPopUp, setAlertPopUp] = useState(false)
+    const [popUpData,popUp]=useSse()
+    useEffect(()=>{
+      setAlertPopUp(popUp)
+    },[popUpData])
+    const message = ()=>{
+      const data = JSON.parse(popUpData)
+    if(popUpData){
+      return data.content
+    }
+    }
+    //
+
   const leader = groupDetail?.writer;
   const imageId = certifyDetail?.profileImageId;
   return (
     <BoardBox>
+      {/* 알림 수신 */}
+      {alertPopUp&&(
+        <Alert message={message} setAlertPopUp={setAlertPopUp}/>
+      )}
       <Title>
         <ToGroup
           onClick={() => {
             navigate(state || -1, { state: '/group' });
           }}>
-          <MdOutlineArrowBackIosNew style={{ fontSize: '20px', color: '#5E43FF', marginRight: '3px' }} />
+          <MdOutlineArrowBackIosNew style={{ fontSize: '15px', color: '#5E43FF', marginRight: '3px' }} />
           <ChallengeName>{groupDetail.title}</ChallengeName>
         </ToGroup>
         {myInfo?.memberId === certifyDetail?.memberId && (
@@ -307,7 +326,7 @@ const Title = styled.div`
 `;
 
 const ChallengeName = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   color: gray;
 `;
 

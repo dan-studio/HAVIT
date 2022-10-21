@@ -1,16 +1,10 @@
 import styled, { css } from "styled-components";
 import { FcBusinessman, FcAbout } from "react-icons/fc";
-import { HiStar } from "react-icons/hi";
-import { FORMAT_DATE } from "@utils/format/time";
 // 컴포넌트
 import Tags from "../Tag";
 import { useNavigate } from "react-router-dom";
 import { fileUrlHost } from "@apis/config";
-import moment from "moment";
 import { Image } from "antd";
-import { useEffect } from "react";
-import { getGroupDetail } from "../../apis/group/group";
-import { useState } from "react";
 
 const CrewInfo = ({
   type = "shadow",
@@ -70,18 +64,6 @@ const CrewInfo = ({
             ))}
           </StyledTagDiv>
         </StyledGroupInfo>
-        {favorite && (
-          <HiStar
-            style={{
-              color: "#ECA51B",
-              fontSize: "20px",
-              position: "absolute",
-              zIndex: "10",
-              top: "10px",
-              right: "10px",
-            }}
-          />
-        )}
       </StyledCard>
     </>
   );
