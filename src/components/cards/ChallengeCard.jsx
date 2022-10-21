@@ -27,12 +27,15 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupI
     setTimeout(()=>{
       setSentNotification(false)
       userApis.sendNotification(data).then(res=>{
+      }).catch(err=>{
+        if(err.code==="ERR_BAD_RESPONSE"){
+          alert("알림 전송에 실패했습니다.\n 잠시후 다시 시도해주세요.")
+        }
       })
     },3000)
   }
   return (
     <Card>
-      
       <MemberDiv>
         {imageId ? (
           <MemberImg src={fileUrlHost(imageId)} alt="" onClick={toMemberPage}/>

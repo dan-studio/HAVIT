@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { userApis } from "../../apis/auth";
 
@@ -9,7 +9,7 @@ const NotificationReceived = ({
   notificationId,
   read,
   setReadAlert,
-  setNotifiList,
+  setNotifications,
 }) => {
   const createdDate = createdAt.slice(2, 10).split("-");
   const createdTime = createdAt.slice(11, 16);
@@ -27,33 +27,40 @@ const NotificationReceived = ({
     }
   };
   const [isRead, setRead] = useState(read);
-
   const readNotification = () => {
     userApis.readNotification(notificationId).then((res) => {
-      setRead((prev) => {
-        return {
-          ...prev,
-          isRead:true
-        };
-      });
+      setRead(res);
     });
     setReadAlert(true);
     setTimeout(() => {
       setReadAlert(false);
       userApis.DeleteNotification(notificationId).then((res) => {
-        setNotifiList((prev) =>
-          prev.filter((noti) => noti.notificationId !== notificationId)
+        setNotifications((prev) =>{
+          return {
+            ...prev,
+            notificationList: prev.notificationList.filter((notification)=>
+            notification.notificationId!==notificationId
+            )
+          }
+        }
         );
       });
     }, 3000);
   };
+
   return (
-    <div onClick={readNotification}>
+    <StyledDiv onClick={readNotification}>
       <div>{content}</div>
       <div>{yyyy_mm_dd()}</div>
       <div>{isRead ? "읽음" : "읽지 않음"}</div>
-    </div>
+    </StyledDiv>
   );
 };
 
-export default NotificationReceived;
+export default React.memo(NotificationReceived);
+
+const StyledDiv = styled.div`
+  box-shadow: 1px 2px 5px #b8b8b8;
+  padding: 10px;
+  border-radius: 10px;
+`

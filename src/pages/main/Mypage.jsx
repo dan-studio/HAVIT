@@ -4,25 +4,27 @@ import CrewInfo from "@components/cards/CrewInfo";
 import AlertUser from "@components/cards/AlertUser";
 import { userApis } from "../../apis/auth";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { resetLayout, setLayout } from "@redux/layout";
 import MyProfileCard from "@components/profile/MyProfileCard";
 import { useNavigate } from "react-router-dom";
 import NotificationReceived from "../../components/cards/NotificationReceived";
+import useSse from "../../hooks/useSse";
+import Alert from "../../components/alert/Alert";
 
 const Mypage = () => {
   const principal = useSelector((state) => state.auth.principal, shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [readAlert, setReadAlert] = useState(false);
-  const [notifiList, setNotifiList] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState([])
   const [friends, setFriends] = useState([]);
-  const myInfo = useSelector(state=>state.auth.principal)
+  const myInfo = useSelector((state) => state.auth.principal);
   const [showNotification, setShowNotification] = useState(true);
-
-  const noti = useSelector((state) => state.notification.notification);
-// console.log(noti)
+  // console.log(noti)
   // 레이아웃 관련 설정
+  const count = notifications?.unreadCount
   useEffect(() => {
     dispatch(setLayout({ isInvert: false }));
     return () => {
@@ -30,45 +32,66 @@ const Mypage = () => {
     };
   }, []);
 
-useEffect(()=>{
-  setNotifiList(noti?.notificationList)
-},[noti])
-const notifications = noti?.notificationList
-// const notificationLength = noti?.unread
+  const getCount = (count) => {
+    setUnreadCount(count)
+  }
+  
+  useEffect(() => {
+    const getData = async() => {
+      await userApis.getNotification().then(res=>{
+        setNotifications(res)
+      })
+    }
+    getData()
+  }, [unreadCount]);
 
   const notificationToggle = () => {
     setShowNotification(!showNotification);
   };
+
+  // 알림 팝업
+  const [alertPopUp, setAlertPopUp] = useState(false);
+  const [popUpData, popUp] = useSse();
+  useEffect(() => {
+    setAlertPopUp(popUp);
+  }, [popUpData]);
+  const message = () => {
+    const data = JSON.parse(popUpData);
+    if (popUpData) {
+      return data.content;
+    }
+  };
+  //
   const certifies = myInfo?.certifyList?.length;
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <MyProfileCard myInfo={principal} certifies={certifies}/>
-        {readAlert && (
-          <StyledTimer>
-            <span>알림이 삭제되었습니다.</span>
-            <div className="progressBar">
-              <div className="gauge"></div>
-            </div>
-          </StyledTimer>
-        )}
-  
+      <MyProfileCard myInfo={principal} certifies={certifies} getCount={getCount}/>
+      {readAlert && (
+        <StyledTimer>
+          <span>알림이 삭제되었습니다.</span>
+          <div className="progressBar">
+            <div className="gauge"></div>
+          </div>
+        </StyledTimer>
+      )}
+      {alertPopUp && <Alert message={message} setAlertPopUp={setAlertPopUp} />}
       {/* 알림 */}
       <StyledAlert>
         <div style={{ display: "flex", alignItems: "center" }}>
           <h2 onClick={notificationToggle}>
-            알림 ({notifications?.length}) &nbsp;
+            알림 ({notifications?.unreadCount}) &nbsp;
           </h2>
-          {notifications?.length > 0 && <div className="notiSign"></div>}
+          {notifications?.unreadCount > 0 && <div className="notiSign"></div>}
           {showNotification ? <span>▲</span> : <span>▼</span>}
         </div>
         {showNotification &&
-          notifiList?.map((notification, idx) => (
+          notifications?.notificationList?.map((notification) => (
             <NotificationReceived
-              key={idx}
+              key={notification?.notificationId}
               {...notification}
               setReadAlert={setReadAlert}
-              setNotifiList={setNotifiList}
+              setNotifications={setNotifications}
             />
           ))}
         {friends &&
@@ -94,7 +117,7 @@ const StyledAlert = styled.div`
   background-color: #ffffff;
   border-radius: 30px 30px 0 0;
   & > div {
-    margin: 35px 20px 0 20px;
+    margin: 15px 20px 0 20px;
     & > h2 {
       font-weight: 700;
       font-size: 20px;
@@ -124,6 +147,9 @@ const StyledTimer = styled.div`
   font-weight: bold;
   color: #ffffff;
   z-index: 99;
+  box-shadow: 10px 5px 20px #1f1f1f8c;
+  border-radius: 10px;
+  animation: dropdown 3s ease-in-out;
   span {
     position: fixed;
   }
@@ -131,22 +157,35 @@ const StyledTimer = styled.div`
     display: flex;
     flex-direction: column;
     height: 3px;
-    width: 90%;
+    width: 100%;
     transform: translateY(15px);
   }
   .gauge {
     background-color: #2cdf3d;
     height: 3px;
     width: 100%;
-    animation: progress 3s ease;
+    animation: progress 2.5s ease-in-out;
+  }
+  @keyframes dropdown{
+    0%{
+      top: -10%
+    }
+    30%{
+      top: 0%
+    }
+    85%{
+      top: 0%
+    }
+    100%{
+      top: -10%
+    }
   }
   @keyframes progress {
-    from {
+    25%{
       width: 0%;
     }
-    to {
+    100%{
       width: 100%;
     }
   }
-`;
-export default Mypage;
+`;export default Mypage;

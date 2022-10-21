@@ -99,6 +99,7 @@ const GroupDetail = () => {
   const isMember = detail?.memberList?.find(
     (member) => member?.memberId === myInfo?.memberId
   );
+  
   const leader = detail?.writer;
   return (
     <StyledDiv>
@@ -121,7 +122,7 @@ const GroupDetail = () => {
             }}
           />
         ) : isMember ? (
-          <PrimaryButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
+          <SubButton buttonName={"탈퇴하기"} onClick={leaveGroup} />
         ) : (
           <PrimaryButton buttonName={"가입하기"} onClick={joinGroup} />
         )}

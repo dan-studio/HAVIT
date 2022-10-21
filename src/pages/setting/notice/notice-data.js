@@ -1,10 +1,10 @@
 export const noticedata=[
   {
     noticeId: 6,
-    title: "1.0.4 버전 업데이트 내용",
+    title: "1.1.0 버전 업데이트 내용",
     date: "2022-10-20",
     author: "Havit Team",
-    content: `1. 그룹페이지 무한스크롤 기능 구현 2. 서비스 미리보기 기능 추가 `
+    content: `1. 그룹페이지 무한스크롤 기능 구현 2. 그룹 상세페이지 버튼 위치 수정, 그룹 소개 textarea > div로 변경 3. 오늘 올라온 게시글 / 이전 게시글 분류 4. 서비스 미리보기 기능 추가 5. 알림창 애니메이션 추가`
   },
   {
     noticeId: 5,

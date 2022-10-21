@@ -19,9 +19,9 @@ const StyledButton = styled.button`
   background: #5e43ff;
   border: 1px solid #5e43ff;
   border-radius: 30px;
-  font-weight: 400;
   color: #fff;
   margin: 0 10px;
+  font-weight: bold;
   :disabled {
     cursor: unset;
     background-color: #ccc;
