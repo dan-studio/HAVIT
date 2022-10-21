@@ -68,6 +68,7 @@ const StDiv = styled.div``;
 const StyledPreview = styled.div`
   position: absolute;
   top: 77vh;
+  text-align: center;
   border-bottom: 1px solid darkgray;
   /* border-radius:25px; */
   width: 100px;
