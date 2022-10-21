@@ -15,6 +15,9 @@ const Header = () => {
   const onClickLogo = () => {
     navigate("/");
   };
+  const onClickEvent = () => {
+    navigate(`/setting/event`);
+  };  
   return (
     <>
       <Container
@@ -23,8 +26,10 @@ const Header = () => {
         smallType={layout.smallType}
       >
         <AdDiv>
-          <span>
-            이벤트 기간 : 2022년 10월 19일(수) - 25일(화) 자세한 내용은 환경설정(우측 상단 톱니바퀴) =&gt; HAVIT 런칭 이벤트 안내 페이지에서 확인해 주세요!
+          {/* <span> */}
+          <span onClick={onClickEvent}  >
+            클릭!!!  설문조사 이벤트에 참여하고 스벅 기프티콘, 자체제작 티셔츠를 받아가세요.  자세한 정보를 얻으려면 일단 클릭!!!
+            
           </span>
         </AdDiv>
         {layout.isInvert ? (

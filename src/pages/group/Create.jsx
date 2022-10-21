@@ -16,7 +16,7 @@ const GroupCreate = () => {
   const [form, onChange, reset] = useInputs({
     title: "",
     leaderName: "",
-    imageId: 0,
+    imageId: null,
     crewName: "",
     startDate: moment().format(FORMAT_DATE),
     content: "",
@@ -29,6 +29,7 @@ const GroupCreate = () => {
       okText: "확인",
       cancelText: "취소",
       onOk: () => {
+        console.log(form)
         createGroup(form)
           .then((res) => {
             if (res.status === 200) {

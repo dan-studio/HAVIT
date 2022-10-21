@@ -39,7 +39,7 @@ const Write = () => {
           })
           .catch((err) => {
             console.log(err);
-            alert("Post Create Fail error:", err);
+            alert("모든항목을 입력해주세요", err);
           });
       },
     });
