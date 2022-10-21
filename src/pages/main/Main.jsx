@@ -12,7 +12,7 @@ import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import ReactGA from "react-ga";
 import TutorialList from "../TutorialList";
-
+import TutorialSignin from "../TutorialSignin";
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
 
@@ -111,9 +111,7 @@ const Main = () => {
             />
           </div>
         </StyledGroup>
-
         {myGroupLists === undefined && <TutorialList />}
-
         <StyledGroupPhotoBox>
           {groups?.map((item, idx) => (
             <GroupCard
