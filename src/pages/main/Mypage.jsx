@@ -12,10 +12,10 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const myInfo = useSelector((state) => state.auth.principal);
   const [readAlert, setReadAlert] = useState(false);
-  const [unreadCount, setUnreadCount] = useState('')
-  const getCount = data => {
-    setUnreadCount(data)
-  }
+  const [unreadCount, setUnreadCount] = useState("");
+  const getCount = (data) => {
+    setUnreadCount(data);
+  };
   useEffect(() => {
     dispatch(setLayout({ isInvert: false }));
     return () => {
@@ -23,7 +23,6 @@ const Mypage = () => {
     };
   }, []);
 
-  console.log(unreadCount)
   // 알림 팝업
   const [alertPopUp, setAlertPopUp] = useState(false);
   const [popUpData, popUp] = useSse();
@@ -41,7 +40,11 @@ const Mypage = () => {
   return (
     <StyledWrap>
       {/* 프로필 */}
-      <MyProfileCard myInfo={principal} certifies={certifies} getCount={getCount}/>
+      <MyProfileCard
+        myInfo={principal}
+        certifies={certifies}
+        getCount={getCount}
+      />
       {readAlert && (
         <StyledTimer>
           <span>알림이 삭제되었습니다.</span>
@@ -52,7 +55,7 @@ const Mypage = () => {
       )}
       {alertPopUp && <Alert message={message} setAlertPopUp={setAlertPopUp} />}
       {/* 알림 */}
-      <NotificationList setReadAlert={setReadAlert} unreadCount={unreadCount}/>
+      <NotificationList setReadAlert={setReadAlert} unreadCount={unreadCount} />
     </StyledWrap>
   );
 };
@@ -118,6 +121,5 @@ const StyledTimer = styled.div`
     }
   }
 `;
-
 
 export default Mypage;
