@@ -2,26 +2,20 @@ import React, { useCallback, useEffect } from "react";
 import { userApis } from "@apis/auth";
 import { useState } from "react";
 import styled from "styled-components";
-const Count = ({getCount}) => {
-  const [count, setCount] = useState("")
-
-  // const getCount = useCallback(count=>{
-  //   setCount(count)
-  // },[])
- 
-
+const Count = ({ getCount }) => {
+  const [count, setCount] = useState("");
 
   const unreadCount = () => {
-    userApis.getNotification().then(res=>{
-      const unread = res.unreadCount
-      setCount(unread)
-      getCount(unread)
-    })
-  }
+    userApis.getNotification().then((res) => {
+      const unread = res.unreadCount;
+      setCount(unread);
+      getCount(unread);
+    });
+  };
 
-  useEffect(()=>{
-    unreadCount()
-  })
+  useEffect(() => {
+    unreadCount();
+  });
 
   return <StyledDiv>{count}</StyledDiv>;
 };

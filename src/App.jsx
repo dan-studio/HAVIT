@@ -28,8 +28,6 @@ const theme = {
 
 const Container = React.memo(() => {
   const [loading, setLoading] = React.useState(true);
-  const notifications = useSelector(state=>state.notification.notification)
-  console.log(notifications)
   const dispatch = useDispatch();
   useEffect(() => {
     const loadData = async () => {
@@ -39,12 +37,6 @@ const Container = React.memo(() => {
       .catch(console.warn)
       .then(() => setLoading(false));
   }, [dispatch]);
-  // useEffect(()=>{
-  //   const loadNotification = async () => {
-  //     await dispatch(notification());
-  //   }
-  //   loadNotification()
-  // },[])
   RouteChangeTracker();
   return <BasicLayout loading={loading} />;
 });
