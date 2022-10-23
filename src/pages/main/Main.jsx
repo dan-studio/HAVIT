@@ -27,7 +27,6 @@ const Main = () => {
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
 
-
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
   }, []);

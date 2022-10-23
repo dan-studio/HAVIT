@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { userApis } from "../../apis/auth";
+import { userApis } from "@apis/auth";
 
 const NotificationReceived = ({
   content,
   createdAt,
-  groupUrl,
   notificationId,
   read,
   setReadAlert,
@@ -57,10 +56,11 @@ const NotificationReceived = ({
   );
 };
 
-export default React.memo(NotificationReceived);
+export default NotificationReceived;
 
 const StyledDiv = styled.div`
   box-shadow: 1px 2px 5px #b8b8b8;
   padding: 10px;
   border-radius: 10px;
+  margin-bottom: 10px;
 `
