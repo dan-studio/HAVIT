@@ -1,6 +1,6 @@
 import "./App.less";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import BasicLayout from "@pages/BasicLayout";
@@ -10,6 +10,7 @@ import { notification } from "@redux/notification";
 import RouteChangeTracker from "./RouteChangeTracker";
 import ServerOnMaintenance from "./pages/ServerOnMaintenance";
 import { useMediaQuery } from 'react-responsive'
+import { ErrorBoundary } from "react-error-boundary";
 const theme = {
   color: {
     primary_color: "#5E43FF",
@@ -28,10 +29,9 @@ const theme = {
 const Container = React.memo(() => {
   const [loading, setLoading] = React.useState(true);
   const dispatch = useDispatch();
-  React.useEffect(() => {
+  useEffect(() => {
     const loadData = async () => {
       await dispatch(me());
-      await dispatch(notification());
     };
     loadData()
       .catch(console.warn)
@@ -52,6 +52,7 @@ function App() {
   }
   return (<>
     <Desktop><WideScreen/></Desktop>
+    <ErrorBoundary FallbackComponent={Error}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Mobile>
@@ -61,6 +62,7 @@ function App() {
         {/* <ServerOnMaintenance/> */}
       </BrowserRouter>
     </ThemeProvider>
+    </ErrorBoundary>
     </>
   );
 }

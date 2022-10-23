@@ -1,21 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { userApis } from "@apis/auth";
 import { useState } from "react";
 import styled from "styled-components";
-const Count = ({getCount}) => {
-  const [notifications, setNotifications] = useState("");
+const Count = ({ getCount }) => {
+  const [count, setCount] = useState("");
 
   const unreadCount = () => {
-    userApis.getNotification().then(res=>{
-      const unread = res.unreadCount
-      setNotifications(unread)
-      getCount(unread)
-    })
-  }
-  useEffect(()=>{
-    unreadCount()
-  })
-  return <StyledDiv>{notifications}</StyledDiv>;
+    userApis.getNotification().then((res) => {
+      const unread = res.unreadCount;
+      setCount(unread);
+      getCount(unread);
+    });
+  };
+
+  useEffect(() => {
+    unreadCount();
+  });
+
+  return <StyledDiv>{count}</StyledDiv>;
 };
 
 export default Count;

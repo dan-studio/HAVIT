@@ -58,6 +58,7 @@ const ChallengeCard = ({ memberId, nickname, imageId, modifiedAt, authId, groupI
 const Card = styled.div`
   display: flex;
   align-items: center;
+  background-color: white;
   justify-content: space-between;
   box-shadow: 1px 2px 5px #b8b8b8;
   width: 80vw;
@@ -102,40 +103,4 @@ const BellDiv = styled.div`
   margin-right: 10px;
 `;
 
-const StyledTimer = styled.div`
-z-index: 99;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: rgb(255,255,255, 0.4);
-  height: 30px;
-  font-weight: bold;
-  color: #5e43ff;
-  span {
-    position: fixed;
-  }
-  .progressBar {
-    display: flex;
-    flex-direction: column;
-    height: 3px;
-    width: 35%;
-    transform: translateY(15px);
-  }
-  .gauge{
-    background-color: #2cdf3d;
-    height:3px;
-    width: 100%;
-    animation: progress 3s ease;
-  }
-  @keyframes progress{
-    from{
-      width:0%
-    }
-    to{
-      width:100%
-    }
-  }
-`;
-export default ChallengeCard;
+export default React.memo(ChallengeCard);

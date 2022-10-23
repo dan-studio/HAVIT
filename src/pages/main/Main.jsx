@@ -12,7 +12,7 @@ import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import ReactGA from "react-ga";
 import TutorialList from "../TutorialList";
-import useSse from '@hooks/useSse'
+import useSse from "@hooks/useSse";
 import Alert from "../../components/alert/Alert";
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
@@ -27,7 +27,6 @@ const Main = () => {
   const [myGroups, setMyGroups] = useState([]);
   const [sentNotification, setSentNotification] = useState(false);
 
-
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
   }, []);
@@ -40,7 +39,7 @@ const Main = () => {
   }, []);
 
   const [crew, setCrew] = useState();
-  
+
   useEffect(() => {
     getAllGroupList().then((res) => {
       setCrew(res.data);
@@ -65,19 +64,18 @@ const Main = () => {
       setMyGroups(res.data);
     });
   }, []);
-
   // 알림 수신 팝업
-  const [alertPopUp, setAlertPopUp] = useState(false)
-  const [popUpData,popUp]=useSse()
-  useEffect(()=>{
-    setAlertPopUp(popUp)
-  },[popUpData])
-  const message = ()=>{
-    const data = JSON.parse(popUpData)
-  if(popUpData){
-    return data.content
-  }
-  }
+  const [alertPopUp, setAlertPopUp] = useState(false);
+  const [popUpData, popUp] = useSse();
+  useEffect(() => {
+    setAlertPopUp(popUp);
+  }, [popUpData]);
+  const message = () => {
+    const data = JSON.parse(popUpData);
+    if (popUpData) {
+      return data.content;
+    }
+  };
   //
 
   const myGroupLists = myGroups?.length;
@@ -102,9 +100,7 @@ const Main = () => {
         </StyledTimer>
       )}
       {/* 알림 수신 */}
-      {alertPopUp&&(
-        <Alert message={message} setAlertPopUp={setAlertPopUp}/>
-      )}
+      {alertPopUp && <Alert message={message} setAlertPopUp={setAlertPopUp} />}
       <MyProfileCard myInfo={myInfo} certifies={certifies} />
       {myGroupLists ? null : (
         <NewMemberDiv>
@@ -145,9 +141,9 @@ const Main = () => {
         <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
         <StyledChallenge>
           {groupList?.length > 0 ? (
-            groupList?.map((group, idx) => (
+            groupList?.map((group) => (
               <ChallengeGroupCard
-                key={idx}
+                key={group?.groupId}
                 groupList={groupList}
                 {...group}
                 toggleGroup={toggleGroup}
@@ -261,6 +257,7 @@ const NewMemberDiv = styled.div`
     }
   }
 `;
+
 const StyledTimer = styled.div`
   position: fixed;
   display: flex;
@@ -292,25 +289,25 @@ const StyledTimer = styled.div`
     width: 100%;
     animation: progress 2.5s ease;
   }
-  @keyframes dropdown{
-    0%{
-      top: -10%
+  @keyframes dropdown {
+    0% {
+      top: -10%;
     }
-    30%{
-      top: 0%
+    30% {
+      top: 0%;
     }
-    85%{
-      top: 0%
+    85% {
+      top: 0%;
     }
-    100%{
-      top: -10%
+    100% {
+      top: -10%;
     }
   }
   @keyframes progress {
-    25%{
+    25% {
       width: 0%;
     }
-    100%{
+    100% {
       width: 100%;
     }
   }
