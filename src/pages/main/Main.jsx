@@ -65,7 +65,6 @@ const Main = () => {
       setMyGroups(res.data);
     });
   }, []);
-
   // 알림 수신 팝업
   const [alertPopUp, setAlertPopUp] = useState(false)
   const [popUpData,popUp]=useSse()
@@ -145,9 +144,9 @@ const Main = () => {
         <StyledChallengeTitle>함께 챌린지를 완수해요!</StyledChallengeTitle>
         <StyledChallenge>
           {groupList?.length > 0 ? (
-            groupList?.map((group, idx) => (
+            groupList?.map((group) => (
               <ChallengeGroupCard
-                key={idx}
+                key={group?.groupId}
                 groupList={groupList}
                 {...group}
                 toggleGroup={toggleGroup}
@@ -158,7 +157,7 @@ const Main = () => {
                 setSentNotification={setSentNotification}
               />
             ))
-          ) : (
+         ) : (
             <StyledNullMsg>{nullMsg}</StyledNullMsg>
           )}
         </StyledChallenge>
@@ -261,6 +260,7 @@ const NewMemberDiv = styled.div`
     }
   }
 `;
+
 const StyledTimer = styled.div`
   position: fixed;
   display: flex;
