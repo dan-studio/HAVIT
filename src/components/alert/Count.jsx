@@ -4,12 +4,11 @@ import { useState } from "react";
 import styled from "styled-components";
 const Count = ({ getCount }) => {
   const [count, setCount] = useState("");
-
   const unreadCount = () => {
     userApis.getNotification().then((res) => {
       const unread = res.unreadCount;
       setCount(unread);
-      getCount(unread);
+      getCount(unread)
     });
   };
 
