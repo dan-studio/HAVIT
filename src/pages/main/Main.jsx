@@ -11,7 +11,7 @@ import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
 import { getGroupDetail } from "@apis/group/group";
 import ReactGA from "react-ga";
-import TutorialList from "../TutorialList";
+import TutorialList from "@components/tutorial/TutorialList";
 import useSse from "@hooks/useSse";
 import Alert from "../../components/alert/Alert";
 const Main = () => {

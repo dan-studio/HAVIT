@@ -11,15 +11,15 @@ const NotificationList = ({ setReadAlert, unreadCount }) => {
     setShowNotification(!showNotification);
   };
 
-  const getData = () => {
-    userApis.getNotification().then((res) => {
+  const getData = async() => {
+    await userApis.getNotification().then((res) => {
       setNotifications(res)
     });
   };
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [unreadCount]);
 
   return (
     <StyledAlert>

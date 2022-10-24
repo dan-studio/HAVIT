@@ -2,11 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import havit from '@assets/havitLogoPurple.png';
-import team from '@assets/havitTeam.png';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { resetLayout, setLayout } from '../../redux/layout';
 import { userApis } from '../../apis/auth';
-import { signin } from '@apis/auth/principal';
 
 const Signup = () => {
   const navigate = useNavigate();
