@@ -26,10 +26,9 @@ const StyleWrap = styled.div`
     background: #ffffff;
     border: 0.5px solid #eaeaea;
     border-radius: 30px;
-
     :disabled {
       background-color: #eaeaea;
-      color: #b0b0b0;
+      color: #343434;
     }
 
     :focus {
