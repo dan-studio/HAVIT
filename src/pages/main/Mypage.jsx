@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { resetLayout, setLayout } from "@redux/layout";
 import MyProfileCard from "@components/profile/MyProfileCard";
 import useSse from "@hooks/useSse";

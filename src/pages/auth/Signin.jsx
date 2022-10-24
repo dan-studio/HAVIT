@@ -2,17 +2,10 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import havit from '@/assets/havitLogoPurple.png';
-import team from '@assets/havitTeam2.png';
-import naverButton from '@assets/naverButton.png';
-import kakaoButton from '@assets/kakaoButton.png';
 import { useDispatch } from 'react-redux';
 import { resetLayout, setLayout } from '@redux/layout';
 import useInputs from '@hooks/useInput';
 import { signin } from '@apis/auth/principal';
-import { RootDiv } from '../BasicLayout';
-import { Modal } from 'antd';
-import TutorialList from '../TutorialList';
-import TutorialSignin from '../TutorialSignin';
 
 const Signin = () => {
   const navigate = useNavigate();

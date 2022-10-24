@@ -24,7 +24,6 @@ const useSse = () => {
         }
       };
       sse.onerror = (e) => {
-        console.log(e)
         sse.close()
       }
       return () => {

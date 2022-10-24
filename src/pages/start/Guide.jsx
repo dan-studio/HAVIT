@@ -1,13 +1,12 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import havit from "@assets/havitLogoPurple.png";
-import TutorialSignin from "../TutorialSignin";
+import TutorialSignin from "@components/tutorial/TutorialSignin";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetLayout, setLayout } from "../../redux/layout";
 import { RootDiv } from "../BasicLayout";
 // import openModal from ".././TutorialSingin.jsx"
-
 
 const Guide = () => {
   const navigate = useNavigate();
@@ -19,8 +18,8 @@ const Guide = () => {
       dispatch(resetLayout());
     };
   }, []);
+  //서비스 미리보기
   const [isTutorial, setIsTutorial] = useState(false);
-
   const openModal = () => {
     setIsTutorial(true);
   };
@@ -72,8 +71,6 @@ const StyledPreview = styled.div`
   border-bottom: 1px solid darkgray;
   /* border-radius:25px; */
   width: 100px;
-
-
 `;
 
 const StSpan = styled.span`
