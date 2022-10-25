@@ -25,7 +25,7 @@ const Header = () => {
         invert={layout.isInvert}
         smallType={layout.smallType}
       >
-        {/* <AdDiv>
+      {/* <AdDiv>
           <span onClick={onClickEvent}  >
             클릭!!!  설문조사 이벤트에 참여하고 스벅 기프티콘, 자체제작 티셔츠를 받아가세요.  자세한 정보를 얻으려면 일단 클릭!!!
             
