@@ -5,7 +5,7 @@ import havit from '@/assets/havitLogoPurple.png';
 import { useDispatch } from 'react-redux';
 import { resetLayout, setLayout } from '@redux/layout';
 import useInputs from '@hooks/useInput';
-import { signin } from '@apis/auth/principal';
+import { userApis } from '../../apis/auth';
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Signin = () => {
 
   const submmitHandler = e => {
     e.preventDefault();
-    signin(form)
+    userApis.signin(form)
       .then(res => {
         if (!form.email) {
           alert('이메일을 입력해주세요');

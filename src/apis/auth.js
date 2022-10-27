@@ -28,6 +28,10 @@ export const userApis = {
     const response = await authApi.get('/api/auth/main/')
     return response.data
   },
+  getAllGroupList: async () => {
+    const response = await authApi.get("api/auth/group/");
+    return response.data
+},
   //Search
   search: async data => {
     const response = await authApi.get('/api/auth/main/search?search=' + data);
@@ -49,6 +53,9 @@ export const userApis = {
     const response = await authApi.get('/api/auth/group/popularity?page='+page)
     return response.data
   },
+  createGroup:  async body => {
+    return await authApi.post("api/auth/group/",body);
+  },
 
   getGroup: async () => {
     const response = await authApi.get('/api/auth/group/');
@@ -66,6 +73,9 @@ export const userApis = {
     const response = await authApi.delete('api/auth/participate/' + data);
     return response;
   },
+  editGroup: async (id,body)=>{
+    return await authApi.patch('api/auth/group/$'+id, body);
+  },
   deleteGroup: async data => {
     const response = await authApi.delete('/api/auth/group/'+data)
     return response
@@ -74,6 +84,10 @@ export const userApis = {
   uploadImage: async data => {
     const response = await authApi.post('/api/auth/certify/', data);
     return response;
+  },
+  postCertify: async body => {
+    const response = await authApi.post("/api/auth/certify/",body);
+    return response
   },
 
   getCertifyDetail: async (certifyId) => {
@@ -130,10 +144,16 @@ export const userApis = {
     return response;
   },
 
+  //비밀번호 변경
+  modifyPassword: async body => {
+    const response =  await authApi.put('/api/auth/mypage/private', body); 
+    return response
+  },
+  
   // 마이페이지 : 내 그룹 가져오기
-  getmyGroup: async () => {
+  getMyGroup: async () => {
     const response = await authApi.get('/api/auth/mypage/group');
-    return response;
+    return response.data;
   },
 
   updateProfile: async data => {

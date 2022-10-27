@@ -4,10 +4,6 @@ export const getAPIHost = () => {
   return process.env.REACT_APP_API_HOST;
 };
 
-export const getLocalAPI = () => {
-  return "http://localhost:3001";
-};
-
 export const getKakaoAPIHost = () => {
   return "dapi.kakao.com";
 };

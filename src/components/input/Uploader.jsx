@@ -1,7 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import { useEffect, useState } from 'react';
-import { uploadImage } from '@apis/auth/upload';
+import { uploadImage } from '@apis/upload';
 import { fileUrlHost } from '@apis/config';
 
 // 알아서 찾아보시는걸로

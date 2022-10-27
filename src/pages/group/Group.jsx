@@ -5,8 +5,7 @@ import CrewInfo from "@components/cards/CrewInfo";
 import styles from "./group_list.module.less";
 import { useNavigate } from "react-router";
 import ArrowButton from "@components/button/ArrowButton";
-import React, { useEffect, useRef, useState } from "react";
-import { getAllGroupList, getMyGroupList } from "@apis/group/group";
+import React, { useEffect, useState } from "react";
 import { userApis } from "../../apis/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { clearTag } from "../../redux/tags";
@@ -38,11 +37,11 @@ const Group = () => {
         .getGroupByPage(listPage)
         .then((res) => setAllGroup((prev) => [...prev, ...res]));
     } else if (selected === "내 그룹") {
-      userApis.getmyGroup().then((res) => {
+      userApis.getMyGroup().then((res) => {
         if (res.data.code === "PARTICIPATION_NOT_FOUND") {
           return;
         } else {
-          getMyGroupList().then((res) => {
+          userApis.getMyGroup().then((res) => {
             setMyGroup(res.data);
           });
         }

@@ -7,7 +7,6 @@ import React from "react";
 import Uploader from "@components/input/Uploader";
 import TagInput from "@components/input/TagInput";
 import useInputs from "@hooks/useInput";
-import { getGroupDetail, modifyGroupDetail } from "@apis/group/group";
 import { useNavigate, useParams } from "react-router-dom";
 import { userApis } from "../../apis/auth";
 
@@ -16,7 +15,7 @@ const GroupEdit = () => {
   const { id } = useParams();
   const [form, onChange, reset, changeInitial] = useInputs();
   React.useEffect(() => {
-    getGroupDetail(id)
+    userApis.getGroupDetail(id)
       .then((res) => {
         changeInitial(res.data);
       })
@@ -34,7 +33,7 @@ const GroupEdit = () => {
       okText: "확인",
       cancelText: "취소",
       onOk: () => {
-        modifyGroupDetail(id, form)
+        userApis.editGroup(id, form)
           .then((res) => {
             if (res.status === 200) {
               alert("그룹 수정이 완료되었습니다.");

@@ -1,4 +1,4 @@
-import { authApi } from "../config"
+import { authApi } from "./config"
 
 export const uploadImage = async (file)=>{
     const formData = new FormData();
