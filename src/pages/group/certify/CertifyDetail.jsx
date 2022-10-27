@@ -14,7 +14,6 @@ import Comment from "../../../components/comment/Comment";
 import crown from "@assets/leader.png";
 import { useRef } from "react";
 import { kakaoApi } from "../../../apis/config";
-import { getGroupDetail } from "@apis/group/group";
 import { Alert, Image } from "antd";
 import { useSelector } from 'react-redux';
 import useSse from '../../../hooks/useSse';
@@ -60,7 +59,7 @@ const CertifyDetail = () => {
   const [locationObj, setLocationObj] = useState({});
   const [coordinate, setCoordinate] = useState({});
   useEffect(() => {
-    getGroupDetail(groupId)
+    userApis.getGroupDetail(groupId)
       .then((res) => {
         setGroupDetail(res.data);
       })

@@ -8,8 +8,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { useCookies } from 'react-cookie';
 import { CookiesProvider } from 'react-cookie';
-import PrimaryButton from '@components/button/SubButton';
-import SubButton from '@components/button/SubButton';
 
 const TutorialList = () => {
   useEffect(() => {

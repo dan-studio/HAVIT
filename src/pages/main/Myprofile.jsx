@@ -10,7 +10,7 @@ import SubButton from '@components/button/SubButton';
 import { useNavigate } from 'react-router-dom';
 import useInputs from '@hooks/useInput';
 import Uploader from '../../components/input/Uploader';
-import { modifyMyInfo } from '../../apis/auth/principal';
+import { userApis } from '../../apis/auth';
 
 const Myprofile = () => {
   // ###########################################
@@ -31,6 +31,7 @@ const Myprofile = () => {
   useEffect(() => {
     setValidateCheck(onChangeValidate());
   }, [form]);
+
   // WHAT 닉네임 확인
   const onChangeValidate = () => {
     if (form.nickname?.length < 2) {
@@ -43,7 +44,7 @@ const Myprofile = () => {
   };
 
   const onSubmmit = () => {
-    modifyMyInfo(form)
+    userApis.updateProfile(form)
       .then(res => {
         if (res.status !== 200) return;
         alert('프로필 수정이 완료되었습니다.');

@@ -7,10 +7,10 @@ import React from "react";
 import Uploader from "@components/input/Uploader";
 import TagInput from "@components/input/TagInput";
 import useInputs from "@hooks/useInput";
-import { createGroup } from "@apis/group/group";
 import moment from "moment";
 import { FORMAT_DATE } from "@utils/format/time";
 import { useNavigate } from "react-router-dom";
+import { userApis } from "../../apis/auth";
 const GroupCreate = () => {
   const navigate = useNavigate();
   const [form, onChange, reset] = useInputs({
@@ -29,8 +29,7 @@ const GroupCreate = () => {
       okText: "확인",
       cancelText: "취소",
       onOk: () => {
-        console.log(form)
-        createGroup(form)
+        userApis.createGroup(form)
           .then((res) => {
             if (res.status === 200) {
               alert("그룹 생성이 완료되었습니다.");

@@ -7,18 +7,11 @@ import React, { useCallback, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "@components/button/PrimaryButton";
 import SubButton from "@components/button/SubButton";
-import {
-  getGroupDetail,
-  getMyGroupList,
-  groupParticipating,
-} from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import { resetLayout, setLayout } from "@redux/layout";
 import { selectTag } from "@redux/tags";
 import { useDispatch, useSelector } from "react-redux";
-import DevButton from "@components/button/DevButton";
-import { tagSlice } from "../../redux/tags";
-import GoBackButton from "../../components/button/GoBackButton";
+import GoBackButton from "@components/button/GoBackButton";
 
 // /grup
 const GroupDetail = () => {
@@ -28,7 +21,7 @@ const GroupDetail = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
-  const descRef = useRef()
+  const descRef = useRef();
   const myInfo = useSelector((state) => state.auth.principal);
   React.useEffect(() => {
     dispatch(setLayout({ smallType: true }));
@@ -38,14 +31,14 @@ const GroupDetail = () => {
   });
 
   React.useEffect(() => {
-    getGroupDetail(groupId)
+    userApis.getGroupDetail(groupId)
       .then((res) => {
         setDetail(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-    getMyGroupList()
+    userApis.getMyGroup()
       .then((res) => {
         const result = res.data.find((el) => el?.groupId === groupId);
         if (result.length <= 0) setIsParticipate(false);
@@ -99,7 +92,7 @@ const GroupDetail = () => {
   const isMember = detail?.memberList?.find(
     (member) => member?.memberId === myInfo?.memberId
   );
-  
+
   const leader = detail?.writer;
   return (
     <StyledDiv>

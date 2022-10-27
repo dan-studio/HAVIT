@@ -6,18 +6,14 @@ import MyProfileCard from "@components/profile/MyProfileCard";
 import GroupCard from "@components/cards/GroupCard";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { getAllGroupList } from "@apis/group/group";
 import { userApis } from "@apis/auth";
 import ChallengeGroupCard from "@components/cards/ChallengeGroupCard";
-import { getGroupDetail } from "@apis/group/group";
 import ReactGA from "react-ga";
 import TutorialList from "@components/tutorial/TutorialList";
 import useSse from "@hooks/useSse";
 import Alert from "../../components/alert/Alert";
 const Main = () => {
   const myInfo = useSelector((state) => state.auth.principal, shallowEqual);
-
-  // const noti = useSelector(state=>state.notification)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myGroupMembers, setMyGroupMembers] = useState([]);
@@ -41,8 +37,8 @@ const Main = () => {
   const [crew, setCrew] = useState();
 
   useEffect(() => {
-    getAllGroupList().then((res) => {
-      setCrew(res.data);
+    userApis.getAllGroupList().then((res) => {
+      setCrew(res);
     });
 
     userApis.getMyMembers().then((res) => {
@@ -54,13 +50,13 @@ const Main = () => {
 
       const getId = [...new Set(res.map((group) => group.groupId))];
       getId.map((id) =>
-        getGroupDetail(id).then((res) => {
+        userApis.getGroupDetail(id).then((res) => {
           setGroupList((prev) => [...prev, res.data]);
         })
       );
     });
 
-    userApis.getmyGroup().then((res) => {
+    userApis.getMyGroup().then((res) => {
       setMyGroups(res.data);
     });
   }, []);
@@ -70,6 +66,7 @@ const Main = () => {
   useEffect(() => {
     setAlertPopUp(popUp);
   }, [popUpData]);
+
   const message = () => {
     const data = JSON.parse(popUpData);
     if (popUpData) {
@@ -79,6 +76,7 @@ const Main = () => {
   //
 
   const myGroupLists = myGroups?.length;
+
   //최근 생성된 그룹 4개
   const groups = crew?.slice(0, 5);
   const certifies = myInfo?.certifyList?.length;
@@ -124,7 +122,7 @@ const Main = () => {
             />
           </div>
         </StyledGroup>
-        {myGroupLists === undefined && <TutorialList />}
+        {myGroupLists === 0 || undefined && <TutorialList />}
         <StyledGroupPhotoBox>
           {groups?.map((item, idx) => (
             <GroupCard
@@ -241,20 +239,9 @@ const NewMemberDiv = styled.div`
   display: flex;
   justify-content: center;
   font-size: 14.5px;
-  animation: color 0.5s infinite;
+  color: white;
   .message {
     font-weight: bold;
-  }
-  @keyframes color {
-    0% {
-      color: #2cdf3d;
-    }
-    50% {
-      color: #de4242;
-    }
-    100% {
-      color: white;
-    }
   }
 `;
 

@@ -16,8 +16,8 @@ const MyProfileCard = ({ data, type = "shadow", nickName, myInfo ,certifies, get
     navigate("/mypage");
   };
   useEffect(() => {
-    userApis.getmyGroup().then((res) => {
-      setMyGroups(res.data);
+    userApis.getMyGroup().then((res) => {
+      setMyGroups(res);
     });
   }, []);
   const groups = myGroups?.length;

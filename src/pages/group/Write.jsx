@@ -10,8 +10,8 @@ import KakaoMap from "@components/kakao/Map";
 import { AddressSerachPopup } from "@components/kakao/AddressSearch";
 import { Collapse, Modal } from "antd";
 import useInputs from "@hooks/useInput";
-import { createCertify } from "@apis/group/certify";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { userApis } from "../../apis/auth";
 const Write = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
@@ -30,7 +30,7 @@ const Write = () => {
       okText: "확인",
       cancelText: "취소",
       onOk: () => {
-        createCertify(form)
+        userApis.postCertify(form)
           .then((res) => {
             if (res.status === 200) {
               alert("게시물 생성이 완료되었습니다.");

@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getMe } from '@apis/auth/principal';
+import { userApis } from '../apis/auth';
 
 // initialState
 export const me = createAsyncThunk('principal/get', async () => {
-  const data = await getMe();
+  const data = await userApis.myProfile();
   const principal = data;
   return { principal };
 });

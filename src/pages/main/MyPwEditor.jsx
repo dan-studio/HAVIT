@@ -5,7 +5,7 @@ import PrimaryButton from '@components/button/PrimaryButton';
 import SubButton from '@components/button/SubButton';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { modifyPassword } from '@apis/auth/principal';
+import { userApis } from '../../apis/auth';
 
 const pwData = {
   currentPw: '',
@@ -33,7 +33,7 @@ const MyPwEditor = () => {
   };
 
   const onSubmit = () => {
-    modifyPassword(pw)
+    userApis.modifyPassword(pw)
       .then(res => {
         if (res.status === 200) {
           alert('비밀번호 변경이 완료되었습니다.');
@@ -42,7 +42,7 @@ const MyPwEditor = () => {
         }
       })
       .catch(err => {
-        alert('Error JANG');
+        alert('Error');
       });
   };
 

@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import React from "react";
 import { FcBusinessman, FcAbout } from "react-icons/fc";
-import { BsPeopleFill } from "react-icons/bs";
 import { fileUrlHost } from "@apis/config";
 import { useEffect } from "react";
-import { getGroupDetail } from "../../apis/group/group";
 import { useState } from "react";
+import { userApis } from "../../apis/auth";
 
 const GroupCard = ({ title, imgUrl, memberCount, onClick, groupId }) => {
   const [src, setSrc] = React.useState(fileUrlHost(imgUrl));
   const [detail, setDetail] = useState();
   useEffect(() => {
-    getGroupDetail(groupId).then((res) => {
+    userApis.getGroupDetail(groupId).then((res) => {
       setDetail(res.data);
     });
   }, []);
